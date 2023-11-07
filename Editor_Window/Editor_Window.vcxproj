@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="Editor_Window.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
