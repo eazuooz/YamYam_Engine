@@ -3,8 +3,10 @@
 
 #include "framework.h"
 #include "Editor_Window.h"
-#include "CommonInclude.h"
 
+#include "..\\YamYamEngine_SOURCE\\yaApplication.h"
+
+Application app;
 
 #define MAX_LOADSTRING 100
 
@@ -29,9 +31,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, //프로그램의 인스턴스 �
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     // 깃허브 테스트
-
+    app.test();
     // TODO: 여기에 코드를 입력합니다.
+    ///
 
+    ///
+    //
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_EDITORWINDOW, szWindowClass, MAX_LOADSTRING);
@@ -48,15 +53,42 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, //프로그램의 인스턴스 �
     MSG msg;
 
 
-    // 기본 메시지 루프입니다:
-    while (GetMessage(&msg, nullptr, 0, 0))
+    //GetMessage(&msg, nullptr, 0, 0)
+    // 프로세스에서 발생한 메세지를 메세지 큐에서 가져오는 함수
+    // 메세지큐에 아무것도 없다면??? 아무 메세지도 가져오지 않게된다.
+
+    // PeekMessage : 메세지큐에 메세지 유무에 상관없이 함수가 리턴된다.
+    //                리턴 값이 true인경우 메세지가 있고 false인경우는 메세지가 없다라고 가르켜준다.
+
+
+    while (true)
     {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
+            if (msg.message == WM_QUIT)
+                break;
+
+            if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+            {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
+        }
+        else
+        {
+            // 메세지가 없을 경우 여기서 처리
+            // 게임 로직이 들어가면 된다.
         }
     }
+    
+    //while (GetMessage(&msg, nullptr, 0, 0))
+    //{
+    //    if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+    //    {
+    //        TranslateMessage(&msg);
+    //        DispatchMessage(&msg);
+    //    }
+    //}
 
     return (int) msg.wParam;
 }
@@ -158,6 +190,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+    //case WM_KEYDOWN:
+    //{
+
+    //}
+    //break;
     case WM_PAINT:
         {
         //DC란 화면에 출력에 필요한 모든 정보를 가지는 데이터 구조체이며

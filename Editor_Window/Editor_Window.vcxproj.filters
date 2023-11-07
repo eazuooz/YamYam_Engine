@@ -11,7 +11,6 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="CommonInclude.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Editor_Window.rc">
