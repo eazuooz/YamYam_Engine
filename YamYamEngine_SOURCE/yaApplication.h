@@ -1,5 +1,5 @@
 #pragma once
-#include "CommonInclude.h"
+#include "yaGameObject.h"
 
 namespace ya
 {
@@ -16,14 +16,12 @@ namespace ya
 		void LateUpdate();
 		void Render();
 
-
 	private:
 		HWND mHwnd;
 		HDC mHdc;
 		
-		float mSpeed;
-		float mX;
-		float mY;
+		// 플레이어
+		GameObject mPlayer;
 	};
 }
 
