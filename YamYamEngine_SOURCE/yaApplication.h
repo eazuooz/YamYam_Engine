@@ -1,7 +1,29 @@
 #pragma once
-class Application
+#include "CommonInclude.h"
+
+namespace ya
 {
-public:
-	void test();
-};
+	class Application
+	{
+	public:
+		Application();
+		~Application();
+
+		void Initialize(HWND hwnd);
+		void Run();
+
+		void Update();
+		void LateUpdate();
+		void Render();
+
+
+	private:
+		HWND mHwnd;
+		HDC mHdc;
+		
+		float mSpeed;
+		float mX;
+		float mY;
+	};
+}
 
