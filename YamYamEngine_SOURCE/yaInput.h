@@ -33,19 +33,19 @@ namespace ya
 		static void Initailize();
 		static void Update();
 
-		static bool GetKeyDown(eKeyCode code) { return mKeys[(UINT)code].state == eKeyState::Down; }
-		static bool GetKeyUp(eKeyCode code) { return mKeys[(UINT)code].state == eKeyState::Up; }
-		static bool GetKey(eKeyCode code) { return mKeys[(UINT)code].state == eKeyState::Pressed; }
+		static bool GetKeyDown(eKeyCode code) { return Keys[(UINT)code].state == eKeyState::Down; }
+		static bool GetKeyUp(eKeyCode code) { return Keys[(UINT)code].state == eKeyState::Up; }
+		static bool GetKey(eKeyCode code) { return Keys[(UINT)code].state == eKeyState::Pressed; }
 
 	private:
-		static void CreateKeys();
-		static void UpdateKeys();
-		static void UpdateKey(Input::Key& key);
-		static bool IsKeyDown(eKeyCode code);
-		static void UpdateKeyDown(Input::Key& key);
-		static void UpdateKeyUp(Input::Key& key);
+		static void createKeys();
+		static void updateKeys();
+		static void updateKey(Input::Key& key);
+		static bool isKeyDown(eKeyCode code);
+		static void updateKeyDown(Input::Key& key);
+		static void updateKeyUp(Input::Key& key);
 
 	private:
-		static std::vector<Key> mKeys;
+		static std::vector<Key> Keys;
 	};
 }
