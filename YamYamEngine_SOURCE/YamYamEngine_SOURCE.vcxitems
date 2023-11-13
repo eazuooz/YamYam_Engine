@@ -16,14 +16,20 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaApplication.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaGameObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaInput.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaScene.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaSceneManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaTime.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)yaApplication.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaEntity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaGameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaInput.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaScene.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaSceneManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaTime.cpp" />
   </ItemGroup>
 </Project>

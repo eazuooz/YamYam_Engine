@@ -5,6 +5,7 @@
 #include "Editor_Window.h"
 
 #include "..\\YamYamEngine_SOURCE\\yaApplication.h"
+#include "..\\YamYamEngine_Window\\yaLoadScenes.h"
 
 ya::Application application;
 
@@ -149,6 +150,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
+
+   //load Scenes
+   ya::LoadScenes();
 
    return TRUE;
 }

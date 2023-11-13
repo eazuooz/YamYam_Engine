@@ -132,6 +132,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="yaLoadScenes.h" />
+    <ClInclude Include="yaPlayScene.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="yaPlayScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
