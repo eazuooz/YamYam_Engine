@@ -14,12 +14,6 @@ namespace ya
 	}
 	void Scene::Update()
 	{
-		//for (size_t i = 0; i < mGameObjects.size(); i++)
-		//{
-		//	mGameObjects[i]->Update();
-		//}
-		
-		//범위 기반 for문
 		for (GameObject* gameObj : mGameObjects)
 		{
 			gameObj->Update();

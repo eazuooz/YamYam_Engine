@@ -84,10 +84,7 @@ namespace ya
 
 	void Application::createBuffer(UINT width, UINT height)
 	{
-		//윈도우 해상도에 맞는 백버퍼(도화지)생성
 		mBackBitmap = CreateCompatibleBitmap(mHdc, width, height);
-
-		//백버퍼를 가르킬 DC생성
 		mBackHdc = CreateCompatibleDC(mHdc);
 
 		HBITMAP oldBitmap = (HBITMAP)SelectObject(mBackHdc, mBackBitmap);

@@ -36,7 +36,6 @@ namespace ya
 		static void Render(HDC hdc);
 
 	private:
-		//static std::vector<Scene*> mScene;
 		static std::map<std::wstring, Scene*> mScene;
 		static Scene* mActiveScene;
 	};

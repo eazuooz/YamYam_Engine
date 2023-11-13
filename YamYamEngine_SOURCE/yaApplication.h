@@ -32,8 +32,6 @@ namespace ya
 
 		UINT mWidth;
 		UINT mHeight;
-
-		//std::vector<Scene*> mScenes;
 	};
 }
 

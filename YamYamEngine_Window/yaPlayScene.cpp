@@ -17,16 +17,11 @@ namespace ya
 			obj->SetPosition(rand() % 1600, rand() % 900);
 			AddGameObject(obj);
 		}
-		
 	}
 
 	void PlayScene::Update()
 	{
 		Scene::Update();
-		//for (GameObject* gameObj : mGameObjects)
-		//{
-		//	gameObj->Update();
-		//}
 	}
 	void PlayScene::LateUpdate()
 	{
