@@ -22,6 +22,11 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaTime.cpp">
       <Filter>Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaTransform.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaSpriteRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -48,6 +53,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaInput.h">
       <Filter>Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaTransform.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaSpriteRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -64,6 +74,9 @@
     </Filter>
     <Filter Include="Helpers">
       <UniqueIdentifier>{5673ea82-26d1-4382-a40a-08bd18133fcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{94a14b71-e483-42aa-9ca2-d39ef88ea3c8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
