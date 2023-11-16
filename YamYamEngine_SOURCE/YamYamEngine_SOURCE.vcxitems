@@ -20,6 +20,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaGameObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaInput.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaMath.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaResource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaResources.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaSceneManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaSpriteRenderer.h" />
@@ -32,6 +35,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaEntity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaGameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaInput.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaMath.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaResource.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaResources.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaSceneManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaSpriteRenderer.cpp" />

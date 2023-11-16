@@ -9,6 +9,10 @@
 
 ya::Application application;
 
+
+ULONG_PTR gpToken;
+Gdiplus::GdiplusStartupInput gpsi;
+
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
@@ -80,6 +84,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, //프로그램의 인스턴스 �
         }
     }
     
+    Gdiplus::GdiplusShutdown(gpToken);
+
     return (int) msg.wParam;
 }
 
@@ -150,6 +156,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
+
+   Gdiplus::GdiplusStartup(&gpToken, &gpsi, NULL);
 
    //load Scenes
    ya::LoadScenes();

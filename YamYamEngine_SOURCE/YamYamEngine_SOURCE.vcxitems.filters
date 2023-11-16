@@ -27,6 +27,11 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)yaTransform.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaSpriteRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaMath.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaResource.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaResources.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -58,6 +63,11 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaTransform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaSpriteRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaMath.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaResource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaResources.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
