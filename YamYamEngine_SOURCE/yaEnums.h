@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace ya
+namespace ya::enums
 {
 	enum class eLayerType
 	{

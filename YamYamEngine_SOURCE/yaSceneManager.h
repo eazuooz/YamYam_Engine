@@ -11,29 +11,16 @@ namespace ya
 		{
 			T* scene = new T();
 			scene->SetName(name);
+			mActiveScene = scene;
 			scene->Initialize();
 
 			mScene.insert(std::make_pair(name, scene));
 
 			return scene;
 		}
-		static Scene* LoadScene(const std::wstring& name)
-		{
-			if (mActiveScene)
-				mActiveScene->OnExit();
+		static Scene* LoadScene(const std::wstring& name);
+		static Scene* GetActiveScene() { return mActiveScene; }
 
-			std::map<std::wstring, Scene*>::iterator iter
-				= mScene.find(name);
-
-			if (iter == mScene.end())
-				return nullptr;
-
-			mActiveScene = iter->second;
-			mActiveScene->OnEnter();
-
-			return iter->second;
-		}
-		
 		static void Initialize();
 		static void Update();
 		static void LateUpdate();

@@ -25,7 +25,6 @@ namespace ya
 
 			return comp;
 		}
-		
 		template <typename T>
 		T* GetComponent()
 		{
@@ -39,6 +38,9 @@ namespace ya
 
 			return component;
 		}
+
+	private:
+		void initializeTransform();
 
 	private:
 		std::vector<Component*> mComponents;

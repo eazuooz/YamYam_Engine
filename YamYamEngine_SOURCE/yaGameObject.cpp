@@ -1,11 +1,13 @@
 #include "yaGameObject.h"
 #include "yaInput.h"
 #include "yaTime.h"
+#include "yaTransform.h"
 
 namespace ya
 {
 	GameObject::GameObject()
 	{	
+		initializeTransform();
 	}
 
 	GameObject::~GameObject()
@@ -48,7 +50,10 @@ namespace ya
 		{
 			comp->Render(hdc);
 		}
+	}
 
-
+	void GameObject::initializeTransform()
+	{
+		AddComponent<Transform>();
 	}
 }

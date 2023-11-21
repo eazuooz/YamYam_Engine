@@ -17,7 +17,7 @@ namespace ya
 		void LateUpdate()  override;
 		void Render(HDC hdc)  override;
 
-		void SetPos(Vector2 pos) { mPosition.x = pos.x; mPosition.y = pos.y;}
+		void SetPosition(Vector2 pos) { mPosition.x = pos.x; mPosition.y = pos.y;}
 		Vector2 GetPosition() { return mPosition; }
 
 	private:
