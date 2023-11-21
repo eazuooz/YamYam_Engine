@@ -25,13 +25,18 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)yaTransform.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)yaSpriteRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaMath.cpp">
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)yaResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaResources.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaSpriteRenderer.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaTransform.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaLayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -61,13 +66,21 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)yaTransform.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)yaSpriteRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaMath.h">
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaResources.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaSpriteRenderer.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaTransform.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaLayer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaEnums.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -87,6 +100,9 @@
     </Filter>
     <Filter Include="Component">
       <UniqueIdentifier>{94a14b71-e483-42aa-9ca2-d39ef88ea3c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Layer">
+      <UniqueIdentifier>{27da9a98-bec8-41ea-858d-682c44c9619a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

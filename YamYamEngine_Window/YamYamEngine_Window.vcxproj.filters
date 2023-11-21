@@ -18,12 +18,18 @@
     <ClInclude Include="yaPlayScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="yaTitleScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaPlayer.cpp">
       <Filter>Contents</Filter>
     </ClCompile>
     <ClCompile Include="yaPlayScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="yaTitleScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>

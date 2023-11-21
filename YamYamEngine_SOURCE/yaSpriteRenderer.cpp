@@ -20,7 +20,9 @@ namespace ya
 	}
 	void SpriteRenderer::Update()
 	{
+
 	}
+
 	void SpriteRenderer::LateUpdate()
 	{
 	}
