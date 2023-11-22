@@ -28,15 +28,24 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaMath.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)yaResource.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)yaResources.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaSpriteRenderer.cpp">
       <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)yaTransform.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)yaLayer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaResource.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaResources.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaTexture.cpp">
+      <Filter>Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaLayer.cpp">
+      <Filter>Layer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -69,20 +78,29 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaMath.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)yaResource.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)yaResources.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaSpriteRenderer.h">
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaTransform.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)yaLayer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaEnums.h">
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaObject.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaResources.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaResource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaTexture.h">
+      <Filter>Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaLayer.h">
+      <Filter>Layer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +124,12 @@
     </Filter>
     <Filter Include="Layer">
       <UniqueIdentifier>{27da9a98-bec8-41ea-858d-682c44c9619a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{85baae49-991e-430d-95a0-c4b900939211}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Texture">
+      <UniqueIdentifier>{8130d146-2da0-499a-8180-8ad535a0ab1d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

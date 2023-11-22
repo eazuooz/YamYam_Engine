@@ -21,6 +21,7 @@
     <ClInclude Include="yaTitleScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="yaLoadResources.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaPlayer.cpp">

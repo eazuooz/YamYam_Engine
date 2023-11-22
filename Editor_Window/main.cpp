@@ -5,7 +5,9 @@
 #include "Editor_Window.h"
 
 #include "..\\YamYamEngine_SOURCE\\yaApplication.h"
+#include "..\\YamYamEngine_Window\\yaLoadResources.h"
 #include "..\\YamYamEngine_Window\\yaLoadScenes.h"
+
 
 ya::Application application;
 
@@ -160,6 +162,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    Gdiplus::GdiplusStartup(&gpToken, &gpsi, NULL);
 
    //load Scenes
+   ya::LoadResources();
    ya::LoadScenes();
 
    return TRUE;

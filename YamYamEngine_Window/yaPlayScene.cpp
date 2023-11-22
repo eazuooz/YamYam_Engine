@@ -7,6 +7,8 @@
 #include "yaTitleScene.h"
 #include "yaSceneManager.h"
 #include "yaObject.h"
+#include "yaTexture.h"
+#include "yaResources.h"
 
 namespace ya
 {
@@ -18,11 +20,14 @@ namespace ya
 	}
 	void PlayScene::Initialize()
 	{
+		//게임오브젝트 만들기전에 리소스들 전부 Load해두면 좋다.
 		bg = object::Instantiate<Player>
-			(enums::eLayerType::BackGround, Vector2(100.0f, 100.0f));
+			(enums::eLayerType::BackGround/*, Vector2(100.0f, 100.0f)*/);
 		SpriteRenderer* sr = bg->AddComponent<SpriteRenderer>();
-		sr->ImageLoad(L"E:\\AR50\\YamYam_Engine\\Resources\\CloudOcean.png");
 
+		graphcis::Texture* bg = Resources::Find<graphcis::Texture>(L"BG");
+		sr->SetTexture(bg);
+		
 		// 게임 오브젝트 생성후에 레이어와 게임오브젝트들의 init함수를 호출
 		Scene::Initialize();
 	}
