@@ -7,6 +7,9 @@
     <Filter Include="Contents">
       <UniqueIdentifier>{419fb58c-9bef-4a7d-8289-9708ae633bd3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{1408e02e-a051-4b34-8c81-bc3472b7718d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="yaLoadScenes.h">
@@ -22,6 +25,9 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="yaLoadResources.h" />
+    <ClInclude Include="yaPlayerScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaPlayer.cpp">
@@ -32,6 +38,9 @@
     </ClCompile>
     <ClCompile Include="yaTitleScene.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlayerScript.cpp">
+      <Filter>Scripts</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

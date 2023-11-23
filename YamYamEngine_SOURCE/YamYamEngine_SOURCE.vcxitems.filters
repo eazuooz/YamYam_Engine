@@ -28,12 +28,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaMath.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)yaSpriteRenderer.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)yaTransform.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)yaResource.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
@@ -45,6 +39,21 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)yaLayer.cpp">
       <Filter>Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaScript.cpp">
+      <Filter>Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaTransform.cpp">
+      <Filter>Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaSpriteRenderer.cpp">
+      <Filter>Component\SpriteRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaCamera.cpp">
+      <Filter>Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaRenderer.cpp">
+      <Filter>Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -78,12 +87,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaMath.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)yaSpriteRenderer.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)yaTransform.h">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaEnums.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -101,6 +104,21 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaLayer.h">
       <Filter>Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaScript.h">
+      <Filter>Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaTransform.h">
+      <Filter>Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaSpriteRenderer.h">
+      <Filter>Component\SpriteRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaCamera.h">
+      <Filter>Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaRenderer.h">
+      <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +148,24 @@
     </Filter>
     <Filter Include="Resource\Texture">
       <UniqueIdentifier>{8130d146-2da0-499a-8180-8ad535a0ab1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script">
+      <UniqueIdentifier>{45554c90-5ea8-4313-a849-1ea57b4f16ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Transform">
+      <UniqueIdentifier>{ae702c2c-e730-4f91-8d35-abd38c38cace}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\SpriteRenderer">
+      <UniqueIdentifier>{60fa222c-11bd-4934-924c-e1e2fd7424cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Component">
+      <UniqueIdentifier>{80cf80ef-5c77-4732-8d2a-36b32a9b2244}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Camera">
+      <UniqueIdentifier>{b826747d-6890-4992-a254-565f4c4bd496}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{f5b6b8a1-aaf9-4e30-975d-e9744fdc599b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

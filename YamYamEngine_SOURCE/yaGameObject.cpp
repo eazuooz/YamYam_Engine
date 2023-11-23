@@ -7,6 +7,7 @@ namespace ya
 {
 	GameObject::GameObject()
 	{	
+		mComponents.resize((UINT)enums::eComponentType::End);
 		initializeTransform();
 	}
 
@@ -23,6 +24,9 @@ namespace ya
 	{
 		for (Component* comp : mComponents)
 		{
+			if (comp == nullptr)
+				continue;
+
 			comp->Initialize();
 		}
 	}
@@ -32,6 +36,9 @@ namespace ya
 	{
 		for (Component* comp : mComponents)
 		{
+			if (comp == nullptr)
+				continue;
+
 			comp->Update();
 		}
 	}
@@ -40,6 +47,9 @@ namespace ya
 	{
 		for (Component* comp : mComponents)
 		{
+			if (comp == nullptr)
+				continue;
+
 			comp->LateUpdate();
 		}
 	}
@@ -48,6 +58,9 @@ namespace ya
 	{
 		for (Component* comp : mComponents)
 		{
+			if (comp == nullptr)
+				continue;
+
 			comp->Render(hdc);
 		}
 	}

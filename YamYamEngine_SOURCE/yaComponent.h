@@ -7,7 +7,7 @@ namespace ya
 	class Component : public Entity
 	{
 	public:
-		Component();
+		Component(enums::eComponentType type);
 		~Component();
 
 		virtual void Initialize();
@@ -17,8 +17,10 @@ namespace ya
 
 		void SetOwner(GameObject* owner) { mOwner = owner; };
 		GameObject* GetOwner() { return mOwner; }
+		enums::eComponentType GetType() { return mType; }
+
 	private:
 		GameObject* mOwner;
-		// 전방선언
+		enums::eComponentType mType;
 	};
 }

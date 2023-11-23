@@ -3,6 +3,15 @@
 
 namespace ya::enums
 {
+	enum class eComponentType
+	{
+		Transform,
+		SpriteRenderer,
+		Script,
+		Camera,
+		End,
+	};
+	
 	enum class eLayerType
 	{
 		None,
@@ -12,7 +21,6 @@ namespace ya::enums
 		Player,
 		Max = 16,
 	};
-
 
 	enum class eResourceType
 	{

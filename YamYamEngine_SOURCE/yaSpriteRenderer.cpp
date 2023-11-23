@@ -2,11 +2,12 @@
 #include "yaGameObject.h"
 #include "yaTransform.h"
 #include "yaTexture.h"
+#include "yaRenderer.h"
 
 namespace ya
 {
 	SpriteRenderer::SpriteRenderer()
-		: Component()
+		: Component(enums::eComponentType::SpriteRenderer)
 		, mTexture(nullptr)
 		, mSize(Vector2::One)
 	{
@@ -35,7 +36,7 @@ namespace ya
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector2 pos = tr->GetPosition();
-
+		pos = renderer::mainCamera->CaluatePosition(pos);
 		if (mTexture->GetTextureType() 
 			== graphcis::Texture::eTextureType::Bmp)
 		{
