@@ -22,9 +22,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaTime.cpp">
       <Filter>Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)yaComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)yaMath.cpp">
       <Filter>Common</Filter>
     </ClCompile>
@@ -55,6 +52,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaComponent.cpp">
+      <Filter>Component\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -80,9 +80,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaInput.h">
       <Filter>Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)yaComponent.h">
-      <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaMath.h">
       <Filter>Common</Filter>
@@ -119,6 +116,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaRenderer.h">
       <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaComponent.h">
+      <Filter>Component\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

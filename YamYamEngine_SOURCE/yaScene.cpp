@@ -18,6 +18,7 @@ namespace ya
 				continue;
 
 			layer->Initialize();
+
 		}
 	}
 	void Scene::Update()

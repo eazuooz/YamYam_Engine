@@ -27,21 +27,16 @@ namespace ya
 		GameObject* camera = object::Instantiate<GameObject>(enums::eLayerType::None, Vector2(344.0f, 442.0f));
 		Camera* cameraComp = camera->AddComponent<Camera>();
 		renderer::mainCamera = cameraComp;
-		//camera->AddComponent<PlayerScript>();
 
-
-
-		mPlayer = object::Instantiate<Player>
-			(enums::eLayerType::Player/*, Vector2(100.0f, 100.0f)*/);
+		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
 		SpriteRenderer* sr = mPlayer->AddComponent<SpriteRenderer>();
 		sr->SetSize(Vector2(3.0f, 3.0f));
 		mPlayer->AddComponent<PlayerScript>();
 
-		graphcis::Texture* packmanTexture = Resources::Find<graphcis::Texture>(L"PackMan");
+		graphcis::Texture* packmanTexture = Resources::Find<graphcis::Texture>(L"Chichken");
 		sr->SetTexture(packmanTexture);
 
-		GameObject* bg = object::Instantiate<GameObject>
-			(enums::eLayerType::BackGround/*, Vector2(100.0f, 100.0f)*/);
+		GameObject* bg = object::Instantiate<GameObject>(enums::eLayerType::BackGround);
 		SpriteRenderer* bgSr = bg->AddComponent<SpriteRenderer>();
 		bgSr->SetSize(Vector2(3.0f, 3.0f));
 
@@ -68,15 +63,11 @@ namespace ya
 	void PlayScene::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
-		//wchar_t str[50] = L"Play Scene";
-		//TextOut(hdc, 0, 0, str, 10);
 	}
 	void PlayScene::OnEnter()
 	{
 	}
 	void PlayScene::OnExit()
 	{
-		//Transform* tr = bg->GetComponent<Transform>();
-		//tr->SetPosition(Vector2(0, 0));
 	}
 }
