@@ -12,6 +12,7 @@
 #include "yaPlayerScript.h"
 #include "yaCamera.h"
 #include "yaRenderer.h"
+#include "yaAnimator.h"
 
 namespace ya
 {
@@ -29,12 +30,17 @@ namespace ya
 		renderer::mainCamera = cameraComp;
 
 		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
-		SpriteRenderer* sr = mPlayer->AddComponent<SpriteRenderer>();
-		sr->SetSize(Vector2(3.0f, 3.0f));
+		//SpriteRenderer* sr = mPlayer->AddComponent<SpriteRenderer>();
+		//sr->SetSize(Vector2(3.0f, 3.0f));
 		mPlayer->AddComponent<PlayerScript>();
 
-		graphcis::Texture* packmanTexture = Resources::Find<graphcis::Texture>(L"Chichken");
-		sr->SetTexture(packmanTexture);
+		graphcis::Texture* packmanTexture = Resources::Find<graphcis::Texture>(L"Cat");
+		Animator* animator = mPlayer->AddComponent<Animator>();
+		animator->CreateAnimation(L"CatFrontMove", packmanTexture
+			, Vector2(0.0f, 0.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.5f);
+
+		animator->PlayAnimation(L"CatFrontMove", true);
+		/*sr->SetTexture(packmanTexture);*/
 
 		GameObject* bg = object::Instantiate<GameObject>(enums::eLayerType::BackGround);
 		SpriteRenderer* bgSr = bg->AddComponent<SpriteRenderer>();

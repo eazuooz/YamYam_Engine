@@ -1,6 +1,6 @@
 #pragma once
 #include "CommonInclude.h"
-
+using namespace ya::math;
 
 namespace ya
 {

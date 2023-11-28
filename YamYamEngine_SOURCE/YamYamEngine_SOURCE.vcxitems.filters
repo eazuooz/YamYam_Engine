@@ -55,6 +55,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaComponent.cpp">
       <Filter>Component\Component</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaAnimator.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaAnimation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -120,6 +122,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaComponent.h">
       <Filter>Component\Component</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaAnimator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaAnimation.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
