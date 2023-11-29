@@ -11,6 +11,8 @@ namespace ya
 		Resources::Load<graphcis::Texture>(L"PackMan", L"..\\Resources\\img\\pacman\\0.png");
 		Resources::Load<graphcis::Texture>(L"Chichken", L"..\\Resources\\chicken.bmp");
 		Resources::Load<graphcis::Texture>(L"Cat", L"..\\Resources\\ChickenAlpha.bmp");
+		Resources::Load<graphcis::Texture>(L"Bubble", L"..\\Resources\\Bubble.png");
+		Resources::Load<graphcis::Texture>(L"MapleEffect", L"..\\Resources\\ezgif.com-gif-maker.png");
 		//ChickenAlpha
 	}
 }

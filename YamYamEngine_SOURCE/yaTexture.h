@@ -26,6 +26,7 @@ namespace ya::graphcis
 		eTextureType GetTextureType() { return mType; }
 		Gdiplus::Image* GetImage() { return mImage; }
 
+
 	private:
 		eTextureType mType;
 		Gdiplus::Image* mImage;

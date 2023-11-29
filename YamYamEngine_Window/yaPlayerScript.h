@@ -7,6 +7,14 @@ namespace ya
 	class PlayerScript : public Script
 	{
 	public:
+		enum class eState
+		{
+			SitDown,
+			Walk,
+			Sleep,
+			Attack,
+		};
+
 		PlayerScript();
 		~PlayerScript();
 
@@ -15,8 +23,12 @@ namespace ya
 		void LateUpdate() override;
 		void Render(HDC hdc) override;
 
+	private:
+		void sitDown();
+		void move();
 
 	private:
-
+		eState mState;
+		class Animator* mAnimator;
 	};
 }
