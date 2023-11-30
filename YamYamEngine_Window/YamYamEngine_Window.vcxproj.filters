@@ -31,7 +31,9 @@
     <ClInclude Include="yaCat.h">
       <Filter>Contents</Filter>
     </ClInclude>
-    <ClInclude Include="yaCatScript.h" />
+    <ClInclude Include="yaCatScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaPlayer.cpp">
@@ -49,6 +51,8 @@
     <ClCompile Include="yaCat.cpp">
       <Filter>Contents</Filter>
     </ClCompile>
-    <ClCompile Include="yaCatScript.cpp" />
+    <ClCompile Include="yaCatScript.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

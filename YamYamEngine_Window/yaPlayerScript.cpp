@@ -8,7 +8,7 @@
 namespace ya
 {
 	PlayerScript::PlayerScript()
-		: mState(PlayerScript::eState::SitDown)
+		: mState(PlayerScript::eState::Idle)
 		, mAnimator(nullptr)
 	{
 	}
@@ -29,8 +29,8 @@ namespace ya
 		
 		switch (mState)
 		{
-		case ya::PlayerScript::eState::SitDown:
-			sitDown();
+		case ya::PlayerScript::eState::Idle:
+			idle();
 			break;
 		case ya::PlayerScript::eState::Walk:
 			move();
@@ -38,6 +38,10 @@ namespace ya
 
 		case ya::PlayerScript::eState::Sleep:
 			break;
+		case ya::PlayerScript::eState::GiveWater:
+			giveWater();
+			break;
+
 		case ya::PlayerScript::eState::Attack:
 			break;
 		default:
@@ -52,22 +56,15 @@ namespace ya
 	{
 	}
 
-	void PlayerScript::sitDown()
+	void PlayerScript::idle()
 	{
-		
-
-		if (Input::GetKey(eKeyCode::D))
+		if (Input::GetKey(eKeyCode::LButton))
 		{
-			mState = PlayerScript::eState::Walk;
-			mAnimator->PlayAnimation(L"RightWalk");
-		}
+			mState = PlayerScript::eState::GiveWater;
+			mAnimator->PlayAnimation(L"FrontGiveWater", false);
 
-		if (Input::GetKey(eKeyCode::A))
-			mState = PlayerScript::eState::Walk;
-		if (Input::GetKey(eKeyCode::W))
-			mState = PlayerScript::eState::Walk;
-		if (Input::GetKey(eKeyCode::S))
-			mState = PlayerScript::eState::Walk;
+			Vector2 mousePos = Input::GetMousePosition();
+		}
 	}
 
 	void PlayerScript::move()
@@ -97,8 +94,16 @@ namespace ya
 		if (Input::GetKeyUp(eKeyCode::D) || Input::GetKeyUp(eKeyCode::A) 
 			|| Input::GetKeyUp(eKeyCode::W) || Input::GetKeyUp(eKeyCode::S))
 		{
-			mState = PlayerScript::eState::SitDown;
+			mState = PlayerScript::eState::Idle;
 			mAnimator->PlayAnimation(L"SitDown", false);
+		}
+	}
+	void PlayerScript::giveWater()
+	{
+		if (mAnimator->IsComplete())
+		{
+			mState = eState::Idle;
+			mAnimator->PlayAnimation(L"Idle", false);
 		}
 	}
 }
