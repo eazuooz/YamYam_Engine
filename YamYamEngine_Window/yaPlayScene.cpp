@@ -13,6 +13,8 @@
 #include "yaCamera.h"
 #include "yaRenderer.h"
 #include "yaAnimator.h"
+#include "yaCat.h"
+#include "yaCatScript.h"
 
 namespace ya
 {
@@ -63,12 +65,37 @@ namespace ya
 		//mPlayer->GetComponent<Transform>()->SetRotation(30.0f);
 		/*sr->SetTexture(packmanTexture);*/
 
-		GameObject* bg = object::Instantiate<GameObject>(enums::eLayerType::Player);
-		SpriteRenderer* bgSr = bg->AddComponent<SpriteRenderer>();
-		//bgSr->SetSize(Vector2(3.0f, 3.0f));
+		//GameObject* bg = object::Instantiate<GameObject>(enums::eLayerType::Player);
+		//SpriteRenderer* bgSr = bg->AddComponent<SpriteRenderer>();
+		////bgSr->SetSize(Vector2(3.0f, 3.0f));
 
-		graphcis::Texture* bgTexture = Resources::Find<graphcis::Texture>(L"Bubble");
-		bgSr->SetTexture(bgTexture);
+		//graphcis::Texture* bgTexture = Resources::Find<graphcis::Texture>(L"Bubble");
+		//bgSr->SetTexture(bgTexture);
+
+		///CAT
+		Cat* cat = object::Instantiate<Cat>(enums::eLayerType::Animal);
+		cat->AddComponent<CatScript>();
+
+		graphcis::Texture* catTex = Resources::Find<graphcis::Texture>(L"Cat");
+		Animator* catAnimator = cat->AddComponent<Animator>();
+		catAnimator->CreateAnimation(L"DownWalk", catTex
+			, Vector2(0.0f, 0.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		catAnimator->CreateAnimation(L"RightWalk", catTex
+			, Vector2(0.0f, 32.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		catAnimator->CreateAnimation(L"UpWalk", catTex
+			, Vector2(0.0f, 64.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		catAnimator->CreateAnimation(L"LeftWalk", catTex
+			, Vector2(0.0f, 96.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		catAnimator->CreateAnimation(L"SitDown", catTex
+			, Vector2(0.0f, 128.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		catAnimator->CreateAnimation(L"Grooming", catTex
+			, Vector2(0.0f, 160.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		catAnimator->CreateAnimation(L"LayDown", catTex
+			, Vector2(0.0f, 192.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+
+		catAnimator->PlayAnimation(L"SitDown", false);
+		cat->GetComponent<Transform>()->SetPosition(Vector2(200.0f, 200.0f));
+		cat->GetComponent<Transform>()->SetScale(Vector2(2.0f, 2.0f));
 		
 		// 게임 오브젝트 생성후에 레이어와 게임오브젝트들의 init함수를 호출
 		Scene::Initialize();

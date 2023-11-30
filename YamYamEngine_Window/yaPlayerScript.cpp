@@ -61,6 +61,7 @@ namespace ya
 			mState = PlayerScript::eState::Walk;
 			mAnimator->PlayAnimation(L"RightWalk");
 		}
+
 		if (Input::GetKey(eKeyCode::A))
 			mState = PlayerScript::eState::Walk;
 		if (Input::GetKey(eKeyCode::W))
@@ -71,7 +72,6 @@ namespace ya
 
 	void PlayerScript::move()
 	{
-
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector2 pos = tr->GetPosition();
 

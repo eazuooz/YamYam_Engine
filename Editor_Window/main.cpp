@@ -165,6 +165,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    ya::LoadResources();
    ya::LoadScenes();
 
+   int a = 0;
+   srand((unsigned int)(& a));
+
    return TRUE;
 }
 
