@@ -2,6 +2,7 @@
 #include "yaInput.h"
 #include "yaTime.h"
 #include "yaSceneManager.h"
+#include "yaResources.h"
 
 namespace ya
 {
@@ -53,6 +54,12 @@ namespace ya
 		SceneManager::Render(mBackHdc);
 
 		copyRenderTarget(mBackHdc, mHdc);
+	}
+
+	void Application::Release()
+	{
+		SceneManager::Release();
+		Resources::Release();
 	}
 
 	void Application::clearRenderTarget()

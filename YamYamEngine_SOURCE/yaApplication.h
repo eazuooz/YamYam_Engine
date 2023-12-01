@@ -15,6 +15,7 @@ namespace ya
 		void Update();
 		void LateUpdate();
 		void Render();
+		void Release();
 
 		HWND GetHwnd() { return mHwnd; }
 		HDC GetHdc() { return mHdc; }
