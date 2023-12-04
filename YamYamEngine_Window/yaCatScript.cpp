@@ -4,6 +4,7 @@
 #include "yaTime.h"
 #include "yaGameObject.h"
 #include "yaAnimator.h"
+#include "yaObject.h"
 
 namespace ya
 {
@@ -11,6 +12,7 @@ namespace ya
 		: mState(CatScript::eState::SitDown)
 		, mAnimator(nullptr)
 		, mTime(0.0f)
+		, mDeathTime(0.0f)
 	{
 	}
 	CatScript::~CatScript()
@@ -23,11 +25,18 @@ namespace ya
 	}
 	void CatScript::Update()
 	{
+		mDeathTime += Time::DeltaTime();
+		if (mDeathTime > 6.0f)
+		{
+			//object::Destory(GetOwner());
+		}
+
 		if (mAnimator == nullptr)
 		{
 			mAnimator = GetOwner()->GetComponent<Animator>();
 		}
-
+		//new char[1000000];
+		//new
 		switch (mState)
 		{
 		case ya::CatScript::eState::SitDown:

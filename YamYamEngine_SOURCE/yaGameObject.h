@@ -1,12 +1,24 @@
 #pragma once
 #include "CommonInclude.h"
 #include "yaComponent.h"
+//#include "yaObject.h"
 
 namespace ya
 {
 	class GameObject
 	{
 	public:
+		//friend void Destory(GameObject* obj);
+		//friend Component; friend 클래스 선언
+
+		enum class eState
+		{
+			Active,
+			Paused,
+			Dead,
+			End
+		};
+
 		GameObject();
 		~GameObject();
 
@@ -40,10 +52,20 @@ namespace ya
 			return component;
 		}
 
-	private:
-		void initializeTransform();
+		eState GetActive() { return mState; }
+		void SetActive(bool power)
+		{
+			if (power == true) mState = eState::Active; 
+			if (power == false) mState = eState::Paused;
+		}
+		void Death() { mState = eState::Dead; }
 
 	private:
+		void initializeTransform();
+		
+
+	private:
+		eState mState;
 		std::vector<Component*> mComponents;
 	};
 }

@@ -34,6 +34,8 @@ namespace ya
 		Update();
 		LateUpdate();
 		Render();
+
+		Destroy();
 	}
 	void Application::Update()
 	{
@@ -54,6 +56,11 @@ namespace ya
 		SceneManager::Render(mBackHdc);
 
 		copyRenderTarget(mBackHdc, mHdc);
+	}
+
+	void Application::Destroy()
+	{
+		SceneManager::Destroy();
 	}
 
 	void Application::Release()

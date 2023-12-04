@@ -57,6 +57,17 @@ namespace ya
 		}
 	}
 
+	void Scene::Destroy()
+	{
+		for (Layer* layer : mLayers)
+		{
+			if (layer == nullptr)
+				continue;
+
+			layer->Destroy();
+		}
+	}
+
 	void Scene::AddGameObject(GameObject* gameObj, const enums::eLayerType type)
 	{
 		mLayers[(UINT)type]->AddGameObject(gameObj);
