@@ -34,11 +34,11 @@ namespace ya::object
 		return gameObject;
 	}
 
-	static void Destory(GameObject* gameObject)
-	{
-		if (gameObject == nullptr)
-			return;
+	//static void Destory(GameObject* gameObject)
+	//{
+	//	if (gameObject == nullptr)
+	//		return;
 
-		gameObject->Death();
-	}
+	//	gameObject->Death();
+	//}
 }

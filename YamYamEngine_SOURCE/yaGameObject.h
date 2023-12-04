@@ -3,14 +3,17 @@
 #include "yaComponent.h"
 //#include "yaObject.h"
 
-
+namespace ya::object
+{
+	void Destory(GameObject* gameObject);
+}
 
 namespace ya
 {
 	class GameObject
 	{
 	public:
-		//friend void Destroy(GameObject* obj);
+		friend void object::Destory(GameObject* obj);
 		//friend Component; friend 클래스 선언
 
 		enum class eState
@@ -61,11 +64,12 @@ namespace ya
 			if (power == false) mState = eState::Paused;
 		}
 		bool IsActive() { return mState == eState::Active; }
-		void Death() { mState = eState::Dead; }
+		
 		bool IsDead() { return mState == eState::Dead; }
 		
 	private:
 		void initializeTransform();
+		void death() { mState = eState::Dead; }
 
 	private:
 		eState mState;
