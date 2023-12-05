@@ -9,6 +9,7 @@
 #include <map>
 #include <functional>
 #include <filesystem>
+#include <math.h>
 
 
 #include "yaMath.h"
