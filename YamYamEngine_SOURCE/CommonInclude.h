@@ -9,10 +9,6 @@
 #include <map>
 #include <functional>
 #include <filesystem>
-#include <math.h>
-
-
-#include "yaMath.h"
 
 #include <mmsystem.h>
 #include <dinput.h>
@@ -23,4 +19,5 @@
 #pragma comment(lib, "gdiplus.lib")
 
 #include "yaEnums.h"
+#include "yaMath.h"
 

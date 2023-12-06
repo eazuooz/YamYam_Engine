@@ -34,10 +34,10 @@ namespace ya
 		static void Initailize();
 		static void Update();
 
-		static bool GetKeyDown(eKeyCode code) { return Keys[(UINT)code].state == eKeyState::Down; }
-		static bool GetKeyUp(eKeyCode code) { return Keys[(UINT)code].state == eKeyState::Up; }
-		static bool GetKey(eKeyCode code) { return Keys[(UINT)code].state == eKeyState::Pressed; }
-		static math::Vector2 GetMousePosition() { return mMousePosition; }
+		__forceinline static bool GetKeyDown(eKeyCode code) { return Keys[(UINT)code].state == eKeyState::Down; }
+		__forceinline static bool GetKeyUp(eKeyCode code) { return Keys[(UINT)code].state == eKeyState::Up; }
+		__forceinline static bool GetKey(eKeyCode code) { return Keys[(UINT)code].state == eKeyState::Pressed; }
+		__forceinline static math::Vector2 GetMousePosition() { return mMousePosition; }
 
 	private:
 		static void createKeys();

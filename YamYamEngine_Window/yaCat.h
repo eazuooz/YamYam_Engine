@@ -13,6 +13,6 @@ namespace ya
 		void Render(HDC hdc) override;
 
 	private:
-
+		
 	};
 }

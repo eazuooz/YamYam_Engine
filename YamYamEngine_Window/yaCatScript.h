@@ -33,6 +33,8 @@ namespace ya
 		void LateUpdate() override;
 		void Render(HDC hdc) override;
 
+		void SetPlayer(GameObject* player) { mPlayer = player; }
+		Vector2 mDest;
 	private:
 		void sitDown();
 		void move();
@@ -41,6 +43,8 @@ namespace ya
 		void PlayWalkAnimationByDirection(eDirection dir);
 		void translate(Transform* tr);
 
+		
+
 	private:
 		eState mState;
 		class Animator* mAnimator;
@@ -48,5 +52,8 @@ namespace ya
 		float mTime;
 		float mDeathTime;
 
+		GameObject* mPlayer;
+		float mRadian;
+		
 	};
 }
