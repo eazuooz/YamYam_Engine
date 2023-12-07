@@ -3,6 +3,7 @@
 #include "yaTime.h"
 #include "yaSceneManager.h"
 #include "yaResources.h"
+#include "yaCollisionManager.h"
 
 namespace ya
 {
@@ -27,6 +28,7 @@ namespace ya
 		createBuffer(width, height);
 		initializeEtc();
 
+		CollisionManager::Initialize();
 		SceneManager::Initialize();
 	}
 	void Application::Run()
@@ -41,11 +43,12 @@ namespace ya
 	{
 		Input::Update();
 		Time::Update();
-
+		CollisionManager::Update();
 		SceneManager::Update();
 	}
 	void Application::LateUpdate()
 	{
+		CollisionManager::LateUpdate();
 		SceneManager::LateUpdate();
 	}
 	void Application::Render()
@@ -53,6 +56,7 @@ namespace ya
 		clearRenderTarget();
 
 		Time::Render(mBackHdc);
+		CollisionManager::Render(mBackHdc);
 		SceneManager::Render(mBackHdc);
 
 		copyRenderTarget(mBackHdc, mHdc);

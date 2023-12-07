@@ -26,6 +26,8 @@ namespace ya::enums
 		Max = 16,
 	};
 
+//#define (UINT)(eLayerType::Max);
+
 	enum class eResourceType
 	{
 		Texture,

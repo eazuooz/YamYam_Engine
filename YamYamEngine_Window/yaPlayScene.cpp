@@ -16,6 +16,7 @@
 #include "yaCat.h"
 #include "yaCatScript.h"
 #include "yaBoxCollider2D.h"
+#include "yaCollisionManager.h"
 
 namespace ya
 {
@@ -27,6 +28,8 @@ namespace ya
 	}
 	void PlayScene::Initialize()
 	{
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Animal, true);
+
 		// main camera
 		GameObject* camera = object::Instantiate<GameObject>(enums::eLayerType::Particle, Vector2(344.0f, 442.0f));
 		Camera* cameraComp = camera->AddComponent<Camera>();
