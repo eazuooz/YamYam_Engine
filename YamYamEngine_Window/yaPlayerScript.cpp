@@ -139,6 +139,29 @@ namespace ya
 
 			Vector2 mousePos = Input::GetMousePosition();*/
 		}
+
+
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector2 pos = tr->GetPosition();
+
+		if (Input::GetKey(eKeyCode::D))
+		{
+			pos.x += 100.0f * Time::DeltaTime();
+		}
+		if (Input::GetKey(eKeyCode::A))
+		{
+			pos.x -= 100.0f * Time::DeltaTime();
+		}
+		if (Input::GetKey(eKeyCode::W))
+		{
+			pos.y -= 100.0f * Time::DeltaTime();
+		}
+		if (Input::GetKey(eKeyCode::S))
+		{
+			pos.y += 100.0f * Time::DeltaTime();
+		}
+
+		tr->SetPosition(pos);
 	}
 
 	void PlayerScript::move()

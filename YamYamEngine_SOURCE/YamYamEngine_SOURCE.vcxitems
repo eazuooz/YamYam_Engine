@@ -18,7 +18,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaAnimation.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaAnimator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaApplication.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaBoxCollider2D.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaCircleCollider2D.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaCollider.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaGameObject.h" />
@@ -42,7 +45,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaAnimation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaAnimator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaApplication.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaBoxCollider2D.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaCircleCollider2D.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaCollider.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaEntity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaGameObject.cpp" />

@@ -15,6 +15,7 @@
 #include "yaAnimator.h"
 #include "yaCat.h"
 #include "yaCatScript.h"
+#include "yaBoxCollider2D.h"
 
 namespace ya
 {
@@ -33,8 +34,8 @@ namespace ya
 
 		mPlayer = object::Instantiate<Player>(enums::eLayerType::Particle);
 		PlayerScript* plScript = mPlayer->AddComponent<PlayerScript>();
-
-		
+		BoxCollider2D* collider = mPlayer->AddComponent<BoxCollider2D>();
+		collider->SetOffset(Vector2(-50.0f, -50.0));
 
 		graphcis::Texture* playerTex = Resources::Find<graphcis::Texture>(L"Player");
 		Animator* playerAnimator = mPlayer->AddComponent<Animator>();
@@ -53,44 +54,40 @@ namespace ya
 
 
 		///CAT
-		//Cat* cat = object::Instantiate<Cat>(enums::eLayerType::Animal);
-		////cat->SetActive(true);
-		//cat->AddComponent<CatScript>();
-		////cameraComp->SetTarget(cat);
-		//graphcis::Texture* catTex = Resources::Find<graphcis::Texture>(L"Cat");
-		//Animator* catAnimator = cat->AddComponent<Animator>();
-		////catAnimator->CreateAnimation(L"DownWalk", catTex
-		////	, Vector2(0.0f, 0.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-		////catAnimator->CreateAnimation(L"RightWalk", catTex
-		////	, Vector2(0.0f, 32.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-		////catAnimator->CreateAnimation(L"UpWalk", catTex
-		////	, Vector2(0.0f, 64.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-		////catAnimator->CreateAnimation(L"LeftWalk", catTex
-		////	, Vector2(0.0f, 96.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-		////catAnimator->CreateAnimation(L"SitDown", catTex
-		////	, Vector2(0.0f, 128.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-		////catAnimator->CreateAnimation(L"Grooming", catTex
-		////	, Vector2(0.0f, 160.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-		////catAnimator->CreateAnimation(L"LayDown", catTex
-		////	, Vector2(0.0f, 192.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		Cat* cat = object::Instantiate<Cat>(enums::eLayerType::Animal);
+		//cat->SetActive(true);
+		cat->AddComponent<CatScript>();
+		//cameraComp->SetTarget(cat);
+		graphcis::Texture* catTex = Resources::Find<graphcis::Texture>(L"Cat");
+		Animator* catAnimator = cat->AddComponent<Animator>();
 
-		////catAnimator->PlayAnimation(L"SitDown", false);
-		//catAnimator->CreateAnimationByFolder(L"MushroomIdle", L"..\\Resources\\Mushroom", Vector2::Zero, 0.1f);
+		BoxCollider2D* boxCatCollider = cat->AddComponent<BoxCollider2D>();
 
-		//catAnimator->PlayAnimation(L"MushroomIdle", true);
+		boxCatCollider->SetOffset(Vector2(-50.0f, -50.0f));
 
-		//cat->GetComponent<Transform>()->SetPosition(Vector2(200.0f, 200.0f));
-		//cat->GetComponent<Transform>()->SetScale(Vector2(1.0f, 1.0f));
+		//catAnimator->CreateAnimation(L"DownWalk", catTex
+		//	, Vector2(0.0f, 0.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		//catAnimator->CreateAnimation(L"RightWalk", catTex
+		//	, Vector2(0.0f, 32.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		//catAnimator->CreateAnimation(L"UpWalk", catTex
+		//	, Vector2(0.0f, 64.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		//catAnimator->CreateAnimation(L"LeftWalk", catTex
+		//	, Vector2(0.0f, 96.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		//catAnimator->CreateAnimation(L"SitDown", catTex
+		//	, Vector2(0.0f, 128.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		//catAnimator->CreateAnimation(L"Grooming", catTex
+		//	, Vector2(0.0f, 160.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		//catAnimator->CreateAnimation(L"LayDown", catTex
+		//	, Vector2(0.0f, 192.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+
+		//catAnimator->PlayAnimation(L"SitDown", false);
+		catAnimator->CreateAnimationByFolder(L"MushroomIdle", L"..\\Resources\\Mushroom", Vector2::Zero, 0.1f);
+
+		catAnimator->PlayAnimation(L"MushroomIdle", true);
+
+		cat->GetComponent<Transform>()->SetPosition(Vector2(200.0f, 200.0f));
+		cat->GetComponent<Transform>()->SetScale(Vector2(1.0f, 1.0f));
 		
-
-
-		//GameObject* sheet = object::Instantiate<GameObject>(enums::eLayerType::Particle);
-		//SpriteRenderer* sheetSR = sheet->AddComponent<SpriteRenderer>();
-
-
-		//graphcis::Texture* mrIdle = Resources::Find<graphcis::Texture>(L"MushroomIdle");
-		//sheetSR->SetTexture(mrIdle);
-		//Animator* playerAnimator = mPlayer->AddComponent<Animator>();
 
 		// 게임 오브젝트 생성후에 레이어와 게임오브젝트들의 init함수를 호출
 		Scene::Initialize();

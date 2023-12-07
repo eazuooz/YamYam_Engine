@@ -57,6 +57,15 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)yaAnimator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaAnimation.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaCollider.cpp">
+      <Filter>Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaBoxCollider2D.cpp">
+      <Filter>Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaCircleCollider2D.cpp">
+      <Filter>Component\Collider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -124,6 +133,15 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaAnimator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaAnimation.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaCollider.h">
+      <Filter>Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaBoxCollider2D.h">
+      <Filter>Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaCircleCollider2D.h">
+      <Filter>Component\Collider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -170,6 +188,9 @@
     </Filter>
     <Filter Include="Renderer">
       <UniqueIdentifier>{f5b6b8a1-aaf9-4e30-975d-e9744fdc599b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider">
+      <UniqueIdentifier>{0f986301-7fbe-44ed-92fc-bc325c23dda0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

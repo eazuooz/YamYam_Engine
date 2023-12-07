@@ -103,7 +103,10 @@ namespace ya
 					, sprite.size.y
 					, RGB(255, 0, 255));
 			}
-		}
+
+
+			Rectangle(hdc, pos.x, pos.y, pos.x + 10, pos.y + 10);
+		}				   
 		else if (type == graphcis::Texture::eTextureType::Png)
 		{
 			// 내가 원하는 픽셀을 투명화 시킬떄
