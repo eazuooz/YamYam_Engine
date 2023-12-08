@@ -80,6 +80,7 @@ namespace ya
 		}
 	}
 
+
 	void GameObject::initializeTransform()
 	{
 		AddComponent<Transform>();

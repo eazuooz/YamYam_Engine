@@ -96,6 +96,19 @@ namespace ya
 		catSrc->mDest = mousePos;
 	}
 
+	void PlayerScript::OnCollisionEnter(Collider* other)
+	{
+		other->GetOwner()->GetComponent<Transform>()->SetPosition(Vector2(400.0f, 500.0f));
+	}
+
+	void PlayerScript::OnCollisionStay(Collider* other)
+	{
+	}
+
+	void PlayerScript::OnCollisionExit(Collider* other)
+	{
+	}
+
 	void PlayerScript::idle()
 	{
 		if (Input::GetKey(eKeyCode::LButton))
@@ -203,4 +216,6 @@ namespace ya
 			mAnimator->PlayAnimation(L"Idle", false);
 		}
 	}
+
+
 }

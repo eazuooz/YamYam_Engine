@@ -1,6 +1,7 @@
 #pragma once
 #include "CommonInclude.h"
 #include "yaComponent.h"
+#include "yaCollider.h"
 //#include "yaObject.h"
 
 namespace ya::object
@@ -31,6 +32,8 @@ namespace ya
 		virtual void Update();
 		virtual void LateUpdate();
 		virtual void Render(HDC hdc);
+
+
 
 		template <typename T>
 		T* AddComponent()
