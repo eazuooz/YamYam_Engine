@@ -33,6 +33,9 @@ namespace ya
 		static bool Intersect(Collider* left, Collider* right);
 
 	private:
+		//static bool isBump(Vector2 leftPos, Vector2 rigtPos, Vector2 leftSize, Vector2 rightSize);
+
+	private:
 		static std::bitset<(UINT)eLayerType::Max> mCollisionLayerMatrix[(UINT)eLayerType::Max];
 		static std::unordered_map<UINT64, bool> mCollisionMap;
 	};

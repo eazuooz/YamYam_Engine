@@ -1,12 +1,13 @@
 #include "yaBoxCollider2D.h"
 #include "yaTransform.h"
 #include "yaGameObject.h"
-
+#include "yaRenderer.h"
+#include "yaCamera.h"
 
 namespace ya
 {
 	BoxCollider2D::BoxCollider2D()
-		: Collider()
+		: Collider(enums::eColliderType::Rect2D)
 	{
 	}
 	BoxCollider2D::~BoxCollider2D()
@@ -25,6 +26,9 @@ namespace ya
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector2 pos = tr->GetPosition();
+
+		if (renderer::mainCamera)
+			pos = renderer::mainCamera->CaluatePosition(pos);
 
 		Vector2 offset = GetOffset();
 

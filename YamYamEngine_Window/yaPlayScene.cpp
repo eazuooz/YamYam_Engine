@@ -16,6 +16,7 @@
 #include "yaCat.h"
 #include "yaCatScript.h"
 #include "yaBoxCollider2D.h"
+#include "yaCircleCollider2D.h"
 #include "yaCollisionManager.h"
 
 namespace ya
@@ -36,8 +37,11 @@ namespace ya
 		renderer::mainCamera = cameraComp;
 
 		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
+		//object::DontDestroyOnLoad(mPlayer);
 		PlayerScript* plScript = mPlayer->AddComponent<PlayerScript>();
-		BoxCollider2D* collider = mPlayer->AddComponent<BoxCollider2D>();
+
+		//BoxCollider2D* collider = mPlayer->AddComponent<BoxCollider2D>();
+		CircleCollider2D* collider = mPlayer->AddComponent<CircleCollider2D>();
 		collider->SetOffset(Vector2(-50.0f, -50.0));
 
 		graphcis::Texture* playerTex = Resources::Find<graphcis::Texture>(L"Player");
@@ -64,7 +68,7 @@ namespace ya
 		graphcis::Texture* catTex = Resources::Find<graphcis::Texture>(L"Cat");
 		Animator* catAnimator = cat->AddComponent<Animator>();
 
-		BoxCollider2D* boxCatCollider = cat->AddComponent<BoxCollider2D>();
+		CircleCollider2D* boxCatCollider = cat->AddComponent<CircleCollider2D>();
 
 		boxCatCollider->SetOffset(Vector2(-50.0f, -50.0f));
 
@@ -115,8 +119,10 @@ namespace ya
 	}
 	void PlayScene::OnEnter()
 	{
+		Scene::OnEnter();
 	}
 	void PlayScene::OnExit()
 	{
+		Scene::OnExit();
 	}
 }
