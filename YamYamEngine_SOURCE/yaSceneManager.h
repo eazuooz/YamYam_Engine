@@ -20,6 +20,7 @@ namespace ya
 		}
 		static Scene* LoadScene(const std::wstring& name);
 		static Scene* GetActiveScene() { return mActiveScene; }
+		static Scene* GetDontDestroyOnLoad() { return mDontDestroyOnLoad; }
 
 		static void Initialize();
 		static void Update();
@@ -28,21 +29,9 @@ namespace ya
 		static void Destroy();
 		static void Release();
 
-
-	//	static SceneManager& GetInst()
-	//	{
-	//		static SceneManager sceneManager;
-	//		return sceneManager;
-	//	}
-
-	//private:
-	//	SceneManager();
-	//	~SceneManager();
-
 	private:
 		static std::map<std::wstring, Scene*> mScene;
 		static Scene* mActiveScene;
+		static Scene* mDontDestroyOnLoad;
 	};
-
-	//static SceneManager sceneManager;
 }

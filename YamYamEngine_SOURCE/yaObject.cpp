@@ -2,7 +2,6 @@
 
 namespace ya::object
 {
-	static std::vector<GameObject*> DontDestroyGameObjects = {};;
 
 
 }

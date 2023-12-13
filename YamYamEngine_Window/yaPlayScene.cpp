@@ -37,7 +37,9 @@ namespace ya
 		renderer::mainCamera = cameraComp;
 
 		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
-		//object::DontDestroyOnLoad(mPlayer);
+		object::DontDestroyOnLoad(mPlayer);
+
+
 		PlayerScript* plScript = mPlayer->AddComponent<PlayerScript>();
 
 		//BoxCollider2D* collider = mPlayer->AddComponent<BoxCollider2D>();
