@@ -141,7 +141,9 @@
     <ClInclude Include="yaPlayer.h" />
     <ClInclude Include="yaPlayScene.h" />
     <ClInclude Include="yaPlayerScript.h" />
+    <ClInclude Include="yaTile.h" />
     <ClInclude Include="yaTitleScene.h" />
+    <ClInclude Include="yaToolScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaCat.cpp" />
@@ -149,7 +151,9 @@
     <ClCompile Include="yaPlayer.cpp" />
     <ClCompile Include="yaPlayScene.cpp" />
     <ClCompile Include="yaPlayerScript.cpp" />
+    <ClCompile Include="yaTile.cpp" />
     <ClCompile Include="yaTitleScene.cpp" />
+    <ClCompile Include="yaToolScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

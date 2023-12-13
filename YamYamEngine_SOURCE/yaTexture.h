@@ -2,7 +2,7 @@
 #include "yaResource.h"
 
 
-namespace ya::graphcis
+namespace ya::graphics
 {
 	class Texture : public Resource
 	{

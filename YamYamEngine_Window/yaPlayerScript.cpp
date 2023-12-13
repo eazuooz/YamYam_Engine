@@ -67,7 +67,7 @@ namespace ya
 
 		catSrc->SetPlayer(GetOwner());
 
-		graphcis::Texture* catTex = Resources::Find<graphcis::Texture>(L"Cat");
+		graphics::Texture* catTex = Resources::Find<graphics::Texture>(L"Cat");
 		Animator* catAnimator = cat->AddComponent<Animator>();
 		catAnimator->CreateAnimation(L"DownWalk", catTex
 			, Vector2(0.0f, 0.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
@@ -118,7 +118,7 @@ namespace ya
 
 			catSrc->SetPlayer(GetOwner());
 
-			graphcis::Texture* catTex = Resources::Find<graphcis::Texture>(L"Cat");
+			graphics::Texture* catTex = Resources::Find<graphics::Texture>(L"Cat");
 			Animator* catAnimator = cat->AddComponent<Animator>();
 			catAnimator->CreateAnimation(L"DownWalk", catTex
 				, Vector2(0.0f, 0.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);

@@ -5,11 +5,11 @@
 
 namespace ya
 {
-	class SpriteRenderer : public Component
+	class TilemapRenderer : public Component
 	{
 	public:
-		SpriteRenderer();
-		~SpriteRenderer();
+		TilemapRenderer();
+		~TilemapRenderer();
 
 		void Initialize() override;
 		void Update()  override;
@@ -20,7 +20,9 @@ namespace ya
 		void SetSize(math::Vector2 size) { mSize = size; }
 
 	private:
+		Vector2 mTileSize;
 		graphics::Texture* mTexture;
-		math::Vector2 mSize;
+		Vector2 mSize;
+		Vector2 mIndex;
 	};
 }

@@ -6,7 +6,7 @@
 // 해당 전역변수가 존재함을 알리는 키워드 extern
 extern ya::Application application;
 
-namespace ya::graphcis
+namespace ya::graphics
 {
 	Texture* Texture::Create(const std::wstring& name, UINT width, UINT height)
 	{

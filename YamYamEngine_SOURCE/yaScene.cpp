@@ -26,6 +26,7 @@ namespace ya
 
 		}
 	}
+
 	void Scene::Update()
 	{
 		for (Layer* layer : mLayers)

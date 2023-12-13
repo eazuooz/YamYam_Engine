@@ -73,6 +73,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaDontDestroyOnLoad.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaTilemapRenderer.cpp">
+      <Filter>Component\TileMapRenderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -153,6 +156,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaDontDestroyOnLoad.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaTilemapRenderer.h">
+      <Filter>Component\TileMapRenderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -202,6 +208,9 @@
     </Filter>
     <Filter Include="Component\Collider">
       <UniqueIdentifier>{0f986301-7fbe-44ed-92fc-bc325c23dda0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\TileMapRenderer">
+      <UniqueIdentifier>{7a59537c-89b8-4e2c-be04-c24b8f8887f8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

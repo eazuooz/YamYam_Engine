@@ -33,7 +33,7 @@ namespace ya
 		void Render(HDC hdc);
 
 		void CreateAnimation(const std::wstring& name
-			, graphcis::Texture* spriteSheet
+			, graphics::Texture* spriteSheet
 			, Vector2 leftTop
 			, Vector2 sizei
 			, Vector2 offset
@@ -48,7 +48,7 @@ namespace ya
 
 	private:
 		class Animator* mAnimator;
-		graphcis::Texture* mTexture;
+		graphics::Texture* mTexture;
 
 		std::vector<Sprite> mAnimationSheet;
 		int mIndex;

@@ -41,7 +41,7 @@ namespace ya
 
 		pos = renderer::mainCamera->CaluatePosition(pos);
 		if (mTexture->GetTextureType() 
-			== graphcis::Texture::eTextureType::Bmp)
+			== graphics::Texture::eTextureType::Bmp)
 		{
 			if (mTexture->IsAlpha())
 			{
@@ -77,7 +77,7 @@ namespace ya
 			}
 		}
 		else if (mTexture->GetTextureType()
-			== graphcis::Texture::eTextureType::Png)
+			== graphics::Texture::eTextureType::Png)
 		{
 			// 투명화 시킬 픽셀의 색 범위
 			Gdiplus::ImageAttributes imgAtt = {};

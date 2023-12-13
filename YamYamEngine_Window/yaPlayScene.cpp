@@ -46,7 +46,7 @@ namespace ya
 		CircleCollider2D* collider = mPlayer->AddComponent<CircleCollider2D>();
 		collider->SetOffset(Vector2(-50.0f, -50.0));
 
-		graphcis::Texture* playerTex = Resources::Find<graphcis::Texture>(L"Player");
+		graphics::Texture* playerTex = Resources::Find<graphics::Texture>(L"Player");
 		Animator* playerAnimator = mPlayer->AddComponent<Animator>();
 		playerAnimator->CreateAnimation(L"Idle", playerTex
 			, Vector2(2000.0f, 250.0f), Vector2(250.0f, 250.0f), Vector2::Zero, 1, 0.1f);
@@ -67,7 +67,7 @@ namespace ya
 		//cat->SetActive(true);
 		cat->AddComponent<CatScript>();
 		//cameraComp->SetTarget(cat);
-		graphcis::Texture* catTex = Resources::Find<graphcis::Texture>(L"Cat");
+		graphics::Texture* catTex = Resources::Find<graphics::Texture>(L"Cat");
 		Animator* catAnimator = cat->AddComponent<Animator>();
 
 		CircleCollider2D* boxCatCollider = cat->AddComponent<CircleCollider2D>();

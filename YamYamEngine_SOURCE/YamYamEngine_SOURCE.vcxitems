@@ -39,6 +39,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaScript.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaSpriteRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaTexture.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaTilemapRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaTransform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaEnums.h" />
@@ -68,6 +69,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaScript.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaSpriteRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaTexture.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaTilemapRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaTransform.cpp" />
   </ItemGroup>
