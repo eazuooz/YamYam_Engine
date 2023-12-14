@@ -1,5 +1,6 @@
 #pragma once
 #include "..\\YamYamEngine_SOURCE\\yaScene.h"
+#include "yaTile.h"
 
 namespace ya
 {
@@ -17,7 +18,11 @@ namespace ya
 		void OnEnter() override;
 		void OnExit()  override;
 
+		void Save();
+		void Load();
 		
+	private:
+		std::vector<Tile*> mTiles;
 	};
 }
 
