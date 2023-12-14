@@ -6,13 +6,16 @@
 
 namespace ya
 {
+	Vector2 TilemapRenderer::TileSize = Vector2::One;
+
 	TilemapRenderer::TilemapRenderer()
 		: Component(enums::eComponentType::SpriteRenderer)
 		, mTexture(nullptr)
 		, mSize(3.0f, 3.0f )
-		, mIndex(8, 7)
+		, mIndex(0, 0)
 		, mTileSize(16.0f, 16.0f)
 	{
+		TileSize = mTileSize * mSize;
 	}
 	TilemapRenderer::~TilemapRenderer()
 	{

@@ -12,6 +12,8 @@ namespace ya
 		void LateUpdate() override;
 		void Render(HDC hdc) override;
 
+		void SetPosition(int x, int y);
+
 	private:
 
 	};
