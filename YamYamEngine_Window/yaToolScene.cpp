@@ -51,6 +51,7 @@ namespace ya
 			Tile* tile = object::Instantiate<Tile>(eLayerType::Tile);
 			TilemapRenderer* tmr = tile->AddComponent<TilemapRenderer>();
 			tmr->SetTexture(Resources::Find<graphics::Texture>(L"SpringFloor"));
+			tmr->SetIndex(TilemapRenderer::SelectedIndex);
 
 			tile->SetPosition(idxX, idxY);
 		}
@@ -82,7 +83,6 @@ namespace ya
 	{
 		Scene::OnExit();
 	}
-
 }
 
 LRESULT CALLBACK WndTileProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -91,20 +91,20 @@ LRESULT CALLBACK WndTileProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 	{
 	case WM_LBUTTONDOWN:
 	{
-		//int wmId = LOWORD(wParam);
-		//// 메뉴 선택을 구문 분석합니다:
-		//switch (wmId)
-		//{
-		//case IDM_ABOUT:
-		//	DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-		//	break;
-		//case IDM_EXIT:
-		//	DestroyWindow(hWnd);
-		//	break;
-		//default:
-		//	return DefWindowProc(hWnd, message, wParam, lParam);
-		//}
+		POINT mousePos = { };
+		GetCursorPos(&mousePos);
+		ScreenToClient(hWnd, &mousePos);
+
+		ya::math::Vector2 mousePosition;
+		mousePosition.x = mousePos.x;
+		mousePosition.y = mousePos.y;
+
+		int idxX = mousePosition.x / ya::TilemapRenderer::OriginTileSize.x;
+		int idxY = mousePosition.y / ya::TilemapRenderer::OriginTileSize.y;
+
+		ya::TilemapRenderer::SelectedIndex = Vector2(idxX, idxY);
 	}
+
 	break;
 	case WM_PAINT:
 	{

@@ -18,9 +18,12 @@ namespace ya
 
 		void SetTexture(graphics::Texture* texture) { mTexture = texture; }
 		void SetSize(math::Vector2 size) { mSize = size; }
+		void SetIndex(Vector2 index) { mIndex = index; }
 
 	public:
 		static Vector2 TileSize;
+		static Vector2 OriginTileSize;
+		static Vector2 SelectedIndex;
 		
 	private:
 		Vector2 mTileSize;
