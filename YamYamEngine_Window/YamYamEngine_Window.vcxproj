@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="yaCameraScript.h" />
     <ClInclude Include="yaCat.h" />
     <ClInclude Include="yaCatScript.h" />
     <ClInclude Include="yaLoadResources.h" />
@@ -146,6 +147,7 @@
     <ClInclude Include="yaToolScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="yaCameraScript.cpp" />
     <ClCompile Include="yaCat.cpp" />
     <ClCompile Include="yaCatScript.cpp" />
     <ClCompile Include="yaPlayer.cpp" />

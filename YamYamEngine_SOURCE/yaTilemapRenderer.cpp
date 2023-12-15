@@ -8,7 +8,7 @@ namespace ya
 {
 	Vector2 TilemapRenderer::TileSize = Vector2::One;
 	Vector2 TilemapRenderer::OriginTileSize = Vector2::One;
-	Vector2 TilemapRenderer::SelectedIndex = Vector2(-1.0f, -1.0f);
+	Vector2 TilemapRenderer::SelectedIndex = Vector2::One;
 
 	TilemapRenderer::TilemapRenderer()
 		: Component(enums::eComponentType::SpriteRenderer)

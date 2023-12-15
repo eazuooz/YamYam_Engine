@@ -40,6 +40,9 @@
     <ClInclude Include="yaTile.h">
       <Filter>Contents</Filter>
     </ClInclude>
+    <ClInclude Include="yaCameraScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaPlayer.cpp">
@@ -65,6 +68,9 @@
     </ClCompile>
     <ClCompile Include="yaTile.cpp">
       <Filter>Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCameraScript.cpp">
+      <Filter>Scripts</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

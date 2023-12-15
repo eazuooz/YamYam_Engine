@@ -7,6 +7,7 @@
 #include "yaCamera.h"
 #include "yaRenderer.h"
 #include "yaInput.h"
+#include "yaCameraScript.h"
 
 namespace ya
 {
@@ -23,12 +24,16 @@ namespace ya
 	{
 		GameObject* camera = object::Instantiate<GameObject>(enums::eLayerType::Particle, Vector2(344.0f, 442.0f));
 		Camera* cameraComp = camera->AddComponent<Camera>();
+		camera->AddComponent<CameraScript>();
+
 		renderer::mainCamera = cameraComp;
 
-		Tile* tile = object::Instantiate<Tile>(eLayerType::Tile);
-		TilemapRenderer* tmr = tile->AddComponent<TilemapRenderer>();
-		tmr->SetTexture(Resources::Find<graphics::Texture>(L"SpringFloor"));
-		
+
+
+		//Tile* tile = object::Instantiate<Tile>(eLayerType::Tile);
+		//TilemapRenderer* tmr = tile->AddComponent<TilemapRenderer>();
+		//tmr->SetTexture(Resources::Find<graphics::Texture>(L"SpringFloor"));
+
 		Scene::Initialize();
 	}
 
@@ -44,17 +49,25 @@ namespace ya
 		if (Input::GetKeyDown(eKeyCode::LButton))
 		{
 			Vector2 pos = Input::GetMousePosition();
-			
-			int idxX = pos.x / TilemapRenderer::TileSize.x;
-			int idxY = pos.y / TilemapRenderer::TileSize.y;
+			pos = renderer::mainCamera->CaluateTilePosition(pos);
 
-			Tile* tile = object::Instantiate<Tile>(eLayerType::Tile);
-			TilemapRenderer* tmr = tile->AddComponent<TilemapRenderer>();
-			tmr->SetTexture(Resources::Find<graphics::Texture>(L"SpringFloor"));
-			tmr->SetIndex(TilemapRenderer::SelectedIndex);
+			if (pos.x >= 0.0f && pos.y >= 0.0f)
+			{
+				int idxX = pos.x / TilemapRenderer::TileSize.x;
+				int idxY = pos.y / TilemapRenderer::TileSize.y;
 
-			tile->SetPosition(idxX, idxY);
-			mTiles.push_back(tile);
+				Tile* tile = object::Instantiate<Tile>(eLayerType::Tile);
+				TilemapRenderer* tmr = tile->AddComponent<TilemapRenderer>();
+				tmr->SetTexture(Resources::Find<graphics::Texture>(L"SpringFloor"));
+				tmr->SetIndex(TilemapRenderer::SelectedIndex);
+
+				tile->SetIndexPosition(idxX, idxY);
+				mTiles.push_back(tile);
+			}
+			else
+			{
+				//
+			}
 		}
 
 		if (Input::GetKeyDown(eKeyCode::S))
@@ -73,14 +86,24 @@ namespace ya
 
 		for (size_t i = 0; i < 50; i++)
 		{
-			MoveToEx(hdc, TilemapRenderer::TileSize.x * i, 0, NULL);
-			LineTo(hdc, TilemapRenderer::TileSize.x * i, 1000);
+			Vector2 pos = renderer::mainCamera->CaluatePosition
+			(
+				Vector2(TilemapRenderer::TileSize.x * i, 0.0f)
+			);
+
+			MoveToEx(hdc, pos.x, 0, NULL);
+			LineTo(hdc, pos.x, 1000);
 		}
 
 		for (size_t i = 0; i < 50; i++)
 		{
-			MoveToEx(hdc, 0, TilemapRenderer::TileSize.y * i, NULL);
-			LineTo(hdc, 1000, TilemapRenderer::TileSize.y * i);
+			Vector2 pos = renderer::mainCamera->CaluatePosition
+			(
+				Vector2(0.0f, TilemapRenderer::TileSize.y * i)
+			);
+
+			MoveToEx(hdc, 0, pos.y, NULL);
+			LineTo(hdc, 1000, pos.y);
 		}
 	}
 
@@ -124,7 +147,7 @@ namespace ya
 		{
 			TilemapRenderer* tmr = tile->GetComponent<TilemapRenderer>();
 			Transform* tr = tile->GetComponent<Transform>();
-			
+
 			Vector2 sourceIndex = tmr->GetIndex();
 			Vector2 position = tr->GetPosition();
 
@@ -138,7 +161,7 @@ namespace ya
 			y = position.y;
 			fwrite(&y, sizeof(int), 1, pFile);
 		}
-		
+
 		fclose(pFile);
 	}
 
@@ -185,12 +208,11 @@ namespace ya
 			if (fread(&posY, sizeof(int), 1, pFile) == NULL)
 				break;
 
-			Tile* tile = object::Instantiate<Tile>(eLayerType::Tile);
+			Tile* tile = object::Instantiate<Tile>(eLayerType::Tile, Vector2(posX, posY));
 			TilemapRenderer* tmr = tile->AddComponent<TilemapRenderer>();
 			tmr->SetTexture(Resources::Find<graphics::Texture>(L"SpringFloor"));
 			tmr->SetIndex(Vector2(idxX, idxY));
 
-			tile->SetPosition(posX, posY);
 			mTiles.push_back(tile);
 		}
 
