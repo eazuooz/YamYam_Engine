@@ -1,4 +1,5 @@
 #include "yaScene.h"
+#include "yaCollisionManager.h"
 
 namespace ya
 {
@@ -96,6 +97,6 @@ namespace ya
 
 	void Scene::OnExit()
 	{
-
+		CollisionManager::Clear();
 	}
 }
