@@ -34,6 +34,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaResources.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaRigidbody.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaSceneManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaScript.h" />
@@ -64,6 +65,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaResources.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaRigidbody.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaSceneManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaScript.cpp" />

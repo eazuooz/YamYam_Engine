@@ -55,8 +55,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaComponent.cpp">
       <Filter>Component\Component</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)yaAnimator.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)yaAnimation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaCollider.cpp">
       <Filter>Component\Collider</Filter>
     </ClCompile>
@@ -66,16 +64,25 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaCircleCollider2D.cpp">
       <Filter>Component\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)yaCollisionManager.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)yaObject.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)yaDontDestroyOnLoad.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)yaTilemapRenderer.cpp">
       <Filter>Component\TileMapRenderer</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaAnimation.cpp">
+      <Filter>Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaAnimator.cpp">
+      <Filter>Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaCollisionManager.cpp">
+      <Filter>Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaRigidbody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -108,9 +115,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaEnums.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)yaObject.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaResources.h">
       <Filter>Resource</Filter>
     </ClInclude>
@@ -141,8 +145,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaComponent.h">
       <Filter>Component\Component</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)yaAnimator.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)yaAnimation.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaCollider.h">
       <Filter>Component\Collider</Filter>
     </ClInclude>
@@ -152,13 +154,25 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaCircleCollider2D.h">
       <Filter>Component\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)yaCollisionManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaDontDestroyOnLoad.h">
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaTilemapRenderer.h">
       <Filter>Component\TileMapRenderer</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaAnimator.h">
+      <Filter>Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaAnimation.h">
+      <Filter>Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaCollisionManager.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaRigidbody.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -211,6 +225,18 @@
     </Filter>
     <Filter Include="Component\TileMapRenderer">
       <UniqueIdentifier>{7a59537c-89b8-4e2c-be04-c24b8f8887f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Rigidbody">
+      <UniqueIdentifier>{ee83a344-2551-450f-b386-c7e2c75dc040}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Animator">
+      <UniqueIdentifier>{117a3025-eb98-4395-b046-3eabfca57575}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collision">
+      <UniqueIdentifier>{07d01f8a-000f-46ad-b3f5-7a40d64e7699}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{456c967d-ab09-4089-851f-1f93a1b5a6f9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

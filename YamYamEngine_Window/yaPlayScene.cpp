@@ -20,6 +20,7 @@
 #include "yaCollisionManager.h"
 #include "yaTile.h"
 #include "yaTilemapRenderer.h"
+#include "yaRigidbody.h"
 
 namespace ya
 {
@@ -60,6 +61,9 @@ namespace ya
 
 		mPlayer->GetComponent<Transform>()->SetPosition(Vector2(300.0f, 250.0f));
 		//mPlayer->GetComponent<Transform>()->SetScale(Vector2(2.0f, 2.0f));
+
+		mPlayer->AddComponent<Rigidbody>();
+
 
 
 		///CAT

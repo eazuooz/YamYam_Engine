@@ -8,6 +8,7 @@
 #include "yaCatScript.h"
 #include "yaObject.h"
 #include "yaResources.h"
+#include "yaRigidbody.h"
 
 namespace ya
 {
@@ -157,24 +158,28 @@ namespace ya
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector2 pos = tr->GetPosition();
 
+		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+
 		if (Input::GetKey(eKeyCode::D))
 		{
-			pos.x += 100.0f * Time::DeltaTime();
+			//pos.x += 100.0f * Time::DeltaTime();
+			rb->AddForce(Vector2(200.0f, 0.0f));
 		}
 		if (Input::GetKey(eKeyCode::A))
 		{
-			pos.x -= 100.0f * Time::DeltaTime();
+			//pos.x -= 100.0f * Time::DeltaTime();
+			rb->AddForce(Vector2(-200.0f, 0.0f));
 		}
 		if (Input::GetKey(eKeyCode::W))
 		{
-			pos.y -= 100.0f * Time::DeltaTime();
+			//pos.y -= 100.0f * Time::DeltaTime();
+			rb->AddForce(Vector2(0.0f, 200.0f));
 		}
 		if (Input::GetKey(eKeyCode::S))
 		{
-			pos.y += 100.0f * Time::DeltaTime();
+			//pos.y += 100.0f * Time::DeltaTime();
+			rb->AddForce(Vector2(0.0f, -200.0f));
 		}
-
-		tr->SetPosition(pos);
 	}
 
 	void PlayerScript::move()
@@ -182,24 +187,30 @@ namespace ya
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector2 pos = tr->GetPosition();
 
+		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+
 		if (Input::GetKey(eKeyCode::D))
 		{
-			pos.x += 100.0f * Time::DeltaTime();
+			//pos.x += 100.0f * Time::DeltaTime();
+			rb->AddForce(Vector2(200.0f, 0.0f));
 		}
 		if (Input::GetKey(eKeyCode::A))
 		{
-			pos.x -= 100.0f * Time::DeltaTime();
+			//pos.x -= 100.0f * Time::DeltaTime();
+			rb->AddForce(Vector2(-200.0f, 0.0f));
 		}
 		if (Input::GetKey(eKeyCode::W))
 		{
-			pos.y -= 100.0f * Time::DeltaTime();
+			//pos.y -= 100.0f * Time::DeltaTime();
+			rb->AddForce(Vector2(0.0f, 200.0f));
 		}
 		if (Input::GetKey(eKeyCode::S))
 		{
-			pos.y += 100.0f * Time::DeltaTime();
+			//pos.y += 100.0f * Time::DeltaTime();
+			rb->AddForce(Vector2(0.0f, -200.0f));
 		}
 
-		tr->SetPosition(pos);
+		//tr->SetPosition(pos);
 
 		if (Input::GetKeyUp(eKeyCode::D) || Input::GetKeyUp(eKeyCode::A) 
 			|| Input::GetKeyUp(eKeyCode::W) || Input::GetKeyUp(eKeyCode::S))
