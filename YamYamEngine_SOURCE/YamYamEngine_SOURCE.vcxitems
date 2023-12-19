@@ -44,6 +44,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaTransform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaEnums.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaUIBase.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaUIManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)yaAnimation.cpp" />
@@ -74,5 +76,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaTilemapRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaTransform.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaUIBase.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaUIManager.cpp" />
   </ItemGroup>
 </Project>

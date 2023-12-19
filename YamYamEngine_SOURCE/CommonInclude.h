@@ -6,6 +6,8 @@
 #include <vector>
 #include <algorithm>
 #include <string>
+#include <stack>
+#include <queue>
 #include <map>
 #include <bitset>
 #include <functional>

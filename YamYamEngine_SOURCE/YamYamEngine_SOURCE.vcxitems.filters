@@ -82,7 +82,15 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)yaRigidbody.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaRigidbody.cpp">
+      <Filter>Component\Rigidbody</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaUIBase.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaUIManager.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -172,7 +180,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaObject.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)yaRigidbody.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaRigidbody.h">
+      <Filter>Component\Rigidbody</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaUIBase.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaUIManager.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -237,6 +253,9 @@
     </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{456c967d-ab09-4089-851f-1f93a1b5a6f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{46205f1f-cfa3-4e42-a616-34c9c2e5ebba}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
