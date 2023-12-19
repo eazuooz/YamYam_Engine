@@ -43,6 +43,12 @@
     <ClInclude Include="yaCameraScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="yaFloor.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="yaFloorScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaPlayer.cpp">
@@ -70,6 +76,12 @@
       <Filter>Contents</Filter>
     </ClCompile>
     <ClCompile Include="yaCameraScript.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="yaFloor.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="yaFloorScript.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
   </ItemGroup>

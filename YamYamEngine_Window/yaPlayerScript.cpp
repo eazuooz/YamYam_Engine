@@ -99,7 +99,7 @@ namespace ya
 
 	void PlayerScript::OnCollisionEnter(Collider* other)
 	{
-		other->GetOwner()->GetComponent<Transform>()->SetPosition(Vector2(400.0f, 500.0f));
+		//other->GetOwner()->GetComponent<Transform>()->SetPosition(Vector2(400.0f, 500.0f));
 	}
 
 	void PlayerScript::OnCollisionStay(Collider* other)
@@ -173,12 +173,12 @@ namespace ya
 		if (Input::GetKey(eKeyCode::W))
 		{
 			//pos.y -= 100.0f * Time::DeltaTime();
-			rb->AddForce(Vector2(0.0f, 200.0f));
-		}
-		if (Input::GetKey(eKeyCode::S))
-		{
-			//pos.y += 100.0f * Time::DeltaTime();
-			rb->AddForce(Vector2(0.0f, -200.0f));
+			//rb->AddForce(Vector2(0.0f, 200.0f));
+			Vector2 velocity = rb->GetVelocity();
+			velocity.y = -500.0f;
+			rb->SetVelocity(velocity);
+			rb->SetGround(false);
+
 		}
 	}
 
