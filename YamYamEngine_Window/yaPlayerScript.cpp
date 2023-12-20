@@ -9,6 +9,7 @@
 #include "yaObject.h"
 #include "yaResources.h"
 #include "yaRigidbody.h"
+#include "yaUIManager.h"
 
 namespace ya
 {
@@ -178,6 +179,19 @@ namespace ya
 			velocity.y = -500.0f;
 			rb->SetVelocity(velocity);
 			rb->SetGround(false);
+
+		}
+
+		if (Input::GetKeyDown(eKeyCode::I))
+		{
+			UIManager::Push(eUIType::HpBar);
+			//UIManager::Push(eUIType::Button);
+
+		}
+
+		if (Input::GetKeyDown(eKeyCode::O))
+		{
+			UIManager::Pop(eUIType::HpBar);
 
 		}
 	}

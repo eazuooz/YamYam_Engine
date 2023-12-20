@@ -1,6 +1,7 @@
 #include "yaPlayScene.h"
 #include "yaGameObject.h"
 #include "yaPlayer.h"
+#include "yaUIManager.h"
 #include "yaTransform.h"
 #include "yaSpriteRenderer.h"
 #include "yaInput.h"
@@ -101,9 +102,14 @@ namespace ya
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Animal, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
+
+		UIManager::Push(eUIType::Button);
+		
 	}
 	void PlayScene::OnExit()
 	{
+		UIManager::Pop(eUIType::Button);
+
 		Scene::OnExit();
 	}
 }

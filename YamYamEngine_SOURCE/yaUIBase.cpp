@@ -3,7 +3,9 @@
 
 namespace ya
 {
-	UIBase::UIBase()
+	UIBase::UIBase(eUIType type)
+		: mType(type)
+		, mbMouseOn(false)
 	{
 	}
 
@@ -13,30 +15,42 @@ namespace ya
 
 	void UIBase::Initialize()
 	{
+		OnInit();
 	}
 
 	void UIBase::Active()
 	{
+		mbEnabled = true;
+		OnActive();
 	}
 
 	void UIBase::InActive()
 	{
+		mbEnabled = false;
+		OnInActive();
 	}
 
 	void UIBase::Update()
 	{
+		if (mbEnabled)
+			OnUpdate();
 	}
 
 	void UIBase::LateUpdate()
 	{
+		if (mbEnabled)
+			OnLateUpdate();
 	}
 
 	void UIBase::Render(HDC hdc)
 	{
+		if (mbEnabled)
+			OnRender(hdc);
 	}
 
 	void UIBase::UIClear()
 	{
+		OnClear();
 	}
 
 	void UIBase::OnInit()
@@ -52,6 +66,14 @@ namespace ya
 	}
 
 	void UIBase::OnUpdate()
+	{
+	}
+
+	void UIBase::OnLateUpdate()
+	{
+	}
+
+	void UIBase::OnRender(HDC hdc)
 	{
 	}
 

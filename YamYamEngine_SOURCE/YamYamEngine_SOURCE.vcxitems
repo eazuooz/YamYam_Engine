@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaUIHUD.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaAnimation.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaAnimator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaApplication.h" />
@@ -45,9 +46,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaTransform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaEnums.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaUIBase.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaUIButton.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaUIManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaUIHUD.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaAnimation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaAnimator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaApplication.cpp" />
@@ -77,6 +80,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaTransform.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaUIBase.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaUIButton.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaUIManager.cpp" />
   </ItemGroup>
 </Project>

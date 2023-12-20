@@ -91,6 +91,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaUIManager.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaUIButton.cpp">
+      <Filter>UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaUIHUD.cpp">
+      <Filter>UI\HUD</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -189,6 +195,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaUIManager.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaUIButton.h">
+      <Filter>UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaUIHUD.h">
+      <Filter>UI\HUD</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -256,6 +268,12 @@
     </Filter>
     <Filter Include="UI">
       <UniqueIdentifier>{46205f1f-cfa3-4e42-a616-34c9c2e5ebba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Button">
+      <UniqueIdentifier>{d08a284c-e3e4-45eb-ad2c-18e056cde31f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\HUD">
+      <UniqueIdentifier>{ce03b2f5-dc7b-4684-9287-018cd5e287be}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

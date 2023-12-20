@@ -48,6 +48,8 @@ namespace ya::enums
 
 	enum class eUIType
 	{
+		HpBar,	
+		Button,
 		End,
 	};
 }
