@@ -97,6 +97,18 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaUIHUD.cpp">
       <Filter>UI\HUD</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaFmod.cpp">
+      <Filter>Fmod</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaAudioListener.cpp">
+      <Filter>Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaAudioSource.cpp">
+      <Filter>Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaAudioClip.cpp">
+      <Filter>Resource\Audio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -201,6 +213,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaUIHUD.h">
       <Filter>UI\HUD</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaFmod.h">
+      <Filter>Fmod</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaAudioListener.h">
+      <Filter>Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaAudioSource.h">
+      <Filter>Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaAudioClip.h">
+      <Filter>Resource\Audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -274,6 +298,15 @@
     </Filter>
     <Filter Include="UI\HUD">
       <UniqueIdentifier>{ce03b2f5-dc7b-4684-9287-018cd5e287be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fmod">
+      <UniqueIdentifier>{cd91f168-fb9a-4669-82d7-8321f86675b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Audio">
+      <UniqueIdentifier>{b8cc4a54-a71f-4f78-b2a3-635df8860453}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Audio">
+      <UniqueIdentifier>{148fe3ba-4d16-4c58-a72b-8f38e0e8a262}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

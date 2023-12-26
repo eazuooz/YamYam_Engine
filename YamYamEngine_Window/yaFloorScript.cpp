@@ -8,6 +8,7 @@
 #include "yaAnimator.h"
 #include "yaObject.h"
 #include "yaRigidbody.h"
+#include "yaAudioSource.h"
 
 namespace ya
 {
@@ -54,6 +55,11 @@ namespace ya
 
 			playerTr->SetPosition(playerPos);
 		}
+
+		AudioSource* as = GetOwner()->GetComponent<AudioSource>();
+		//as->SetClip();
+		as->SetLoop(true);
+		as->Play();
 
 
 		playerRb->SetGround(true);

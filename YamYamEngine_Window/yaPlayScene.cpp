@@ -24,6 +24,9 @@
 #include "yaRigidbody.h"
 #include "yaFloor.h"
 #include "yaFloorScript.h"
+#include "yaAudioClip.h"
+#include "yaAudioListener.h"
+#include "yaAudioSource.h"
 
 namespace ya
 {
@@ -44,6 +47,7 @@ namespace ya
 
 		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
 		object::DontDestroyOnLoad(mPlayer);
+		mPlayer->AddComponent<AudioListener>();
 
 
 		PlayerScript* plScript = mPlayer->AddComponent<PlayerScript>();
@@ -67,14 +71,16 @@ namespace ya
 
 		Floor* floor = object::Instantiate<Floor>(eLayerType::Floor, Vector2(100.0f, 600.0f));
 		floor->SetName(L"Floor");
+		AudioSource* as = floor->AddComponent<AudioSource>();
+
 		BoxCollider2D* floorCol = floor->AddComponent<BoxCollider2D>();
 		floorCol->SetSize(Vector2(3.0f, 1.0f));
 		floor->AddComponent<FloorScript>();
 
 
-
-		
-
+		AudioClip* ac = Resources::Load<AudioClip>(L"BGSound", L"..\\Resources\\Sound\\smw_bonus_game_end.wav");
+		as->SetClip(ac);
+		//as->Play();
 		// 게임 오브젝트 생성후에 레이어와 게임오브젝트들의 init함수를 호출
 		Scene::Initialize();
 	}
@@ -104,8 +110,8 @@ namespace ya
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
 
 		UIManager::Push(eUIType::Button);
-		
 	}
+
 	void PlayScene::OnExit()
 	{
 		UIManager::Pop(eUIType::Button);

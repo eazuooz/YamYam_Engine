@@ -5,6 +5,7 @@
 #include "yaResources.h"
 #include "yaCollisionManager.h"
 #include "yaUIManager.h"
+#include "yaFmod.h"
 
 namespace ya
 {
@@ -29,7 +30,7 @@ namespace ya
 		createBuffer(width, height);
 		initializeEtc();
 
-		
+		Fmod::Initialize();
 		CollisionManager::Initialize();
 		UIManager::Initialize();
 		SceneManager::Initialize();
