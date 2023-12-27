@@ -131,6 +131,4 @@ namespace ya::math
 			return *this;
 		}
 	};
-
-
 }
