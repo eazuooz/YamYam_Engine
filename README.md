@@ -2,13 +2,13 @@
 
 # [DirectX11] 게임 엔진 제작
 
-<img src="https://github.com/eazuooz/Images/blob/main/yamyamcoding.png" width="%30"/>
+<img src="https://github.com/eazuooz/Images/blob/main/yamyamcoding.png" width="%25"/>
 </div>
 
-![img](https://github.com/MYOMYO3/Images/blob/7eabf73bff2487ff49f1e53b964ee0c93fba9d30/yamyamcoding.PNG?raw=true)
+얌얌코딩 엔진 제작 강좌에 사용되는 예제 코드 입니다.
 
-개발기간 : 2개월
-
-개발인원 : 개인
+개발 환경 : visual studio 2022 community
+운영 체제 : 윈도우
+라이브러리 : FMOD
 
 <br></br>
