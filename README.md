@@ -1,6 +1,6 @@
 <div align="center">
 
-# [DirectX11] 게임 엔진 제작
+# C++을 이용한 게임 엔진 제작
 
 <img src="https://github.com/eazuooz/Images/blob/main/yamyamcoding.png" width="%25"/>
 </div>
