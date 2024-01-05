@@ -5,7 +5,7 @@
 <img src="https://github.com/MYOMYO3/Images/blob/7eabf73bff2487ff49f1e53b964ee0c93fba9d30/yamyamcoding.PNG" width="%30"/>
 </div>
 
-![img](https://github.com/MYOMYO3/Images/blob/7eabf73bff2487ff49f1e53b964ee0c93fba9d30/0.PNG?raw=true)
+![img](https://github.com/MYOMYO3/Images/blob/7eabf73bff2487ff49f1e53b964ee0c93fba9d30/yamyamcoding.PNG?raw=true)
 
 개발기간 : 2개월
 
