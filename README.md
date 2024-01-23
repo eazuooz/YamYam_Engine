@@ -1,7 +1,8 @@
 # [Window Client] YamYamEngine 
 
 🖥️ 프로젝트 소개
-<img src="https://github.com/eazuooz/YamYam_Engine/assets/46310910/e312db09-9416-483e-9673-df972081e0bf" width="%25"/>
+<img src="https://github.com/eazuooz/YamYam_Engine/assets/46310910/e312db09-9416-483e-9673-df972081e0bf" width="40%"/>
+
 얌얌코딩 수업에서 제작된 게임엔진의 수업용 예제 소스코드
 
 
