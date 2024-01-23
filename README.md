@@ -1,17 +1,17 @@
-<div align="center">
+# [Window Client] YamYamEngine 
 
-# C++을 이용한 게임 엔진 제작
-
+🖥️ 프로젝트 소개
 <img src="https://github.com/eazuooz/Images/blob/main/yamyamcoding.png" width="%25"/>
-</div>
+얌얌코딩 수업에서 제작된 수업용 예제 소스코드
 
-[얌얌코딩](https://yamyamcoding.oopy.io/)
-엔진 제작 강좌에 사용되는 예제 코드 입니다.
 
-개발 환경 : visual studio 2022 community
+⚙️ 개발 환경
 
-운영 체제 : 윈도우
+Visual Studio2022 community, C++ 20, Directx11
 
-라이브러리 : FMOD
+# *동영상/GitHub*
 
-<br></br>
+[얌얌코딩 유튜브](https://www.youtube.com/channel/UCOgtkPoyC0VXhCs7Xk3jvjQ)
+
+[얌얌코딩 수업노트](https://yamyamcoding.oopy.io/)
+
