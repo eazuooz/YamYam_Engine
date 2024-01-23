@@ -2,7 +2,7 @@
 
 🖥️ 프로젝트 소개
 <img src="https://github.com/eazuooz/Images/blob/main/yamyamcoding.png" width="%25"/>
-얌얌코딩 수업에서 제작된 수업용 예제 소스코드
+얌얌코딩 수업에서 제작된 게임엔진의 수업용 예제 소스코드
 
 
 ⚙️ 개발 환경
