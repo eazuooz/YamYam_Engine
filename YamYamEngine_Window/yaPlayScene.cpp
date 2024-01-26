@@ -40,51 +40,51 @@ namespace ya
 	{
 		
 
-		// main camera
-		GameObject* camera = object::Instantiate<GameObject>(enums::eLayerType::Particle, Vector2(344.0f, 442.0f));
-		Camera* cameraComp = camera->AddComponent<Camera>();
-		renderer::mainCamera = cameraComp;
+		//// main camera
+		//GameObject* camera = object::Instantiate<GameObject>(enums::eLayerType::Particle, Vector2(344.0f, 442.0f));
+		//Camera* cameraComp = camera->AddComponent<Camera>();
+		//renderer::mainCamera = cameraComp;
 
-		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
-		object::DontDestroyOnLoad(mPlayer);
-		mPlayer->AddComponent<AudioListener>();
-
-
-		PlayerScript* plScript = mPlayer->AddComponent<PlayerScript>();
-
-		BoxCollider2D* collider = mPlayer->AddComponent<BoxCollider2D>();
-		collider->SetOffset(Vector2(-50.0f, -50.0));
-
-		graphics::Texture* playerTex = Resources::Find<graphics::Texture>(L"Player");
-		Animator* playerAnimator = mPlayer->AddComponent<Animator>();
-		playerAnimator->CreateAnimation(L"Idle", playerTex
-			, Vector2(2000.0f, 250.0f), Vector2(250.0f, 250.0f), Vector2::Zero, 1, 0.1f);
-		playerAnimator->CreateAnimation(L"FrontGiveWater", playerTex
-			, Vector2(0.0f, 2000.0f), Vector2(250.0f, 250.0f), Vector2::Zero, 12, 0.1f);
-		playerAnimator->PlayAnimation(L"Idle", false);
-
-		playerAnimator->GetCompleteEvent(L"FrontGiveWater") = std::bind(&PlayerScript::AttackEffect, plScript);
-
-		mPlayer->GetComponent<Transform>()->SetPosition(Vector2(300.0f, 250.0f));
-		mPlayer->AddComponent<Rigidbody>();
+		//mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
+		//object::DontDestroyOnLoad(mPlayer);
+		//mPlayer->AddComponent<AudioListener>();
 
 
-		Floor* floor = object::Instantiate<Floor>(eLayerType::Floor, Vector2(0.0f, 0.0f));
-		floor->SetName(L"Floor");
-		SpriteRenderer* floorSR = floor->AddComponent<SpriteRenderer>();
-		floorSR->SetTexture(Resources::Find<graphics::Texture>(L"PixelMap"));
+		//PlayerScript* plScript = mPlayer->AddComponent<PlayerScript>();
 
-		AudioSource* as = floor->AddComponent<AudioSource>();
+		//BoxCollider2D* collider = mPlayer->AddComponent<BoxCollider2D>();
+		//collider->SetOffset(Vector2(-50.0f, -50.0));
 
-		plScript->SetPixelMapTexture(Resources::Find<graphics::Texture>(L"PixelMap"));
+		//graphics::Texture* playerTex = Resources::Find<graphics::Texture>(L"Player");
+		//Animator* playerAnimator = mPlayer->AddComponent<Animator>();
+		//playerAnimator->CreateAnimation(L"Idle", playerTex
+		//	, Vector2(2000.0f, 250.0f), Vector2(250.0f, 250.0f), Vector2::Zero, 1, 0.1f);
+		//playerAnimator->CreateAnimation(L"FrontGiveWater", playerTex
+		//	, Vector2(0.0f, 2000.0f), Vector2(250.0f, 250.0f), Vector2::Zero, 12, 0.1f);
+		//playerAnimator->PlayAnimation(L"Idle", false);
 
-		//BoxCollider2D* floorCol = floor->AddComponent<BoxCollider2D>();
-		//floorCol->SetSize(Vector2(3.0f, 1.0f));
-		//floor->AddComponent<FloorScript>();
+		//playerAnimator->GetCompleteEvent(L"FrontGiveWater") = std::bind(&PlayerScript::AttackEffect, plScript);
+
+		//mPlayer->GetComponent<Transform>()->SetPosition(Vector2(300.0f, 250.0f));
+		//mPlayer->AddComponent<Rigidbody>();
 
 
-		AudioClip* ac = Resources::Load<AudioClip>(L"BGSound", L"..\\Resources\\Sound\\smw_bonus_game_end.wav");
-		as->SetClip(ac);
+		//Floor* floor = object::Instantiate<Floor>(eLayerType::Floor, Vector2(0.0f, 0.0f));
+		//floor->SetName(L"Floor");
+		//SpriteRenderer* floorSR = floor->AddComponent<SpriteRenderer>();
+		//floorSR->SetTexture(Resources::Find<graphics::Texture>(L"PixelMap"));
+
+		//AudioSource* as = floor->AddComponent<AudioSource>();
+
+		//plScript->SetPixelMapTexture(Resources::Find<graphics::Texture>(L"PixelMap"));
+
+		////BoxCollider2D* floorCol = floor->AddComponent<BoxCollider2D>();
+		////floorCol->SetSize(Vector2(3.0f, 1.0f));
+		////floor->AddComponent<FloorScript>();
+
+
+		//AudioClip* ac = Resources::Load<AudioClip>(L"BGSound", L"..\\Resources\\Sound\\smw_bonus_game_end.wav");
+		//as->SetClip(ac);
 		//as->Play();
 		// 게임 오브젝트 생성후에 레이어와 게임오브젝트들의 init함수를 호출
 		Scene::Initialize();

@@ -18,8 +18,8 @@ namespace ya
 	void SpriteRenderer::Initialize()
 	{
 
-
 	}
+
 	void SpriteRenderer::Update()
 	{
 
@@ -27,6 +27,7 @@ namespace ya
 
 	void SpriteRenderer::LateUpdate()
 	{
+
 	}
 
 	void SpriteRenderer::Render(HDC hdc)

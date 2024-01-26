@@ -1,5 +1,6 @@
 #pragma once
 #include "yaGameObject.h"
+#include "yaGraphicDevice_DX11.h"
 
 namespace ya
 {
@@ -31,6 +32,8 @@ namespace ya
 		void initializeEtc();
 
 	private:
+		std::unique_ptr<graphics::GraphicDevice_DX11> mGraphicDevice;
+
 		HWND mHwnd;
 		HDC mHdc;
 		

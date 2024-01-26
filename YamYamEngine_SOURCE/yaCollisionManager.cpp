@@ -179,7 +179,7 @@ namespace ya
 			//circle -circle
 			Vector2 leftCirclePos = leftPos + (leftSize / 2.0f);
 			Vector2 rightCirclePos = rightPos + (rightSize / 2.0f);
-			float distance = (leftCirclePos - rightCirclePos).length();
+			float distance = (leftCirclePos - rightCirclePos).Length();
 			if (distance <= (leftSize.x / 2.0f + rightSize.x / 2.0f))
 			{
 				return true;

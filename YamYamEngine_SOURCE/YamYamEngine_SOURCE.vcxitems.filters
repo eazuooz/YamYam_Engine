@@ -22,9 +22,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaTime.cpp">
       <Filter>Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)yaMath.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)yaResource.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
@@ -109,6 +106,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaAudioClip.cpp">
       <Filter>Resource\Audio</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaMath.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaGraphicDevice_DX11.cpp">
+      <Filter>GraphicDevice</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -134,9 +137,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaInput.h">
       <Filter>Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)yaMath.h">
-      <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaEnums.h">
       <Filter>Common</Filter>
@@ -225,6 +225,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaAudioClip.h">
       <Filter>Resource\Audio</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaMath.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaGraphicDevice_DX11.h">
+      <Filter>GraphicDevice</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -307,6 +313,9 @@
     </Filter>
     <Filter Include="Resource\Audio">
       <UniqueIdentifier>{148fe3ba-4d16-4c58-a72b-8f38e0e8a262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicDevice">
+      <UniqueIdentifier>{02858ed0-bc1c-4697-a572-b020030609cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

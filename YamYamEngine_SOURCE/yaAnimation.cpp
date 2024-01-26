@@ -105,7 +105,7 @@ namespace ya
 			}
 
 
-			Rectangle(hdc, pos.x, pos.y, pos.x + 10, pos.y + 10);
+			::Rectangle(hdc, pos.x, pos.y, pos.x + 10, pos.y + 10);
 		}				   
 		else if (type == graphics::Texture::eTextureType::Png)
 		{

@@ -30,6 +30,8 @@ namespace ya
 		createBuffer(width, height);
 		initializeEtc();
 
+		mGraphicDevice = std::make_unique<graphics::GraphicDevice_DX11>();
+
 		Fmod::Initialize();
 		CollisionManager::Initialize();
 		UIManager::Initialize();
@@ -89,7 +91,7 @@ namespace ya
 		HBRUSH grayBrush = (HBRUSH)CreateSolidBrush(RGB(128, 128, 128));
 		HBRUSH oldBrush = (HBRUSH)SelectObject(mBackHdc, grayBrush);
 
-		Rectangle(mBackHdc, -1, -1, 1601, 901);
+		::Rectangle(mBackHdc, -1, -1, 1601, 901);
 
 		(HBRUSH)SelectObject(mBackHdc, oldBrush);
 		DeleteObject(grayBrush);
