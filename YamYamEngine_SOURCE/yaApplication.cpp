@@ -31,6 +31,7 @@ namespace ya
 		initializeEtc();
 
 		mGraphicDevice = std::make_unique<graphics::GraphicDevice_DX11>();
+		mGraphicDevice->Initialize();
 
 		Fmod::Initialize();
 		CollisionManager::Initialize();
@@ -63,14 +64,16 @@ namespace ya
 	}
 	void Application::Render()
 	{
-		clearRenderTarget();
+		//clearRenderTarget();
+		mGraphicDevice->Draw();
+
 
 		Time::Render(mBackHdc);
 		CollisionManager::Render(mBackHdc);
 		UIManager::Render(mBackHdc);
 		SceneManager::Render(mBackHdc);
 
-		copyRenderTarget(mBackHdc, mHdc);
+		//copyRenderTarget(mBackHdc, mHdc);
 	}
 
 	void Application::Destroy()
