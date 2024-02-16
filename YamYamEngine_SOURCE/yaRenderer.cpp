@@ -12,6 +12,7 @@ namespace ya::renderer
 
 	ID3D11Buffer* vertexBuffer = nullptr;
 	ID3D11Buffer* indexBuffer = nullptr;
+	ID3D11Buffer* constantBuffer = nullptr;
 
 	ID3DBlob* vsBlob = nullptr;
 	ID3D11VertexShader* vsShader = nullptr;
@@ -38,8 +39,6 @@ namespace ya::renderer
 		indices.push_back(0);
 		indices.push_back(1);
 		indices.push_back(2);
-
-
 	}
 
 	void LoadMeshes()

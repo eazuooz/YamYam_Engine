@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaGraphics.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaAudioClip.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaAudioListener.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaAudioSource.h" />

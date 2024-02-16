@@ -231,6 +231,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaGraphicDevice_DX11.h">
       <Filter>GraphicDevice</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaGraphics.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
