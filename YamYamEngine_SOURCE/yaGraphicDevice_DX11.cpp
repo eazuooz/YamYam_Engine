@@ -8,7 +8,7 @@ namespace ya::graphics
 {
 	GraphicDevice_DX11::GraphicDevice_DX11()
 	{
-		ya::graphics::GetGraphicDevice() = this;
+		ya::graphics::GetDevice() = this;
 	}
 
 	GraphicDevice_DX11::~GraphicDevice_DX11()
@@ -261,6 +261,19 @@ namespace ya::graphics
 #pragma endregion
 		if (FAILED(CreateBuffer(&bufferDesc, &sub, &renderer::vertexBuffer)))
 			assert(NULL && "Create vertex buffer failed!");
+
+#pragma region index buffer desc
+		D3D11_BUFFER_DESC indexBufferdesc = {};
+		indexBufferdesc.ByteWidth = sizeof(UINT) * renderer::indices.size();
+		indexBufferdesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_INDEX_BUFFER;
+		indexBufferdesc.Usage = D3D11_USAGE_DEFAULT;
+		indexBufferdesc.CPUAccessFlags = 0;
+
+		D3D11_SUBRESOURCE_DATA indicesData = {};
+		indicesData.pSysMem = renderer::indices.data();
+#pragma endregion
+		if (FAILED(graphics::GetDevice()->CreateBuffer(&indexBufferdesc, &indicesData, &renderer::indexBuffer)))
+			assert(NULL && "indices buffer create fail!!");
 	}
 
 	void GraphicDevice_DX11::Draw()
@@ -283,6 +296,7 @@ namespace ya::graphics
 		UINT vertexSize = sizeof(renderer::Vertex);
 		UINT offset = 0;
 		mContext->IASetVertexBuffers(0, 1, &renderer::vertexBuffer, &vertexSize, &offset);
+		mContext->IASetIndexBuffer(renderer::indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
 		mContext->VSSetShader(renderer::vsShader, 0, 0);
 		mContext->PSSetShader(renderer::psShader, 0, 0);
