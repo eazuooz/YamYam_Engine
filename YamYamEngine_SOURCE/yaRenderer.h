@@ -21,4 +21,8 @@ namespace ya::renderer
 	extern ID3DBlob* psBlob;
 	extern ID3D11PixelShader* psShader;
 	extern ID3D11InputLayout* inputLayouts;
+
+
+	void Initialize();
+	void Release();
 }

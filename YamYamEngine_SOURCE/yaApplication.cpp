@@ -1,4 +1,5 @@
 #include "yaApplication.h"
+#include "yaRenderer.h"
 #include "yaInput.h"
 #include "yaTime.h"
 #include "yaSceneManager.h"
@@ -31,6 +32,7 @@ namespace ya
 		initializeEtc();
 
 		mGraphicDevice = std::make_unique<graphics::GraphicDevice_DX11>();
+		renderer::Initialize();
 		mGraphicDevice->Initialize();
 
 		Fmod::Initialize();
@@ -86,6 +88,8 @@ namespace ya
 		SceneManager::Release();
 		UIManager::Release();
 		Resources::Release();
+
+		renderer::Release();
 	}
 
 	void Application::clearRenderTarget()
