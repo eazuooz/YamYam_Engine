@@ -9,7 +9,6 @@
 #include "..\\YamYamEngine_SOURCE\\yaTexture.h"
 #include "..\\YamYamEngine_SOURCE\\yaSceneManager.h"
 
-#include "..\\YamYamEngine_Window\\yaLoadResources.h"
 #include "..\\YamYamEngine_Window\\yaLoadScenes.h"
 #include "..\\YamYamEngine_Window\\yaToolScene.h"
 
@@ -167,12 +166,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    //ShowWindow(ToolHWnd, nCmdShow);
 
-
-
    Gdiplus::GdiplusStartup(&gpToken, &gpsi, NULL);
 
    //load Scenes
-   ya::LoadResources();
+   // ya::LoadResources(); -> LoadingScene 으로 업무 위임
    ya::LoadScenes();
 
    InitToolScene(hInstance);

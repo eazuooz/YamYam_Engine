@@ -27,7 +27,6 @@ namespace ya
 			resource = new T();
 			if (FAILED(resource->Load(path)))
 				assert(false);
-
 			resource->SetName(key);
 			resource->SetPath(path);
 			mResources.insert(std::make_pair(key, resource));
