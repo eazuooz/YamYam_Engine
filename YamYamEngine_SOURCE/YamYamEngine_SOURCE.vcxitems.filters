@@ -110,7 +110,16 @@
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)yaGraphicDevice_DX11.cpp">
-      <Filter>GraphicDevice</Filter>
+      <Filter>Graohics\GraphicDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaMesh.cpp">
+      <Filter>Resource\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaMaterial.cpp">
+      <Filter>Resource\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaShader.cpp">
+      <Filter>Resource\Graphics\Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -229,10 +238,19 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaGraphicDevice_DX11.h">
-      <Filter>GraphicDevice</Filter>
+      <Filter>Graohics\GraphicDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaMesh.h">
+      <Filter>Resource\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaMaterial.h">
+      <Filter>Resource\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaShader.h">
+      <Filter>Resource\Graphics\Shader</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaGraphics.h">
-      <Filter>Common</Filter>
+      <Filter>Graohics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -317,7 +335,22 @@
     <Filter Include="Resource\Audio">
       <UniqueIdentifier>{148fe3ba-4d16-4c58-a72b-8f38e0e8a262}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GraphicDevice">
+    <Filter Include="Resource\Mesh">
+      <UniqueIdentifier>{f8004de2-e7b8-43c1-9929-a01c2896ac55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Material">
+      <UniqueIdentifier>{629a5afe-93a4-4290-b702-831f5731fc87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Graphics">
+      <UniqueIdentifier>{c398174a-59f9-4305-b98f-d36e23054f8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Graphics\Shader">
+      <UniqueIdentifier>{2f3864bb-1921-4e73-911f-bf6c17979940}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graohics">
+      <UniqueIdentifier>{f79170ad-6dae-46b9-b593-20813947a1a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graohics\GraphicDevice">
       <UniqueIdentifier>{02858ed0-bc1c-4697-a572-b020030609cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

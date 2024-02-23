@@ -21,7 +21,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaAudioSource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaFmod.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaGraphicDevice_DX11.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaMaterial.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaMath.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaMesh.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaUIHUD.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaAnimation.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaAnimator.h" />
@@ -61,7 +64,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaAudioSource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaFmod.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaGraphicDevice_DX11.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaMaterial.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaMath.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaMesh.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaUIHUD.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaAnimation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaAnimator.cpp" />

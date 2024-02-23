@@ -132,7 +132,7 @@ namespace ya::math
 		}
 
 		const XMVECTOR U = XMQuaternionMultiply(q1, Vector3::Up);
-
+		
 		Quaternion q2;
 		FromToRotation(U, up, q2);
 
