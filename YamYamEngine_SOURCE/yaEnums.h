@@ -35,8 +35,9 @@ namespace ya::enums
 	enum class eResourceType
 	{
 		Texture,
-		AudioClip,
 		Animation,
+		AudioClip,
+		Shader,
 		Prefab,
 		End,
 	};
