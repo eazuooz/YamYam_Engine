@@ -8,7 +8,7 @@
 
 ⚙️ 개발 환경
 
-Visual Studio2022 community, C++ 20, Directx11
+Visual Studio2022 community, C++ 20, Directx11, Windows11
 
 # *동영상/GitHub*
 
