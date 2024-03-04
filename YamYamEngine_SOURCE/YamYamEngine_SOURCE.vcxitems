@@ -57,6 +57,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaUIBase.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaUIButton.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaUIManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaVertexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)yaAudioClip.cpp" />
@@ -99,5 +100,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaUIBase.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaUIButton.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaUIManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaVertexBuffer.cpp" />
   </ItemGroup>
 </Project>

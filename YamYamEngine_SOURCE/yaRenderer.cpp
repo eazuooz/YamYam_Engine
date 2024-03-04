@@ -9,16 +9,17 @@ namespace ya::renderer
 {
 	Camera* mainCamera = nullptr;
 
-	Vertex vertexes[3] = {};
+	std::vector<graphics::Vertex> vertexes = {};
 	std::vector<UINT> indices;
 
-	ID3D11Buffer* vertexBuffer = nullptr;
+	graphics::VertexBuffer vertexBuffer;
 	ID3D11Buffer* indexBuffer = nullptr;
 	ID3D11Buffer* constantBuffer = nullptr;
 	ID3D11InputLayout* inputLayouts = nullptr;
 
 	void LoadTriangleMesh()
 	{
+		renderer::vertexes.resize(3);
 		renderer::vertexes[0].pos = Vector3(0.0f, 0.5f, 0.0f);
 		renderer::vertexes[0].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 
@@ -56,7 +57,6 @@ namespace ya::renderer
 
 	void Release()
 	{
-		vertexBuffer->Release();
 		inputLayouts->Release();
 		indexBuffer->Release();
 		constantBuffer->Release();

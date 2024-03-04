@@ -121,6 +121,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaShader.cpp">
       <Filter>Resource\Graphics\Shader</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaVertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -252,6 +253,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaGraphics.h">
       <Filter>Graohics</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaVertexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
