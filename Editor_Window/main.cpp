@@ -174,10 +174,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    InitToolScene(hInstance);
 
-   int a = 0;
+   unsigned int a = 0;
    srand((unsigned int)(& a));
-
-
 
    return TRUE;
 }
@@ -196,7 +194,7 @@ BOOL InitToolScene(HINSTANCE hInstance)
         ya::graphics::Texture* texture
             = ya::Resources::Find<ya::graphics::Texture>(L"SpringFloor");
 
-        RECT rect = { 0, 0, texture->GetWidth(), texture->GetHeight() };
+        RECT rect = { 0, 0, (LONG)texture->GetWidth(), (LONG)texture->GetHeight() };
         AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 
         UINT toolWidth = rect.right - rect.left;
@@ -244,7 +242,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
+            HDC hdc = NULL;
+            hdc = BeginPaint(hWnd, &ps);
 
             EndPaint(hWnd, &ps);
         }

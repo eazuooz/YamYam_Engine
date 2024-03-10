@@ -105,18 +105,24 @@ namespace ya
 			Vector2 sourceIndex = tmr->GetIndex();
 			Vector2 position = tr->GetPosition();
 
-			int x = sourceIndex.x;
+			int x = (int)sourceIndex.x;
+			int y = (int)sourceIndex.y;
+
+			if (pFile == nullptr)
+				break;
+
 			fwrite(&x, sizeof(int), 1, pFile);
-			int y = sourceIndex.y;
 			fwrite(&y, sizeof(int), 1, pFile);
 
-			x = position.x;
+			x = (int)position.x;
+			y = (int)position.y;
+			
 			fwrite(&x, sizeof(int), 1, pFile);
-			y = position.y;
 			fwrite(&y, sizeof(int), 1, pFile);
 		}
 
-		fclose(pFile);
+		if (pFile)
+			fclose(pFile);
 	}
 	void ToolScene::Load()
 	{
@@ -151,6 +157,8 @@ namespace ya
 			int posX = 0;
 			int posY = 0;
 
+			if (pFile == nullptr)
+				break;
 
 			if (fread(&idxX, sizeof(int), 1, pFile) == NULL)
 				break;
@@ -161,37 +169,38 @@ namespace ya
 			if (fread(&posY, sizeof(int), 1, pFile) == NULL)
 				break;
 
-			Tile* tile = object::Instantiate<Tile>(eLayerType::Tile, Vector2(posX, posY));
+			Tile* tile = object::Instantiate<Tile>(eLayerType::Tile, Vector2((float)posX, (float)posY));
 			TilemapRenderer* tmr = tile->AddComponent<TilemapRenderer>();
 			tmr->SetTexture(Resources::Find<graphics::Texture>(L"SpringFloor"));
-			tmr->SetIndex(Vector2(idxX, idxY));
+			tmr->SetIndex(Vector2((float)idxX, (float)idxY));
 
 			mTiles.push_back(tile);
 		}
 
-		fclose(pFile);
+		if (pFile)
+			fclose(pFile);
 	}
 	void ToolScene::renderGreed(HDC hdc)
 	{
-		for (size_t i = 0; i < 50; i++)
+		for (int i = 0; i < 50; i++)
 		{
 			Vector2 pos = renderer::mainCamera->CaluatePosition
 			(
 				Vector2(TilemapRenderer::TileSize.x * i, 0.0f)
 			);
 
-			MoveToEx(hdc, pos.x, 0, NULL);
-			LineTo(hdc, pos.x, 1000);
+			MoveToEx(hdc, (int)pos.x, 0, NULL);
+			LineTo(hdc, (int)pos.x, 1000);
 		}
-		for (size_t i = 0; i < 50; i++)
+		for (int i = 0; i < 50; i++)
 		{
 			Vector2 pos = renderer::mainCamera->CaluatePosition
 			(
 				Vector2(0.0f, TilemapRenderer::TileSize.y * i)
 			);
 
-			MoveToEx(hdc, 0, pos.y, NULL);
-			LineTo(hdc, 1000, pos.y);
+			MoveToEx(hdc, 0, (int)pos.y, NULL);
+			LineTo(hdc, 1000, (int)pos.y);
 		}
 	}
 	void ToolScene::createTileObject()
@@ -201,8 +210,8 @@ namespace ya
 
 		if (pos.x >= 0.0f && pos.y >= 0.0f)
 		{
-			int idxX = pos.x / TilemapRenderer::TileSize.x;
-			int idxY = pos.y / TilemapRenderer::TileSize.y;
+			int idxX = (int)(pos.x / TilemapRenderer::TileSize.x);
+			int idxY = (int)(pos.y / TilemapRenderer::TileSize.y);
 
 			Tile* tile = object::Instantiate<Tile>(eLayerType::Tile);
 			TilemapRenderer* tmr = tile->AddComponent<TilemapRenderer>();
@@ -230,13 +239,13 @@ LRESULT CALLBACK WndTileProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 		ScreenToClient(hWnd, &mousePos);
 
 		ya::math::Vector2 mousePosition;
-		mousePosition.x = mousePos.x;
-		mousePosition.y = mousePos.y;
+		mousePosition.x = (float)mousePos.x;
+		mousePosition.y = (float)mousePos.y;
 
-		int idxX = mousePosition.x / ya::TilemapRenderer::OriginTileSize.x;
-		int idxY = mousePosition.y / ya::TilemapRenderer::OriginTileSize.y;
+		int idxX = (int)(mousePosition.x / ya::TilemapRenderer::OriginTileSize.x);
+		int idxY = (int)(mousePosition.y / ya::TilemapRenderer::OriginTileSize.y);
 
-		ya::TilemapRenderer::SelectedIndex = Vector2(idxX, idxY);
+		ya::TilemapRenderer::SelectedIndex = Vector2((float)idxX, (float)idxY);
 	}
 
 	break;
