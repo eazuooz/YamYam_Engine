@@ -121,7 +121,15 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaShader.cpp">
       <Filter>Resource\Graphics\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)yaVertexBuffer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaIndexBuffer.cpp">
+      <Filter>Graohics\GpuBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaVertexBuffer.cpp">
+      <Filter>Graohics\GpuBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaConstantBuffer.cpp">
+      <Filter>Graohics\GpuBuffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -253,7 +261,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaGraphics.h">
       <Filter>Graohics</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)yaVertexBuffer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaVertexBuffer.h">
+      <Filter>Graohics\GpuBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaIndexBuffer.h">
+      <Filter>Graohics\GpuBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaConstantBuffer.h">
+      <Filter>Graohics\GpuBuffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -354,6 +370,9 @@
     </Filter>
     <Filter Include="Graohics\GraphicDevice">
       <UniqueIdentifier>{02858ed0-bc1c-4697-a572-b020030609cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graohics\GpuBuffer">
+      <UniqueIdentifier>{194f8111-4939-444a-adb5-48b6519bd186}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

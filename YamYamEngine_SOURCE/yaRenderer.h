@@ -3,6 +3,11 @@
 #include "yaGraphicDevice_DX11.h"
 
 #include "yaVertexBuffer.h"
+#include "yaIndexBuffer.h"
+#include "yaConstantBuffer.h"
+
+using namespace ya::math;
+using namespace ya::graphics;
 
 namespace ya::renderer
 {
@@ -12,7 +17,9 @@ namespace ya::renderer
 	extern std::vector<UINT> indices;
 
 	extern graphics::VertexBuffer vertexBuffer;
-	extern ID3D11Buffer* indexBuffer;
+	extern graphics::IndexBuffer indexBuffer;
+	extern graphics::ConstantBuffer constantBuffers[(UINT)eCBType::End];
+
 	extern ID3D11Buffer* constantBuffer;
 	extern ID3D11InputLayout* inputLayouts;
 
