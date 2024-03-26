@@ -25,9 +25,9 @@ namespace ya
 		Scene::LateUpdate();
 	}
 
-	void DontDestroyOnLoad::Render(HDC hdc)
+	void DontDestroyOnLoad::Render()
 	{
-		Scene::Render(hdc);
+		Scene::Render();
 	}
 
 	void DontDestroyOnLoad::OnEnter()

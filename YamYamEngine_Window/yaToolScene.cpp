@@ -55,10 +55,10 @@ namespace ya
 		}
 	}
 
-	void ToolScene::Render(HDC hdc)
+	void ToolScene::Render()
 	{
-		Scene::Render(hdc);
-		renderGreed(hdc);
+		Scene::Render();
+		renderGreed();
 	}
 
 	void ToolScene::OnEnter()
@@ -180,28 +180,9 @@ namespace ya
 		if (pFile)
 			fclose(pFile);
 	}
-	void ToolScene::renderGreed(HDC hdc)
+	void ToolScene::renderGreed()
 	{
-		for (int i = 0; i < 50; i++)
-		{
-			Vector2 pos = renderer::mainCamera->CaluatePosition
-			(
-				Vector2(TilemapRenderer::TileSize.x * i, 0.0f)
-			);
 
-			MoveToEx(hdc, (int)pos.x, 0, NULL);
-			LineTo(hdc, (int)pos.x, 1000);
-		}
-		for (int i = 0; i < 50; i++)
-		{
-			Vector2 pos = renderer::mainCamera->CaluatePosition
-			(
-				Vector2(0.0f, TilemapRenderer::TileSize.y * i)
-			);
-
-			MoveToEx(hdc, 0, (int)pos.y, NULL);
-			LineTo(hdc, 1000, (int)pos.y);
-		}
 	}
 	void ToolScene::createTileObject()
 	{
@@ -252,21 +233,8 @@ LRESULT CALLBACK WndTileProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 	case WM_PAINT:
 	{
 		PAINTSTRUCT ps;
-		HDC hdc = BeginPaint(hWnd, &ps);
+		/*HDC hdc = */BeginPaint(hWnd, &ps);
 
-		//Rectangle(hdc, 100, 100, 200, 200);
-		ya::graphics::Texture* texture
-			= ya::Resources::Find<ya::graphics::Texture>(L"SpringFloor");
-
-		TransparentBlt(hdc
-			, 0, 0
-			, texture->GetWidth()
-			, texture->GetHeight()
-			, texture->GetHdc()
-			, 0, 0
-			, texture->GetWidth()
-			, texture->GetHeight()
-			, RGB(255, 0, 255));
 
 		EndPaint(hWnd, &ps);
 	}

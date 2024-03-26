@@ -54,7 +54,7 @@ namespace ya
 	{
 	}
 
-	void CameraScript::Render(HDC hdc)
+	void CameraScript::Render()
 	{
 	}
 

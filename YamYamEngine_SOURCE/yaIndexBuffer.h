@@ -10,7 +10,7 @@ namespace ya::graphics
 		~IndexBuffer();
 
 		bool Create(const std::vector<UINT>& indices);
-		void Bind();
+		void Bind() const;
 
 	private:
 	};

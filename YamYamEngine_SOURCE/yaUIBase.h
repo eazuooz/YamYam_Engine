@@ -38,7 +38,7 @@ namespace ya
 		void InActive();
 		void Update();
 		void LateUpdate();
-		void Render(HDC hdc);
+		void Render();
 		/// <summary>
 		/// UI가 사라질떄 호출되는 함수
 		/// </summary>
@@ -49,7 +49,7 @@ namespace ya
 		virtual void OnInActive();
 		virtual void OnUpdate();
 		virtual void OnLateUpdate();
-		virtual void OnRender(HDC hdc);
+		virtual void OnRender();
 		virtual void OnClear();
 
 		eUIType GetType() { return mType; }

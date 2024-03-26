@@ -31,6 +31,7 @@
 namespace ya
 {
 	PlayScene::PlayScene()
+		: mPlayer(nullptr)
 	{
 	}
 	PlayScene::~PlayScene()
@@ -45,8 +46,8 @@ namespace ya
 		//Camera* cameraComp = camera->AddComponent<Camera>();
 		//renderer::mainCamera = cameraComp;
 
-		//mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
-		//object::DontDestroyOnLoad(mPlayer);
+		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
+		object::DontDestroyOnLoad(mPlayer);
 		//mPlayer->AddComponent<AudioListener>();
 
 
@@ -103,9 +104,9 @@ namespace ya
 			SceneManager::LoadScene(L"TitleScene");
 		}
 	}
-	void PlayScene::Render(HDC hdc)
+	void PlayScene::Render()
 	{
-		Scene::Render(hdc);
+		Scene::Render();
 	}
 	void PlayScene::OnEnter()
 	{

@@ -35,17 +35,17 @@ namespace ya
 	{
 	}
 
-	void UIHUD::OnRender(HDC hdc)
+	void UIHUD::OnRender()
 	{
-		TransparentBlt(hdc
-			, 0, 0
-			, mTexture->GetWidth()
-			, mTexture->GetHeight()
-			, mTexture->GetHdc()
-			, 0, 0
-			, mTexture->GetWidth() / 2.0f
-			, mTexture->GetHeight()
-			, RGB(255, 0, 255));
+		//TransparentBlt(hdc
+		//	, 0, 0
+		//	, mTexture->GetWidth()
+		//	, mTexture->GetHeight()
+		//	, mTexture->GetHdc()
+		//	, 0, 0
+		//	, (float)mTexture->GetWidth() / 2.0f
+		//	, (float)mTexture->GetHeight()
+		//	, RGB(255, 0, 255));
 	}
 
 	void UIHUD::OnClear()

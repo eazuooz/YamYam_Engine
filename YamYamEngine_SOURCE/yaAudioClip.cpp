@@ -45,9 +45,9 @@ namespace ya
 		mChannel->stop();
 	}
 
-	void AudioClip::Set3DAttributes(const Vector2 pos)
+	void AudioClip::Set3DAttributes(const Vector3 pos)
 	{
-		FMOD_VECTOR fmodPos(0.0f, 0.0f, 0.0f);
+		FMOD_VECTOR fmodPos(pos.x, pos.y, pos.z);
 		FMOD_VECTOR fmodVel(0.0f, 0.0f, 0.0f);
 
 		mChannel->set3DAttributes(&fmodPos, &fmodVel);

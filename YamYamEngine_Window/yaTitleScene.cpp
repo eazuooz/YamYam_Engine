@@ -28,9 +28,9 @@ namespace ya
 			SceneManager::LoadScene(L"PlayScene");
 		}
 	}
-	void TitleScene::Render(HDC hdc)
+	void TitleScene::Render()
 	{
-		Scene::Render(hdc);
+		Scene::Render();
 	}
 
 	void TitleScene::OnEnter()

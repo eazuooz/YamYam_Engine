@@ -15,14 +15,15 @@ namespace ya
 		void Initialize() override;
 		void Update()  override;
 		void LateUpdate()  override;
-		void Render(HDC hdc)  override;
+		void Render()  override;
 
 		void SetPosition(Vector2 pos) { mPosition.x = pos.x; mPosition.y = pos.y;}
-		Vector2 GetPosition() { return mPosition; }
-		float GetRoation() { return mRotation; }
-		Vector2 GetScale() { return mScale; }
 		void SetRotation(float rotate) { mRotation = rotate; }
 		void SetScale(Vector2 scale) { mScale = scale; }
+
+		Vector2 GetPosition() const { return mPosition; }
+		float GetRoation() const { return mRotation; }
+		Vector2 GetScale() const { return mScale; }
 
 	private:
 		Vector2 mPosition;

@@ -37,52 +37,52 @@ namespace ya
 	{
 	}
 
-	void TilemapRenderer::Render(HDC hdc)
+	void TilemapRenderer::Render()
 	{
-		if (mTexture == nullptr) //텍스처 세팅 해주세요!
-			assert(false);
+		//if (mTexture == nullptr) //텍스처 세팅 해주세요!
+		//	assert(false);
 
-		Transform* tr = GetOwner()->GetComponent<Transform>();
-		Vector2 pos = tr->GetPosition();
-		float rot = tr->GetRoation();
-		Vector2 scale = tr->GetScale();
+		//Transform* tr = GetOwner()->GetComponent<Transform>();
+		//Vector2 pos = tr->GetPosition();
+		//float rot = tr->GetRoation();
+		//Vector2 scale = tr->GetScale();
 
-		pos = renderer::mainCamera->CaluatePosition(pos);
-		if (mTexture->GetTextureType()
-			== graphics::Texture::eTextureType::Bmp)
-		{
-			if (mTexture->IsAlpha())
-			{
-				BLENDFUNCTION func = {};
-				func.BlendOp = AC_SRC_OVER;
-				func.BlendFlags = 0;
-				func.AlphaFormat = AC_SRC_ALPHA;
-				func.SourceConstantAlpha = 255; // 0(transparent) ~ 255(Opaque)
+		//pos = renderer::mainCamera->CaluatePosition(pos);
+		//if (mTexture->GetTextureType()
+		//	== graphics::Texture::eTextureType::Bmp)
+		//{
+		//	if (mTexture->IsAlpha())
+		//	{
+		//		BLENDFUNCTION func = {};
+		//		func.BlendOp = AC_SRC_OVER;
+		//		func.BlendFlags = 0;
+		//		func.AlphaFormat = AC_SRC_ALPHA;
+		//		func.SourceConstantAlpha = 255; // 0(transparent) ~ 255(Opaque)
 
-				AlphaBlend(hdc
-					, pos.x, pos.y
-					, mTileSize.x * mSize.x * scale.x
-					, mTileSize.y * mSize.y * scale.y
-					, mTexture->GetHdc()
-					, mIndex.x * mTileSize.x, mIndex.y * mTileSize.y
-					, mTileSize.x
-					, mTileSize.y
-					, func);
-			}
-			else
-			{
-				//https://blog.naver.com/power2845/50147965306
-				TransparentBlt(hdc
-					, pos.x, pos.y
-					, mTileSize.x * mSize.x * scale.x
-					, mTileSize.y * mSize.y * scale.y
-					, mTexture->GetHdc()
-					, mIndex.x * mTileSize.x, mIndex.y * mTileSize.y
-					, mTileSize.x
-					, mTileSize.y
-					, RGB(255, 0, 255));
-			}
-		}
+		//		AlphaBlend(hdc
+		//			, pos.x, pos.y
+		//			, mTileSize.x * mSize.x * scale.x
+		//			, mTileSize.y * mSize.y * scale.y
+		//			, mTexture->GetHdc()
+		//			, mIndex.x * mTileSize.x, mIndex.y * mTileSize.y
+		//			, mTileSize.x
+		//			, mTileSize.y
+		//			, func);
+		//	}
+		//	else
+		//	{
+		//		//https://blog.naver.com/power2845/50147965306
+		//		TransparentBlt(hdc
+		//			, pos.x, pos.y
+		//			, mTileSize.x * mSize.x * scale.x
+		//			, mTileSize.y * mSize.y * scale.y
+		//			, mTexture->GetHdc()
+		//			, mIndex.x * mTileSize.x, mIndex.y * mTileSize.y
+		//			, mTileSize.x
+		//			, mTileSize.y
+		//			, RGB(255, 0, 255));
+		//	}
+		//}
 		//else if (mTexture->GetTextureType()
 		//	== graphics::Texture::eTextureType::Png)
 		//{

@@ -104,7 +104,7 @@ namespace ya
 	{
 	}
 
-	void Rigidbody::Render(HDC hdc)
+	void Rigidbody::Render()
 	{
 	}
 

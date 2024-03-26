@@ -14,12 +14,13 @@ namespace ya
 		void Initialize() override;
 		void Update()  override;
 		void LateUpdate()  override;
-		void Render(HDC hdc)  override;
+		void Render()  override;
 
 		void SetTexture(graphics::Texture* texture) { mTexture = texture; }
 		void SetSize(math::Vector2 size) { mSize = size; }
-		Vector2 GetIndex() { return mIndex; }
 		void SetIndex(Vector2 index) { mIndex = index; }
+
+		Vector2 GetIndex() const { return mIndex; }
 
 	public:
 		static Vector2 TileSize;

@@ -12,7 +12,7 @@ namespace ya
 		virtual void Initialize();
 		virtual void Update();
 		virtual void LateUpdate();
-		virtual void Render(HDC hdc);
+		virtual void Render();
 
 	private:
 		

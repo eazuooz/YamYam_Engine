@@ -7,6 +7,7 @@ namespace ya
 {
 	AudioSource::AudioSource()
 		: Component(eComponentType::AudioSource)
+		, mAudioClip(nullptr)
 	{
 	}
 
@@ -27,10 +28,10 @@ namespace ya
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector2 pos = tr->GetPosition();
 
-		mAudioClip->Set3DAttributes(pos);
+		//mAudioClip->Set3DAttributes(pos);
 	}
 
-	void AudioSource::Render(HDC hdc)
+	void AudioSource::Render()
 	{
 	}
 

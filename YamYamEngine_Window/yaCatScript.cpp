@@ -63,7 +63,7 @@ namespace ya
 	void CatScript::LateUpdate()
 	{
 	}
-	void CatScript::Render(HDC hdc)
+	void CatScript::Render()
 	{
 	}
 

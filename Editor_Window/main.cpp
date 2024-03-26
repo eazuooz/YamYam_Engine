@@ -174,8 +174,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    InitToolScene(hInstance);
 
-   unsigned int a = 0;
-   srand((unsigned int)(& a));
+   //unsigned int a = 0;
+   //srand((unsigned int)(&a));
 
    return TRUE;
 }

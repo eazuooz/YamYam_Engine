@@ -25,7 +25,7 @@ namespace ya
 	{
 	}
 
-	void Script::Render(HDC hdc)
+	void Script::Render()
 	{
 	}
 
