@@ -2,8 +2,8 @@
 #include "yaCamera.h"
 #include "yaGraphicDevice_DX11.h"
 
-#include "yaVertexBuffer.h"
-#include "yaIndexBuffer.h"
+#include "yaMesh.h"
+
 #include "yaConstantBuffer.h"
 
 using namespace ya::math;
@@ -16,8 +16,10 @@ namespace ya::renderer
 	extern std::vector<graphics::Vertex> vertexes;
 	extern std::vector<UINT> indices;
 
-	extern graphics::VertexBuffer vertexBuffer;
-	extern graphics::IndexBuffer indexBuffer;
+	//extern graphics::VertexBuffer vertexBuffer;
+	//extern graphics::IndexBuffer indexBuffer;
+	extern Mesh* mesh;
+
 	extern graphics::ConstantBuffer constantBuffers[(UINT)eCBType::End];
 
 	extern ID3D11Buffer* constantBuffer;

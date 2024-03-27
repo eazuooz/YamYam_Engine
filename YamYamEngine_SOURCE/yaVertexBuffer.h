@@ -13,6 +13,7 @@ namespace ya::graphics
 		void Bind();
 
 	private:
+		
 	};
 }
 
