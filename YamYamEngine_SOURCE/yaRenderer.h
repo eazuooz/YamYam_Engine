@@ -13,11 +13,6 @@ namespace ya::renderer
 {
 	extern Camera* mainCamera;
 
-	extern std::vector<graphics::Vertex> vertexes;
-	extern std::vector<UINT> indices;
-
-	//extern graphics::VertexBuffer vertexBuffer;
-	//extern graphics::IndexBuffer indexBuffer;
 	extern Mesh* mesh;
 
 	extern graphics::ConstantBuffer constantBuffers[(UINT)eCBType::End];

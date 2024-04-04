@@ -27,7 +27,7 @@ WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름�
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance, const wchar_t* name, WNDPROC proc);
 BOOL                InitInstance(HINSTANCE, int);
-BOOL                InitToolScene(HINSTANCE);
+//BOOL                InitToolScene(HINSTANCE);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
@@ -62,15 +62,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, //프로그램의 인스턴스 �
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_EDITORWINDOW));
 
     MSG msg;
-
-
-    //GetMessage(&msg, nullptr, 0, 0)
-    // 프로세스에서 발생한 메세지를 메세지 큐에서 가져오는 함수
-    // 메세지큐에 아무것도 없다면??? 아무 메세지도 가져오지 않게된다.
-
-    // PeekMessage : 메세지큐에 메세지 유무에 상관없이 함수가 리턴된다.
-    //                리턴 값이 true인경우 메세지가 있고 false인경우는 메세지가 없다라고 가르켜준다.
-
+    ya::LoadScenes();
 
     while (true)
     {
@@ -91,7 +83,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, //프로그램의 인스턴스 �
         }
     }
     
-    Gdiplus::GdiplusShutdown(gpToken);
     application.Release();
 
     return (int) msg.wParam;
@@ -151,9 +142,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, width, height, nullptr, nullptr, hInstance, nullptr);
 
-
-
-   application.Initialize(hWnd, width, height);
+   
 
 
    if (!hWnd)
@@ -164,49 +153,39 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
-   //ShowWindow(ToolHWnd, nCmdShow);
-
-   Gdiplus::GdiplusStartup(&gpToken, &gpsi, NULL);
-
-   //load Scenes
-   // ya::LoadResources(); -> LoadingScene 으로 업무 위임
-   ya::LoadScenes();
-
-   InitToolScene(hInstance);
-
-   //unsigned int a = 0;
-   //srand((unsigned int)(&a));
+   application.Initialize(hWnd, width, height);
+   
 
    return TRUE;
 }
 
-BOOL InitToolScene(HINSTANCE hInstance)
-{
-    ya::Scene* activeScene = ya::SceneManager::GetActiveScene();
-    std::wstring name = activeScene->GetName();
-
-    if (name == L"ToolScene")
-    {
-        HWND ToolHWnd = CreateWindowW(L"TILEWINDOW", L"TileWindow", WS_OVERLAPPEDWINDOW,
-            0, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-
-        //Tile 윈도우 크기 조정 -- TOOL
-        ya::graphics::Texture* texture
-            = ya::Resources::Find<ya::graphics::Texture>(L"SpringFloor");
-
-        RECT rect = { 0, 0, (LONG)texture->GetWidth(), (LONG)texture->GetHeight() };
-        AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
-
-        UINT toolWidth = rect.right - rect.left;
-        UINT toolHeight = rect.bottom - rect.top;
-
-        SetWindowPos(ToolHWnd, nullptr, 672, 0, toolWidth, toolHeight, 0);
-        ShowWindow(ToolHWnd, true);
-        UpdateWindow(ToolHWnd);
-    }
-
-    return TRUE;
-}
+//BOOL InitToolScene(HINSTANCE hInstance)
+//{
+//    ya::Scene* activeScene = ya::SceneManager::GetActiveScene();
+//    std::wstring name = activeScene->GetName();
+//
+//    if (name == L"ToolScene")
+//    {
+//        HWND ToolHWnd = CreateWindowW(L"TILEWINDOW", L"TileWindow", WS_OVERLAPPEDWINDOW,
+//            0, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+//
+//        //Tile 윈도우 크기 조정 -- TOOL
+//        ya::graphics::Texture* texture
+//            = ya::Resources::Find<ya::graphics::Texture>(L"SpringFloor");
+//
+//        RECT rect = { 0, 0, (LONG)texture->GetWidth(), (LONG)texture->GetHeight() };
+//        AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+//
+//        UINT toolWidth = rect.right - rect.left;
+//        UINT toolHeight = rect.bottom - rect.top;
+//
+//        SetWindowPos(ToolHWnd, nullptr, 672, 0, toolWidth, toolHeight, 0);
+//        ShowWindow(ToolHWnd, true);
+//        UpdateWindow(ToolHWnd);
+//    }
+//
+//    return TRUE;
+//}
 
 //
 //  함수: WndProc(HWND, UINT, WPARAM, LPARAM)

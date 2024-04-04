@@ -3,6 +3,9 @@
 #include "yaSceneManager.h"
 #include "yaResources.h"
 #include "yaTexture.h"
+#include "yaApplication.h"
+
+extern ya::Application application;
 
 namespace ya
 {
@@ -28,7 +31,19 @@ namespace ya
 
 	void LoadingScene::Update()
 	{
-		if (mbLoadCompleted)
+
+	}
+
+	void LoadingScene::LateUpdate()
+	{
+
+	}
+
+	void LoadingScene::Render()
+	{
+		int a = 0;
+
+		if (mbLoadCompleted /*&& application.IsLoaded()*/)
 		{
 			//만약 메인쓰레드가 종료되는데 자식쓰레드가 남아있다면
 			//자식쓰레드를 메인쓰레드에 편입시켜 메인쓰레드가 종료되기전까지 block
@@ -39,16 +54,6 @@ namespace ya
 
 			SceneManager::LoadScene(L"PlayScene");
 		}
-	}
-
-	void LoadingScene::LateUpdate()
-	{
-
-	}
-
-	void LoadingScene::Render()
-	{
-
 	}
 
 	void LoadingScene::OnEnter()
@@ -62,13 +67,15 @@ namespace ya
 	}
 	void LoadingScene::resourcesLoad(std::mutex& m)
 	{
+		while (true)
+		{
+			if (application.IsLoaded() == true)
+				break;
+		}
+
 		m.lock();
 		{
-			Resources::Load<graphics::Texture>(L"Cat", L"..\\Resources\\ChickenAlpha.bmp");
-			Resources::Load<graphics::Texture>(L"Player", L"..\\Resources\\Player.bmp");
-			Resources::Load<graphics::Texture>(L"SpringFloor", L"..\\Resources\\SpringFloor.bmp");
-			Resources::Load<graphics::Texture>(L"HPBAR", L"..\\Resources\\HPBAR.bmp");
-			Resources::Load<graphics::Texture>(L"PixelMap", L"..\\Resources\\pixelMap.bmp");
+			Resources::Load<graphics::Texture>(L"Player", L"..\\Resources\\CloudOcean.png");
 		}
 		m.unlock();
 
