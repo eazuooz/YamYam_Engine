@@ -8,7 +8,16 @@
 
 ⚙️ 개발 환경
 
-Visual Studio2022 community, C++ 20, Directx11, Windows11
+Visual Studio2022 community, C++ 20, Windows11
+
+# *사용된 라이브러리*
+
+## windows
+Directx11
+
+## vcpkg
+DirectXTex
+
 
 # *동영상/GitHub*
 
