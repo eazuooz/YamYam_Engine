@@ -13,11 +13,48 @@ namespace ya::renderer
 
 	Mesh* mesh = nullptr;
 
-
-	graphics::ConstantBuffer constantBuffers[(UINT)eCBType::End] = {};
+	ConstantBuffer constantBuffers[(UINT)eCBType::End] = {};
+	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[(UINT)eSamplerType::End] = {};
 
 	ID3D11Buffer* constantBuffer = nullptr;
 	ID3D11InputLayout* inputLayouts = nullptr;
+
+	void LoadStates()
+	{
+		D3D11_SAMPLER_DESC samplerDesc = {};
+		samplerDesc.Filter = D3D11_FILTER::D3D11_FILTER_ANISOTROPIC;
+		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.ComparisonFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_NEVER;
+		samplerDesc.MinLOD = 0;
+		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+		GetDevice()->CreateSamplerState(&samplerDesc, samplerStates[(UINT)eSamplerType::Anisotropic].GetAddressOf());
+
+		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
+		samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.ComparisonFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_NEVER;
+		samplerDesc.MinLOD = 0;
+		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+		GetDevice()->CreateSamplerState(&samplerDesc, samplerStates[(UINT)eSamplerType::Point].GetAddressOf());
+
+		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
+		samplerDesc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_CLAMP;
+		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_CLAMP;
+		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_CLAMP;
+		samplerDesc.ComparisonFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_NEVER;
+		samplerDesc.MinLOD = 0;
+		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+		GetDevice()->CreateSamplerState(&samplerDesc, samplerStates[(UINT)eSamplerType::PostProcess].GetAddressOf());
+
+		GetDevice()->BindSamplers((UINT)eSamplerType::Anisotropic, 1, samplerStates[(UINT)eSamplerType::Anisotropic].GetAddressOf());
+		GetDevice()->BindSamplers((UINT)eSamplerType::Point, 1, samplerStates[(UINT)eSamplerType::Point].GetAddressOf());
+		GetDevice()->BindSamplers((UINT)eSamplerType::PostProcess, 1, samplerStates[(UINT)eSamplerType::PostProcess].GetAddressOf());
+	}
 
 	void LoadTriangleMesh()
 	{
@@ -101,6 +138,7 @@ namespace ya::renderer
 
 	void Initialize()
 	{
+		LoadStates();
 		LoadMeshes();
 		LoadShaders();
 		LoadConstantBuffers();

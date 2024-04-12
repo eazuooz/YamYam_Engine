@@ -29,5 +29,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)ConstantBuffers.hlsli" />
+    <None Include="$(MSBuildThisFileDirectory)Samplers.hlsli" />
+    <None Include="$(MSBuildThisFileDirectory)Textures.hlsli" />
   </ItemGroup>
 </Project>
