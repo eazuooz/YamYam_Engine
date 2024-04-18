@@ -1,4 +1,5 @@
 
-SamplerState anisotropicSampler : register(s0);     // anisotropic sampler
-SamplerState pointSampler : register(s1);           // point sampler
-SamplerState postProcessingSampler : register(s2);  // postProcss sampler
+SamplerState pointSampler : register(s0);           // point sampler
+SamplerState linearSampler : register(s1);          // linear sampler
+SamplerState anisotropicSampler : register(s2);     // anisotropic sampler
+SamplerState postProcessingSampler : register(s3);  // postProcss sampler
