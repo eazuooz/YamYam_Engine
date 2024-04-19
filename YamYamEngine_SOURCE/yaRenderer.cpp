@@ -2,22 +2,17 @@
 #include "yaGraphicDevice_DX11.h"
 
 #include "yaResources.h"
+#include "yaMesh.h"
 #include "yaShader.h"
-
+#include "yaMaterial.h"
 
 namespace ya::renderer
 {
 	Camera* mainCamera = nullptr;
-
-
-
-	Mesh* mesh = nullptr;
-
 	ConstantBuffer constantBuffers[(UINT)eCBType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[(UINT)eSamplerType::End] = {};
 
-	ID3D11Buffer* constantBuffer = nullptr;
-	ID3D11InputLayout* inputLayouts = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11InputLayout> inputLayout = nullptr;
 
 	void LoadStates()
 	{
@@ -69,7 +64,7 @@ namespace ya::renderer
 
 	void LoadTriangleMesh()
 	{
-		mesh = new Mesh();
+		Mesh* mesh = new Mesh();
 
 		std::vector<graphics::Vertex> vertexes = {};
 		std::vector<UINT> indices = {};
@@ -90,11 +85,13 @@ namespace ya::renderer
 
 		mesh->CreateVB(vertexes);
 		mesh->CreateIB(indices);
+
+		ya::Resources::Insert(L"TriangleMesh", mesh);
 	}
 
 	void LoadRectMesh()
 	{
-		mesh = new Mesh();
+		Mesh* mesh = new Mesh();
 
 		std::vector<graphics::Vertex> vertexes = {};
 		std::vector<UINT> indices = {};
@@ -127,6 +124,8 @@ namespace ya::renderer
 
 		mesh->CreateVB(vertexes);
 		mesh->CreateIB(indices);
+
+		ya::Resources::Insert(L"RectMesh", mesh);
 	}
 
 	void LoadMeshes()
@@ -141,6 +140,15 @@ namespace ya::renderer
 		ya::Resources::Load<graphics::Shader>(L"SpriteShader", L"..\\Shaders_SOURCE\\Sprite");
 	}
 
+	void LoadMeterails()
+	{
+		Material* spriteMaterial = new Material();
+		ya::Resources::Insert(L"SpriteMaterial", spriteMaterial);
+
+		spriteMaterial->SetShader( ya::Resources::Find<graphics::Shader>(L"SpriteShader") );
+		//ya::Resources::Load<graphics::Material>(L"SpriteMaterial", L"..\\Materials\\SpriteMaterial")
+	}
+
 	void LoadConstantBuffers()
 	{
 		constantBuffers[(UINT)eCBType::Transform].Create(eCBType::Transform, sizeof(Vector4));
@@ -152,12 +160,13 @@ namespace ya::renderer
 		LoadStates();
 		LoadMeshes();
 		LoadShaders();
+		LoadMeterails();
 		LoadConstantBuffers();
 	}
 
 	void Release()
 	{
-		inputLayouts->Release();
-		delete mesh;
+		//if (inputLayouts)
+		//	inputLayouts->Release();
 	}
 }

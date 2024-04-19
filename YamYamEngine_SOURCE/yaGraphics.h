@@ -46,6 +46,15 @@ namespace ya::graphics
 		End,
 	};
 
+	enum class eRenderingMode
+	{
+		Opaque,
+		CutOut,
+		Transparent,
+		PostProcess,
+		End,
+	};
+
 	struct GpuBuffer
 	{
 		Microsoft::WRL::ComPtr<ID3D11Buffer> buffer = nullptr;

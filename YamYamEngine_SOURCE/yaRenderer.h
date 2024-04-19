@@ -2,7 +2,7 @@
 #include "yaCamera.h"
 #include "yaGraphicDevice_DX11.h"
 
-#include "yaMesh.h"
+
 
 #include "yaConstantBuffer.h"
 
@@ -13,12 +13,9 @@ namespace ya::renderer
 {
 	extern Camera* mainCamera;
 
-	extern Mesh* mesh;
-
 	extern graphics::ConstantBuffer constantBuffers[(UINT)eCBType::End];
 
-	extern ID3D11Buffer* constantBuffer;
-	extern ID3D11InputLayout* inputLayouts;
+	extern Microsoft::WRL::ComPtr <ID3D11InputLayout> inputLayout;
 
 	void Initialize();
 	void Release();

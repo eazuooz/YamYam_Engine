@@ -36,6 +36,7 @@ namespace ya::enums
 	{
 		Texture,
 		Mesh,
+		Material,
 		Animation,
 		AudioClip,
 		Shader,

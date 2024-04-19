@@ -2,7 +2,9 @@
 #include "yaApplication.h"
 #include "yaRenderer.h"
 #include "yaShader.h"
+#include "yaMesh.h"
 #include "yaTexture.h"
+#include "yaMaterial.h"
 #include "yaResources.h"
 
 extern ya::Application application;
@@ -381,20 +383,20 @@ namespace ya::graphics
 
 #pragma endregion
 		
-		graphics::Shader* triangle = Resources::Find<graphics::Shader>(L"TriangleShader");
+		//graphics::Shader* triangle = Resources::Find<graphics::Shader>(L"TriangleShader");
 
-		if (!(CreateInputLayout(inputLayoutDesces, 2
-			, triangle->GetVSBlob()->GetBufferPointer()
-			, triangle->GetVSBlob()->GetBufferSize()
-			, &renderer::inputLayouts)))
-			assert(NULL && "Create input layout failed!");
+		//if (!(CreateInputLayout(inputLayoutDesces, 2
+		//	, triangle->GetVSBlob()->GetBufferPointer()
+		//	, triangle->GetVSBlob()->GetBufferSize()
+		//	, renderer::inputLayout.GetAddressOf())))
+		//	assert(NULL && "Create input layout failed!");
 
 		graphics::Shader* sprite = Resources::Find<graphics::Shader>(L"SpriteShader");
 
 		if (!(CreateInputLayout(inputLayoutDesces, 3
 			, sprite->GetVSBlob()->GetBufferPointer()
 			, sprite->GetVSBlob()->GetBufferSize()
-			, &renderer::inputLayouts)))
+			, renderer::inputLayout.GetAddressOf())))
 			assert(NULL && "Create input layout failed!");
 	}
 
@@ -413,18 +415,20 @@ namespace ya::graphics
 		mContext->RSSetViewports(1, &viewPort);
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
 
-		BindConstantBuffer(eShaderStage::VS, eCBType::Transform, renderer::constantBuffer);
+		mContext->IASetInputLayout(renderer::inputLayout.Get());
 
-		mContext->IASetInputLayout(renderer::inputLayouts);
-
-		renderer::mesh->Bind();
+		Mesh* mesh = Resources::Find<Mesh>(L"RectMesh");
+		mesh->Bind();
 
 		Vector4 pos(0.0f, 0.0f, 0.0f, 1.0f);
 		renderer::constantBuffers[(UINT)eCBType::Transform].SetData(&pos);
 		renderer::constantBuffers[(UINT)eCBType::Transform].Bind(eShaderStage::VS);
 
-		graphics::Shader* triangle = Resources::Find<graphics::Shader>(L"SpriteShader");
-		triangle->Bind();
+		Material* material = ya::Resources::Find<Material>(L"SpriteMaterial");
+		material->Bind();
+
+		//graphics::Shader* triangle = Resources::Find<graphics::Shader>(L"SpriteShader");
+		//triangle->Bind();
 
 		graphics::Texture* texture = Resources::Find<graphics::Texture>(L"Player");
 		if (texture)

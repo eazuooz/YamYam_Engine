@@ -22,6 +22,9 @@ namespace ya::graphics
 		Microsoft::WRL::ComPtr<ID3DBlob> GetVSBlob() { return mVSBlob; }
 
 	private:
+		// Microsoft::WRL::ComPtr<ID3D11InputLayout> mInputLayout; 고민해봐야한다. 어떻게 설계할것인지.
+		// input layout 정점에 대한 정보들 Mesh, shader, inputlayout 클래스를 만들어 감싼다 중에 고민
+
 		Microsoft::WRL::ComPtr<ID3DBlob> mVSBlob;
 		Microsoft::WRL::ComPtr<ID3DBlob> mHSBlob;
 		Microsoft::WRL::ComPtr<ID3DBlob> mDSBlob;
