@@ -16,7 +16,7 @@ Visual Studio2022 community, C++ 20, Windows11
 Directx11
 
 ## vcpkg
-DirectXTex
+vcpkg install directxtex
 
 
 # *동영상/GitHub*
