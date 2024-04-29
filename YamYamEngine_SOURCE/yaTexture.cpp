@@ -26,6 +26,8 @@ namespace ya::graphics
 		std::wstring ext 
 			= path.substr(path.find_last_of(L".") + 1);
 
+
+
 		if (ext == L".dds" || ext == L".DDS")
 		{
 			if (FAILED(LoadFromDDSFile(path.c_str(), DDS_FLAGS::DDS_FLAGS_NONE, nullptr, mImage)))
