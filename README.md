@@ -16,8 +16,19 @@ Visual Studio2022 community, C++ 20, Windows11
 Directx11
 
 ## vcpkg
-vcpkg install directxtex
+vcpkg install directxtex[core,openexr,dx11]:x64-windows
 
+<!--vcpkg install assimp:x64-windows
+vcpkg install directxtex:x64-windows
+vcpkg install directxtex[dx11]:x64-windows
+vcpkg install directxtex[openexr]:x64-windows
+vcpkg install directxtk:x64-windows
+vcpkg install directxmath:x64-windows
+vcpkg install fp16:x64-windows
+vcpkg install imgui[dx11-binding,win32-binding]:x64-windows
+vcpkg install glm:x64-windows
+vcpkg install directxmesh:x64-windows
+-->
 
 # *동영상/GitHub*
 
