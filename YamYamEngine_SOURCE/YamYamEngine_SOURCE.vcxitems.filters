@@ -130,6 +130,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaConstantBuffer.cpp">
       <Filter>Graohics\GpuBuffer</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaInputLayout.cpp">
+      <Filter>Graohics\InputLayout</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -270,6 +273,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaConstantBuffer.h">
       <Filter>Graohics\GpuBuffer</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaInputLayout.h">
+      <Filter>Graohics\InputLayout</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -373,6 +379,9 @@
     </Filter>
     <Filter Include="Graohics\GpuBuffer">
       <UniqueIdentifier>{194f8111-4939-444a-adb5-48b6519bd186}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graohics\InputLayout">
+      <UniqueIdentifier>{b629bd13-a842-401d-8199-0ea142401fb0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

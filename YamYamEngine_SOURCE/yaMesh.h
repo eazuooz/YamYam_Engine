@@ -1,7 +1,9 @@
 #pragma once
 #include "yaResource.h"
+#include "yaInputLayout.h"
 #include "yaVertexBuffer.h"
 #include "yaIndexBuffer.h"
+
 
 
 namespace ya
@@ -28,9 +30,12 @@ namespace ya
 
 		bool CreateVB(const std::vector<graphics::Vertex>& vertices);
 		bool CreateIB(const std::vector<UINT>& indices);
+		void SetVertexBufferParams(UINT vertexCount, D3D11_INPUT_ELEMENT_DESC* layout, const void* pShaderBytecodeWithInputSignature, SIZE_T BytecodeLength);
+
 		void Bind();
 
 	private:
+		graphics::InputLayout mInputLayout;
 		graphics::VertexBuffer mVB;
 		graphics::IndexBuffer mIB;
 

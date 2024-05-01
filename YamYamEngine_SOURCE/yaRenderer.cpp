@@ -12,8 +12,6 @@ namespace ya::renderer
 	ConstantBuffer constantBuffers[(UINT)eCBType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[(UINT)eSamplerType::End] = {};
 
-	Microsoft::WRL::ComPtr<ID3D11InputLayout> inputLayout = nullptr;
-
 	void LoadStates()
 	{
 		D3D11_SAMPLER_DESC samplerDesc = {};
@@ -83,6 +81,24 @@ namespace ya::renderer
 		indices.push_back(1);
 		indices.push_back(2);
 
+		D3D11_INPUT_ELEMENT_DESC inputLayoutDesces[2] = {};
+		inputLayoutDesces[0].AlignedByteOffset = 0;
+		inputLayoutDesces[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
+		inputLayoutDesces[0].InputSlot = 0;
+		inputLayoutDesces[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		inputLayoutDesces[0].SemanticName = "POSITION";
+		inputLayoutDesces[0].SemanticIndex = 0;
+
+		inputLayoutDesces[1].AlignedByteOffset = 12;
+		inputLayoutDesces[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+		inputLayoutDesces[1].InputSlot = 0;
+		inputLayoutDesces[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		inputLayoutDesces[1].SemanticName = "COLOR";
+		inputLayoutDesces[1].SemanticIndex = 0;
+
+		graphics::Shader* triangleShader = Resources::Find<graphics::Shader>(L"TriangleShader");
+		mesh->SetVertexBufferParams(2, inputLayoutDesces, triangleShader->GetVSBlob()->GetBufferPointer(), triangleShader->GetVSBlob()->GetBufferSize());
+
 		mesh->CreateVB(vertexes);
 		mesh->CreateIB(indices);
 
@@ -122,6 +138,31 @@ namespace ya::renderer
 		indices.push_back(1);
 		indices.push_back(2);
 
+		D3D11_INPUT_ELEMENT_DESC inputLayoutDesces[3] = {};
+		inputLayoutDesces[0].AlignedByteOffset = 0;
+		inputLayoutDesces[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
+		inputLayoutDesces[0].InputSlot = 0;
+		inputLayoutDesces[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		inputLayoutDesces[0].SemanticName = "POSITION";
+		inputLayoutDesces[0].SemanticIndex = 0;
+
+		inputLayoutDesces[1].AlignedByteOffset = 12;
+		inputLayoutDesces[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+		inputLayoutDesces[1].InputSlot = 0;
+		inputLayoutDesces[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		inputLayoutDesces[1].SemanticName = "COLOR";
+		inputLayoutDesces[1].SemanticIndex = 0;
+
+		inputLayoutDesces[2].AlignedByteOffset = 28; 
+		inputLayoutDesces[2].Format = DXGI_FORMAT_R32G32_FLOAT;
+		inputLayoutDesces[2].InputSlot = 0;
+		inputLayoutDesces[2].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		inputLayoutDesces[2].SemanticName = "TEXCOORD";
+		inputLayoutDesces[2].SemanticIndex = 0;
+
+		graphics::Shader* spriteShader = Resources::Find<graphics::Shader>(L"SpriteShader");
+		mesh->SetVertexBufferParams(3, inputLayoutDesces, spriteShader->GetVSBlob()->GetBufferPointer(), spriteShader->GetVSBlob()->GetBufferSize());
+
 		mesh->CreateVB(vertexes);
 		mesh->CreateIB(indices);
 
@@ -142,10 +183,16 @@ namespace ya::renderer
 
 	void LoadMeterails()
 	{
+		Material* triangleMaterial = new Material();
+		ya::Resources::Insert(L"TriangleMaterial", triangleMaterial);
+
+		triangleMaterial->SetShader(ya::Resources::Find<graphics::Shader>(L"TriangleShader"));
+
 		Material* spriteMaterial = new Material();
 		ya::Resources::Insert(L"SpriteMaterial", spriteMaterial);
 
 		spriteMaterial->SetShader( ya::Resources::Find<graphics::Shader>(L"SpriteShader") );
+
 		//ya::Resources::Load<graphics::Material>(L"SpriteMaterial", L"..\\Materials\\SpriteMaterial")
 	}
 
@@ -158,15 +205,17 @@ namespace ya::renderer
 	void Initialize()
 	{
 		LoadStates();
-		LoadMeshes();
 		LoadShaders();
+		LoadMeshes();
 		LoadMeterails();
 		LoadConstantBuffers();
 	}
 
 	void Release()
 	{
-		//if (inputLayouts)
-		//	inputLayouts->Release();
+		//for (int i = 0; i < (UINT)eCBType::End; i++)
+		//{
+		//	constantBuffers[i].Release();
+		//}
 	}
 }

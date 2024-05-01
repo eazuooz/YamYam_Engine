@@ -12,10 +12,8 @@ using namespace ya::graphics;
 namespace ya::renderer
 {
 	extern Camera* mainCamera;
-
 	extern graphics::ConstantBuffer constantBuffers[(UINT)eCBType::End];
 
-	extern Microsoft::WRL::ComPtr <ID3D11InputLayout> inputLayout;
 
 	void Initialize();
 	void Release();

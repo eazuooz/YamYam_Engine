@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaInputLayout.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaConstantBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaGraphics.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaAudioClip.h" />
@@ -62,6 +63,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaVertexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaInputLayout.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaAudioClip.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaAudioListener.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaAudioSource.cpp" />
