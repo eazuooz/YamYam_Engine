@@ -25,6 +25,6 @@ VS_Output main(VS_Input input)
     
     output.color = input.color;
     output.uv = input.uv;
-
+    
     return output;
 }
