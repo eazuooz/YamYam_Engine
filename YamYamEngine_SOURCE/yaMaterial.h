@@ -8,9 +8,9 @@ namespace ya
 	class Material : public Resource
 	{
 	public:
-		struct Data
+		struct Data //Texture names
 		{
-			std::wstring albedo; //difuuse
+			std::wstring albedo; //diffuse
 		};
 
 		Material();
@@ -22,12 +22,13 @@ namespace ya
 		void Bind();
 
 		void SetShader(graphics::Shader* shader) { mShader = shader; }
+		void SetAlbedoTexture(graphics::Texture* texture) { mAlbedoTexture = texture; mData.albedo = texture->GetName(); }
 
 	private:
 		graphics::eRenderingMode mMode;
 		Material::Data mData;
 
-		//Texture* mTexture;
+		graphics::Texture* mAlbedoTexture;
 		graphics::Shader* mShader;
 	};
 }

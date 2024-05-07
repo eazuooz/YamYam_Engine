@@ -184,22 +184,19 @@ namespace ya::renderer
 	void LoadMeterails()
 	{
 		Material* triangleMaterial = new Material();
+		triangleMaterial->SetShader(ya::Resources::Find<graphics::Shader>(L"TriangleShader"));
 		ya::Resources::Insert(L"TriangleMaterial", triangleMaterial);
 
-		triangleMaterial->SetShader(ya::Resources::Find<graphics::Shader>(L"TriangleShader"));
-
 		Material* spriteMaterial = new Material();
-		ya::Resources::Insert(L"SpriteMaterial", spriteMaterial);
-
+		graphics::Texture* texture = Resources::Find<graphics::Texture>(L"Player");
+		spriteMaterial->SetAlbedoTexture(texture);
 		spriteMaterial->SetShader( ya::Resources::Find<graphics::Shader>(L"SpriteShader") );
-
-		//ya::Resources::Load<graphics::Material>(L"SpriteMaterial", L"..\\Materials\\SpriteMaterial")
+		ya::Resources::Insert(L"SpriteMaterial", spriteMaterial);
 	}
 
 	void LoadConstantBuffers()
 	{
 		constantBuffers[(UINT)eCBType::Transform].Create(eCBType::Transform, sizeof(Vector4));
-
 	}
 
 	void Initialize()

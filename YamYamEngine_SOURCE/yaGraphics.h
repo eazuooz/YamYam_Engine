@@ -55,6 +55,16 @@ namespace ya::graphics
 		End,
 	};
 
+	enum class eTextureType
+	{
+		Albedo,
+		Normal,
+		Specular,
+		Smoothness,
+		Metallic,
+		End,
+	};
+
 	struct GpuBuffer
 	{
 		Microsoft::WRL::ComPtr<ID3D11Buffer> buffer = nullptr;

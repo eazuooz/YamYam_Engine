@@ -28,6 +28,5 @@ namespace ya
 	private:
 		static FMOD::Studio::System* mSystem;
 		static FMOD::System* mCoreSystem;
-
 	};
 }
