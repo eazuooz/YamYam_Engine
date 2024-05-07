@@ -5,6 +5,9 @@
 #include "yaTexture.h"
 #include "yaApplication.h"
 #include "yaRenderer.h"
+#include "yaSceneManager.h"
+#include "yaTitleScene.h"
+#include "yaPlayScene.h"
 
 extern ya::Application application;
 
@@ -79,6 +82,9 @@ namespace ya
 			Resources::Load<graphics::Texture>(L"Player", L"..\\Resources\\CloudOcean.png");
 
 			renderer::Initialize();
+
+			SceneManager::CreateScene<TitleScene>(L"TitleScene");
+			SceneManager::CreateScene<PlayScene>(L"PlayScene");
 		}
 		m.unlock();
 

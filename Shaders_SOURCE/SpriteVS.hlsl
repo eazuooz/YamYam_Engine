@@ -1,22 +1,22 @@
 #include "ConstantBuffers.hlsli"
 
-struct VS_Input
+struct VSInput
 {
     float3 pos : POSITION;
     float4 color : COLOR;
     float2 uv : TEXCOORD;
 };
 
-struct VS_Output
+struct VSOutput
 {
     float4 pos : SV_Position;
     float4 color : COLOR;
     float2 uv : TEXCOORD;
 };
 
-VS_Output main(VS_Input input)
+VSOutput main(VSInput input)
 {
-    VS_Output output;
+    VSOutput output;
     output.pos = float4(input.pos, 1.0f);
     
     output.pos.x += position.x;
