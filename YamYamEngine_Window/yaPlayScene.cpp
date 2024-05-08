@@ -51,7 +51,7 @@ namespace ya
 		object::DontDestroyOnLoad(mPlayer);
 
 		SpriteRenderer* sr = mPlayer->AddComponent<SpriteRenderer>();
-		sr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
+		sr->SetMaterial(Resources::Find<Material>(L"Sprite-Default-Material"));
 		sr->SetSprite(Resources::Find<graphics::Texture>(L"Player"));
 
 		Scene::Initialize();

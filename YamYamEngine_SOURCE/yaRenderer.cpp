@@ -160,7 +160,7 @@ namespace ya::renderer
 		inputLayoutDesces[2].SemanticName = "TEXCOORD";
 		inputLayoutDesces[2].SemanticIndex = 0;
 
-		graphics::Shader* spriteShader = Resources::Find<graphics::Shader>(L"SpriteShader");
+		graphics::Shader* spriteShader = Resources::Find<graphics::Shader>(L"Sprite-Default-Shader");
 		mesh->SetVertexBufferParams(3, inputLayoutDesces, spriteShader->GetVSBlob()->GetBufferPointer(), spriteShader->GetVSBlob()->GetBufferSize());
 
 		mesh->CreateVB(vertexes);
@@ -178,7 +178,7 @@ namespace ya::renderer
 	void LoadShaders()
 	{
 		ya::Resources::Load<graphics::Shader>(L"TriangleShader", L"..\\Shaders_SOURCE\\Triangle");
-		ya::Resources::Load<graphics::Shader>(L"SpriteShader", L"..\\Shaders_SOURCE\\Sprite");
+		ya::Resources::Load<graphics::Shader>(L"Sprite-Default-Shader", L"..\\Shaders_SOURCE\\Sprite-Default");
 	}
 
 	void LoadMeterails()
@@ -190,8 +190,8 @@ namespace ya::renderer
 		Material* spriteMaterial = new Material();
 		graphics::Texture* texture = Resources::Find<graphics::Texture>(L"Player");
 		spriteMaterial->SetAlbedoTexture(texture);
-		spriteMaterial->SetShader( ya::Resources::Find<graphics::Shader>(L"SpriteShader") );
-		ya::Resources::Insert(L"SpriteMaterial", spriteMaterial);
+		spriteMaterial->SetShader( ya::Resources::Find<graphics::Shader>(L"Sprite-Default-Shader") );
+		ya::Resources::Insert(L"Sprite-Default-Material", spriteMaterial);
 	}
 
 	void LoadConstantBuffers()
