@@ -54,7 +54,7 @@ vcpkg install directxmesh:x64-windows
 3D Game Programming (https://www.3dgep.com/)
 
 
-
+# 저작권 (mit license)
 Copyright (c) <2023> <YamYamCoding>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
