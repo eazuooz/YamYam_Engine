@@ -20,11 +20,16 @@ namespace ya::graphics
 		void Bind();
 
 		Microsoft::WRL::ComPtr<ID3DBlob> GetVSBlob() { return mVSBlob; }
+		Microsoft::WRL::ComPtr<ID3DBlob> GetHSBlob() { return mHSBlob; }
+		Microsoft::WRL::ComPtr<ID3DBlob> GetDSBlob() { return mDSBlob; }
+		Microsoft::WRL::ComPtr<ID3DBlob> GetGSBlob() { return mGSBlob; }
+		Microsoft::WRL::ComPtr<ID3DBlob> GetPSBlob() { return mPSBlob; }
+
+		void SetRasterizerState(const eRasterizerState state) { mRasterizerState = state; }
+		void SetBlendState(const eBlendState state) { mBlendState = state; }
+		void SetDepthStencilState(const eDepthStencilState state) { mDepthStencilState = state; }
 
 	private:
-		// Microsoft::WRL::ComPtr<ID3D11InputLayout> mInputLayout; 고민해봐야한다. 어떻게 설계할것인지.
-		// input layout 정점에 대한 정보들 Mesh, shader, inputlayout 클래스를 만들어 감싼다 중에 고민
-
 		Microsoft::WRL::ComPtr<ID3DBlob> mVSBlob;
 		Microsoft::WRL::ComPtr<ID3DBlob> mHSBlob;
 		Microsoft::WRL::ComPtr<ID3DBlob> mDSBlob;
@@ -36,5 +41,9 @@ namespace ya::graphics
 		Microsoft::WRL::ComPtr<ID3D11DomainShader> mDS;
 		Microsoft::WRL::ComPtr<ID3D11GeometryShader> mGS;
 		Microsoft::WRL::ComPtr<ID3D11PixelShader> mPS;
+
+		graphics::eRasterizerState mRasterizerState;
+		graphics::eBlendState mBlendState;
+		graphics::eDepthStencilState mDepthStencilState;
 	};
 }

@@ -18,6 +18,6 @@ struct VSOutput
 
 float4 main(VSOutput input) : SV_Target
 {
-    float4 color = albedo.Sample(anisotropicSampler, input.uv);
+    float4 color = sprite.Sample(anisotropicSampler, input.uv);
     return color;
 }

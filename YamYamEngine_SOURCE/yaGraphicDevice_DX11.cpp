@@ -14,7 +14,7 @@ namespace ya::graphics
 	GraphicDevice_DX11::GraphicDevice_DX11()
 	{
 		ya::graphics::GetDevice() = this;
-		
+
 		if (!(CreateDevice()))
 			assert(NULL && "Create Device Failed!");
 	}
@@ -181,6 +181,28 @@ namespace ya::graphics
 		return true;
 	}
 
+	bool GraphicDevice_DX11::CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDesc, ID3D11RasterizerState** ppRasterizerState)
+	{
+		if (FAILED(mDevice->CreateRasterizerState(pRasterizerDesc, ppRasterizerState)))
+			return false;
+
+		return true;
+	}
+	bool GraphicDevice_DX11::CreateBlendState(const D3D11_BLEND_DESC* pBlendState, ID3D11BlendState** ppBlendState)
+	{
+		if (FAILED(mDevice->CreateBlendState(pBlendState, ppBlendState)))
+			return false;
+
+		return true;
+	}
+	bool GraphicDevice_DX11::CreateDepthStencilState(const D3D11_DEPTH_STENCIL_DESC* pDepthStencilDesc, ID3D11DepthStencilState** ppDepthStencilState)
+	{
+		if (FAILED(mDevice->CreateDepthStencilState(pDepthStencilDesc, ppDepthStencilState)))
+			return false;
+
+		return true;
+	}
+
 	void GraphicDevice_DX11::SetDataGpuBuffer(ID3D11Buffer* buffer, void* data, UINT size)
 	{
 		D3D11_MAPPED_SUBRESOURCE sub = {};
@@ -303,6 +325,19 @@ namespace ya::graphics
 		BindSampler(eShaderStage::PS, StartSlot, NumSamplers, ppSamplers);
 	}
 
+	void GraphicDevice_DX11::BindRasterizerState(ID3D11RasterizerState* pRasterizerState)
+	{
+		mContext->RSSetState(pRasterizerState);
+	}
+	void GraphicDevice_DX11::BindBlendState(ID3D11BlendState* pBlendState, const FLOAT BlendFactor[4], UINT SampleMask)
+	{
+		mContext->OMSetBlendState(pBlendState, BlendFactor, SampleMask);
+	}
+	void GraphicDevice_DX11::BindDepthStencilState(ID3D11DepthStencilState* pDepthStencilState, UINT StencilRef)
+	{
+		mContext->OMSetDepthStencilState(pDepthStencilState, StencilRef);
+	}
+
 	void GraphicDevice_DX11::BindViewPort()
 	{
 		D3D11_VIEWPORT viewPort =
@@ -315,8 +350,8 @@ namespace ya::graphics
 		mContext->RSSetViewports(1, &viewPort);
 	}
 
-	void GraphicDevice_DX11::BindRenderTargets(UINT NumViews 
-		, ID3D11RenderTargetView* const* ppRenderTargetViews 
+	void GraphicDevice_DX11::BindRenderTargets(UINT NumViews
+		, ID3D11RenderTargetView* const* ppRenderTargetViews
 		, ID3D11DepthStencilView* pDepthStencilView)
 	{
 		mContext->OMSetRenderTargets(NumViews, ppRenderTargetViews, pDepthStencilView);
@@ -428,7 +463,7 @@ namespace ya::graphics
 		material->Bind();
 
 		mContext->DrawIndexed(3, 0, 0);
-		
+
 	}
 
 	void GraphicDevice_DX11::DrawIndexed(UINT IndexCount, UINT StartIndexLocation, INT BaseVertexLocation)
