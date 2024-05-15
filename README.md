@@ -46,9 +46,15 @@ vcpkg install directxmesh:x64-windows
 [Tool](https://typical-slug-3ef.notion.site/Tool-Programming-5c92a9117abd49b7be110c00374b6e1f?pvs=4)
 
 
+# *참고 자료*
+홍랩 그래픽스 강의 (https://honglab.co.kr/courses/graphicspt2)
+
+위키드 엔진 (https://wickedengine.net/)
+
+3D Game Programming (https://www.3dgep.com/)
 
 
-
+# 저작권 (mit license)
 Copyright (c) <2023> <YamYamCoding>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
