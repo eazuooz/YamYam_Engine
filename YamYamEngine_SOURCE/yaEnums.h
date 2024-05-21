@@ -21,9 +21,6 @@ namespace ya::enums
 	{
 		None,
 		BackGround,
-		Tile,
-		//character
-		Animal,
 		Player,
 		Floor,
 		Particle,

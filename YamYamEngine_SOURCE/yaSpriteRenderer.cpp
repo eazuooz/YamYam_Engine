@@ -3,7 +3,7 @@
 #include "yaTransform.h"
 #include "yaTexture.h"
 #include "yaRenderer.h"
-
+#include "yaTransform.h"
 #include "yaResources.h"
 
 namespace ya
@@ -36,6 +36,10 @@ namespace ya
 
 	void SpriteRenderer::Render()
 	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		if (tr)
+			tr->Bind();
+
 		if (mMesh)
 			mMesh->Bind();
 

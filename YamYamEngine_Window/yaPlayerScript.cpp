@@ -5,7 +5,6 @@
 #include "yaGameObject.h"
 #include "yaAnimator.h"
 #include "yaCat.h"
-#include "yaCatScript.h"
 #include "yaObject.h"
 #include "yaResources.h"
 #include "yaRigidbody.h"
@@ -215,26 +214,26 @@ namespace ya
 	void PlayerScript::move()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
-		Vector2 pos = tr->GetPosition();
+		Vector3 pos = tr->GetPosition();
 
 		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
 
-		if (Input::GetKey(eKeyCode::D))
+		if (Input::GetKey(eKeyCode::Right))
 		{
 			//pos.x += 100.0f * Time::DeltaTime();
 			rb->AddForce(Vector2(200.0f, 0.0f));
 		}
-		if (Input::GetKey(eKeyCode::A))
+		if (Input::GetKey(eKeyCode::Left))
 		{
 			//pos.x -= 100.0f * Time::DeltaTime();
 			rb->AddForce(Vector2(-200.0f, 0.0f));
 		}
-		if (Input::GetKey(eKeyCode::W))
+		if (Input::GetKey(eKeyCode::Up))
 		{
 			//pos.y -= 100.0f * Time::DeltaTime();
 			rb->AddForce(Vector2(0.0f, 200.0f));
 		}
-		if (Input::GetKey(eKeyCode::S))
+		if (Input::GetKey(eKeyCode::Down))
 		{
 			//pos.y += 100.0f * Time::DeltaTime();
 			rb->AddForce(Vector2(0.0f, -200.0f));

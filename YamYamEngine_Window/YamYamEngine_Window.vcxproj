@@ -153,9 +153,7 @@ copy "$(SolutionDir)\External\Library\Fmod\Release\fmodstudio.dll" "$(SolutionDi
   <ItemGroup>
     <ClInclude Include="yaCameraScript.h" />
     <ClInclude Include="yaCat.h" />
-    <ClInclude Include="yaCatScript.h" />
     <ClInclude Include="yaFloor.h" />
-    <ClInclude Include="yaFloorScript.h" />
     <ClInclude Include="yaLoadingScene.h" />
     <ClInclude Include="yaLoadScenes.h" />
     <ClInclude Include="yaPlayer.h" />
@@ -163,21 +161,17 @@ copy "$(SolutionDir)\External\Library\Fmod\Release\fmodstudio.dll" "$(SolutionDi
     <ClInclude Include="yaPlayerScript.h" />
     <ClInclude Include="yaTile.h" />
     <ClInclude Include="yaTitleScene.h" />
-    <ClInclude Include="yaToolScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaCameraScript.cpp" />
     <ClCompile Include="yaCat.cpp" />
-    <ClCompile Include="yaCatScript.cpp" />
     <ClCompile Include="yaFloor.cpp" />
-    <ClCompile Include="yaFloorScript.cpp" />
     <ClCompile Include="yaLoadingScene.cpp" />
     <ClCompile Include="yaPlayer.cpp" />
     <ClCompile Include="yaPlayScene.cpp" />
     <ClCompile Include="yaPlayerScript.cpp" />
     <ClCompile Include="yaTile.cpp" />
     <ClCompile Include="yaTitleScene.cpp" />
-    <ClCompile Include="yaToolScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

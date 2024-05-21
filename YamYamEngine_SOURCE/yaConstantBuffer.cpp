@@ -2,9 +2,9 @@
 
 namespace ya::graphics
 {
-	ConstantBuffer::ConstantBuffer()
+	ConstantBuffer::ConstantBuffer(eCBType type)
 		: mSize(0)
-		, mType(eCBType::None)
+		, mType(type)
 	{
 	}
 
@@ -12,9 +12,8 @@ namespace ya::graphics
 	{
 	}
 
-	bool ConstantBuffer::Create(eCBType type, UINT size, void* data)
+	bool ConstantBuffer::Create(UINT size, void* data)
 	{
-		mType = type;
 		mSize = size;
 		desc.ByteWidth = size; 
 		desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;

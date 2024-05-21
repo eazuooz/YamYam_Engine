@@ -69,6 +69,7 @@ namespace ya
 	{
 
 	}
+
 	void LoadingScene::resourcesLoad(std::mutex& m)
 	{
 		while (true)
@@ -85,11 +86,12 @@ namespace ya
 
 			SceneManager::CreateScene<TitleScene>(L"TitleScene");
 			SceneManager::CreateScene<PlayScene>(L"PlayScene");
+
 		}
 		m.unlock();
 
 		// complete
+		SceneManager::SetActiveScene(L"LoadingScene");
 		mbLoadCompleted = true;
-		
 	}
 }

@@ -16,13 +16,13 @@ struct VSOutput
 
 VSOutput main(VSInput input)
 {
-    VSOutput output;
-    output.pos = float4(input.pos, 1.0f);
+    VSOutput output = (VSOutput)0.0f;
     
-    output.pos.x += position.x;
-    output.pos.y += position.y;
-    output.pos.z += position.z;
+    float4 pos = mul(float4(input.pos, 1.0f), WorldMatrix);
+    float4 viewPos = mul(pos, ViewMatrix);
+    float4 projPos = mul(viewPos, ProjectionMatrix);
     
+    output.pos = projPos;
     output.color = input.color;
     output.uv = input.uv;
     

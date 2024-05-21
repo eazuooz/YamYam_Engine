@@ -1,5 +1,6 @@
 #include "yaScene.h"
 #include "yaCollisionManager.h"
+#include "yaSceneManager.h"
 
 namespace ya
 {
@@ -8,6 +9,7 @@ namespace ya
 	{
 		createLayers();
 	}
+
 	Scene::~Scene()
 	{
 		for ( Layer* layer : mLayers)
@@ -16,16 +18,11 @@ namespace ya
 			layer = nullptr;
 		}
 	}
+
 	void Scene::Initialize()
 	{
-		for (Layer* layer : mLayers)
-		{
-			if (layer == nullptr)
-				continue;
-
-			layer->Initialize();
-
-		}
+		const std::wstring& sceneName = GetName();
+		SceneManager::SetActiveScene(sceneName);
 	}
 
 	void Scene::Update()

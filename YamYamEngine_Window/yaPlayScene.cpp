@@ -15,7 +15,6 @@
 #include "yaRenderer.h"
 #include "yaAnimator.h"
 #include "yaCat.h"
-#include "yaCatScript.h"
 #include "yaBoxCollider2D.h"
 #include "yaCircleCollider2D.h"
 #include "yaCollisionManager.h"
@@ -23,12 +22,12 @@
 #include "yaTilemapRenderer.h"
 #include "yaRigidbody.h"
 #include "yaFloor.h"
-#include "yaFloorScript.h"
 #include "yaAudioClip.h"
 #include "yaAudioListener.h"
 #include "yaAudioSource.h"
 #include "yaGraphicDevice_DX11.h"
 #include "yaSpriteRenderer.h"
+#include "yaCameraScript.h"
 #include "yaMaterial.h"
 
 namespace ya
@@ -42,18 +41,22 @@ namespace ya
 	}
 	void PlayScene::Initialize()
 	{
-		//// main camera
-		//GameObject* camera = object::Instantiate<GameObject>(enums::eLayerType::Particle, Vector2(344.0f, 442.0f));
-		//Camera* cameraComp = camera->AddComponent<Camera>();
-		//renderer::mainCamera = cameraComp;
+		Scene::Initialize();
+
+		// main camera
+		GameObject* camera = object::Instantiate<GameObject>(enums::eLayerType::None, Vector3(0.0f, 0.0f, -10.0f));
+		Camera* cameraComp = camera->AddComponent<Camera>();
+		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
+		cameraComp->SetSize(200.0f);
+
+		CameraScript* cameraScript = camera->AddComponent<CameraScript>();
+		renderer::mainCamera = cameraComp;
 
 		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
 		object::DontDestroyOnLoad(mPlayer);
 
 		SpriteRenderer* sr = mPlayer->AddComponent<SpriteRenderer>();
 		sr->SetSprite(Resources::Find<graphics::Texture>(L"Player"));
-
-		Scene::Initialize();
 	}
 
 	void PlayScene::Update()

@@ -22,7 +22,7 @@ namespace ya::object
 	}
 
 	template <typename T>
-	static T* Instantiate(ya::enums::eLayerType type, math::Vector2 position)
+	static T* Instantiate(ya::enums::eLayerType type, math::Vector3 position)
 	{
 		T* gameObject = new T();
 		gameObject->SetLayerType(type);

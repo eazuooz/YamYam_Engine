@@ -72,3 +72,4 @@ namespace ya::graphics
 		GetDevice()->BindDepthStencilState(renderer::depthStencilStates[(UINT)mDepthStencilState].Get(), 0);
 	}
 }
+

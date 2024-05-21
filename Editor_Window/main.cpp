@@ -10,7 +10,6 @@
 #include "..\\YamYamEngine_SOURCE\\yaSceneManager.h"
 
 #include "..\\YamYamEngine_Window\\yaLoadScenes.h"
-#include "..\\YamYamEngine_Window\\yaToolScene.h"
 
 ya::Application application;
 
@@ -51,7 +50,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, //프로그램의 인스턴스 �
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_EDITORWINDOW, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance, szWindowClass, WndProc);
-    MyRegisterClass(hInstance, L"TILEWINDOW", WndTileProc);
 
     // 애플리케이션 초기화를 수행합니다:
     if (!InitInstance (hInstance, nCmdShow))
@@ -159,34 +157,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    return TRUE;
 }
-
-//BOOL InitToolScene(HINSTANCE hInstance)
-//{
-//    ya::Scene* activeScene = ya::SceneManager::GetActiveScene();
-//    std::wstring name = activeScene->GetName();
-//
-//    if (name == L"ToolScene")
-//    {
-//        HWND ToolHWnd = CreateWindowW(L"TILEWINDOW", L"TileWindow", WS_OVERLAPPEDWINDOW,
-//            0, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-//
-//        //Tile 윈도우 크기 조정 -- TOOL
-//        ya::graphics::Texture* texture
-//            = ya::Resources::Find<ya::graphics::Texture>(L"SpringFloor");
-//
-//        RECT rect = { 0, 0, (LONG)texture->GetWidth(), (LONG)texture->GetHeight() };
-//        AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
-//
-//        UINT toolWidth = rect.right - rect.left;
-//        UINT toolHeight = rect.bottom - rect.top;
-//
-//        SetWindowPos(ToolHWnd, nullptr, 672, 0, toolWidth, toolHeight, 0);
-//        ShowWindow(ToolHWnd, true);
-//        UpdateWindow(ToolHWnd);
-//    }
-//
-//    return TRUE;
-//}
 
 //
 //  함수: WndProc(HWND, UINT, WPARAM, LPARAM)

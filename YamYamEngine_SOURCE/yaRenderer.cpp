@@ -9,7 +9,7 @@
 namespace ya::renderer
 {
 	Camera* mainCamera = nullptr;
-	ConstantBuffer constantBuffers[(UINT)eCBType::End] = {};
+	ConstantBuffer* constantBuffers[(UINT)eCBType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[(UINT)eSamplerType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizerStates[(UINT)eRasterizerState::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBlendState::End] = {};
@@ -122,7 +122,6 @@ namespace ya::renderer
 		dsDesc.StencilEnable = false;
 		GetDevice()->CreateDepthStencilState(&dsDesc, depthStencilStates[(UINT)eDepthStencilState::DepthNone].GetAddressOf());
 #pragma endregion
-
 	}
 
 	void LoadTriangleMesh()
@@ -261,7 +260,8 @@ namespace ya::renderer
 
 	void LoadConstantBuffers()
 	{
-		constantBuffers[(UINT)eCBType::Transform].Create(eCBType::Transform, sizeof(Vector4));
+		constantBuffers[CBSLOT_TRANSFORM] = new ConstantBuffer(eCBType::Transform);
+		constantBuffers[CBSLOT_TRANSFORM]->Create(sizeof(TransformCB));
 	}
 
 	void Initialize()
@@ -275,9 +275,10 @@ namespace ya::renderer
 
 	void Release()
 	{
-		//for (int i = 0; i < (UINT)eCBType::End; i++)
-		//{
-		//	constantBuffers[i].Release();
-		//}
+		for (UINT i = 0; i < (UINT)eCBType::End; i++)
+		{
+			delete constantBuffers[i];
+			constantBuffers[i] = nullptr;
+		}
 	}
 }

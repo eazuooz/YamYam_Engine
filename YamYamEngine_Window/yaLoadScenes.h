@@ -4,7 +4,6 @@
 #include "yaLoadingScene.h"
 #include "yaPlayScene.h"
 #include "yaTitleScene.h"
-#include "yaToolScene.h"
 
 
 namespace ya

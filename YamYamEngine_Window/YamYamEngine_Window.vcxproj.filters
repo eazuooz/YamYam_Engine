@@ -30,12 +30,6 @@
     <ClInclude Include="yaCat.h">
       <Filter>Contents</Filter>
     </ClInclude>
-    <ClInclude Include="yaCatScript.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="yaToolScene.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="yaTile.h">
       <Filter>Contents</Filter>
     </ClInclude>
@@ -44,9 +38,6 @@
     </ClInclude>
     <ClInclude Include="yaFloor.h">
       <Filter>Contents</Filter>
-    </ClInclude>
-    <ClInclude Include="yaFloorScript.h">
-      <Filter>Scripts</Filter>
     </ClInclude>
     <ClInclude Include="yaLoadingScene.h">
       <Filter>Scenes</Filter>
@@ -68,12 +59,6 @@
     <ClCompile Include="yaCat.cpp">
       <Filter>Contents</Filter>
     </ClCompile>
-    <ClCompile Include="yaCatScript.cpp">
-      <Filter>Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="yaToolScene.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="yaTile.cpp">
       <Filter>Contents</Filter>
     </ClCompile>
@@ -82,9 +67,6 @@
     </ClCompile>
     <ClCompile Include="yaFloor.cpp">
       <Filter>Contents</Filter>
-    </ClCompile>
-    <ClCompile Include="yaFloorScript.cpp">
-      <Filter>Scripts</Filter>
     </ClCompile>
     <ClCompile Include="yaLoadingScene.cpp">
       <Filter>Scenes</Filter>
