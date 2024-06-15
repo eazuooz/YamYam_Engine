@@ -22,13 +22,13 @@ namespace ya
 		void Destroy();
 		void Release();
 
-		[[discard]] HWND GetHwnd() const { return mHwnd; }
+		[[nodiscard]] HWND GetHwnd() const { return mHwnd; }
 
-		[[discard]] UINT GetWidth() const { return mWidth; }
-		[[discard]] UINT GetHeight() const { return mHeight; }
+		[[nodiscard]] UINT GetWidth() const { return mWidth; }
+		[[nodiscard]] UINT GetHeight() const { return mHeight; }
 
-		[[discard]] bool IsLoaded() const { return mbLoaded; }
-		[[noreturn]] void IsLoaded(bool load) { mbLoaded = load; }
+		[[nodiscard]] bool IsLoaded() const { return mbLoaded; }
+		[[noreturn]] void IsLoaded(const bool load) { mbLoaded = load; }
 
 	private:
 		bool mbLoaded;
