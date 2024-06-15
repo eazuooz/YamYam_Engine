@@ -8,17 +8,21 @@ namespace ya
 	TitleScene::TitleScene()
 	{
 	}
+
 	TitleScene::~TitleScene()
 	{
 	}
+
 	void TitleScene::Initialize()
 	{
 		Scene::Initialize();
 	}
+
 	void TitleScene::Update()
 	{
 		Scene::Update();
 	}
+
 	void TitleScene::LateUpdate()
 	{
 		Scene::LateUpdate();
@@ -28,6 +32,7 @@ namespace ya
 			SceneManager::LoadScene(L"PlayScene");
 		}
 	}
+
 	void TitleScene::Render()
 	{
 		Scene::Render();
@@ -37,6 +42,7 @@ namespace ya
 	{
 		Scene::OnEnter();
 	}
+
 	void TitleScene::OnExit()
 	{
 		Scene::OnExit();

@@ -6,12 +6,9 @@
 
 namespace ya
 {
-
-
-
 	CircleCollider2D::CircleCollider2D()
-		: Collider(enums::eColliderType::Circle2D)
-		, mRadius(0.0f)
+		: Collider(eColliderType::Circle2D)
+		  , mRadius(0.0f)
 	{
 	}
 
@@ -33,9 +30,7 @@ namespace ya
 
 	void CircleCollider2D::Render()
 	{
-		Transform* tr = GetOwner()->GetComponent<Transform>();
+		const Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
-
 	}
-
 }

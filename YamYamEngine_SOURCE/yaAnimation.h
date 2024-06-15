@@ -9,23 +9,23 @@ namespace ya
 	public:
 		struct Sprite
 		{
-			Vector2 leftTop;
-			Vector2 size;
-			Vector2 offset;
-			float duration;
+			Vector2 LeftTop;
+			Vector2 Size;
+			Vector2 Offset;
+			float Duration;
 
 			Sprite()
-				: leftTop(Vector2::Zero)
-				, size(Vector2::Zero)
-				, offset(Vector2::Zero)
-				, duration(0.0f)
+				: LeftTop(Vector2::Zero)
+				, Size(Vector2::Zero)
+				, Offset(Vector2::Zero)
+				, Duration(0.0f)
 			{
 
 			}
 		};
 
 		Animation();
-		~Animation();
+		virtual ~Animation();
 
 		virtual HRESULT Save(const std::wstring& path) override;
 		virtual HRESULT Load(const std::wstring& path) override;
@@ -36,19 +36,19 @@ namespace ya
 		void CreateAnimation(const std::wstring& name
 			, graphics::Texture* spriteSheet
 			, Vector2 leftTop
-			, Vector2 sizei
+			, Vector2 size
 			, Vector2 offset
-			, UINT spriteLegth
+			, UINT spriteLength
 			, float duration);
 
 		void Reset();
 
-		bool IsComplete() const { return mbComplete; }
-		void SetAnimator(class Animator* animator) { mAnimator = animator; }
+		[[nodiscard]] bool IsComplete() const { return mbComplete; }
+		[[noreturn]] void SetAnimator(class Animator* animator) { mAnimator = animator; }
 
 
 	private:
-		class Animator* mAnimator;
+		Animator* mAnimator;
 		graphics::Texture* mTexture;
 
 		std::vector<Sprite> mAnimationSheet;

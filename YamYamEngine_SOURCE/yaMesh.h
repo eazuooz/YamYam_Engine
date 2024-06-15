@@ -5,7 +5,6 @@
 #include "yaIndexBuffer.h"
 
 
-
 namespace ya
 {
 	class Mesh : public Resource
@@ -22,15 +21,16 @@ namespace ya
 		};
 
 		Mesh();
-		~Mesh();
+		virtual ~Mesh();
 
-		virtual HRESULT Save(const std::wstring& path) override;
-		virtual HRESULT Load(const std::wstring& path) override;
+		HRESULT Save(const std::wstring& path) override;
+		HRESULT Load(const std::wstring& path) override;
 
 
 		bool CreateVB(const std::vector<graphics::Vertex>& vertices);
 		bool CreateIB(const std::vector<UINT>& indices);
-		void SetVertexBufferParams(UINT vertexCount, D3D11_INPUT_ELEMENT_DESC* layout, const void* pShaderBytecodeWithInputSignature, SIZE_T BytecodeLength);
+		void SetVertexBufferParams(UINT vertexCount, D3D11_INPUT_ELEMENT_DESC* layout,
+		                           const void* pShaderBytecodeWithInputSignature, SIZE_T BytecodeLength);
 
 		void Bind();
 

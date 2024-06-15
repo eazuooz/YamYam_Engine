@@ -9,126 +9,140 @@
 namespace ya::renderer
 {
 	Camera* mainCamera = nullptr;
-	ConstantBuffer* constantBuffers[(UINT)eCBType::End] = {};
-	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[(UINT)eSamplerType::End] = {};
-	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizerStates[(UINT)eRasterizerState::End] = {};
-	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBlendState::End] = {};
-	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[(UINT)eDepthStencilState::End] = {};
+	ConstantBuffer* constantBuffers[static_cast<UINT>(eCBType::End)] = {};
+	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[static_cast<UINT>(eSamplerType::End)] = {};
+	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizerStates[static_cast<UINT>(eRasterizerState::End)] = {};
+	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[static_cast<UINT>(eBlendState::End)] = {};
+	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[static_cast<UINT>(eDepthStencilState::End)] = {};
 
 
 	void LoadStates()
 	{
 #pragma region sampler state
 		D3D11_SAMPLER_DESC samplerDesc = {};
-		samplerDesc.Filter = D3D11_FILTER::D3D11_FILTER_ANISOTROPIC;
-		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.ComparisonFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_NEVER;
+		samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
+		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
 		samplerDesc.MinLOD = 0;
 		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-		GetDevice()->CreateSamplerState(&samplerDesc, samplerStates[(UINT)eSamplerType::Anisotropic].GetAddressOf());
+		GetDevice()->CreateSamplerState(&samplerDesc,
+		                                samplerStates[static_cast<UINT>(eSamplerType::Anisotropic)].GetAddressOf());
 
 		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
-		samplerDesc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_MAG_MIP_POINT;
-		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.ComparisonFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_NEVER;
+		samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
 		samplerDesc.MinLOD = 0;
 		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-		GetDevice()->CreateSamplerState(&samplerDesc, samplerStates[(UINT)eSamplerType::Point].GetAddressOf());
+		GetDevice()->CreateSamplerState(&samplerDesc,
+		                                samplerStates[static_cast<UINT>(eSamplerType::Point)].GetAddressOf());
 
 		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
-		samplerDesc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.ComparisonFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_NEVER;
+		samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
 		samplerDesc.MinLOD = 0;
 		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-		GetDevice()->CreateSamplerState(&samplerDesc, samplerStates[(UINT)eSamplerType::Linear].GetAddressOf());
+		GetDevice()->CreateSamplerState(&samplerDesc,
+		                                samplerStates[static_cast<UINT>(eSamplerType::Linear)].GetAddressOf());
 
 		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
-		samplerDesc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_CLAMP;
-		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_CLAMP;
-		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_CLAMP;
-		samplerDesc.ComparisonFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_NEVER;
+		samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+		samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
 		samplerDesc.MinLOD = 0;
 		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-		GetDevice()->CreateSamplerState(&samplerDesc, samplerStates[(UINT)eSamplerType::PostProcess].GetAddressOf());
+		GetDevice()->CreateSamplerState(&samplerDesc,
+		                                samplerStates[static_cast<UINT>(eSamplerType::PostProcess)].GetAddressOf());
 
-		GetDevice()->BindSamplers((UINT)eSamplerType::Point, 1, samplerStates[(UINT)eSamplerType::Point].GetAddressOf());
-		GetDevice()->BindSamplers((UINT)eSamplerType::Linear, 1, samplerStates[(UINT)eSamplerType::Linear].GetAddressOf());
-		GetDevice()->BindSamplers((UINT)eSamplerType::Anisotropic, 1, samplerStates[(UINT)eSamplerType::Anisotropic].GetAddressOf());
-		GetDevice()->BindSamplers((UINT)eSamplerType::PostProcess, 1, samplerStates[(UINT)eSamplerType::PostProcess].GetAddressOf());
+		GetDevice()->BindSamplers(static_cast<UINT>(eSamplerType::Point), 1,
+		                          samplerStates[static_cast<UINT>(eSamplerType::Point)].GetAddressOf());
+		GetDevice()->BindSamplers(static_cast<UINT>(eSamplerType::Linear), 1,
+		                          samplerStates[static_cast<UINT>(eSamplerType::Linear)].GetAddressOf());
+		GetDevice()->BindSamplers(static_cast<UINT>(eSamplerType::Anisotropic), 1,
+		                          samplerStates[static_cast<UINT>(eSamplerType::Anisotropic)].GetAddressOf());
+		GetDevice()->BindSamplers(static_cast<UINT>(eSamplerType::PostProcess), 1,
+		                          samplerStates[static_cast<UINT>(eSamplerType::PostProcess)].GetAddressOf());
 #pragma endregion
 #pragma region rasterize state
 		D3D11_RASTERIZER_DESC rsDesc = {};
 		rsDesc.AntialiasedLineEnable = false;
-		rsDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;	
-		rsDesc.DepthBias = 0;	
-		rsDesc.DepthBiasClamp = 0.0f;	
+		rsDesc.CullMode = D3D11_CULL_BACK;
+		rsDesc.DepthBias = 0;
+		rsDesc.DepthBiasClamp = 0.0f;
 		rsDesc.DepthClipEnable = true;
-		rsDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
+		rsDesc.FillMode = D3D11_FILL_SOLID;
 		rsDesc.FrontCounterClockwise = false;
-		rsDesc.MultisampleEnable = false;	
-		rsDesc.ScissorEnable = false;	
-		rsDesc.SlopeScaledDepthBias = 0.0f;	
-		GetDevice()->CreateRasterizerState(&rsDesc, rasterizerStates[(UINT)eRasterizerState::SolidBack].GetAddressOf());
+		rsDesc.MultisampleEnable = false;
+		rsDesc.ScissorEnable = false;
+		rsDesc.SlopeScaledDepthBias = 0.0f;
+		GetDevice()->CreateRasterizerState(
+			&rsDesc, rasterizerStates[static_cast<UINT>(eRasterizerState::SolidBack)].GetAddressOf());
 
-		rsDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
-		rsDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_FRONT;
-		GetDevice()->CreateRasterizerState(&rsDesc, rasterizerStates[(UINT)eRasterizerState::SolidFront].GetAddressOf());
+		rsDesc.FillMode = D3D11_FILL_SOLID;
+		rsDesc.CullMode = D3D11_CULL_FRONT;
+		GetDevice()->CreateRasterizerState(
+			&rsDesc, rasterizerStates[static_cast<UINT>(eRasterizerState::SolidFront)].GetAddressOf());
 
-		rsDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
-		rsDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
-		GetDevice()->CreateRasterizerState(&rsDesc, rasterizerStates[(UINT)eRasterizerState::SolidNone].GetAddressOf());
+		rsDesc.FillMode = D3D11_FILL_SOLID;
+		rsDesc.CullMode = D3D11_CULL_NONE;
+		GetDevice()->CreateRasterizerState(
+			&rsDesc, rasterizerStates[static_cast<UINT>(eRasterizerState::SolidNone)].GetAddressOf());
 
-		rsDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
-		rsDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
-		GetDevice()->CreateRasterizerState(&rsDesc, rasterizerStates[(UINT)eRasterizerState::WireFrame].GetAddressOf());
+		rsDesc.FillMode = D3D11_FILL_WIREFRAME;
+		rsDesc.CullMode = D3D11_CULL_NONE;
+		GetDevice()->CreateRasterizerState(
+			&rsDesc, rasterizerStates[static_cast<UINT>(eRasterizerState::WireFrame)].GetAddressOf());
 #pragma endregion
 #pragma region blend state
 		D3D11_BLEND_DESC bsDesc = {};
 		bsDesc.AlphaToCoverageEnable = false;
 		bsDesc.IndependentBlendEnable = false;
 		bsDesc.RenderTarget[0].BlendEnable = true;
-		bsDesc.RenderTarget[0].SrcBlend = D3D11_BLEND::D3D11_BLEND_SRC_ALPHA;
-		bsDesc.RenderTarget[0].DestBlend = D3D11_BLEND::D3D11_BLEND_INV_SRC_ALPHA;
-		bsDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
-		bsDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND::D3D11_BLEND_ONE;
-		bsDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND::D3D11_BLEND_ZERO;
-		bsDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
-		bsDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE::D3D11_COLOR_WRITE_ENABLE_ALL;
-		GetDevice()->CreateBlendState(&bsDesc, blendStates[(UINT)eBlendState::AlphaBlend].GetAddressOf());
+		bsDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+		bsDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+		bsDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+		bsDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+		bsDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+		bsDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+		bsDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+		GetDevice()->CreateBlendState(&bsDesc, blendStates[static_cast<UINT>(eBlendState::AlphaBlend)].GetAddressOf());
 
-		bsDesc.RenderTarget[0].SrcBlend = D3D11_BLEND::D3D11_BLEND_ONE;
-		bsDesc.RenderTarget[0].DestBlend = D3D11_BLEND::D3D11_BLEND_ONE;
-		GetDevice()->CreateBlendState(&bsDesc, blendStates[(UINT)eBlendState::OneOne].GetAddressOf());
+		bsDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+		bsDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+		GetDevice()->CreateBlendState(&bsDesc, blendStates[static_cast<UINT>(eBlendState::OneOne)].GetAddressOf());
 #pragma endregion
 #pragma region depthstencil state
 		D3D11_DEPTH_STENCIL_DESC dsDesc = {};
 		dsDesc.DepthEnable = true;
-		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK::D3D11_DEPTH_WRITE_MASK_ALL;
-		dsDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS_EQUAL;
+		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+		dsDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
 		dsDesc.StencilEnable = false;
-		GetDevice()->CreateDepthStencilState(&dsDesc, depthStencilStates[(UINT)eDepthStencilState::LessEqual].GetAddressOf());
+		GetDevice()->CreateDepthStencilState(
+			&dsDesc, depthStencilStates[static_cast<UINT>(eDepthStencilState::LessEqual)].GetAddressOf());
 
 		dsDesc.DepthEnable = false;
-		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK::D3D11_DEPTH_WRITE_MASK_ZERO;
-		dsDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS_EQUAL;
+		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+		dsDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
 		dsDesc.StencilEnable = false;
-		GetDevice()->CreateDepthStencilState(&dsDesc, depthStencilStates[(UINT)eDepthStencilState::DepthNone].GetAddressOf());
+		GetDevice()->CreateDepthStencilState(
+			&dsDesc, depthStencilStates[static_cast<UINT>(eDepthStencilState::DepthNone)].GetAddressOf());
 #pragma endregion
 	}
 
 	void LoadTriangleMesh()
 	{
-		Mesh* mesh = new Mesh();
+		auto mesh = new Mesh();
 
-		std::vector<graphics::Vertex> vertexes = {};
+		std::vector<Vertex> vertexes = {};
 		std::vector<UINT> indices = {};
 
 		vertexes.resize(3);
@@ -140,7 +154,7 @@ namespace ya::renderer
 
 		vertexes[2].pos = Vector3(-0.5f, -0.5f, 0.0f);
 		vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		
+
 		indices.push_back(0);
 		indices.push_back(1);
 		indices.push_back(2);
@@ -160,20 +174,21 @@ namespace ya::renderer
 		inputLayoutDesces[1].SemanticName = "COLOR";
 		inputLayoutDesces[1].SemanticIndex = 0;
 
-		graphics::Shader* triangleShader = Resources::Find<graphics::Shader>(L"TriangleShader");
-		mesh->SetVertexBufferParams(2, inputLayoutDesces, triangleShader->GetVSBlob()->GetBufferPointer(), triangleShader->GetVSBlob()->GetBufferSize());
+		Shader* triangleShader = Resources::Find<Shader>(L"TriangleShader");
+		mesh->SetVertexBufferParams(2, inputLayoutDesces, triangleShader->GetVSBlob()->GetBufferPointer(),
+		                            triangleShader->GetVSBlob()->GetBufferSize());
 
 		mesh->CreateVB(vertexes);
 		mesh->CreateIB(indices);
 
-		ya::Resources::Insert(L"TriangleMesh", mesh);
+		Resources::Insert(L"TriangleMesh", mesh);
 	}
 
 	void LoadRectMesh()
 	{
-		Mesh* mesh = new Mesh();
+		auto mesh = new Mesh();
 
-		std::vector<graphics::Vertex> vertexes = {};
+		std::vector<Vertex> vertexes = {};
 		std::vector<UINT> indices = {};
 
 		vertexes.resize(4);
@@ -217,20 +232,21 @@ namespace ya::renderer
 		inputLayoutDesces[1].SemanticName = "COLOR";
 		inputLayoutDesces[1].SemanticIndex = 0;
 
-		inputLayoutDesces[2].AlignedByteOffset = 28; 
+		inputLayoutDesces[2].AlignedByteOffset = 28;
 		inputLayoutDesces[2].Format = DXGI_FORMAT_R32G32_FLOAT;
 		inputLayoutDesces[2].InputSlot = 0;
 		inputLayoutDesces[2].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 		inputLayoutDesces[2].SemanticName = "TEXCOORD";
 		inputLayoutDesces[2].SemanticIndex = 0;
 
-		graphics::Shader* spriteShader = Resources::Find<graphics::Shader>(L"Sprite-Default-Shader");
-		mesh->SetVertexBufferParams(3, inputLayoutDesces, spriteShader->GetVSBlob()->GetBufferPointer(), spriteShader->GetVSBlob()->GetBufferSize());
+		Shader* spriteShader = Resources::Find<Shader>(L"Sprite-Default-Shader");
+		mesh->SetVertexBufferParams(3, inputLayoutDesces, spriteShader->GetVSBlob()->GetBufferPointer(),
+		                            spriteShader->GetVSBlob()->GetBufferSize());
 
 		mesh->CreateVB(vertexes);
 		mesh->CreateIB(indices);
 
-		ya::Resources::Insert(L"RectMesh", mesh);
+		Resources::Insert(L"RectMesh", mesh);
 	}
 
 	void LoadMeshes()
@@ -241,21 +257,21 @@ namespace ya::renderer
 
 	void LoadShaders()
 	{
-		ya::Resources::Load<graphics::Shader>(L"TriangleShader", L"..\\Shaders_SOURCE\\Triangle");
-		ya::Resources::Load<graphics::Shader>(L"Sprite-Default-Shader", L"..\\Shaders_SOURCE\\Sprite-Default");
+		Resources::Load<Shader>(L"TriangleShader", L"..\\Shaders_SOURCE\\Triangle");
+		Resources::Load<Shader>(L"Sprite-Default-Shader", L"..\\Shaders_SOURCE\\Sprite-Default");
 	}
 
-	void LoadMeterails()
+	void LoadMaterials()
 	{
-		Material* triangleMaterial = new Material();
-		triangleMaterial->SetShader(ya::Resources::Find<graphics::Shader>(L"TriangleShader"));
-		ya::Resources::Insert(L"TriangleMaterial", triangleMaterial);
+		auto triangleMaterial = new Material();
+		triangleMaterial->SetShader(Resources::Find<Shader>(L"TriangleShader"));
+		Resources::Insert(L"TriangleMaterial", triangleMaterial);
 
-		Material* spriteMaterial = new Material();
-		graphics::Texture* texture = Resources::Find<graphics::Texture>(L"Player");
+		auto spriteMaterial = new Material();
+		Texture* texture = Resources::Find<Texture>(L"Player");
 		spriteMaterial->SetAlbedoTexture(texture);
-		spriteMaterial->SetShader( ya::Resources::Find<graphics::Shader>(L"Sprite-Default-Shader") );
-		ya::Resources::Insert(L"Sprite-Default-Material", spriteMaterial);
+		spriteMaterial->SetShader(Resources::Find<Shader>(L"Sprite-Default-Shader"));
+		Resources::Insert(L"Sprite-Default-Material", spriteMaterial);
 	}
 
 	void LoadConstantBuffers()
@@ -269,13 +285,13 @@ namespace ya::renderer
 		LoadStates();
 		LoadShaders();
 		LoadMeshes();
-		LoadMeterails();
+		LoadMaterials();
 		LoadConstantBuffers();
 	}
 
 	void Release()
 	{
-		for (UINT i = 0; i < (UINT)eCBType::End; i++)
+		for (UINT i = 0; i < static_cast<UINT>(eCBType::End); i++)
 		{
 			delete constantBuffers[i];
 			constantBuffers[i] = nullptr;

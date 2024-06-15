@@ -39,5 +39,4 @@ namespace ya
 	{
 		Scene::OnExit();
 	}
-
 }

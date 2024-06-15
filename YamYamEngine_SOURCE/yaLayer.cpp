@@ -6,8 +6,8 @@ namespace ya
 	Layer::Layer()
 		: mGameObjects{}
 	{
-
 	}
+
 	Layer::~Layer()
 	{
 		for (GameObject* gameObj : mGameObjects)
@@ -28,7 +28,6 @@ namespace ya
 				continue;
 
 
-
 			gameObj->Initialize();
 		}
 	}
@@ -45,6 +44,7 @@ namespace ya
 			gameObj->Update();
 		}
 	}
+
 	void Layer::LateUpdate()
 	{
 		for (GameObject* gameObj : mGameObjects)
@@ -57,6 +57,7 @@ namespace ya
 			gameObj->LateUpdate();
 		}
 	}
+
 	void Layer::Render()
 	{
 		for (GameObject* gameObj : mGameObjects)
@@ -90,19 +91,19 @@ namespace ya
 	{
 		// std::erase() iter넣어줘서 해당 이터레이와 같은 객체 삭제
 		std::erase_if(mGameObjects,
-			[=](GameObject* gameObj)
-			{
-				return gameObj == eraseGameObj;
-			});
+		              [=](GameObject* gameObj)
+		              {
+			              return gameObj == eraseGameObj;
+		              });
 	}
-	
-	void Layer::findDeadGameObjects(OUT std::vector<GameObject*>& gameObjs)
+
+	void Layer::findDeadGameObjects(OUT std::vector<GameObject*>& gameObjects)
 	{
 		for (GameObject* gameObj : mGameObjects)
 		{
 			GameObject::eState active = gameObj->GetState();
 			if (active == GameObject::eState::Dead)
-				gameObjs.push_back(gameObj);
+				gameObjects.push_back(gameObj);
 		}
 	}
 
@@ -118,9 +119,9 @@ namespace ya
 	void Layer::eraseDeadGameObject()
 	{
 		std::erase_if(mGameObjects,
-			[](GameObject* gameObj)
-			{
-				return (gameObj)->IsDead();
-			});
+		              [](GameObject* gameObj)
+		              {
+			              return (gameObj)->IsDead();
+		              });
 	}
 }

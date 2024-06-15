@@ -4,23 +4,23 @@
 
 namespace ya
 {
-	class AudioSource : public Component
+	class AudioSource final : public Component
 	{
 	public:
 		AudioSource();
-		~AudioSource();
+		virtual ~AudioSource();
 
 		void Initialize() override;
 		void Update() override;
 		void LateUpdate() override;
 		void Render() override;
 
-		void Play();
-		void Stop();
-		void SetLoop(bool loop);
+		void Play() const;
+		void Stop() const;
+		void SetLoop(bool loop) const;
 
 		void SetClip(AudioClip* clip) { mAudioClip = clip; }
-		AudioClip* GetClip() { return mAudioClip; }
+		AudioClip* GetClip() const { return mAudioClip; }
 
 	private:
 		AudioClip* mAudioClip;

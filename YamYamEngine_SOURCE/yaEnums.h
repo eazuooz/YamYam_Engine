@@ -6,7 +6,7 @@ namespace ya::enums
 	enum class eComponentType
 	{
 		Transform,
-		Colider,
+		Collider,
 		Rigidbody,
 		Script,
 		SpriteRenderer,

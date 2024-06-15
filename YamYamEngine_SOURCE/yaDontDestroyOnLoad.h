@@ -7,7 +7,7 @@ namespace ya
 	{
 	public:
 		DontDestroyOnLoad();
-		~DontDestroyOnLoad();
+		virtual ~DontDestroyOnLoad();
 
 		void Initialize() override;
 		void Update() override;
@@ -15,7 +15,6 @@ namespace ya
 		void Render() override;
 
 		void OnEnter() override;
-		void OnExit()  override;
+		void OnExit() override;
 	};
 }
-

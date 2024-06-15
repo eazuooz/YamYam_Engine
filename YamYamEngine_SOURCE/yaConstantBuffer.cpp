@@ -4,7 +4,7 @@ namespace ya::graphics
 {
 	ConstantBuffer::ConstantBuffer(eCBType type)
 		: mSize(0)
-		, mType(type)
+		  , mType(type)
 	{
 	}
 
@@ -15,7 +15,7 @@ namespace ya::graphics
 	bool ConstantBuffer::Create(UINT size, void* data)
 	{
 		mSize = size;
-		desc.ByteWidth = size; 
+		desc.ByteWidth = size;
 		desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 		desc.Usage = D3D11_USAGE_DYNAMIC;
 		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
@@ -23,13 +23,13 @@ namespace ya::graphics
 		D3D11_SUBRESOURCE_DATA sub = {};
 		sub.pSysMem = data;
 
-		bool succes = false;
-		if (data == NULL)
-			succes = GetDevice()->CreateBuffer(&desc, nullptr, buffer.GetAddressOf());
+		bool success = false;
+		if (data == nullptr)
+			success = GetDevice()->CreateBuffer(&desc, nullptr, buffer.GetAddressOf());
 		else
-			succes = GetDevice()->CreateBuffer(&desc, &sub, buffer.GetAddressOf());
+			success = GetDevice()->CreateBuffer(&desc, &sub, buffer.GetAddressOf());
 
-		if (!succes)
+		if (!success)
 			assert(NULL/*"Create constant buffer failed!"*/);
 
 		return true;

@@ -5,7 +5,7 @@
 
 namespace ya::object
 {
-	void Destory(GameObject* gameObject)
+	void Destroy(GameObject* gameObject)
 	{
 			if (gameObject != nullptr)
 				gameObject->death();
@@ -24,16 +24,13 @@ namespace ya
 
 	GameObject::~GameObject()
 	{
-		for (Component* comp : mComponents)
+		for (const Component* comp : mComponents)
 		{
 			if (comp == nullptr)
 				continue;
 
-			delete comp;
-			comp = nullptr;
+			SAFE_DELETE(comp);
 		}
-
-		//SceneManager::GetInst().Update();
 	}
 
 	void GameObject::Initialize()

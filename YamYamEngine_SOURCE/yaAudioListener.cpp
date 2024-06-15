@@ -5,9 +5,6 @@
 
 namespace ya
 {
-
-
-
 	AudioListener::AudioListener()
 		: Component(eComponentType::AudioListener)
 	{
@@ -37,5 +34,4 @@ namespace ya
 	void AudioListener::Render()
 	{
 	}
-
 }

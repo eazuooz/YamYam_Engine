@@ -7,13 +7,9 @@ namespace ya::graphics
 	{
 	public:
 		VertexBuffer();
-		~VertexBuffer();
+		virtual ~VertexBuffer();
 
 		bool Create(const std::vector<Vertex>& vertexes);
 		void Bind();
-
-	private:
-		
 	};
 }
-

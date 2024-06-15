@@ -6,7 +6,7 @@
 
 namespace ya::object
 {
-	void Destory(GameObject* gameObject);
+	void Destroy(GameObject* gameObject);
 }
 
 namespace ya
@@ -14,7 +14,7 @@ namespace ya
 	class GameObject : public Entity
 	{
 	public:
-		friend void object::Destory(GameObject* obj);
+		friend void object::Destroy(GameObject* obj);
 		//friend Component; friend 클래스 선언
 
 		enum class eState
@@ -26,13 +26,12 @@ namespace ya
 		};
 
 		GameObject();
-		~GameObject();
+		virtual ~GameObject();
 
 		virtual void Initialize();
 		virtual void Update();
 		virtual void LateUpdate();
 		virtual void Render();
-
 
 
 		template <typename T>
@@ -42,10 +41,11 @@ namespace ya
 			comp->Initialize();
 			comp->SetOwner(this);
 
-			mComponents[(UINT)comp->GetType()] = comp;
+			mComponents[static_cast<UINT>(comp->GetType())] = comp;
 
 			return comp;
 		}
+
 		template <typename T>
 		T* GetComponent()
 		{
@@ -61,21 +61,22 @@ namespace ya
 		}
 
 		eState GetState() const { return mState; }
+
 		void SetActive(bool power)
 		{
-			if (power == true) mState = eState::Active; 
+			if (power == true) mState = eState::Active;
 			if (power == false) mState = eState::Paused;
 		}
-		bool IsActive() const { return mState == eState::Active; }
-		bool IsDead() const { return mState == eState::Dead; }
-		void SetLayerType(eLayerType layerType) { mLayerType = layerType; }
-		eLayerType GetLayerType() const { return mLayerType; }
+
+		[[nodiscard]] bool IsActive() const { return mState == eState::Active; }
+		[[nodiscard]] bool IsDead() const { return mState == eState::Dead; }
+		[[nodiscard]] eLayerType GetLayerType() const { return mLayerType; }
+		[[noreturn]] void SetLayerType(const eLayerType layerType) { mLayerType = layerType; }
 
 	private:
 		void initializeTransform();
 		void death() { mState = eState::Dead; }
 
-	private:
 		eState mState;
 		std::vector<Component*> mComponents;
 		eLayerType mLayerType;

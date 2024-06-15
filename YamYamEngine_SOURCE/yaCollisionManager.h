@@ -12,11 +12,11 @@ namespace ya
 	{
 		struct 
 		{
-			UINT32 left;
-			UINT32 right;
+			UINT32 Left;
+			UINT32 Right;
 		};
 
-		UINT64 id;
+		UINT64 Id;
 	};
 
 	class CollisionManager
@@ -37,7 +37,7 @@ namespace ya
 		//static bool isBump(Vector2 leftPos, Vector2 rigtPos, Vector2 leftSize, Vector2 rightSize);
 
 	private:
-		static std::bitset<(UINT)eLayerType::Max> mCollisionLayerMatrix[(UINT)eLayerType::Max];
+		static std::bitset<CAST_UINT(eLayerType::Max)> mCollisionLayerMatrix[CAST_UINT(eLayerType::Max)];
 		static std::unordered_map<UINT64, bool> mCollisionMap;
 	};
 }

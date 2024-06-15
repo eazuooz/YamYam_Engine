@@ -1,6 +1,6 @@
 #pragma once
-#include "..\\YamYamEngine_SOURCE\\yaScript.h"
-#include "..\\YamYamEngine_SOURCE\\yaTransform.h"
+#include "..//YamYamEngine_SOURCE//yaScript.h"
+#include "..//YamYamEngine_SOURCE//yaTransform.h"
 
 namespace ya
 {
@@ -8,14 +8,11 @@ namespace ya
 	{
 	public:
 		CameraScript();
-		~CameraScript();
+		virtual ~CameraScript();
 
 		void Initialize() override;
 		void Update() override;
 		void LateUpdate() override;
 		void Render() override;
-
-	private:
-
 	};
 }

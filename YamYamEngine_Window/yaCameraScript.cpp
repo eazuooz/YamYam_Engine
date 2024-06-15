@@ -7,11 +7,9 @@
 #include "yaCat.h"
 #include "yaObject.h"
 #include "yaResources.h"
+
 namespace ya
 {
-
-
-
 	CameraScript::CameraScript()
 	{
 	}
@@ -32,11 +30,11 @@ namespace ya
 		if (Input::GetKey(eKeyCode::A))
 			pos += 20.0f * -tr->Right() * Time::DeltaTime();
 		if (Input::GetKey(eKeyCode::W))
-			pos += 20.0f * tr->Foward() * Time::DeltaTime();
+			pos += 20.0f * tr->Forward() * Time::DeltaTime();
 		if (Input::GetKey(eKeyCode::D))
 			pos += 20.0f * tr->Right() * Time::DeltaTime();
 		if (Input::GetKey(eKeyCode::S))
-			pos += 20.0f * -tr->Foward() * Time::DeltaTime();
+			pos += 20.0f * -tr->Forward() * Time::DeltaTime();
 		if (Input::GetKey(eKeyCode::E))
 			pos += 20.0f * tr->Up() * Time::DeltaTime();
 		if (Input::GetKey(eKeyCode::Q))
@@ -52,5 +50,4 @@ namespace ya
 	void CameraScript::Render()
 	{
 	}
-
 }

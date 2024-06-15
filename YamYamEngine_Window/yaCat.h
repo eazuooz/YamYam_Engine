@@ -1,9 +1,8 @@
 #pragma once
-#include "..\\YamYamEngine_SOURCE\\yaGameObject.h"
+#include "..//YamYamEngine_SOURCE//yaGameObject.h"
 
 namespace ya
 {
-
 	class Cat : public GameObject
 	{
 	public:
@@ -11,8 +10,5 @@ namespace ya
 		void Update() override;
 		void LateUpdate() override;
 		void Render() override;
-
-	private:
-		
 	};
 }

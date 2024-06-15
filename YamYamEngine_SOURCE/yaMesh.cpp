@@ -3,11 +3,10 @@
 namespace ya
 {
 	Mesh::Data::Data()
-		: mTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
-		, vertices{}
-		, indices{}
+		: mTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
+		  , vertices{}
+		  , indices{}
 	{
-
 	}
 
 	Mesh::Data::~Data()
@@ -17,12 +16,10 @@ namespace ya
 	Mesh::Mesh()
 		: Resource(enums::eResourceType::Mesh)
 	{
-
 	}
 
 	Mesh::~Mesh()
 	{
-
 	}
 
 	HRESULT Mesh::Save(const std::wstring& path)
@@ -32,7 +29,6 @@ namespace ya
 
 	HRESULT Mesh::Load(const std::wstring& path)
 	{
-
 		return S_OK;
 	}
 
@@ -48,12 +44,13 @@ namespace ya
 		return mIB.Create(indices);
 	}
 
-	void Mesh::SetVertexBufferParams(UINT vertexCount, D3D11_INPUT_ELEMENT_DESC* layout, const void* pShaderBytecodeWithInputSignature, SIZE_T BytecodeLength)
+	void Mesh::SetVertexBufferParams(UINT vertexCount, D3D11_INPUT_ELEMENT_DESC* layout,
+	                                 const void* pShaderBytecodeWithInputSignature, SIZE_T BytecodeLength)
 	{
 		mInputLayout.CreateInputLayout(vertexCount, layout, pShaderBytecodeWithInputSignature, BytecodeLength);
 	}
 
-	void Mesh::Bind() 
+	void Mesh::Bind()
 	{
 		mInputLayout.Bind();
 
@@ -62,6 +59,4 @@ namespace ya
 
 		graphics::GetDevice()->BindPrimitiveTopology(mData.mTopology);
 	}
-
-	
 }

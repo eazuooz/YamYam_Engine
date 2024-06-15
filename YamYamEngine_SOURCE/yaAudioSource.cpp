@@ -35,17 +35,17 @@ namespace ya
 	{
 	}
 
-	void AudioSource::Play()
+	void AudioSource::Play() const
 	{
 		mAudioClip->Play();
 	}
 
-	void AudioSource::Stop()
+	void AudioSource::Stop() const
 	{
 		mAudioClip->Stop();
 	}
 
-	void AudioSource::SetLoop(bool loop)
+	void AudioSource::SetLoop(bool loop) const
 	{
 		mAudioClip->SetLoop(loop);
 	}

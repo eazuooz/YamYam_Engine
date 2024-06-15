@@ -4,11 +4,10 @@ namespace ya
 {
 	Material::Material()
 		: Resource(enums::eResourceType::Material)
-		, mMode(graphics::eRenderingMode::Opaque)
-		, mAlbedoTexture(nullptr)
-		, mShader(nullptr)
+		  , mMode(graphics::eRenderingMode::Opaque)
+		  , mAlbedoTexture(nullptr)
+		  , mShader(nullptr)
 	{
-
 	}
 
 	Material::~Material()
@@ -29,9 +28,9 @@ namespace ya
 	{
 		if (mShader)
 			mShader->Bind();
-		  
+
 		if (mAlbedoTexture)
-			mAlbedoTexture->Bind(graphics::eShaderStage::PS, (UINT)graphics::eTextureType::Albedo);
+			mAlbedoTexture->Bind(graphics::eShaderStage::PS, static_cast<UINT>(graphics::eTextureType::Albedo));
 	}
 
 	void Material::BindShader()
@@ -43,6 +42,6 @@ namespace ya
 	void Material::BindTextures()
 	{
 		if (mAlbedoTexture)
-			mAlbedoTexture->Bind(graphics::eShaderStage::PS, (UINT)graphics::eTextureType::Albedo);
+			mAlbedoTexture->Bind(graphics::eShaderStage::PS, static_cast<UINT>(graphics::eTextureType::Albedo));
 	}
 }

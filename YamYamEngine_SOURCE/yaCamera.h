@@ -5,6 +5,7 @@
 namespace ya
 {
 	using namespace ya::math;
+
 	class Camera : public Component
 	{
 	public:
@@ -16,11 +17,11 @@ namespace ya
 
 		static Matrix GetGpuViewMatrix() { return ViewMatrix; }
 		static Matrix GetGpuProjectionMatrix() { return ProjectionMatrix; }
-		static void SetGpuViewMatrix(Matrix matrix) { ViewMatrix = matrix; }
-		static void SetGpuProjectionMatrix(Matrix matrix) { ProjectionMatrix = matrix; }
+		static void SetGpuViewMatrix(const Matrix& matrix) { ViewMatrix = matrix; }
+		static void SetGpuProjectionMatrix(const Matrix& matrix) { ProjectionMatrix = matrix; }
 
 		Camera();
-		~Camera();
+		virtual ~Camera();
 
 		void Initialize() override;
 		void Update() override;
@@ -30,8 +31,8 @@ namespace ya
 		void CreateViewMatrix();
 		void CreateProjectionMatrix(eProjectionType type);
 
-		void SetProjectionType(eProjectionType type) { mProjectionType = type; }
-		void SetSize(float size) { mSize = size; }
+		void SetProjectionType(const eProjectionType type) { mProjectionType = type; }
+		void SetSize(const float size) { mSize = size; }
 
 	private:
 		static Matrix ViewMatrix;

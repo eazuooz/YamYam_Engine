@@ -458,7 +458,7 @@ namespace ya::math
     Vector4 operator* (float S, const Vector4& V) noexcept;
 
     //------------------------------------------------------------------------------
-    // 4x4 Matrix (assumes right-handed cooordinates)
+    // 4x4 Matrix (assumes Right-handed cooordinates)
     struct Matrix : public XMFLOAT4X4
     {
         Matrix() noexcept

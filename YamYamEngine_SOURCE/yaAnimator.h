@@ -12,43 +12,43 @@ namespace ya
 		{
 			void operator=(std::function<void()> func)
 			{
-				mEvent = std::move(func);
+				Action = std::move(func);
 			}
 
-			void operator()()
+			void operator()() const
 			{
-				if (mEvent)
-					mEvent();
+				if (Action)
+					Action();
 			}
-		
-			std::function<void()> mEvent;
+
+			std::function<void()> Action;
 		};
 
 		struct Events
 		{
-			Event startEvent;
-			Event completeEvent;
-			Event endEvent;
+			Event StartEvent;
+			Event CompleteEvent;
+			Event EndEvent;
 		};
 
 		Animator();
-		~Animator();
+		virtual ~Animator();
 
 		void Initialize() override;
-		void Update()  override;
-		void LateUpdate()  override;
-		void Render()  override;
+		void Update() override;
+		void LateUpdate() override;
+		void Render() override;
 
 		void CreateAnimation(const std::wstring& name
-			, graphics::Texture* spriteSheet
-			, Vector2 leftTop
-			, Vector2 size
-			, Vector2 offset
-			, UINT spriteLegth
-			, float duration);
+		                     , graphics::Texture* spriteSheet
+		                     , Vector2 leftTop
+		                     , Vector2 size
+		                     , Vector2 offset
+		                     , UINT spriteLength
+		                     , float duration);
 		void CreateAnimationByFolder(/*const std::wstring& name
 			, const std::wstring& path
-			, Vector2 offset, float duration*/);
+			, Vector2 Offset, float Duration*/);
 
 		Animation* FindAnimation(const std::wstring& name);
 		void PlayAnimation(const std::wstring& name, bool loop = true);
@@ -58,14 +58,14 @@ namespace ya
 		std::function<void()>& GetCompleteEvent(const std::wstring& name);
 		std::function<void()>& GetEndEvent(const std::wstring& name);
 
-		bool IsComplete() { return mActiveAnimation->IsComplete(); }
-		
+		[[nodiscard]] bool IsComplete() const { return mActiveAnimation->IsComplete(); }
+
 	private:
 		std::map<std::wstring, Animation*> mAnimations;
 		Animation* mActiveAnimation;
 		bool mbLoop;
 
-		//Event
+		//Action
 		std::map<std::wstring, Events*> mEvents;
 	};
 }

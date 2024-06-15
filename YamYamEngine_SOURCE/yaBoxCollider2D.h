@@ -7,14 +7,11 @@ namespace ya
 	{
 	public:
 		BoxCollider2D();
-		~BoxCollider2D();
+		virtual ~BoxCollider2D();
 
-		virtual void Initialize();
-		virtual void Update();
-		virtual void LateUpdate();
-		virtual void Render();
-
-	private:
-		
+		void Initialize() override;
+		void Update() override;
+		void LateUpdate() override;
+		void Render() override;
 	};
 }

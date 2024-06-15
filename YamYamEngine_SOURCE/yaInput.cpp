@@ -6,9 +6,9 @@ extern ya::Application application;
 namespace ya
 {
 	std::vector<Input::Key> Input::Keys = {};
-	math::Vector2 Input::mMousePosition = math::Vector2::One;
+	Vector2 Input::mMousePosition = Vector2::One;
 
-	int ASCII[(UINT)eKeyCode::End] =
+	int ASCII[static_cast<UINT>(eKeyCode::End)] =
 	{
 		'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
 		'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
@@ -17,7 +17,7 @@ namespace ya
 		VK_LBUTTON, VK_MBUTTON, VK_RBUTTON,
 	};
 
-	void Input::Initailize()
+	void Input::Initialize()
 	{
 		createKeys();
 	}
@@ -26,35 +26,36 @@ namespace ya
 	{
 		updateKeys();
 	}
+
 	void Input::createKeys()
 	{
-		for (size_t i = 0; i < (UINT)eKeyCode::End; i++)
+		for (size_t i = 0; i < static_cast<UINT>(eKeyCode::End); i++)
 		{
 			Key key = {};
 			key.bPressed = false;
-			key.state = eKeyState::None;
-			key.keyCode = (eKeyCode)i;
+			key.State = eKeyState::None;
+			key.KeyCode = static_cast<eKeyCode>(i);
 
 			Keys.push_back(key);
 		}
 	}
-	
+
 	void Input::updateKeys()
 	{
-		std::for_each(Keys.begin(), Keys.end(), 
-			[](Key& key) -> void
-			{
-				updateKey(key);
-			});
+		std::ranges::for_each(Keys,
+		                      [](Key& key) -> void
+		                      {
+			                      updateKey(key);
+		                      });
 	}
 
-	void Input::updateKey(Input::Key& key)
+	void Input::updateKey(Key& key)
 	{
 		if (GetFocus())
 		{
-			if (isKeyDown(key.keyCode))
+			if (isKeyDown(key.KeyCode))
 				updateKeyDown(key);
-			else 
+			else
 				updateKeyUp(key);
 
 			getMousePositionByWindow();
@@ -67,30 +68,32 @@ namespace ya
 
 	bool Input::isKeyDown(eKeyCode code)
 	{
-		return GetAsyncKeyState(ASCII[(UINT)code]) & 0x8000;
+		return GetAsyncKeyState(ASCII[static_cast<UINT>(code)]) & 0x8000;
 	}
 
-	void Input::updateKeyDown(Input::Key& key)
+	void Input::updateKeyDown(Key& key)
 	{
 		if (key.bPressed == true)
-			key.state = eKeyState::Pressed;
+			key.State = eKeyState::Pressed;
 		else
-			key.state = eKeyState::Down;
+			key.State = eKeyState::Down;
 
 		key.bPressed = true;
 	}
-	void Input::updateKeyUp(Input::Key& key)
+
+	void Input::updateKeyUp(Key& key)
 	{
 		if (key.bPressed == true)
-			key.state = eKeyState::Up;
+			key.State = eKeyState::Up;
 		else
-			key.state = eKeyState::None;
+			key.State = eKeyState::None;
 
 		key.bPressed = false;
 	}
+
 	void Input::getMousePositionByWindow()
 	{
-		POINT mousePos = { };
+		POINT mousePos = {};
 		GetCursorPos(&mousePos);
 		ScreenToClient(application.GetHwnd(), &mousePos);
 
@@ -100,20 +103,21 @@ namespace ya
 		mMousePosition.x = -1.0f;
 		mMousePosition.y = -1.0f;
 
-		if ((UINT)mousePos.x > 0 && (UINT)mousePos.x < width)
-			mMousePosition.x = (float)mousePos.x;
+		if (static_cast<UINT>(mousePos.x) > 0 && static_cast<UINT>(mousePos.x) < width)
+			mMousePosition.x = static_cast<float>(mousePos.x);
 
-		if ((UINT)mousePos.y > 0 && (UINT)mousePos.y < height)
-			mMousePosition.y = (float)mousePos.y;
+		if (static_cast<UINT>(mousePos.y) > 0 && static_cast<UINT>(mousePos.y) < height)
+			mMousePosition.y = static_cast<float>(mousePos.y);
 	}
+
 	void Input::clearKeys()
 	{
 		for (Key& key : Keys)
 		{
-			if (key.state == eKeyState::Down || key.state == eKeyState::Pressed)
-				key.state = eKeyState::Up;
-			else if (key.state == eKeyState::Up)
-				key.state = eKeyState::None;
+			if (key.State == eKeyState::Down || key.State == eKeyState::Pressed)
+				key.State = eKeyState::Up;
+			else if (key.State == eKeyState::Up)
+				key.State = eKeyState::None;
 
 			key.bPressed = false;
 		}

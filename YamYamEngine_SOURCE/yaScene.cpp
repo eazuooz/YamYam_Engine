@@ -12,7 +12,7 @@ namespace ya
 
 	Scene::~Scene()
 	{
-		for ( Layer* layer : mLayers)
+		for (Layer* layer : mLayers)
 		{
 			delete layer;
 			layer = nullptr;
@@ -35,6 +35,7 @@ namespace ya
 			layer->Update();
 		}
 	}
+
 	void Scene::LateUpdate()
 	{
 		for (Layer* layer : mLayers)
@@ -45,6 +46,7 @@ namespace ya
 			layer->LateUpdate();
 		}
 	}
+
 	void Scene::Render()
 	{
 		for (Layer* layer : mLayers)
@@ -67,21 +69,21 @@ namespace ya
 		}
 	}
 
-	void Scene::AddGameObject(GameObject* gameObj, const enums::eLayerType type)
+	void Scene::AddGameObject(GameObject* gameObj, const eLayerType type)
 	{
-		mLayers[(UINT)type]->AddGameObject(gameObj);
+		mLayers[static_cast<UINT>(type)]->AddGameObject(gameObj);
 	}
 
 	void Scene::EraseGameObject(GameObject* gameObj)
 	{
 		eLayerType layerType = gameObj->GetLayerType();
-		mLayers[(UINT)layerType]->EraseGameObject(gameObj);
+		mLayers[static_cast<UINT>(layerType)]->EraseGameObject(gameObj);
 	}
 
 	void Scene::createLayers()
 	{
-		mLayers.resize((UINT)enums::eLayerType::Max);
-		for (size_t i = 0; i < (UINT)enums::eLayerType::Max; i++)
+		mLayers.resize(static_cast<UINT>(enums::eLayerType::Max));
+		for (size_t i = 0; i < static_cast<UINT>(enums::eLayerType::Max); i++)
 		{
 			mLayers[i] = new Layer();
 		}
@@ -89,7 +91,6 @@ namespace ya
 
 	void Scene::OnEnter()
 	{
-
 	}
 
 	void Scene::OnExit()

@@ -69,8 +69,8 @@ namespace ya
 
 	void CollisionManager::LayerCollision(eLayerType left, eLayerType right)
 	{
-		const std::vector<GameObject*>& leftObjs = SceneManager::GetGameObjects(left);//scene->GetLayer(left)->GetGameObjects();
-		const std::vector<GameObject*>& rightObjs = SceneManager::GetGameObjects(right); // scene->GetLayer(right)->GetGameObjects();
+		const std::vector<GameObject*>& leftObjs = SceneManager::GetGameObjects(left);//scene->GetLayer(Left)->GetGameObjects();
+		const std::vector<GameObject*>& rightObjs = SceneManager::GetGameObjects(right); // scene->GetLayer(Right)->GetGameObjects();
 
 		for (GameObject* leftObj : leftObjs)
 		{
@@ -100,18 +100,18 @@ namespace ya
 	{
 		// 두 충돌체 번호로 가져온 ID 확인하여 CollisionID 세팅
 		CollisionID id = {};
-		id.left = left->GetID();
-		id.right = right->GetID();
+		id.Left = left->GetID();
+		id.Right = right->GetID();
 		
 		// 이전 충돌 정보를 검색한다.
 		// 만약에 충돌정보가 없는 상태라면
 		// 충돌정보를 생성해준다.
 
-		auto iter = mCollisionMap.find(id.id);
+		auto iter = mCollisionMap.find(id.Id);
 		if (iter == mCollisionMap.end())
 		{
-			mCollisionMap.insert(std::make_pair(id.id, false));
-			iter = mCollisionMap.find(id.id);
+			mCollisionMap.insert(std::make_pair(id.Id, false));
+			iter = mCollisionMap.find(id.Id);
 		}
 		
 		// 충돌 체크를 해준다

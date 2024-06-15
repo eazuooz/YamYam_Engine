@@ -36,15 +36,17 @@ namespace ya
 		: mPlayer(nullptr)
 	{
 	}
+
 	PlayScene::~PlayScene()
 	{
 	}
+
 	void PlayScene::Initialize()
 	{
 		Scene::Initialize();
 
 		// main camera
-		GameObject* camera = object::Instantiate<GameObject>(enums::eLayerType::None, Vector3(0.0f, 0.0f, -10.0f));
+		GameObject* camera = object::Instantiate<GameObject>(eLayerType::None, Vector3(0.0f, 0.0f, -10.0f));
 		Camera* cameraComp = camera->AddComponent<Camera>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 		cameraComp->SetSize(200.0f);
@@ -52,17 +54,18 @@ namespace ya
 		CameraScript* cameraScript = camera->AddComponent<CameraScript>();
 		renderer::mainCamera = cameraComp;
 
-		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
+		mPlayer = object::Instantiate<Player>(eLayerType::Player);
 		object::DontDestroyOnLoad(mPlayer);
 
 		SpriteRenderer* sr = mPlayer->AddComponent<SpriteRenderer>();
-		sr->SetSprite(Resources::Find<graphics::Texture>(L"Player"));
+		sr->SetSprite(Resources::Find<Texture>(L"Player"));
 	}
 
 	void PlayScene::Update()
 	{
 		Scene::Update();
 	}
+
 	void PlayScene::LateUpdate()
 	{
 		Scene::LateUpdate();
@@ -72,6 +75,7 @@ namespace ya
 			SceneManager::LoadScene(L"TitleScene");
 		}
 	}
+
 	void PlayScene::Render()
 	{
 		Scene::Render();

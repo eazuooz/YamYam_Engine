@@ -22,28 +22,20 @@ namespace ya
 		void Destroy();
 		void Release();
 
-		HWND GetHwnd() const { return mHwnd; }
-		HDC GetHdc() const { return mHdc; }
-		UINT GetWidth() const { return mWidth; }
-		UINT GetHeight() const { return mHeight; }
-		
-		bool IsLoaded() const { return mbLoaded; }
-		void IsLoaded(bool load) { mbLoaded = load; }
+		[[discard]] HWND GetHwnd() const { return mHwnd; }
 
+		[[discard]] UINT GetWidth() const { return mWidth; }
+		[[discard]] UINT GetHeight() const { return mHeight; }
 
+		[[discard]] bool IsLoaded() const { return mbLoaded; }
+		[[noreturn]] void IsLoaded(bool load) { mbLoaded = load; }
 
 	private:
 		bool mbLoaded;
-		std::unique_ptr<graphics::GraphicDevice_DX11> mGraphicDevice;
-
 		HWND mHwnd;
-		HDC mHdc;
-		
-		HDC mBackHdc;
-		HBITMAP mBackBitmap;
+		std::unique_ptr<graphics::GraphicDevice_DX11> mGraphicDevice;
 
 		UINT mWidth;
 		UINT mHeight;
 	};
 }
-

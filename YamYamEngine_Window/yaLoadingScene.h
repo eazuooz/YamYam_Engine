@@ -1,5 +1,5 @@
 #pragma once
-#include "..\\YamYamEngine_SOURCE\\yaScene.h"
+#include "..//YamYamEngine_SOURCE//yaScene.h"
 
 namespace ya
 {
@@ -7,7 +7,7 @@ namespace ya
 	{
 	public:
 		LoadingScene();
-		~LoadingScene();
+		virtual ~LoadingScene();
 
 		void Initialize() override;
 		void Update() override;
@@ -15,12 +15,11 @@ namespace ya
 		void Render() override;
 
 		void OnEnter() override;
-		void OnExit()  override;
+		void OnExit() override;
 
 	private:
 		void resourcesLoad(std::mutex& m);
 
-	private:
 		bool mbLoadCompleted;
 		std::thread* mResourcesLoadThread;
 		std::mutex mMutualExclusion;

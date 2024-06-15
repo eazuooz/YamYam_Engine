@@ -9,7 +9,7 @@ namespace ya
 
 	bool SceneManager::SetActiveScene(const std::wstring& name)
 	{
-		std::map<std::wstring, Scene*>::iterator iter
+		auto iter
 			= mScene.find(name);
 
 		if (iter == mScene.end())
@@ -18,7 +18,7 @@ namespace ya
 		mActiveScene = iter->second;
 		return true;
 	}
-	
+
 	Scene* SceneManager::LoadScene(const std::wstring& name)
 	{
 		if (mActiveScene)
@@ -40,7 +40,7 @@ namespace ya
 			= mDontDestroyOnLoad->GetLayer(layer)->GetGameObjects();
 
 		gameObjects.insert(gameObjects.end()
-			, dontDestroyOnLoad.begin(), dontDestroyOnLoad.end());
+		                   , dontDestroyOnLoad.begin(), dontDestroyOnLoad.end());
 
 		return gameObjects;
 	}
@@ -67,7 +67,7 @@ namespace ya
 		mActiveScene->Render();
 		mDontDestroyOnLoad->Render();
 	}
-	
+
 	void SceneManager::Destroy()
 	{
 		mActiveScene->Destroy();
@@ -82,5 +82,4 @@ namespace ya
 			iter.second = nullptr;
 		}
 	}
-
 }

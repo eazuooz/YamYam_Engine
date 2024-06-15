@@ -7,15 +7,14 @@ namespace ya
 	{
 	public:
 		CircleCollider2D();
-		~CircleCollider2D();
+		virtual ~CircleCollider2D();
 
-		virtual void Initialize();
-		virtual void Update();
-		virtual void LateUpdate();
-		virtual void Render();
+		void Initialize() override;
+		void Update() override;
+		void LateUpdate() override;
+		void Render() override;
 
 	private:
 		float mRadius;
-
 	};
 }

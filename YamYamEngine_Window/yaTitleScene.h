@@ -1,5 +1,5 @@
 #pragma once
-#include "..\\YamYamEngine_SOURCE\\yaScene.h"
+#include "..//YamYamEngine_SOURCE//yaScene.h"
 
 namespace ya
 {
@@ -7,7 +7,7 @@ namespace ya
 	{
 	public:
 		TitleScene();
-		~TitleScene();
+		virtual ~TitleScene();
 
 		void Initialize() override;
 		void Update() override;
@@ -16,8 +16,5 @@ namespace ya
 
 		void OnEnter() override;
 		void OnExit() override;
-
-	private:
-
 	};
 }

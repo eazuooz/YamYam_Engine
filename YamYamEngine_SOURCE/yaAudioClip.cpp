@@ -5,11 +5,11 @@ namespace ya
 {
 	AudioClip::AudioClip()
 		: Resource(enums::eResourceType::AudioClip)
-		, mSound(nullptr)
-		, mChannel(nullptr)
-		, mMinDistance(1.0f)
-		, mMaxDistance(1000.0f)
-		, mbLoop(false)
+		  , mSound(nullptr)
+		  , mChannel(nullptr)
+		  , mMinDistance(1.0f)
+		  , mMaxDistance(1000.0f)
+		  , mbLoop(false)
 	{
 	}
 
@@ -52,5 +52,4 @@ namespace ya
 
 		mChannel->set3DAttributes(&fmodPos, &fmodVel);
 	}
-
 }

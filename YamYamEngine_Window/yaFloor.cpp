@@ -9,9 +9,11 @@ namespace ya
 	Floor::Floor()
 	{
 	}
+
 	Floor::~Floor()
 	{
 	}
+
 	void Floor::Initialize()
 	{
 		GameObject::Initialize();

@@ -1,6 +1,6 @@
 #pragma once
-#include "..\\YamYamEngine_SOURCE\\yaScript.h"
-#include "..\\YamYamEngine_SOURCE\\yaTexture.h"
+#include "..//YamYamEngine_SOURCE//yaScript.h"
+#include "..//YamYamEngine_SOURCE//yaTexture.h"
 
 namespace ya
 {
@@ -17,7 +17,7 @@ namespace ya
 		};
 
 		PlayerScript();
-		~PlayerScript();
+		virtual ~PlayerScript();
 
 		void Initialize() override;
 		void Update() override;
@@ -35,7 +35,6 @@ namespace ya
 		void move();
 		void giveWater();
 
-	private:
 		eState mState;
 		class Animator* mAnimator;
 	};

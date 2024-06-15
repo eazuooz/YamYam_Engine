@@ -2,6 +2,6 @@
 
 namespace ya::object
 {
-
+	// do nothing
 
 }

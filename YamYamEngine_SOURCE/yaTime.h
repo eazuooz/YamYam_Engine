@@ -6,7 +6,7 @@ namespace ya
 	class Time
 	{
 	public:
-		static void Initailize();
+		static void Initialize();
 		static void Update();
 		static void Render();
 

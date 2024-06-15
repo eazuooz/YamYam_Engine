@@ -7,12 +7,12 @@ namespace ya::graphics
 	{
 	public:
 		ConstantBuffer(eCBType type);
-		~ConstantBuffer();
+		virtual ~ConstantBuffer();
 
-		bool Create(UINT size, void* data = NULL);
+		bool Create(UINT size, void* data = nullptr);
 
-		void SetData(void* data) const;
-		void Bind(eShaderStage stage) const;
+		[[noreturn]] void SetData(void* data) const;
+		[[noreturn]] void Bind(eShaderStage stage) const;
 
 	private:
 		UINT mSize;

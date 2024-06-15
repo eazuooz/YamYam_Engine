@@ -7,7 +7,7 @@ namespace ya
 	UINT Collider::CollisionID = 1;
 
 	Collider::Collider(eColliderType type)
-		: Component(enums::eComponentType::Colider)
+		: Component(enums::eComponentType::Collider)
 		, mType(type)
 		, mID(CollisionID++)
 		, mSize(Vector2::One)

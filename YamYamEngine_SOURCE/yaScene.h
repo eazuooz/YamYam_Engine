@@ -9,7 +9,7 @@ namespace ya
 	{
 	public:
 		Scene();
-		~Scene();
+		virtual ~Scene();
 
 		virtual void Initialize();
 		virtual void Update();
@@ -20,14 +20,13 @@ namespace ya
 		virtual void OnEnter();
 		virtual void OnExit();
 
-		void AddGameObject(GameObject* gameObj, const enums::eLayerType type);
+		void AddGameObject(GameObject* gameObj, eLayerType type);
 		void EraseGameObject(GameObject* gameObj);
-		Layer* GetLayer(const enums::eLayerType type) { return mLayers[(UINT)type]; }
+		Layer* GetLayer(const eLayerType type) const { return mLayers[static_cast<UINT>(type)]; }
 
 	private:
 		void createLayers();
 
-	private:
 		std::vector<Layer*> mLayers;
 	};
 }

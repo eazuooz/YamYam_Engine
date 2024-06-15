@@ -43,7 +43,7 @@ namespace ya
 			if (mActiveAnimation->IsComplete() == true)
 			{
 				if (events)
-					events->completeEvent();
+					events->CompleteEvent();
 
 				if (mbLoop == true)
 					mActiveAnimation->Reset();
@@ -65,7 +65,7 @@ namespace ya
 		, graphics::Texture* spriteSheet
 		, Vector2 leftTop
 		, Vector2 size, Vector2 offset
-		, UINT spriteLegth, float duration)
+		, UINT spriteLength, float duration)
 	{
 		Animation* animation = nullptr;
 		animation = FindAnimation(name);
@@ -75,7 +75,7 @@ namespace ya
 		animation = new Animation();
 		animation->SetName(name);
 		animation->CreateAnimation(name, spriteSheet
-			,leftTop, size, offset, spriteLegth, duration);
+			,leftTop, size, offset, spriteLength, duration);
 
 		animation->SetAnimator(this);
 
@@ -87,8 +87,8 @@ namespace ya
 
 	void Animator::CreateAnimationByFolder(/*const std::wstring& name
 		, const std::wstring& path
-		, Vector2 offset
-		, float duration*/)
+		, Vector2 Offset
+		, float Duration*/)
 	{
 		//Animation* animation = nullptr;
 		//animation = FindAnimation(name);
@@ -114,7 +114,7 @@ namespace ya
 
 		//UINT imageWidth = images[0]->GetWidth();
 		//UINT imageHeight = images[0]->GetHeight();
-		//for (UINT i = 0; i < images.size(); i++)
+		//for (UINT i = 0; i < images.Size(); i++)
 		//{
 		//	BitBlt(spriteSheet->GetHdc(), i * imageWidth, 0
 		//		, imageWidth, imageHeight 
@@ -123,7 +123,7 @@ namespace ya
 
 		//CreateAnimation(name, spriteSheet
 		//	, Vector2(0.0f, 0.0f), Vector2(imageWidth, imageHeight)
-		//	, offset, fileCount, duration);
+		//	, Offset, fileCount, Duration);
 	}
 
 
@@ -149,7 +149,7 @@ namespace ya
 				= FindEvents(mActiveAnimation->GetName());
 		
 			if (currentEvents)
-				currentEvents->endEvent();
+				currentEvents->EndEvent();
 		}
 
 
@@ -157,7 +157,7 @@ namespace ya
 			= FindEvents(animation->GetName());
 
 		if (nextEvents)
-			nextEvents->startEvent();
+			nextEvents->StartEvent();
 
 		mActiveAnimation = animation;
 		mActiveAnimation->Reset();
@@ -177,21 +177,21 @@ namespace ya
 	{
 		// TODO: 여기에 return 문을 삽입합니다.
 		Events* events = FindEvents(name);
-		return events->startEvent.mEvent;
+		return events->StartEvent.Action;
 	}
 
 	std::function<void()>& Animator::GetCompleteEvent(const std::wstring& name)
 	{
 		// TODO: 여기에 return 문을 삽입합니다.
 		Events* events = FindEvents(name);
-		return events->completeEvent.mEvent;
+		return events->CompleteEvent.Action;
 	}
 
 	std::function<void()>& Animator::GetEndEvent(const std::wstring& name)
 	{
 		// TODO: 여기에 return 문을 삽입합니다.
 		Events* events = FindEvents(name);
-		return events->endEvent.mEvent;
+		return events->EndEvent.Action;
 	}
 
 }

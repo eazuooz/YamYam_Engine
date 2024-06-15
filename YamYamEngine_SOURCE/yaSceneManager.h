@@ -11,12 +11,13 @@ namespace ya
 		{
 			T* scene = new T();
 			mScene.insert(std::make_pair(name, scene));
-			
+
 			scene->SetName(name);
 			scene->Initialize();
 
 			return scene;
 		}
+
 		static bool SetActiveScene(const std::wstring& name);
 		static Scene* LoadScene(const std::wstring& name);
 
