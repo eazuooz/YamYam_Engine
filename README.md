@@ -28,22 +28,33 @@ vcpkg install fp16:x64-windows
 vcpkg install imgui[dx11-binding,win32-binding]:x64-windows
 vcpkg install glm:x64-windows
 vcpkg install directxmesh:x64-windows
+
+vcpkg install assimp:x64-windows
+vcpkg install directxtk:x64-windows
+vcpkg install directxtex[openexr]:x64-windows
+vcpkg install directxmath:x64-windows
+vcpkg install fp16:x64-windows
+vcpkg install imgui[dx11-binding,win32-binding]:x64-windows
+vcpkg install glm:x64-windows
+vcpkg install directxmesh:x64-windows
+vcpkg install eigen3:x64-windows 
+vcpkg install physx:x64-windows 
 -->
 
 # *동영상/GitHub*
 
 [얌얌코딩 유튜브](https://www.youtube.com/channel/UCOgtkPoyC0VXhCs7Xk3jvjQ)
 
-[얌얌코딩 수업노트](https://yamyamcoding.oopy.io/)
+[얌얌코딩 수업노트](https://www.yamyamcoding.com/)
 
 # *기술적 요소*
 자세한 기술적 요소와 프로젝트 구조 및 설명은 Notion을 통해 다음과 같이 정리 하였습니다.
 
-[게임 엔진 프레임 워크](https://typical-slug-3ef.notion.site/GAME-ENGINE-FRAMEWORK-d594503034b74e70bc9fb0d89facfe1b?pvs=4)
+[게임 엔진 프레임 워크](https://www.yamyamcoding.com/d5945030-34b7-4e70-bc9f-b0d89facfe1b)
 
-[Directx11 렌더링](https://typical-slug-3ef.notion.site/DIRECTX-11-80d76736a5d348f4ac4a77a983fd7050?pvs=4)
+[Directx11 렌더링](https://www.yamyamcoding.com/80d76736-a5d3-48f4-ac4a-77a983fd7050)
 
-[Tool](https://typical-slug-3ef.notion.site/Tool-Programming-5c92a9117abd49b7be110c00374b6e1f?pvs=4)
+[Tool](https://www.yamyamcoding.com/5c92a911-7abd-49b7-be11-0c00374b6e1f)
 
 
 # *참고 자료*
