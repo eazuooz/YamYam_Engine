@@ -72,7 +72,7 @@ namespace ya::graphics
 		void DrawIndexed(UINT indexCount, UINT startIndexLocation, INT baseVertexLocation) const;
 		void Present() const;
 
-		[[discard]] Microsoft::WRL::ComPtr<ID3D11Device> GetID3D11Device() { return mDevice; }
+		[[nodiscard]] Microsoft::WRL::ComPtr<ID3D11Device> GetID3D11Device() { return mDevice; }
 
 	private:
 		Microsoft::WRL::ComPtr<ID3D11Device> mDevice;

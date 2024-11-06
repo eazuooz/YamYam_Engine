@@ -100,7 +100,7 @@ namespace ya::renderer
 		rsDesc.FillMode = D3D11_FILL_WIREFRAME;
 		rsDesc.CullMode = D3D11_CULL_NONE;
 		GetDevice()->CreateRasterizerState(
-			&rsDesc, rasterizerStates[static_cast<UINT>(eRasterizerState::WireFrame)].GetAddressOf());
+			&rsDesc, rasterizerStates[static_cast<UINT>(eRasterizerState::Wireframe)].GetAddressOf());
 #pragma endregion
 #pragma region blend state
 		D3D11_BLEND_DESC bsDesc = {};
@@ -200,7 +200,6 @@ namespace ya::renderer
 		vertexes[1].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 		vertexes[1].uv = Vector2(1.0f, 0.0f);
 
-		vertexes[2].pos = Vector3(-0.5f, -0.5f, 0.0f);
 		vertexes[2].pos = Vector3(0.5f, -0.5f, 0.0f);
 		vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 		vertexes[2].uv = Vector2(1.0f, 1.0f);
@@ -239,7 +238,7 @@ namespace ya::renderer
 		inputLayoutDesces[2].SemanticName = "TEXCOORD";
 		inputLayoutDesces[2].SemanticIndex = 0;
 
-		Shader* spriteShader = Resources::Find<Shader>(L"Sprite-Default-Shader");
+		Shader* spriteShader = Resources::Find<Shader>(L"SpriteDefaultShader");
 		mesh->SetVertexBufferParams(3, inputLayoutDesces, spriteShader->GetVSBlob()->GetBufferPointer(),
 		                            spriteShader->GetVSBlob()->GetBufferSize());
 
@@ -258,7 +257,9 @@ namespace ya::renderer
 	void LoadShaders()
 	{
 		Resources::Load<Shader>(L"TriangleShader", L"..\\Shaders_SOURCE\\Triangle");
-		Resources::Load<Shader>(L"Sprite-Default-Shader", L"..\\Shaders_SOURCE\\Sprite-Default");
+		Resources::Load<Shader>(L"SpriteDefaultShader", L"..\\Shaders_SOURCE\\SpriteDefault");
+		Resources::Load<Shader>(L"WireframeShader", L"..\\Shaders_SOURCE\\Wireframe");
+
 	}
 
 	void LoadMaterials()
@@ -270,7 +271,7 @@ namespace ya::renderer
 		auto spriteMaterial = new Material();
 		Texture* texture = Resources::Find<Texture>(L"Player");
 		spriteMaterial->SetAlbedoTexture(texture);
-		spriteMaterial->SetShader(Resources::Find<Shader>(L"Sprite-Default-Shader"));
+		spriteMaterial->SetShader(Resources::Find<Shader>(L"SpriteDefaultShader"));
 		Resources::Insert(L"Sprite-Default-Material", spriteMaterial);
 	}
 

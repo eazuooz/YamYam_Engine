@@ -2,14 +2,14 @@
 
 namespace ya
 {
-	Mesh::Data::Data()
+	Mesh::MeshData::MeshData()
 		: mTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
 		  , vertices{}
 		  , indices{}
 	{
 	}
 
-	Mesh::Data::~Data()
+	Mesh::MeshData::~MeshData()
 	{
 	}
 

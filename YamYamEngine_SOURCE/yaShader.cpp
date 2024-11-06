@@ -1,8 +1,11 @@
 #include "yaShader.h"
 #include "yaRenderer.h"
+#include "yaResources.h"
 
 namespace ya::graphics
 {
+	bool Shader::bWireframe = true;
+
 	Shader::Shader()
 		: Resource(eResourceType::Shader)
 		  , mRasterizerState(eRasterizerState::SolidBack)
@@ -62,6 +65,23 @@ namespace ya::graphics
 
 	void Shader::Bind()
 	{
+		if (bWireframe)
+		{
+			Shader* wireframeShader = Resources::Find<Shader>(L"WireframeShader");
+			Microsoft::WRL::ComPtr<ID3D11VertexShader> wireframeShaderVS = wireframeShader->GetVS();
+			Microsoft::WRL::ComPtr<ID3D11PixelShader> wireframeShaderPS = wireframeShader->GetPS();
+			Microsoft::WRL::ComPtr<ID3D11RasterizerState> wireframeRasterizerState 
+				= renderer::rasterizerStates[static_cast<UINT>(eRasterizerState::Wireframe)];
+
+			GetDevice()->BindVS(wireframeShaderVS.Get());
+			GetDevice()->BindPS(wireframeShaderPS.Get());
+			GetDevice()->BindRasterizerState(wireframeRasterizerState.Get());
+			GetDevice()->BindBlendState(renderer::blendStates[static_cast<UINT>(mBlendState)].Get(), nullptr, 0xffffff);
+			GetDevice()->BindDepthStencilState(renderer::depthStencilStates[static_cast<UINT>(mDepthStencilState)].Get(), 0);
+
+			return;
+		}
+
 		if (mVS)
 			GetDevice()->BindVS(mVS.Get());
 		if (mPS)
@@ -69,7 +89,6 @@ namespace ya::graphics
 
 		GetDevice()->BindRasterizerState(renderer::rasterizerStates[static_cast<UINT>(mRasterizerState)].Get());
 		GetDevice()->BindBlendState(renderer::blendStates[static_cast<UINT>(mBlendState)].Get(), nullptr, 0xffffff);
-		GetDevice()->BindDepthStencilState(renderer::depthStencilStates[static_cast<UINT>(mDepthStencilState)].Get(),
-		                                   0);
+		GetDevice()->BindDepthStencilState(renderer::depthStencilStates[static_cast<UINT>(mDepthStencilState)].Get(), 0);
 	}
 }

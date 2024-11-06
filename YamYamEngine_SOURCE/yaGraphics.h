@@ -75,7 +75,7 @@ namespace ya::graphics
 		SolidBack,
 		SolidFront,
 		SolidNone,
-		WireFrame,
+		Wireframe,
 		End,
 	};
 

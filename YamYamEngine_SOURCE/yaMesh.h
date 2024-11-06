@@ -10,10 +10,10 @@ namespace ya
 	class Mesh : public Resource
 	{
 	public:
-		struct Data
+		struct MeshData
 		{
-			Data();
-			~Data();
+			MeshData();
+			~MeshData();
 
 			D3D11_PRIMITIVE_TOPOLOGY mTopology;
 			std::vector<graphics::Vertex> vertices;
@@ -25,7 +25,6 @@ namespace ya
 
 		HRESULT Save(const std::wstring& path) override;
 		HRESULT Load(const std::wstring& path) override;
-
 
 		bool CreateVB(const std::vector<graphics::Vertex>& vertices);
 		bool CreateIB(const std::vector<UINT>& indices);
@@ -41,6 +40,6 @@ namespace ya
 		graphics::VertexBuffer mVB;
 		graphics::IndexBuffer mIB;
 
-		Data mData;
+		MeshData mData;
 	};
 }
