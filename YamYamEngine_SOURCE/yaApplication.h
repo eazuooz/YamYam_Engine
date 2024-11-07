@@ -19,6 +19,7 @@ namespace ya
 		void Update();
 		void LateUpdate();
 		void Render();
+		void Present();
 		void Destroy();
 		void Release();
 

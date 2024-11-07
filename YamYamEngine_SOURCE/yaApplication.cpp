@@ -97,7 +97,10 @@ namespace ya
 		CollisionManager::Render();
 		UIManager::Render();
 		SceneManager::Render();
+	}
 
+	void Application::Present()
+	{
 		GetDevice()->Present();
 	}
 

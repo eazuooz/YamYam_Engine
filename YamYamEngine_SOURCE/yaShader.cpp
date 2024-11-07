@@ -4,7 +4,7 @@
 
 namespace ya::graphics
 {
-	bool Shader::bWireframe = true;
+	bool Shader::bWireframe = false;
 
 	Shader::Shader()
 		: Resource(eResourceType::Shader)
