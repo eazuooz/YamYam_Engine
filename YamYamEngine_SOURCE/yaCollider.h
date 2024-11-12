@@ -19,14 +19,14 @@ namespace ya
 		virtual void OnCollisionStay(Collider* other);
 		virtual void OnCollisionExit(Collider* other);
 
-		[[nodiscard]] eColliderType GetColliderType() const { return mType; }
-		[[nodiscard]] UINT32 GetID() const { return mID; }
+		eColliderType GetColliderType() const { return mType; }
+		UINT32 GetID() const { return mID; }
 
-		[[nodiscard]] Vector2 GetOffset() const { return mOffset; }
-		[[noreturn]] void SetOffset(const Vector2& offset) { mOffset = offset; }
+		Vector2 GetOffset() const { return mOffset; }
+		void SetOffset(const Vector2& offset) { mOffset = offset; }
 
-		[[nodiscard]] Vector2 GetSize() const { return mSize; }
-		[[noreturn]] void SetSize(const Vector2& size) { mSize = size; }
+		Vector2 GetSize() const { return mSize; }
+		void SetSize(const Vector2& size) { mSize = size; }
 
 	private:
 		static UINT CollisionID;

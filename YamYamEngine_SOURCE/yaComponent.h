@@ -18,10 +18,10 @@ namespace ya
 		virtual void LateUpdate();
 		virtual void Render();
 
-		[[nodiscard]] eComponentType GetType() const { return mType; }
+		eComponentType GetType() const { return mType; }
 
-		[[nodiscard]] GameObject* GetOwner() const { return mOwner; }
-		[[noreturn]] void SetOwner(GameObject* owner) { mOwner = owner; }
+		GameObject* GetOwner() const { return mOwner; }
+		void SetOwner(GameObject* owner) { mOwner = owner; }
 
 	private:
 		GameObject* mOwner;

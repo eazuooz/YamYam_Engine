@@ -68,10 +68,10 @@ namespace ya
 			if (power == false) mState = eState::Paused;
 		}
 
-		[[nodiscard]] bool IsActive() const { return mState == eState::Active; }
-		[[nodiscard]] bool IsDead() const { return mState == eState::Dead; }
-		[[nodiscard]] eLayerType GetLayerType() const { return mLayerType; }
-		[[noreturn]] void SetLayerType(const eLayerType layerType) { mLayerType = layerType; }
+		bool IsActive() const { return mState == eState::Active; }
+		bool IsDead() const { return mState == eState::Dead; }
+		eLayerType GetLayerType() const { return mLayerType; }
+		void SetLayerType(const eLayerType layerType) { mLayerType = layerType; }
 
 	private:
 		void initializeTransform();

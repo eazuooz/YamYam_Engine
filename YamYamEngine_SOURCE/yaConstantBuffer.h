@@ -11,8 +11,8 @@ namespace ya::graphics
 
 		bool Create(UINT size, void* data = nullptr);
 
-		[[noreturn]] void SetData(void* data) const;
-		[[noreturn]] void Bind(eShaderStage stage) const;
+		void SetData(void* data) const;
+		void Bind(eShaderStage stage) const;
 
 	private:
 		UINT mSize;
