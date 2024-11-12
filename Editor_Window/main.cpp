@@ -11,10 +11,21 @@
 #include "..\\YamYamEngine_SOURCE\\yaSceneManager.h"
 
 #include "..\\YamYamEngine_Window\\yaLoadScenes.h"
+#include "..\\YamYamEngine_SOURCE\\yaRenderer.h"
 
+#include "..\\YamYamEngine_SOURCE\\yaGameObject.h"
+#include "..\\YamYamEngine_SOURCE\\yaTransform.h"
+
+#define IMGUI_DEFINE_MATH_OPERATORS
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
+
+#include "ImGuizmo.h"
+#include "ImSequencer.h"
+#include "ImZoomSlider.h"
+#include "ImCurveEdit.h"
+#include "GraphEditor.h"
 
 
 
@@ -149,10 +160,50 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, //프로그램의 인스턴스 �
 			//editor::Run()을 통해 에디터를 돌린다.
             
             
-		// Start the Dear ImGui frame
+		    // Start the Dear ImGui frame
 			ImGui_ImplDX11_NewFrame();
 			ImGui_ImplWin32_NewFrame();
 			ImGui::NewFrame();
+
+            //imGuizmo
+			ImGuiIO& io = ImGui::GetIO();
+
+			ImGuizmo::SetOrthographic(false/*!isPerspective*/);
+            ImGuizmo::SetDrawlist(ImGui::GetCurrentWindow()->DrawList);
+
+			ImGuizmo::BeginFrame();
+
+			UINT width = application.GetWidth();
+			UINT height = application.GetHeight();
+            float windowWidth = (float)ImGui::GetWindowWidth();
+            float windowHeight = (float)ImGui::GetWindowHeight();
+            
+            RECT rect = { 0, 0, 0, 0 };
+            ::GetClientRect(application.GetHwnd(), &rect);
+
+            // Transform start
+            ImGuizmo::SetRect(0, 0, width, height);
+            //ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
+
+            Matrix viewMatirx;
+            Matrix projectionMatirx;
+
+            if (ya::renderer::mainCamera)
+            {
+                viewMatirx = ya::renderer::mainCamera->GetViewMatrix();
+			    projectionMatirx = ya::renderer::mainCamera->GetProjectionMatrix();
+            }
+
+			Matrix modelMatrix;
+            if (ya::renderer::selectedObject)
+            {
+				modelMatrix = ya::renderer::selectedObject->GetComponent<ya::Transform>()->GetWorldMatrix();
+            }
+
+            ImGuizmo::Manipulate(*viewMatirx.m, *projectionMatirx.m,
+            ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::LOCAL, *modelMatrix.m);
+        
+            //ImGuizmo::SetDrawlist(ImGui::GetCurrentWindow()->DrawList);
 
 			// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 			if (show_demo_window)
@@ -194,6 +245,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, //프로그램의 인스턴스 �
             // Rendering
             ImGui::Render();
             ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
 
             // Update and Render additional Platform Windows
             if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
@@ -264,7 +316,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    const UINT height = 900;
 
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, width, height, nullptr, nullptr, hInstance, nullptr);
+      0, 0, width, height, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {

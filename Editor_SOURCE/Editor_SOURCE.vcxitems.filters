@@ -7,6 +7,9 @@
     <Filter Include="imgui\impl">
       <UniqueIdentifier>{d9d7a0a9-ca6d-494e-97e7-b4f881851766}</UniqueIdentifier>
     </Filter>
+    <Filter Include="imGuizmo">
+      <UniqueIdentifier>{620c0c27-8c6c-40f7-ba58-1880319e4436}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)imgui_impl_dx11.cpp">
@@ -29,6 +32,21 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)imgui_widgets.cpp">
       <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GraphEditor.cpp">
+      <Filter>imGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ImCurveEdit.cpp">
+      <Filter>imGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ImGradient.cpp">
+      <Filter>imGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ImGuizmo.cpp">
+      <Filter>imGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ImSequencer.cpp">
+      <Filter>imGuizmo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +73,24 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)imstb_truetype.h">
       <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GraphEditor.h">
+      <Filter>imGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ImCurveEdit.h">
+      <Filter>imGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ImGradient.h">
+      <Filter>imGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ImGuizmo.h">
+      <Filter>imGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ImSequencer.h">
+      <Filter>imGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ImZoomSlider.h">
+      <Filter>imGuizmo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

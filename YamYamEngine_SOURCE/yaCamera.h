@@ -31,6 +31,8 @@ namespace ya
 		void CreateViewMatrix();
 		void CreateProjectionMatrix(eProjectionType type);
 
+		Matrix GetViewMatrix() { return mViewMatrix; }
+		Matrix GetProjectionMatrix() { return mProjectionMatrix; }
 		void SetProjectionType(const eProjectionType type) { mProjectionType = type; }
 		void SetSize(const float size) { mSize = size; }
 

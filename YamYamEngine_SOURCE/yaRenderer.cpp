@@ -9,6 +9,7 @@
 namespace ya::renderer
 {
 	Camera* mainCamera = nullptr;
+	GameObject* selectedObject = nullptr;
 	ConstantBuffer* constantBuffers[static_cast<UINT>(eCBType::End)] = {};
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[static_cast<UINT>(eSamplerType::End)] = {};
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizerStates[static_cast<UINT>(eRasterizerState::End)] = {};
