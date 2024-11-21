@@ -117,6 +117,10 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)Shaders_SOURCE" "$(SolutionDir)\x64\Shaders_SOURCE" /E /I /Y
+xcopy "$(SolutionDir)Resources" "$(SolutionDir)\x64\Resources" /E /I /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -135,6 +139,10 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>
+xcopy "$(SolutionDir)Shaders_SOURCE" "$(SolutionDir)x64￦Shaders_SOURCE￦" /E /I /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Editor_Window.h" />

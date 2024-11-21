@@ -121,8 +121,8 @@
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)\External\Library\Fmod\Debug\fmodL.dll" "$(SolutionDir)\x64\Debug\"
-
-copy "$(SolutionDir)\External\Library\Fmod\Debug\fmodstudioL.dll" "$(SolutionDir)\x64\Debug\"</Command>
+copy "$(SolutionDir)\External\Library\Fmod\Debug\fmodstudioL.dll" "$(SolutionDir)\x64\Debug\"
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -146,7 +146,6 @@ copy "$(SolutionDir)\External\Library\Fmod\Debug\fmodstudioL.dll" "$(SolutionDir
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)\External\Library\Fmod\Release\fmod.dll" "$(SolutionDir)\x64\Release\"
-
 copy "$(SolutionDir)\External\Library\Fmod\Release\fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

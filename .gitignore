@@ -400,13 +400,15 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Library Folder
-!External/g
 !External/Library/Fmod/Debug/
 !External/Library/Fmod/Release/
-!External/Library/DirectXTex/Debug/
-!External/Library/DirectXTex/Release/
-!External/Library/FW1FontWrapper/Debug/
-!External/Library/FW1FontWrapper/Release/
-!External/Library/Assimp/Debug/
-!External/Library/Assimp/Release/
+#!External/Library/DirectXTex/Debug/
+#!External/Library/DirectXTex/Release/
+#!External/Library/FW1FontWrapper/Debug/
+#!External/Library/FW1FontWrapper/Release/
+#!External/Library/Assimp/Debug/
+#!External/Library/Assimp/Release/
 
+#resource
+/x64￦Shaders_SOURCE￦
+/x64￦Resources￦
