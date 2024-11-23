@@ -3,7 +3,7 @@
 namespace gui
 {
 	Entity::Entity()
-		: mName(L"")
+		: mName("")
 	{
 	}
 

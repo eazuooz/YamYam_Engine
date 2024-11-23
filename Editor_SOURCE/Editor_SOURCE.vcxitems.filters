@@ -96,6 +96,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)guiEditorApplication.cpp">
       <Filter>Application</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)guiInspectorWindow.cpp">
+      <Filter>GUI\View</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)imgui_impl_dx11.h">
@@ -160,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)guiEditorApplication.h">
       <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)guiInspectorWindow.h">
+      <Filter>GUI\View</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -12,6 +12,23 @@ namespace gui
 	class EditorApplication
 	{
 	public:
+		enum class eState
+		{
+			Disable,
+			Active,
+			Destroy,
+		};
+
+		template <typename T>
+		T* GetWindow(const std::wstring& name)
+		{
+			auto iter = mEditorWindows.find(name);
+			if (iter == mEditorWindows.end())
+				return nullptr; 
+
+			return dynamic_cast<T*>(iter->second);
+		}
+
 		///<summary>
 		///에디터를 초기화합니다.
 		///</summary>
@@ -39,7 +56,17 @@ namespace gui
 
 	private:
 		static bool imGguiInitialize();
+		static void dockSpaceUpdate();
+		static void dockSpaceOnGui();
 		static void imGuiRender();
+
+		static ImGuiWindowFlags mFlag;
+		static ImGuiDockNodeFlags mDockspaceFlags;
+		static eState mState;
+		static bool mFullScreen;
+		static bool mPadding;
+
+		static std::map<std::wstring, EditorWindow*> mEditorWindows;
 	};
 }
 
