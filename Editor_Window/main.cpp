@@ -184,15 +184,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     case WM_SIZE:
 	    {
-            RECT rect = { 0, 0, 1600, 900 }; // 기본값 설정
-            GetWindowRect(hWnd, &rect); // 현재 윈도우의 좌표와 크기를 가져옴
-
-            int x = rect.left;
-            int y = rect.top;
-            int width = rect.right - rect.left;
-            int height = rect.bottom - rect.top;
-		
-	    	application.ReszieGraphicDevice(width, height);
+            application.ReszieGraphicDevice();
 	    }
 		break;
     case WM_PAINT:

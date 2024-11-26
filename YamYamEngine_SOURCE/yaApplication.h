@@ -12,7 +12,7 @@ namespace ya
 
 		void Initialize(HWND hwnd, int width, int height);
 		void AdjustWindowRect(HWND hwnd, int width, int height);
-		void ReszieGraphicDevice(int width, int height);
+		void ReszieGraphicDevice();
 		void InitializeEtc();
 
 		void Run();
