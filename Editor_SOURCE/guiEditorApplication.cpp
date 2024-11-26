@@ -15,7 +15,6 @@ namespace gui
 	ImGuiDockNodeFlags EditorApplication::mDockspaceFlags = ImGuiDockNodeFlags_None;
 	EditorApplication::eState EditorApplication::mState = EditorApplication::eState::Active;
 	bool EditorApplication::mFullScreen = true;
-	bool EditorApplication::mPadding = false;
 	std::map<std::wstring, EditorWindow*> EditorApplication::mEditorWindows;
 
 	bool EditorApplication::Initialize()
@@ -56,6 +55,26 @@ namespace gui
 		ImGui_ImplDX11_Shutdown();
 		ImGui_ImplWin32_Shutdown();
 		ImGui::DestroyContext();
+	}
+
+	void EditorApplication::OpenProject()
+	{
+
+	}
+
+	void EditorApplication::NewScene()
+	{
+
+	}
+
+	void EditorApplication::SaveScene()
+	{
+
+	}
+
+	void EditorApplication::SaveSceneAs()
+	{
+
 	}
 
 	bool EditorApplication::imGguiInitialize()
@@ -100,114 +119,6 @@ namespace gui
 		return false;
 	}
 
-	void EditorApplication::dockSpaceUpdate()
-	{
-		if (mState == eState::Disable)
-			return;
-
-		// If you strip some features of, this demo is pretty much equivalent to calling DockSpaceOverViewport()!
-		// In most cases you should be able to just call DockSpaceOverViewport() and ignore all the code below!
-		// In this specific demo, we are not using DockSpaceOverViewport() because:
-		// - we allow the host window to be floating/moveable instead of filling the viewport (when opt_fullscreen == false)
-		// - we allow the host window to have padding (when opt_padding == true)
-		// - we have a local menu bar in the host window (vs. you could use BeginMainMenuBar() + DockSpaceOverViewport() in your code!)
-		// TL;DR; this demo is more complicated than what you would normally use.
-		// If we removed all the options we are showcasing, this demo would become:
-		//     void ShowExampleAppDockSpace()
-		//     {
-		//         ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
-		//     }
-
-		// We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
-		// because it would be confusing to have two docking targets within each others.
-		mFlag = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
-		if (mFullScreen)
-		{
-			const ImGuiViewport* viewport = ImGui::GetMainViewport();
-			ImGui::SetNextWindowPos(viewport->WorkPos);
-			ImGui::SetNextWindowSize(viewport->WorkSize);
-			ImGui::SetNextWindowViewport(viewport->ID);
-			ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
-			ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
-			mFlag |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
-			mFlag |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
-		}
-		else
-		{
-			mDockspaceFlags &= ~ImGuiDockNodeFlags_PassthruCentralNode;
-		}
-
-		// When using ImGuiDockNodeFlags_PassthruCentralNode, DockSpace() will render our background
-		// and handle the pass-thru hole, so we ask Begin() to not render a background.
-		if (mDockspaceFlags & ImGuiDockNodeFlags_PassthruCentralNode)
-			mFlag |= ImGuiWindowFlags_NoBackground;
-
-		// Important: note that we proceed even if Begin() returns false (aka window is collapsed).
-		// This is because we want to keep our DockSpace() active. If a DockSpace() is inactive,
-		// all active windows docked into it will lose their parent and become undocked.
-		// We cannot preserve the docking relationship between an active window and an inactive docking, otherwise
-		// any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
-		if (!mPadding)
-			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-	}
-	
-	void EditorApplication::dockSpaceOnGui()
-	{
-		if (mState == eState::Disable)
-			return;
-
-		bool Active = static_cast<bool>(mState);
-		ImGui::Begin("EditorApplication", &Active, mFlag);
-        if (!mPadding)
-            ImGui::PopStyleVar();
-
-        if (mFullScreen)
-            ImGui::PopStyleVar(2);
-
-        // Submit the DockSpace
-        ImGuiIO& io = ImGui::GetIO();
-        if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
-        {
-            ImGuiID dockspace_id = ImGui::GetID("YamYamDockingSpace");
-            ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), mDockspaceFlags);
-        }
-        else
-        {
-			ImGuiIO& io = ImGui::GetIO();
-			ImGui::Text("ERROR: Docking is not enabled! See Demo > Configuration.");
-			ImGui::Text("Set io.ConfigFlags |= ImGuiConfigFlags_DockingEnable in your code, or ");
-			ImGui::SameLine(0.0f, 0.0f);
-			if (ImGui::SmallButton("click here"))
-				io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-        }
-
-        if (ImGui::BeginMenuBar())
-        {
-            if (ImGui::BeginMenu("Options"))
-            {
-                // Disabling fullscreen would allow the window to be moved to the front of other windows,
-                // which we can't undo at the moment without finer window depth/z control.
-                ImGui::MenuItem("Fullscreen", NULL, &mFullScreen);
-                ImGui::MenuItem("Padding", NULL, &mPadding);
-                ImGui::Separator();
-
-                if (ImGui::MenuItem("Flag: NoSplit",                "", (mDockspaceFlags & ImGuiDockNodeFlags_NoSplit) != 0)) { mDockspaceFlags ^= ImGuiDockNodeFlags_NoSplit; }
-                if (ImGui::MenuItem("Flag: NoResize",               "", (mDockspaceFlags & ImGuiDockNodeFlags_NoResize) != 0)) { mDockspaceFlags ^= ImGuiDockNodeFlags_NoResize; }
-                if (ImGui::MenuItem("Flag: NoDockingInCentralNode", "", (mDockspaceFlags & ImGuiDockNodeFlags_NoDockingInCentralNode) != 0)) { mDockspaceFlags ^= ImGuiDockNodeFlags_NoDockingInCentralNode; }
-                if (ImGui::MenuItem("Flag: AutoHideTabBar",         "", (mDockspaceFlags & ImGuiDockNodeFlags_AutoHideTabBar) != 0)) { mDockspaceFlags ^= ImGuiDockNodeFlags_AutoHideTabBar; }
-                if (ImGui::MenuItem("Flag: PassthruCentralNode",    "", (mDockspaceFlags & ImGuiDockNodeFlags_PassthruCentralNode) != 0, mDockspaceFlags)) { mDockspaceFlags ^= ImGuiDockNodeFlags_PassthruCentralNode; }
-                ImGui::Separator();
-
-                if (ImGui::MenuItem("Close", NULL, false, &Active != NULL))
-					mState = eState::Disable;
-
-                ImGui::EndMenu();
-            }
-            ImGui::EndMenuBar();
-        }
-        ImGui::End();
-	}
-
 	void EditorApplication::imGuiRender()
 	{
 		// Load Fonts
@@ -235,14 +146,105 @@ namespace gui
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
-		ImGuiIO& io = ImGui::GetIO();
 
-		dockSpaceUpdate();
-		dockSpaceOnGui();
+		// We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
+		// because it would be confusing to have two docking targets within each others.
+		mFlag = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+		if (mFullScreen)
+		{
+			ImGuiViewport* viewport = ImGui::GetMainViewport();
+			ImGui::SetNextWindowPos(viewport->Pos);
+			ImGui::SetNextWindowSize(viewport->Size);
+			ImGui::SetNextWindowViewport(viewport->ID);
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+			mFlag |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+			mFlag |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+		}
+
+		// When using ImGuiDockNodeFlags_PassthruCentralNode, DockSpace() will render our background
+		// and handle the pass-thru hole, so we ask Begin() to not render a background.
+		if (mDockspaceFlags & ImGuiDockNodeFlags_PassthruCentralNode)
+			mFlag |= ImGuiWindowFlags_NoBackground;
+
+		// Important: note that we proceed even if Begin() returns false (aka window is collapsed).
+		// This is because we want to keep our DockSpace() active. If a DockSpace() is inactive,
+		// all active windows docked into it will lose their parent and become undocked.
+		// We cannot preserve the docking relationship between an active window and an inactive docking, otherwise
+		// any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+		bool Active = static_cast<bool>(mState);
+		ImGui::Begin("EditorApplication", &Active, mFlag);
+        ImGui::PopStyleVar();
+
+        if (mFullScreen)
+            ImGui::PopStyleVar(2);
+
+		// DockSpace
+		ImGuiIO& io = ImGui::GetIO();
+		ImGuiStyle& style = ImGui::GetStyle();
+		float minWinSizeX = style.WindowMinSize.x;
+		style.WindowMinSize.x = 370.0f;
+		if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
+		{
+			ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), mDockspaceFlags);
+		}
+
+		style.WindowMinSize.x = minWinSizeX;
+
+        if (ImGui::BeginMenuBar())
+        {
+			if (ImGui::BeginMenu("File"))
+			{
+				if (ImGui::MenuItem("Open Project...", "Ctrl+O"))
+					OpenProject();
+
+				ImGui::Separator();
+
+				if (ImGui::MenuItem("New Scene", "Ctrl+N"))
+					NewScene();
+
+				if (ImGui::MenuItem("Save Scene", "Ctrl+S"))
+					SaveScene();
+
+				if (ImGui::MenuItem("Save Scene As...", "Ctrl+Shift+S"))
+					SaveSceneAs();
+
+				ImGui::Separator();
+
+				if (ImGui::MenuItem("Exit"))
+					application.Close();
+				
+				ImGui::EndMenu();
+			}
+
+			if (ImGui::BeginMenu("Script"))
+			{
+				if (ImGui::MenuItem("Reload assembly", "Ctrl+R"))
+				{
+					//ScriptEngine::ReloadAssembly(); 추후 C#스크립트 추가기능이 생기면 추가할 예정
+				}
+				
+				ImGui::EndMenu();
+			}
+
+				
+			ImGui::EndMenuBar();
+		}
 
 		for (auto iter : mEditorWindows)
 			iter.second->Run();
+		
+		// viewport
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
+		ImGui::Begin("Viewport");
+		
+		ImGui::End();
+		ImGui::PopStyleVar();
 
+		ImGui::End(); // dockspace end
+#pragma region demo
 		////imGuizmo
 		//ImGuiIO& io = ImGui::GetIO();
 
@@ -321,11 +323,10 @@ namespace gui
 		//		show_another_window = false;
 		//	ImGui::End();
 		//}
-
+#pragma endregion
 		// Rendering
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-
 
 		// Update and Render additional Platform Windows
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
