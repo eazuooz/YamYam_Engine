@@ -12,10 +12,14 @@ namespace ya
 {
 	Application::Application()
 		: mHwnd(nullptr)
-		  , mWidth(0)
-		  , mHeight(0)
-		  , mbLoaded(false)
-		  , mbRunning(false)
+		, mWindowWidth(0)
+		, mWindowHeight(0)
+		, mWidth(0)
+		, mHeight(0)
+		, mX(0), mY(0)
+		, mbLoaded(false)
+		, mbRunning(false)
+
 	{
 	}
 
@@ -34,7 +38,6 @@ namespace ya
 		mGraphicDevice->Initialize();
 		renderer::Initialize();
 		
-
 		Fmod::Initialize();
 		CollisionManager::Initialize();
 		UIManager::Initialize();
@@ -43,20 +46,33 @@ namespace ya
 		mbRunning = true;
 	}
 
+	void Application::InitializeWindow(HWND hwnd)
+	{
+		SetWindowPos(hwnd, nullptr, mX, mY, mWindowWidth, mWindowHeight, 0);
+		ShowWindow(hwnd, SW_SHOWDEFAULT);
+	}
+
 	void Application::AdjustWindowRect(HWND hwnd, int width, int height)
 	{
 		RECT rect = {0, 0, static_cast<LONG>(width), static_cast<LONG>(height)};
 		::AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
-        ::GetWindowRect(hwnd, &rect); // 현재 윈도우의 좌표와 크기를 가져옴
 
-        int x = rect.left;
-        int y = rect.top;
+		RECT winRect;
+		::GetWindowRect(mHwnd, &winRect); 
 
-		mWidth = rect.right - rect.left;
-		mHeight = rect.bottom - rect.top;
+		//window position
+		mX = winRect.left;
+        mY = winRect.top;
 
-		SetWindowPos(hwnd, nullptr, x, y, mWidth, mHeight, 0);
-		ShowWindow(hwnd, true);
+		// window size
+		mWindowWidth = rect.right - rect.left;
+		mWindowHeight = rect.bottom - rect.top;
+
+		//client size
+		mWidth = width;
+		mHeight = height;
+
+		InitializeWindow(hwnd);
 	}
 
 	void Application::ReszieGraphicDevice()
@@ -65,7 +81,7 @@ namespace ya
 			return;
 		
 		RECT winRect;
-		GetClientRect(mHwnd, &winRect);
+		::GetClientRect(mHwnd, &winRect);
 		D3D11_VIEWPORT viewport = {};
 		viewport.TopLeftX = 0.0f;
 		viewport.TopLeftY = 0.0f;
@@ -78,6 +94,7 @@ namespace ya
 		mHeight = viewport.Height;
 
 		mGraphicDevice->Resize(viewport);
+		renderer::FrameBuffer->Resize(mWidth, mHeight );
 	}
 
 	void Application::InitializeEtc()
@@ -131,6 +148,12 @@ namespace ya
 		CollisionManager::Render();
 		UIManager::Render();
 		SceneManager::Render();
+
+		//copy back buffer
+		Microsoft::WRL::ComPtr<ID3D11Texture2D> src = GetDevice()->GetFrameBuffer();
+		Microsoft::WRL::ComPtr<ID3D11Texture2D> dst = renderer::FrameBuffer->GetAttachmentTexture(0)->GetTexture();
+
+		GetDevice()->CopyResource(dst.Get(), src.Get());
 	}
 
 	void Application::Present()

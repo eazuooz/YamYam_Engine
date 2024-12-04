@@ -11,6 +11,7 @@ namespace ya
 		~Application();
 
 		void Initialize(HWND hwnd, int width, int height);
+		void InitializeWindow(HWND hwnd);
 		void AdjustWindowRect(HWND hwnd, int width, int height);
 		void ReszieGraphicDevice();
 		void InitializeEtc();
@@ -40,7 +41,15 @@ namespace ya
 		HWND mHwnd;
 		std::unique_ptr<graphics::GraphicDevice_DX11> mGraphicDevice;
 
+		// window size
+		UINT mWindowWidth;
+		UINT mWindowHeight;
+
+		// client size
 		UINT mWidth;
 		UINT mHeight;
+
+		// window position
+		UINT mX, mY;
 	};
 }

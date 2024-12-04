@@ -196,6 +196,14 @@ namespace ya::graphics
 		return true;
 	}
 
+	bool GraphicDevice_DX11::CreateUnorderedAccessView(ID3D11Resource* pResource, const D3D11_UNORDERED_ACCESS_VIEW_DESC* pDesc, ID3D11UnorderedAccessView** ppUAView)
+	{
+		if (FAILED(mDevice->CreateUnorderedAccessView(pResource, pDesc, ppUAView)))
+			return false;
+
+		return true;
+	}
+
 	bool GraphicDevice_DX11::CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDesc,
 	                                               ID3D11RasterizerState** ppRasterizerState)
 	{
@@ -224,8 +232,8 @@ namespace ya::graphics
 
 	bool GraphicDevice_DX11::Resize(D3D11_VIEWPORT viewport)
 	{
-		mRenderTargetView.Reset();
-		mRenderTarget.Reset();
+		mFrameBufferView.Reset();
+		mFrameBuffer.Reset();
 
 		mDepthStencilView.Reset();
 		mDepthStencil.Reset();
@@ -242,10 +250,10 @@ namespace ya::graphics
 
 		D3D11_TEXTURE2D_DESC desc = {};
 		renderTarget->GetDesc(&desc);
-		mRenderTarget = renderTarget;
+		mFrameBuffer = renderTarget;
 
 		// Create RenderTargetView
-		hr = mDevice->CreateRenderTargetView(mRenderTarget.Get(), nullptr, mRenderTargetView.GetAddressOf());
+		hr = mDevice->CreateRenderTargetView(mFrameBuffer.Get(), nullptr, mFrameBufferView.GetAddressOf());
 		
 		// Create DepthStencil
 		D3D11_TEXTURE2D_DESC depthStencilDesc = {};
@@ -269,7 +277,7 @@ namespace ya::graphics
 		BindViewPort();
 
 		// Bind RenderTarget
-		BindRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
+		BindRenderTargets(1, mFrameBufferView.GetAddressOf(), mDepthStencilView.Get());
 
 		return true;
 	}
@@ -434,13 +442,18 @@ namespace ya::graphics
 
 	void GraphicDevice_DX11::BindDefaultRenderTarget()
 	{
-		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
+		mContext->OMSetRenderTargets(1, mFrameBufferView.GetAddressOf(), mDepthStencilView.Get());
+	}
+
+	void GraphicDevice_DX11::CopyResource(ID3D11Resource* pDstResource, ID3D11Resource* pSrcResource)
+	{
+		mContext->CopyResource(pDstResource, pSrcResource);
 	}
 
 	void GraphicDevice_DX11::ClearRenderTargetView()
 	{
 		FLOAT backgroundColor[4] = {0.2f, 0.2f, 0.2f, 1.0f};
-		mContext->ClearRenderTargetView(mRenderTargetView.Get(), backgroundColor);
+		mContext->ClearRenderTargetView(mFrameBufferView.Get(), backgroundColor);
 	}
 
 	void GraphicDevice_DX11::ClearDepthStencilView()
@@ -485,10 +498,10 @@ namespace ya::graphics
 		if (!(CreateSwapchain(swapChainDesc)))
 			assert(NULL && "Create Swapchain Failed!");
 
-		if (!(GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(mRenderTarget.GetAddressOf()))))
+		if (!(GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(mFrameBuffer.GetAddressOf()))))
 			assert(NULL && "Couldn't bring rendertarget!");
 
-		if (!(CreateRenderTargetView(mRenderTarget.Get(), nullptr, mRenderTargetView.GetAddressOf())))
+		if (!(CreateRenderTargetView(mFrameBuffer.Get(), nullptr, mFrameBufferView.GetAddressOf())))
 			assert(NULL && "Create RenderTargetView Failed!");
 
 #pragma region depthstencil desc

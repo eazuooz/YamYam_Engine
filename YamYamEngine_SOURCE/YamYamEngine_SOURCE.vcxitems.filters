@@ -133,6 +133,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaInputLayout.cpp">
       <Filter>Graohics\InputLayout</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaRenderTarget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -276,6 +277,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaInputLayout.h">
       <Filter>Graohics\InputLayout</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaRenderTarget.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -382,6 +384,9 @@
     </Filter>
     <Filter Include="Graohics\InputLayout">
       <UniqueIdentifier>{b629bd13-a842-401d-8199-0ea142401fb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graohics\RenderTarget">
+      <UniqueIdentifier>{e4204f76-30b9-44bd-83e4-8d27239e6de0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
