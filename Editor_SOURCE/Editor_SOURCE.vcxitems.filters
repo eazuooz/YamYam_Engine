@@ -7,9 +7,6 @@
     <Filter Include="imgui\impl">
       <UniqueIdentifier>{d9d7a0a9-ca6d-494e-97e7-b4f881851766}</UniqueIdentifier>
     </Filter>
-    <Filter Include="imGuizmo">
-      <UniqueIdentifier>{620c0c27-8c6c-40f7-ba58-1880319e4436}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GUI">
       <UniqueIdentifier>{ed4254c0-41ed-4381-b638-a20521289c52}</UniqueIdentifier>
     </Filter>
@@ -36,6 +33,9 @@
     </Filter>
     <Filter Include="GUI\View">
       <UniqueIdentifier>{b927f8a4-e210-40dc-99f5-47cd1fa98ec9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imGuizmo">
+      <UniqueIdentifier>{620c0c27-8c6c-40f7-ba58-1880319e4436}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

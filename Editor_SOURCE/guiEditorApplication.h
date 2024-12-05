@@ -75,6 +75,7 @@ namespace gui
 		static ya::math::Vector2 mViewportSize;
 		static bool mViewportFocused;
 		static bool mViewportHovered;
+		static int mGuizmoType;
 
 		static ya::graphics::RenderTarget* mFrameBuffer;
 	};

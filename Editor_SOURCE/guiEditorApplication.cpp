@@ -8,6 +8,7 @@
 #include "..\\YamYamEngine_SOURCE\\yaGameObject.h"
 #include "..\\YamYamEngine_SOURCE\\yaTransform.h"
 #include "..\\YamYamEngine_SOURCE\\yaRenderer.h"
+#include "..\\YamYamEngine_SOURCE\\yaInput.h"
 
 extern ya::Application application;
 
@@ -22,6 +23,8 @@ namespace gui
 	ya::math::Vector2 EditorApplication::mViewportSize;
 	bool EditorApplication::mViewportFocused = false;
 	bool EditorApplication::mViewportHovered = false;
+	int EditorApplication::mGuizmoType = -1;
+
 	ya::graphics::RenderTarget* EditorApplication::mFrameBuffer = nullptr;
 
 	bool EditorApplication::Initialize()
@@ -159,6 +162,7 @@ namespace gui
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
+		ImGuizmo::BeginFrame();
 
 		// We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
 		// because it would be confusing to have two docking targets within each others.
@@ -258,9 +262,8 @@ namespace gui
 		auto viewportOffset = ImGui::GetWindowPos(); // ¾ÀºäÀÇ À§Ä¡
 
 		const int letTop = 0;
-		mViewportBounds[letTop] = { viewportMinRegion.x + viewportOffset.x, viewportMinRegion.y + viewportOffset.y };
-
 		const int rightBottom = 1;
+		mViewportBounds[letTop] = { viewportMinRegion.x + viewportOffset.x, viewportMinRegion.y + viewportOffset.y };
 		mViewportBounds[rightBottom] = { viewportMaxRegion.x + viewportOffset.x, viewportMaxRegion.y + viewportOffset.y };
 
 		// check if the mouse,keyboard is on the Sceneview
@@ -288,9 +291,59 @@ namespace gui
 		}
 
 		// To do : guizmo
+		ya::GameObject* selectedObject = ya::renderer::selectedObject;
+		mGuizmoType = ImGuizmo::OPERATION::TRANSLATE;
+		if (selectedObject && mGuizmoType != -1)
+		{
+			ImGuizmo::SetOrthographic(false);
+			ImGuizmo::SetDrawlist();
+			ImGuizmo::SetRect(mViewportBounds[0].x, mViewportBounds[0].y
+				, mViewportBounds[1].x - mViewportBounds[0].x, mViewportBounds[1].y - mViewportBounds[0].y);
 
+			// To do : guizmo...
+			// game view camera setting
 
-		ImGui::End();
+			// Scene Camera
+			const ya::math::Matrix& viewMatrix = ya::renderer::mainCamera->GetViewMatrix();
+			const ya::math::Matrix& projectionMatrix = ya::renderer::mainCamera->GetProjectionMatrix();
+
+			// Object Transform
+			ya::Transform* transform = selectedObject->GetComponent<ya::Transform>();
+			ya::math::Matrix worldMatrix = transform->GetWorldMatrix();
+
+			// snapping
+			bool snap = ya::Input::GetKey(ya::eKeyCode::Leftcontrol);
+			float snapValue = 0.5f; 
+
+			// snap to 45 degrees for rotation
+			if (mGuizmoType == ImGuizmo::OPERATION::ROTATE)
+				snapValue = 45.0f;
+
+			float snapValues[3] = { snapValue, snapValue, snapValue };
+
+			ImGuizmo::Manipulate(*viewMatrix.m, *projectionMatrix.m, static_cast<ImGuizmo::OPERATION>(mGuizmoType)
+				, ImGuizmo::LOCAL, *worldMatrix.m, nullptr, snap ? snapValues : nullptr);
+
+			if (ImGuizmo::IsUsing())
+			{
+				// Decompose matrix to translation, rotation and scale
+				float translation[3];
+				float rotation[3];
+				float scale[3];
+				ImGuizmo::DecomposeMatrixToComponents(*worldMatrix.m, translation, rotation, scale);
+
+				// delta rotation from the current rotation
+				ya::math::Vector3 deltaRotation = Vector3(rotation) - transform->GetRotation();
+				deltaRotation = transform->GetRotation() + deltaRotation;
+				
+				// set the new transform
+				transform->SetScale(Vector3(scale));
+				transform->SetRotation(Vector3(deltaRotation));
+				transform->SetPosition(Vector3(translation));
+			}
+		}
+
+		ImGui::End();	// Scene end
 		ImGui::PopStyleVar();
 
 		ImGui::End(); // dockspace end

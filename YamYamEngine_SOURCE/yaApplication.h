@@ -7,6 +7,12 @@ namespace ya
 	class Application
 	{
 	public:
+		struct WindowData
+		{
+			std::wstring Title;
+			//EventCallbackFn EventCallback;
+		};
+
 		Application();
 		~Application();
 
