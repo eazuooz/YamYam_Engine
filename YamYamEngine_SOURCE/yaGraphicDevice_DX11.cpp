@@ -426,7 +426,8 @@ namespace ya::graphics
 		D3D11_VIEWPORT viewPort =
 		{
 			0, 0,
-			static_cast<float>(application.GetWidth()), static_cast<float>(application.GetHeight()),
+			static_cast<float>(application.GetWindow().GetWidth()),
+			static_cast<float>(application.GetWindow().GetHeight()),
 			0.0f, 1.0f
 		};
 
@@ -466,15 +467,15 @@ namespace ya::graphics
 #pragma region swapchain desc
 		DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
 
-		swapChainDesc.OutputWindow = application.GetHwnd();
+		swapChainDesc.OutputWindow = application.GetWindow().GetHwnd();
 		swapChainDesc.Windowed = true;
 		swapChainDesc.BufferCount = 2;
 		swapChainDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 		swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
 		swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-		swapChainDesc.BufferDesc.Width = application.GetWidth();
-		swapChainDesc.BufferDesc.Height = application.GetHeight();
+		swapChainDesc.BufferDesc.Width = application.GetWindow().GetWidth();
+		swapChainDesc.BufferDesc.Height = application.GetWindow().GetHeight();
 		swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 		swapChainDesc.BufferDesc.RefreshRate.Numerator = 144;
 		swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
@@ -509,8 +510,8 @@ namespace ya::graphics
 		depthStencilDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 		depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 		depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
-		depthStencilDesc.Width = application.GetWidth();
-		depthStencilDesc.Height = application.GetHeight();
+		depthStencilDesc.Width = application.GetWindow().GetWidth();
+		depthStencilDesc.Height = application.GetWindow().GetHeight();
 		depthStencilDesc.ArraySize = 1;
 		depthStencilDesc.SampleDesc.Count = 1;
 		depthStencilDesc.SampleDesc.Quality = 0;

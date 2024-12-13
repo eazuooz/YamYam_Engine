@@ -15,6 +15,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaApplicationEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaEvent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaInputLayout.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaConstantBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaGraphics.h" />
@@ -27,6 +29,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaMaterial.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaMesh.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaMouseEvent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaRenderTarget.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaUIHUD.h" />
@@ -62,6 +65,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaUIButton.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaUIManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaVertexBuffer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)yaInputLayout.cpp" />
@@ -109,5 +113,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaUIButton.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaUIManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaVertexBuffer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaWindow.cpp" />
   </ItemGroup>
 </Project>

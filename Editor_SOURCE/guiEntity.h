@@ -1,5 +1,6 @@
 #pragma once
 #include "..\\YamYamEngine_SOURCE\\CommonInclude.h"
+#include "..\\YamYamEngine_SOURCE\\yaEvent.h"
 
 #define IMGUI_DEFINE_MATH_OPERATORS
 #include "imgui.h"

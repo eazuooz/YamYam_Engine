@@ -186,9 +186,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     case WM_SIZE:
 	    {
-            application.ReszieGraphicDevice();
+		    application.GetWindow().SetWindowResize(LOWORD(lParam), HIWORD(lParam));
+            //application.ReszieGraphicDevice();
 	    }
 		break;
+
+	case WM_MOUSEMOVE:
+	    {
+	    	application.GetWindow().SetCursorPos(wParam, lParam);
+            gui::EditorApplication::SetCursorPos(wParam, lParam);
+	    }
+        break;
     case WM_PAINT:
         {
             PAINTSTRUCT ps;

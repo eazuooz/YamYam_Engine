@@ -27,6 +27,7 @@ namespace gui
 		virtual void OnEnable();
 		virtual void OnDisable();
 		virtual void OnDestroy();
+		virtual void OnEvent(ya::Event& e) {}
 
 		ImGuiWindowFlags GetFlag() const { return mFlag; }
 		eState GetState() const { return mState; }

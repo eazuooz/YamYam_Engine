@@ -63,7 +63,7 @@ namespace ya
 	void Camera::CreateProjectionMatrix(eProjectionType type)
 	{
 		RECT winRect = {};
-		GetClientRect(application.GetHwnd(), &winRect);
+		GetClientRect(application.GetWindow().GetHwnd(), &winRect);
 		const float width = CAST_FLOAT(winRect.right - winRect.left);
 		const float height = CAST_FLOAT(winRect.bottom - winRect.top);
 		mAspectRatio = width / height;

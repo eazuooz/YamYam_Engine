@@ -134,6 +134,9 @@
       <Filter>Graohics\InputLayout</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)yaRenderTarget.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaWindow.cpp">
+      <Filter>High Level Interface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -278,6 +281,18 @@
       <Filter>Graohics\InputLayout</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaRenderTarget.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaWindow.h">
+      <Filter>High Level Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaEvent.h">
+      <Filter>Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaApplicationEvent.h">
+      <Filter>Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaMouseEvent.h">
+      <Filter>Event</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -387,6 +402,9 @@
     </Filter>
     <Filter Include="Graohics\RenderTarget">
       <UniqueIdentifier>{e4204f76-30b9-44bd-83e4-8d27239e6de0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Event">
+      <UniqueIdentifier>{6da799c3-6d00-444f-8b33-2bdfb5094a9b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

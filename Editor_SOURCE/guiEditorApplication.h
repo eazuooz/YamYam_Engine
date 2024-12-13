@@ -1,8 +1,10 @@
 #pragma once
 #include "guiEditor.h"
 #include "guiEditorWindow.h"
+#include "guiImguiEditor.h"
 
 #include "..\\YamYamEngine_SOURCE\\yaRenderTarget.h"
+#include "..\\YamYamEngine_SOURCE\\yaEvent.h"
 
 
 namespace gui
@@ -56,15 +58,24 @@ namespace gui
 		/// </summary>
 		static void Release();
 
+		/// <summary>
+		/// EditorApplication 이벤트 처리
+		/// </summary>
+		static void OnEvent(ya::Event& e);
+
 		static void OpenProject();
 		static void NewScene();
 		static void SaveScene();
 		static void SaveSceneAs();
 		static void OpenScene(const std::filesystem::path& path);
 
+		static void OnImGuiRender();
+
+		//Event
+		static void SetCursorPos(double x, double y);
+
 	private:
-		static bool imGguiInitialize();
-		static void imGuiRender();
+		static ImguiEditor* mImguiEditor;
 
 		static std::map<std::wstring, EditorWindow*> mEditorWindows;
 		static ImGuiWindowFlags mFlag;
@@ -78,6 +89,7 @@ namespace gui
 		static int mGuizmoType;
 
 		static ya::graphics::RenderTarget* mFrameBuffer;
+		static ya::EventCallbackFn mEventCallback;
 	};
 }
 

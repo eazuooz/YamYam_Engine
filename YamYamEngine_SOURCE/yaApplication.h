@@ -1,26 +1,24 @@
 #pragma once
 #include "yaGameObject.h"
 #include "yaGraphicDevice_DX11.h"
+#include "yaEvent.h"
+#include "yaWindow.h"
 
 namespace ya
 {
 	class Application
 	{
 	public:
-		struct WindowData
-		{
-			std::wstring Title;
-			//EventCallbackFn EventCallback;
-		};
-
 		Application();
 		~Application();
 
 		void Initialize(HWND hwnd, int width, int height);
 		void InitializeWindow(HWND hwnd);
 		void AdjustWindowRect(HWND hwnd, int width, int height);
-		void ReszieGraphicDevice();
+		void ReszieGraphicDevice(UINT width, UINT height);
 		void InitializeEtc();
+
+		void OnEvent(Event& e);
 
 		void Run();
 		void Close();
@@ -32,11 +30,7 @@ namespace ya
 		void Destroy();
 		void Release();
 
-		HWND GetHwnd() const { return mHwnd; }
-
-		UINT GetWidth() const { return mWidth; }
-		UINT GetHeight() const { return mHeight; }
-
+		Window& GetWindow() { return mWindow; }
 		bool IsLoaded() const { return mbLoaded; }
 		void IsLoaded(const bool load) { mbLoaded = load; }
 		bool IsRunning() const { return mbRunning; }
@@ -44,18 +38,8 @@ namespace ya
 	private:
 		bool mbLoaded;
 		bool mbRunning;
-		HWND mHwnd;
 		std::unique_ptr<graphics::GraphicDevice_DX11> mGraphicDevice;
 
-		// window size
-		UINT mWindowWidth;
-		UINT mWindowHeight;
-
-		// client size
-		UINT mWidth;
-		UINT mHeight;
-
-		// window position
-		UINT mX, mY;
+		Window mWindow;
 	};
 }

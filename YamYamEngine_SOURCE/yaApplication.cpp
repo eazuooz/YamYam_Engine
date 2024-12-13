@@ -7,20 +7,17 @@
 #include "yaCollisionManager.h"
 #include "yaUIManager.h"
 #include "yaFmod.h"
+#include "yaApplicationEvent.h"
+#include "yaMouseEvent.h"
 
 namespace ya
 {
 	Application::Application()
-		: mHwnd(nullptr)
-		, mWindowWidth(0)
-		, mWindowHeight(0)
-		, mWidth(0)
-		, mHeight(0)
-		, mX(0), mY(0)
-		, mbLoaded(false)
+		: mbLoaded(false)
 		, mbRunning(false)
 
 	{
+		mWindow.SetEventCallBack(YA_BIND_EVENT_FN(Application::OnEvent));
 	}
 
 	Application::~Application()
@@ -29,8 +26,7 @@ namespace ya
 
 	void Application::Initialize(HWND hwnd, int width, int height)
 	{
-		mHwnd = hwnd;
-
+		mWindow.SetHwnd(hwnd);
 		AdjustWindowRect(hwnd, width, height);
 		InitializeEtc();
 
@@ -48,7 +44,8 @@ namespace ya
 
 	void Application::InitializeWindow(HWND hwnd)
 	{
-		SetWindowPos(hwnd, nullptr, mX, mY, mWindowWidth, mWindowHeight, 0);
+		SetWindowPos(hwnd, nullptr, mWindow.GetXPos(), mWindow.GetYPos()
+			, mWindow.GetWindowWidth(), mWindow.GetWindowHeight(), 0);
 		ShowWindow(hwnd, SW_SHOWDEFAULT);
 	}
 
@@ -58,49 +55,62 @@ namespace ya
 		::AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 
 		RECT winRect;
-		::GetWindowRect(mHwnd, &winRect); 
+		::GetWindowRect(mWindow.GetHwnd(), &winRect);
 
 		//window position
-		mX = winRect.left;
-        mY = winRect.top;
+		mWindow.SetPos(winRect.left, winRect.top);
 
 		// window size
-		mWindowWidth = rect.right - rect.left;
-		mWindowHeight = rect.bottom - rect.top;
+		mWindow.SetWindowWidth(rect.right - rect.left);
+		mWindow.SetWindowHeight(rect.bottom - rect.top);
 
 		//client size
-		mWidth = width;
-		mHeight = height;
+		mWindow.SetWidth(width);
+		mWindow.SetHeight(height);
 
 		InitializeWindow(hwnd);
 	}
 
-	void Application::ReszieGraphicDevice()
+	void Application::ReszieGraphicDevice(UINT width, UINT height)
 	{
 		if (mGraphicDevice == nullptr)
 			return;
 		
-		RECT winRect;
-		::GetClientRect(mHwnd, &winRect);
 		D3D11_VIEWPORT viewport = {};
 		viewport.TopLeftX = 0.0f;
 		viewport.TopLeftY = 0.0f;
-		viewport.Width = static_cast<float>(winRect.right - winRect.left);
-		viewport.Height = static_cast<float>(winRect.bottom - winRect.top);
+		viewport.Width = static_cast<float>(width);
+		viewport.Height = static_cast<float>(height);
 		viewport.MinDepth = 0.0f;
 		viewport.MaxDepth = 1.0f;
 
-		mWidth = viewport.Width;
-		mHeight = viewport.Height;
+		mWindow.SetWidth(viewport.Width);
+		mWindow.SetHeight(viewport.Height);
 
 		mGraphicDevice->Resize(viewport);
-		renderer::FrameBuffer->Resize(mWidth, mHeight );
+		renderer::FrameBuffer->Resize(viewport.Width, viewport.Height);
 	}
 
 	void Application::InitializeEtc()
 	{
 		Input::Initialize();
 		Time::Initialize();
+	}
+
+	void Application::OnEvent(Event& e)
+	{
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<WindowResizeEvent>([this](WindowResizeEvent& e) -> bool
+			{
+				ReszieGraphicDevice(e.GetWidth(), e.GetHeight());
+				return true;
+			});
+
+		dispatcher.Dispatch<MouseMovedEvent>([this](MouseMovedEvent& e) -> bool
+			{
+				// Todo : MouseMovedEvent
+				return true;
+			});
 	}
 
 	void Application::Run()

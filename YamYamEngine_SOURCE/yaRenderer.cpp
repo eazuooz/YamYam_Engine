@@ -290,8 +290,8 @@ namespace ya::renderer
 	{
 		RenderTargetSpecification spec;
 		spec.Attachments = { eRenderTragetFormat::RGBA8, eRenderTragetFormat::Depth };
-		spec.Width = application.GetWidth();
-		spec.Height = application.GetHeight();
+		spec.Width = application.GetWindow().GetWidth();
+		spec.Height = application.GetWindow().GetHeight();
 
 		FrameBuffer = RenderTarget::Create(spec);
 	}
