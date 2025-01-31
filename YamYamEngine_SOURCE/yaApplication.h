@@ -3,6 +3,9 @@
 #include "yaGraphicDevice_DX11.h"
 #include "yaEvent.h"
 #include "yaWindow.h"
+#include "yaApplicationEvent.h"
+#include "yaMouseEvent.h"
+#include "yaKeyEvent.h"
 
 namespace ya
 {
@@ -15,7 +18,7 @@ namespace ya
 		void Initialize(HWND hwnd, int width, int height);
 		void InitializeWindow(HWND hwnd);
 		void AdjustWindowRect(HWND hwnd, int width, int height);
-		void ReszieGraphicDevice(UINT width, UINT height);
+		void ReszieGraphicDevice(WindowResizeEvent& e);
 		void InitializeEtc();
 
 		void OnEvent(Event& e);

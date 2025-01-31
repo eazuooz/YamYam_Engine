@@ -1,6 +1,5 @@
 #include "yaWindow.h"
 #include "yaApplicationEvent.h"
-#include "yaMouseEvent.h"
 
 namespace ya
 {
@@ -19,13 +18,4 @@ namespace ya
 		if (mData.EventCallback) 
 			mData.EventCallback(event);
 	}
-
-	void Window::SetCursorPos(double x, double y)
-	{
-		MouseMovedEvent event(x, y);
-
-		if (mData.EventCallback)
-			mData.EventCallback(event);
-	}
-	
 }

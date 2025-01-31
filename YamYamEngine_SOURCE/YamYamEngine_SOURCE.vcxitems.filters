@@ -293,6 +293,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaMouseEvent.h">
       <Filter>Event</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaKeyEvent.h">
+      <Filter>Event</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">

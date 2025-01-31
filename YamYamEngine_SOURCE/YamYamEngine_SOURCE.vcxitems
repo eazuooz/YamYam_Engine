@@ -26,6 +26,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaFmod.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaGraphicDevice_DX11.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaIndexBuffer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaKeyEvent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaMaterial.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaMesh.h" />

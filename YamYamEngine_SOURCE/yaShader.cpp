@@ -8,7 +8,7 @@ namespace ya::graphics
 
 	Shader::Shader()
 		: Resource(eResourceType::Shader)
-		  , mRasterizerState(eRasterizerState::SolidBack)
+		  , mRasterizerState(eRasterizerState::SolidNone)
 		  , mBlendState(eBlendState::AlphaBlend)
 		  , mDepthStencilState(eDepthStencilState::LessEqual)
 	{

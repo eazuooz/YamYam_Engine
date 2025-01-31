@@ -8,16 +8,6 @@ namespace ya
 	std::vector<Input::Key> Input::Keys = {};
 	Vector2 Input::mMousePosition = Vector2::One;
 
-	int ASCII[static_cast<UINT>(eKeyCode::End)] =
-	{
-		'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
-		'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
-		'Z', 'X', 'C', 'V', 'B', 'N', 'M',
-		VK_LEFT, VK_RIGHT, VK_DOWN, VK_UP,
-		VK_LBUTTON, VK_MBUTTON, VK_RBUTTON,
-		VK_LCONTROL,
-	};
-
 	void Input::Initialize()
 	{
 		createKeys();
@@ -30,12 +20,15 @@ namespace ya
 
 	void Input::createKeys()
 	{
-		for (size_t i = 0; i < static_cast<UINT>(eKeyCode::End); i++)
+		for (int vk = 0; vk <= 0xFF; ++vk)  // 0x00 ~ 0xFF 범위의 Virtual Key Code 검사
 		{
+			eKeyCode keyCode = static_cast<eKeyCode>(vk); // VK_* 값을 eKeyCode로 변환
+
 			Key key = {};
 			key.bPressed = false;
 			key.State = eKeyState::None;
-			key.KeyCode = static_cast<eKeyCode>(i);
+			key.KeyCode = keyCode;
+			key.VK_KeyCode = vk;
 
 			Keys.push_back(key);
 		}
@@ -69,7 +62,7 @@ namespace ya
 
 	bool Input::isKeyDown(eKeyCode code)
 	{
-		return GetAsyncKeyState(ASCII[static_cast<UINT>(code)]) & 0x8000;
+		return GetAsyncKeyState(static_cast<int>(code)) & 0x8000;
 	}
 
 	void Input::updateKeyDown(Key& key)

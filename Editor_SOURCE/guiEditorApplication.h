@@ -1,11 +1,16 @@
 #pragma once
-#include "guiEditor.h"
 #include "guiEditorWindow.h"
 #include "guiImguiEditor.h"
 
 #include "..\\YamYamEngine_SOURCE\\yaRenderTarget.h"
-#include "..\\YamYamEngine_SOURCE\\yaEvent.h"
+#include "..\\YamYamEngine_SOURCE\\yaKeyEvent.h"
+#include "..\\YamYamEngine_SOURCE\\yaMouseEvent.h"
 
+
+namespace ya
+{
+	class KeyPressedEvent;
+}
 
 namespace gui
 {
@@ -72,7 +77,14 @@ namespace gui
 		static void OnImGuiRender();
 
 		//Event
+		static void SetKeyPressed(int keyCode, int scancode, int action, int mods);
 		static void SetCursorPos(double x, double y);
+
+
+		static bool OnKeyPressed(ya::KeyPressedEvent& e);
+
+
+		static void SetGuizmoType(int type) { mGuizmoType = type; }
 
 	private:
 		static ImguiEditor* mImguiEditor;

@@ -1,3 +1,4 @@
+#pragma once
 #include "yaApplication.h"
 #include "yaRenderer.h"
 #include "yaInput.h"
@@ -7,8 +8,7 @@
 #include "yaCollisionManager.h"
 #include "yaUIManager.h"
 #include "yaFmod.h"
-#include "yaApplicationEvent.h"
-#include "yaMouseEvent.h"
+
 
 namespace ya
 {
@@ -71,7 +71,7 @@ namespace ya
 		InitializeWindow(hwnd);
 	}
 
-	void Application::ReszieGraphicDevice(UINT width, UINT height)
+	void Application::ReszieGraphicDevice(WindowResizeEvent& e)
 	{
 		if (mGraphicDevice == nullptr)
 			return;
@@ -79,8 +79,8 @@ namespace ya
 		D3D11_VIEWPORT viewport = {};
 		viewport.TopLeftX = 0.0f;
 		viewport.TopLeftY = 0.0f;
-		viewport.Width = static_cast<float>(width);
-		viewport.Height = static_cast<float>(height);
+		viewport.Width = static_cast<float>(e.GetWidth());
+		viewport.Height = static_cast<float>(e.GetHeight());
 		viewport.MinDepth = 0.0f;
 		viewport.MaxDepth = 1.0f;
 
@@ -90,6 +90,8 @@ namespace ya
 		mGraphicDevice->Resize(viewport);
 		renderer::FrameBuffer->Resize(viewport.Width, viewport.Height);
 	}
+
+	
 
 	void Application::InitializeEtc()
 	{
@@ -102,13 +104,7 @@ namespace ya
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowResizeEvent>([this](WindowResizeEvent& e) -> bool
 			{
-				ReszieGraphicDevice(e.GetWidth(), e.GetHeight());
-				return true;
-			});
-
-		dispatcher.Dispatch<MouseMovedEvent>([this](MouseMovedEvent& e) -> bool
-			{
-				// Todo : MouseMovedEvent
+				ReszieGraphicDevice(e);
 				return true;
 			});
 	}

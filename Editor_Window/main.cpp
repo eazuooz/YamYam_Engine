@@ -187,13 +187,39 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_SIZE:
 	    {
 		    application.GetWindow().SetWindowResize(LOWORD(lParam), HIWORD(lParam));
-            //application.ReszieGraphicDevice();
+	    }
+		break;
+
+	case WM_KEYDOWN:
+    case WM_SYSKEYDOWN:
+    case WM_KEYUP:
+    case WM_SYSKEYUP:
+		{
+			const int keyCode = static_cast<int>(wParam);
+            const int scancode = (lParam >> 16) & 0x1ff;
+
+            const int KEY_RELEASE = 0;
+			const int KEY_PRESS = 1;
+
+            const int action = ((lParam >> 31) & 1) ? KEY_RELEASE : KEY_PRESS;
+
+			const int mods = []() -> int
+				{
+					int mod = 0;
+					if (GetKeyState(VK_SHIFT) & 0x8000) mod |= 1;
+					if (GetKeyState(VK_CONTROL) & 0x8000) mod |= 2;
+					if (GetKeyState(VK_MENU) & 0x8000) mod |= 4;
+
+					return mod;
+				}();
+
+			gui::EditorApplication::SetKeyPressed(keyCode, scancode, action, mods);
+			
 	    }
 		break;
 
 	case WM_MOUSEMOVE:
 	    {
-	    	application.GetWindow().SetCursorPos(wParam, lParam);
             gui::EditorApplication::SetCursorPos(wParam, lParam);
 	    }
         break;

@@ -40,8 +40,8 @@ namespace ya
 
 		void Initialize();
 		void SetWindowResize(UINT width, UINT height);
-		void SetCursorPos(double x, double y);
 
+		// property
 		void SetEventCallBack(const EventCallbackFn& callback) { mData.EventCallback = callback; }
 		
 		HWND GetHwnd() { return mData.Hwnd; }
