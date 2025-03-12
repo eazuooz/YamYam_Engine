@@ -23,7 +23,7 @@ namespace ya
 		void InitializeEtc();
 		void InitializeEventHandlers();
 
-		void OnEvent(Event& e);
+		void OnWindowEvent(Event& e);
 
 		void Run();
 		void Close();
