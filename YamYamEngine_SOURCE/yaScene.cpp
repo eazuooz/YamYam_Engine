@@ -58,14 +58,14 @@ namespace ya
 		}
 	}
 
-	void Scene::Destroy()
+	void Scene::EndOfFrame()
 	{
 		for (Layer* layer : mLayers)
 		{
 			if (layer == nullptr)
 				continue;
 
-			layer->Destroy();
+			layer->EndOfFrame();
 		}
 	}
 

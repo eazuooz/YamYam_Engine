@@ -64,17 +64,14 @@ namespace ya
 		{
 			return Keys[static_cast<UINT>(code)].State == eKeyState::Down;
 		}
-
 		__forceinline static bool GetKeyUp(eKeyCode code)
 		{
 			return Keys[static_cast<UINT>(code)].State == eKeyState::Up;
 		}
-
 		__forceinline static bool GetKey(eKeyCode code)
 		{
 			return Keys[static_cast<UINT>(code)].State == eKeyState::Pressed;
 		}
-
 		__forceinline static math::Vector2 GetMousePosition() { return mMousePosition; }
 
 	private:
@@ -86,7 +83,6 @@ namespace ya
 		static void updateKeyUp(Key& key);
 		static void getMousePositionByWindow();
 		static void clearKeys();
-
 
 		static std::vector<Key> Keys;
 		static math::Vector2 mMousePosition;

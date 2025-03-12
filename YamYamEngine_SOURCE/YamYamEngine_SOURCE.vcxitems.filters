@@ -137,6 +137,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaWindow.cpp">
       <Filter>High Level Interface</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaEventQueue.cpp">
+      <Filter>Event\Queue</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -296,6 +299,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaKeyEvent.h">
       <Filter>Event</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaGameObjectEvent.h">
+      <Filter>Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaEventQueue.h">
+      <Filter>Event\Queue</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -408,6 +417,9 @@
     </Filter>
     <Filter Include="Event">
       <UniqueIdentifier>{6da799c3-6d00-444f-8b33-2bdfb5094a9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Event\Queue">
+      <UniqueIdentifier>{c343bd54-0612-472b-aacc-aed358f0fdfc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

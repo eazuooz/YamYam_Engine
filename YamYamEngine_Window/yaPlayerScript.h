@@ -1,6 +1,7 @@
 #pragma once
 #include "..//YamYamEngine_SOURCE//yaScript.h"
 #include "..//YamYamEngine_SOURCE//yaTexture.h"
+#include "yaProjectTile.h"
 
 namespace ya
 {
@@ -37,5 +38,8 @@ namespace ya
 
 		eState mState;
 		class Animator* mAnimator;
+
+		//sample
+		ProjectTile* mProjTile;
 	};
 }

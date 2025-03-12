@@ -5,7 +5,10 @@
 #include "yaScene.h"
 #include "yaSceneManager.h"
 #include "yaTransform.h"
+#include "yaApplication.h"
+#include "yaGameObjectEvent.h"
 
+extern ya::Application application;
 
 namespace ya::object
 {
@@ -14,9 +17,12 @@ namespace ya::object
 	{
 		T* gameObject = new T();
 		gameObject->SetLayerType(type);
+		
 		Scene* activeScene = SceneManager::GetActiveScene();
 		Layer* layer = activeScene->GetLayer(type);
 		layer->AddGameObject(gameObject);
+
+		application.PushEvent(new ya::GameObjectCreatedEvent(gameObject, activeScene));
 
 		return gameObject;
 	}
@@ -26,12 +32,15 @@ namespace ya::object
 	{
 		T* gameObject = new T();
 		gameObject->SetLayerType(type);
+
 		Scene* activeScene = SceneManager::GetActiveScene();
 		Layer* layer = activeScene->GetLayer(type);
 		layer->AddGameObject(gameObject);
 
 		Transform* tr = gameObject->template GetComponent<Transform>();
 		tr->SetPosition(position);
+
+		application.PushEvent(new ya::GameObjectCreatedEvent(gameObject, activeScene));
 
 		return gameObject;
 	}
@@ -45,5 +54,14 @@ namespace ya::object
 		// 해당 게임오브젝트를 -> DontDestroy씬으로 넣어준다.
 		Scene* dontDestroyOnLoad = SceneManager::GetDontDestroyOnLoad();
 		dontDestroyOnLoad->AddGameObject(gameObject, gameObject->GetLayerType());
+	}
+
+	static void Destroy(GameObject* gameObject)
+	{
+		if (gameObject != nullptr)
+			gameObject->death();
+
+		Scene* activeScene = SceneManager::GetActiveScene();
+		application.PushEvent(new ya::GameObjectDestroyedEvent(gameObject, activeScene));
 	}
 }

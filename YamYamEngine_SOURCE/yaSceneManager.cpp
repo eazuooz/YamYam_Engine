@@ -68,10 +68,10 @@ namespace ya
 		mDontDestroyOnLoad->Render();
 	}
 
-	void SceneManager::Destroy()
+	void SceneManager::EndOfFrame()
 	{
-		mActiveScene->Destroy();
-		mDontDestroyOnLoad->Destroy();
+		mActiveScene->EndOfFrame();
+		mDontDestroyOnLoad->EndOfFrame();
 	}
 
 	void SceneManager::Release()

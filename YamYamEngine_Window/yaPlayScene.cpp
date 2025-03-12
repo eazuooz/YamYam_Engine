@@ -29,6 +29,7 @@
 #include "yaSpriteRenderer.h"
 #include "yaCameraScript.h"
 #include "yaMaterial.h"
+#include "yaPlayerScript.h"
 
 namespace ya
 {
@@ -54,13 +55,18 @@ namespace ya
 		CameraScript* cameraScript = camera->AddComponent<CameraScript>();
 		renderer::mainCamera = cameraComp;
 
-		GameObject* player = object::Instantiate<Player>(eLayerType::Player);
-		object::DontDestroyOnLoad(player);
 
-		SpriteRenderer* sr = player->AddComponent<SpriteRenderer>();
-		sr->SetSprite(Resources::Find<Texture>(L"Player"));
+		for (size_t i = 0; i < 1; i++)
+		{
+			GameObject* player = object::Instantiate<Player>(eLayerType::Player);
+			SpriteRenderer* sr = player->AddComponent<SpriteRenderer>();
+			sr->SetSprite(Resources::Find<Texture>(L"Player"));
+			
+			player->AddComponent<PlayerScript>();
 
-		renderer::selectedObject = player;
+			if (renderer::selectedObject == nullptr)
+				renderer::selectedObject = player;
+		}
 	}
 
 	void PlayScene::Update()
@@ -72,10 +78,10 @@ namespace ya
 	{
 		Scene::LateUpdate();
 
-		if (Input::GetKeyDown(eKeyCode::N))
-		{
-			SceneManager::LoadScene(L"TitleScene");
-		}
+		//if (Input::GetKeyDown(eKeyCode::N))
+		//{
+		//	SceneManager::LoadScene(L"TitleScene");
+		//}
 	}
 
 	void PlayScene::Render()

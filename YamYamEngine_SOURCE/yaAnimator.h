@@ -66,6 +66,6 @@ namespace ya
 		bool mbLoop;
 
 		//Action
-		std::map<std::wstring, Events*> mEvents;
+		std::map<std::wstring, Events*> mQueue;
 	};
 }

@@ -6,6 +6,7 @@
 #include "yaApplicationEvent.h"
 #include "yaMouseEvent.h"
 #include "yaKeyEvent.h"
+#include "yaEventQueue.h"
 
 namespace ya
 {
@@ -20,6 +21,7 @@ namespace ya
 		void AdjustWindowRect(HWND hwnd, int width, int height);
 		void ReszieGraphicDevice(WindowResizeEvent& e);
 		void InitializeEtc();
+		void InitializeEventHandlers();
 
 		void OnEvent(Event& e);
 
@@ -30,8 +32,10 @@ namespace ya
 		void LateUpdate();
 		void Render();
 		void Present();
-		void Destroy();
+		void EndOfFrame();
 		void Release();
+
+		void PushEvent(Event* e) { mEventQueue.Push(e); }
 
 		Window& GetWindow() { return mWindow; }
 		bool IsLoaded() const { return mbLoaded; }
@@ -44,5 +48,6 @@ namespace ya
 		std::unique_ptr<graphics::GraphicDevice_DX11> mGraphicDevice;
 
 		Window mWindow;
+		EventQueue mEventQueue;
 	};
 }

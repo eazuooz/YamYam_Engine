@@ -158,6 +158,8 @@ copy "$(SolutionDir)\External\Library\Fmod\Release\fmodstudio.dll" "$(SolutionDi
     <ClInclude Include="yaPlayer.h" />
     <ClInclude Include="yaPlayScene.h" />
     <ClInclude Include="yaPlayerScript.h" />
+    <ClInclude Include="yaProjectTile.h" />
+    <ClInclude Include="yaProjectTileScript.h" />
     <ClInclude Include="yaTile.h" />
     <ClInclude Include="yaTitleScene.h" />
   </ItemGroup>
@@ -169,6 +171,8 @@ copy "$(SolutionDir)\External\Library\Fmod\Release\fmodstudio.dll" "$(SolutionDi
     <ClCompile Include="yaPlayer.cpp" />
     <ClCompile Include="yaPlayScene.cpp" />
     <ClCompile Include="yaPlayerScript.cpp" />
+    <ClCompile Include="yaProjectTile.cpp" />
+    <ClCompile Include="yaProjectTileScript.cpp" />
     <ClCompile Include="yaTile.cpp" />
     <ClCompile Include="yaTitleScene.cpp" />
   </ItemGroup>

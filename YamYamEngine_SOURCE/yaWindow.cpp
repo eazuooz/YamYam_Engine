@@ -18,4 +18,15 @@ namespace ya
 		if (mData.EventCallback) 
 			mData.EventCallback(event);
 	}
+
+	//void Window::SetWindowPos(UINT x, UINT y)
+	//{
+	//	mData.X = x;
+	//	mData.Y = y;
+
+	//	WindowMoveEvent event(x, y);
+
+	//	if (mData.EventCallback)
+	//		mData.EventCallback(event);
+	//}
 }

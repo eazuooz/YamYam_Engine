@@ -8,6 +8,7 @@
 #include "yaCollisionManager.h"
 #include "yaUIManager.h"
 #include "yaFmod.h"
+#include "yaGameObjectEvent.h"
 
 
 namespace ya
@@ -17,11 +18,12 @@ namespace ya
 		, mbRunning(false)
 
 	{
-		mWindow.SetEventCallBack(YA_BIND_EVENT_FN(Application::OnEvent));
+		mWindow.SetEventCallBack(YA_BIND_EVENT_FN(Application::OnWindowEvent));
 	}
 
 	Application::~Application()
 	{
+
 	}
 
 	void Application::Initialize(HWND hwnd, int width, int height)
@@ -33,7 +35,6 @@ namespace ya
 		mGraphicDevice = std::make_unique<GraphicDevice_DX11>();
 		mGraphicDevice->Initialize();
 		renderer::Initialize();
-		
 		Fmod::Initialize();
 		CollisionManager::Initialize();
 		UIManager::Initialize();
@@ -51,7 +52,7 @@ namespace ya
 
 	void Application::AdjustWindowRect(HWND hwnd, int width, int height)
 	{
-		RECT rect = {0, 0, static_cast<LONG>(width), static_cast<LONG>(height)};
+		RECT rect = { 0, 0, static_cast<LONG>(width), static_cast<LONG>(height) };
 		::AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 
 		RECT winRect;
@@ -75,7 +76,7 @@ namespace ya
 	{
 		if (mGraphicDevice == nullptr)
 			return;
-		
+
 		D3D11_VIEWPORT viewport = {};
 		viewport.TopLeftX = 0.0f;
 		viewport.TopLeftY = 0.0f;
@@ -91,15 +92,39 @@ namespace ya
 		renderer::FrameBuffer->Resize(viewport.Width, viewport.Height);
 	}
 
-	
-
 	void Application::InitializeEtc()
 	{
 		Input::Initialize();
 		Time::Initialize();
+
+		InitializeEventHandlers();
 	}
 
-	void Application::OnEvent(Event& e)
+	void Application::InitializeEventHandlers()
+	{
+		// 이벤트 핸들러 등록
+		mEventQueue.RegisterHandler<GameObjectCreatedEvent>([this](GameObjectCreatedEvent& e) -> bool
+			{
+				int a = 0;
+
+				return true;
+			});
+
+		mEventQueue.RegisterHandler<GameObjectDestroyedEvent>([this](GameObjectDestroyedEvent& e) -> bool
+			{
+				int a = 0;
+
+				return true;
+			});
+
+		// 기본 핸들러 등록
+		mEventQueue.SetCallback([this](Event& e)
+			{
+				std::cout << "[Application] Unhandled Event: " << e.ToString() << std::endl;
+			});
+	}
+
+	void Application::OnWindowEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowResizeEvent>([this](WindowResizeEvent& e) -> bool
@@ -118,7 +143,7 @@ namespace ya
 		LateUpdate();
 		Render();
 
-		Destroy();
+		EndOfFrame();
 	}
 
 	void Application::Close()
@@ -167,9 +192,11 @@ namespace ya
 		GetDevice()->Present();
 	}
 
-	void Application::Destroy()
+	void Application::EndOfFrame()
 	{
-		SceneManager::Destroy();
+		SceneManager::EndOfFrame();
+
+		mEventQueue.Process();
 	}
 
 	void Application::Release()

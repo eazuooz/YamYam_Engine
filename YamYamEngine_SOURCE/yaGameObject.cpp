@@ -3,14 +3,7 @@
 #include "yaTime.h"
 #include "yaTransform.h"
 
-namespace ya::object
-{
-	void Destroy(GameObject* gameObject)
-	{
-			if (gameObject != nullptr)
-				gameObject->death();
-	}
-}
+
 
 namespace ya
 {

@@ -42,6 +42,12 @@
     <ClInclude Include="yaLoadingScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="yaProjectTile.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="yaProjectTileScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaPlayer.cpp">
@@ -70,6 +76,12 @@
     </ClCompile>
     <ClCompile Include="yaLoadingScene.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="yaProjectTile.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="yaProjectTileScript.cpp">
+      <Filter>Scripts</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

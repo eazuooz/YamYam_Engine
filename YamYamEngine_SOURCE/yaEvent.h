@@ -10,7 +10,8 @@ namespace ya
 		WindowClose, SetWindowResize, WindowFocus, WindowLostFocus, WindowMoved,
 		AppUpdate, AppLateUpdate, AppRender,
 		KeyPressed, KeyReleased, KeyTyped,
-		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
+		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled,
+		GameObjectDestroyed, GameObjectCreated, 
 	};
 
 	enum eEventCategory
@@ -20,7 +21,9 @@ namespace ya
 		EventCategoryInput          = BIT(1),
 		EventCategoryKeyboard       = BIT(2),
 		EventCategoryMouse          = BIT(3),
-		EventCategoryMouseButton    = BIT(4)
+		EventCategoryMouseButton    = BIT(4),
+		EventCategoryGame			= BIT(5),
+		EventCategoryGameObject	    = BIT(6)
 	};
 
 #define EVENT_CLASS_TYPE(type)	static eEventType GetStaticType() { return eEventType::type; }\
@@ -76,4 +79,5 @@ namespace ya
 	}
 
 	using EventCallbackFn = std::function<void(Event&)>;
+	using HandlerCallbackFn = std::function<bool(Event&)>;
 }
