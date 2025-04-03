@@ -102,10 +102,18 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)guiImguiEditor.cpp">
       <Filter>Application</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)guiHierarchyWindow.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)guiGameWindow.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)guiProjectWindow.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)guiCosoleWindow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)guiCosoleWindow.cpp">
+      <Filter>GUI\View</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)guiGameWindow.cpp">
+      <Filter>GUI\View</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)guiHierarchyWindow.cpp">
+      <Filter>GUI\View</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)guiProjectWindow.cpp">
+      <Filter>GUI\View</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)imgui_impl_dx11.h">
@@ -177,9 +185,17 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)guiImguiEditor.h">
       <Filter>Application</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)guiHierarchyWindow.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)guiGameWindow.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)guiProjectWindow.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)guiCosoleWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)guiCosoleWindow.h">
+      <Filter>GUI\View</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)guiGameWindow.h">
+      <Filter>GUI\View</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)guiHierarchyWindow.h">
+      <Filter>GUI\View</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)guiProjectWindow.h">
+      <Filter>GUI\View</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

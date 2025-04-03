@@ -25,7 +25,8 @@ namespace ya
 	public:
 		GameObjectCreatedEvent(GameObject* gameObject, Scene* scene)
 			: GameObjectEvent(GameObject::eState::Created)
-			, mGameObject(gameObject) { }
+			, mGameObject(gameObject)
+			, mScene(scene) { }
 		
 		std::string ToString() const override
 		{
@@ -33,6 +34,9 @@ namespace ya
 			ss << "GameObjectCreatedEvent";
 			return ss.str();
 		}
+
+		GameObject* GetGameObject() const { return mGameObject; }
+		Scene* GetScene() const { return mScene; }
 
 		EVENT_CLASS_TYPE(GameObjectCreated)
 
@@ -45,7 +49,9 @@ namespace ya
 	{
 	public:
 		GameObjectDestroyedEvent(GameObject* gameObject, Scene* scene)
-			: GameObjectEvent(GameObject::eState::Destroyed) {}
+			: GameObjectEvent(GameObject::eState::Destroyed)
+			, mGameObject(gameObject)
+			, mScene(scene) { }
 
 		std::string ToString() const override
 		{
@@ -53,6 +59,9 @@ namespace ya
 			ss << "GameObjectDestroyedEvent";
 			return ss.str();
 		}
+		
+		GameObject* GetGameObject() const { return mGameObject; }
+		Scene* GetScene() const { return mScene; }
 
 		EVENT_CLASS_TYPE(GameObjectDestroyed)
 

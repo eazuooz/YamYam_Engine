@@ -1,5 +1,10 @@
 #include "guiEditorApplication.h"
 #include "guiInspectorWindow.h"
+#include "guiCosoleWindow.h"
+#include "guiProjectWindow.h"
+#include "guiProjectWindow.h"
+#include "guiGameWindow.h"
+#include "guiHierarchyWindow.h"
 
 
 #include "..\\YamYamEngine_SOURCE\\yaApplication.h"
@@ -31,12 +36,43 @@ namespace gui
 
 	bool EditorApplication::Initialize()
 	{
+#ifdef _DEBUG
+	if (::AllocConsole() == TRUE) 
+	{
+		FILE* nfp[3];
+		freopen_s(nfp+0, "CONOUT$", "rb", stdin);
+		freopen_s(nfp + 1,"CONOUT$", "wb", stdout);
+		freopen_s(nfp + 2,"CONOUT$", "wb", stderr);
+		std::ios::sync_with_stdio();
+	}
+
+	std::cout << "Console Open" << std::endl;
+#endif
+
 		mImguiEditor = new ImguiEditor();
 		mFrameBuffer = ya::renderer::FrameBuffer;
 		mImguiEditor->Initialize();
+
+		//InspectorWindow
 		InspectorWindow* inspector = new InspectorWindow();
 		mEditorWindows.insert(std::make_pair(L"InspectorWindow", inspector));
 		mEventCallback = &EditorApplication::OnEvent;
+
+		//CosoleWindow
+		ConsoleWindow* console = new ConsoleWindow();
+		mEditorWindows.insert(std::make_pair(L"ConsoleWindow", console));
+
+		//ProjectWindow
+		ProjectWindow* project = new ProjectWindow();
+		mEditorWindows.insert(std::make_pair(L"ProjectWindow", project));
+
+		//GameWindow
+		GameWindow* game = new GameWindow();
+		mEditorWindows.insert(std::make_pair(L"GameWindow", game));
+
+		//HierarchyWindow
+		HierarchyWindow* hierarchy = new HierarchyWindow();
+		mEditorWindows.insert(std::make_pair(L"HierarchyWindow", hierarchy));
 
 		return true;
 	}
@@ -70,6 +106,11 @@ namespace gui
 		// Cleanup
 		delete mImguiEditor;
 		mImguiEditor = nullptr;
+
+		// Release Console
+#ifdef _DEBUG
+		FreeConsole();
+#endif
 	}
 
 	void EditorApplication::OnEvent(ya::Event& e)

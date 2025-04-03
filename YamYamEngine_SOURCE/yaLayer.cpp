@@ -73,10 +73,7 @@ namespace ya
 
 	void Layer::EndOfFrame()
 	{
-		std::vector<GameObject*> deleteObjects = {};
-		findDeadGameObjects(deleteObjects);
-		eraseDeadGameObject();
-		deleteGameObjects(deleteObjects);
+		
 	}
 
 	void Layer::AddGameObject(GameObject* gameObject)
@@ -89,12 +86,15 @@ namespace ya
 
 	void Layer::EraseGameObject(GameObject* eraseGameObj)
 	{
-		// std::erase() iter넣어줘서 해당 이터레이와 같은 객체 삭제
+		GameObject* buffer = eraseGameObj;
 		std::erase_if(mGameObjects,
 		              [=](GameObject* gameObj)
 		              {
 			              return gameObj == eraseGameObj;
 		              });
+
+		delete buffer;
+		buffer = nullptr;
 	}
 
 	void Layer::findDeadGameObjects(OUT std::vector<GameObject*>& gameObjects)

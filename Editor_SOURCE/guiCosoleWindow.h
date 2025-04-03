@@ -1,5 +1,24 @@
 #pragma once
-class CosoleWindow
-{
-};
+#include "guiEditorWindow.h"
+#include "guiEditor.h"
 
+namespace gui
+{
+	class ConsoleWindow : public EditorWindow
+	{
+	public:
+		ConsoleWindow();
+		~ConsoleWindow();
+
+		void Initialize() override;
+		void Update() override;
+		void OnGUI() override; 
+		void Run() override;
+		void OnEnable() override;
+		void OnDisable() override;
+		void OnDestroy() override;
+
+	private:
+		std::vector<Editor*> mEditors;
+	};
+}

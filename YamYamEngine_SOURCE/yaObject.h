@@ -7,6 +7,7 @@
 #include "yaTransform.h"
 #include "yaApplication.h"
 #include "yaGameObjectEvent.h"
+#include "yaSceneManager.h"
 
 extern ya::Application application;
 
@@ -17,12 +18,8 @@ namespace ya::object
 	{
 		T* gameObject = new T();
 		gameObject->SetLayerType(type);
-		
 		Scene* activeScene = SceneManager::GetActiveScene();
-		Layer* layer = activeScene->GetLayer(type);
-		layer->AddGameObject(gameObject);
-
-		application.PushEvent(new ya::GameObjectCreatedEvent(gameObject, activeScene));
+		SceneManager::PushEvent(new ya::GameObjectCreatedEvent(gameObject, activeScene));
 
 		return gameObject;
 	}
@@ -32,15 +29,11 @@ namespace ya::object
 	{
 		T* gameObject = new T();
 		gameObject->SetLayerType(type);
-
-		Scene* activeScene = SceneManager::GetActiveScene();
-		Layer* layer = activeScene->GetLayer(type);
-		layer->AddGameObject(gameObject);
-
 		Transform* tr = gameObject->template GetComponent<Transform>();
 		tr->SetPosition(position);
 
-		application.PushEvent(new ya::GameObjectCreatedEvent(gameObject, activeScene));
+		Scene* activeScene = SceneManager::GetActiveScene();
+		SceneManager::PushEvent(new ya::GameObjectCreatedEvent(gameObject, activeScene));
 
 		return gameObject;
 	}
@@ -62,6 +55,6 @@ namespace ya::object
 			gameObject->death();
 
 		Scene* activeScene = SceneManager::GetActiveScene();
-		application.PushEvent(new ya::GameObjectDestroyedEvent(gameObject, activeScene));
+		SceneManager::PushEvent(new ya::GameObjectDestroyedEvent(gameObject, activeScene));
 	}
 }

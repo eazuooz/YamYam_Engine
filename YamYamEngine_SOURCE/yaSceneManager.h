@@ -1,5 +1,6 @@
 #pragma once
 #include "yaScene.h"
+#include "yaEventQueue.h"
 
 namespace ya
 {
@@ -18,14 +19,6 @@ namespace ya
 			return scene;
 		}
 
-		static bool SetActiveScene(const std::wstring& name);
-		static Scene* LoadScene(const std::wstring& name);
-
-		static Scene* GetActiveScene() { return mActiveScene; }
-		static Scene* GetDontDestroyOnLoad() { return mDontDestroyOnLoad; }
-		static std::vector<GameObject*> GetGameObjects(eLayerType layer);
-
-
 		static void Initialize();
 		static void Update();
 		static void LateUpdate();
@@ -33,9 +26,21 @@ namespace ya
 		static void EndOfFrame();
 		static void Release();
 
+		static void InitializeEventHandlers();
+		static void GameObjectCreated(GameObject* gameObject, Scene* scene);
+		static void GameObjectDestroyed(GameObject* gameObject, Scene* scene);
+
+		static bool SetActiveScene(const std::wstring& name);
+		static Scene* LoadScene(const std::wstring& name);
+		static Scene* GetActiveScene() { return mActiveScene; }
+		static Scene* GetDontDestroyOnLoad() { return mDontDestroyOnLoad; }
+		static std::vector<GameObject*> GetGameObjects(eLayerType layer);
+		static void PushEvent(Event* e) { mEventQueue.Push(e); }
+
 	private:
 		static std::map<std::wstring, Scene*> mScene;
 		static Scene* mActiveScene;
 		static Scene* mDontDestroyOnLoad;
+		static EventQueue mEventQueue;
 	};
 }
