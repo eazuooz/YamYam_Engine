@@ -141,7 +141,7 @@ namespace ya
 				if (gameObj == nullptr)
 					continue;
 				// to do : renderer 상속구조 만들기
-				SpriteRenderer* renderer = gameObj->GetComponent<SpriteRenderer>();
+				BaseRenderer* renderer = gameObj->GetComponent<BaseRenderer>();
 				if (renderer == nullptr)
 					continue;
 
