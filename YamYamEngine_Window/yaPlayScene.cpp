@@ -2,34 +2,15 @@
 #include "yaGameObject.h"
 #include "yaPlayer.h"
 #include "yaUIManager.h"
-#include "yaTransform.h"
 #include "yaSpriteRenderer.h"
-#include "yaInput.h"
 #include "yaTitleScene.h"
-#include "yaSceneManager.h"
 #include "yaObject.h"
 #include "yaTexture.h"
 #include "yaResources.h"
 #include "yaPlayerScript.h"
 #include "yaCamera.h"
 #include "yaRenderer.h"
-#include "yaAnimator.h"
-#include "yaCat.h"
-#include "yaBoxCollider2D.h"
-#include "yaCircleCollider2D.h"
-#include "yaCollisionManager.h"
-#include "yaTile.h"
-#include "yaTilemapRenderer.h"
-#include "yaRigidbody.h"
-#include "yaFloor.h"
-#include "yaAudioClip.h"
-#include "yaAudioListener.h"
-#include "yaAudioSource.h"
-#include "yaGraphicDevice_DX11.h"
-#include "yaSpriteRenderer.h"
-#include "yaCameraScript.h"
-#include "yaMaterial.h"
-#include "yaPlayerScript.h"
+#include "yaSceneCamera.h"
 
 namespace ya
 {
@@ -48,11 +29,10 @@ namespace ya
 		// main camera
 		GameObject* camera = object::Instantiate<GameObject>(eLayerType::None, Vector3(0.0f, 0.0f, -10.0f));
 
-		Camera* cameraComp = camera->AddComponent<Camera>();
+		SceneCamera* cameraComp = camera->AddComponent<SceneCamera>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Perspective);
 		cameraComp->SetSize(200.0f);
 
-		CameraScript* cameraScript = camera->AddComponent<CameraScript>();
 		renderer::mainCamera = cameraComp;
 
 

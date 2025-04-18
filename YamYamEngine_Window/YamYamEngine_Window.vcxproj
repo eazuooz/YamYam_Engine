@@ -72,7 +72,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Label="Vcpkg">
-    <VcpkgEnabled>true</VcpkgEnabled>
+    <VcpkgEnabled>false</VcpkgEnabled>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -81,6 +81,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)\External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -96,6 +97,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)\External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -114,6 +116,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>$(SolutionDir)\External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,6 +140,7 @@ copy "$(SolutionDir)\External\Library\Fmod\Debug\fmodstudioL.dll" "$(SolutionDir
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>$(SolutionDir)\External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,8 +154,8 @@ copy "$(SolutionDir)\External\Library\Fmod\Release\fmodstudio.dll" "$(SolutionDi
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="yaCameraScript.h" />
     <ClInclude Include="yaCat.h" />
+    <ClInclude Include="yaEditorScene.h" />
     <ClInclude Include="yaFloor.h" />
     <ClInclude Include="yaLoadingScene.h" />
     <ClInclude Include="yaLoadScenes.h" />
@@ -164,8 +168,8 @@ copy "$(SolutionDir)\External\Library\Fmod\Release\fmodstudio.dll" "$(SolutionDi
     <ClInclude Include="yaTitleScene.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="yaCameraScript.cpp" />
     <ClCompile Include="yaCat.cpp" />
+    <ClCompile Include="yaEditorScene.cpp" />
     <ClCompile Include="yaFloor.cpp" />
     <ClCompile Include="yaLoadingScene.cpp" />
     <ClCompile Include="yaPlayer.cpp" />

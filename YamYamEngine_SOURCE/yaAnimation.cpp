@@ -51,7 +51,7 @@ namespace ya
 		}
 	}
 
-	void Animation::Render()
+	void Animation::Render(const Matrix& view, const Matrix& projection)
 	{
 		if (mTexture == nullptr)
 			return;

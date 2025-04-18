@@ -313,7 +313,7 @@ namespace ya::graphics
 
 	void GraphicDevice_DX11::BindInputLayout(ID3D11InputLayout* pInputLayout)
 	{
-		mContext->IASetInputLayout(pInputLayout);
+		 mContext->IASetInputLayout(pInputLayout);
 	}
 
 	void GraphicDevice_DX11::BindPrimitiveTopology(const D3D11_PRIMITIVE_TOPOLOGY topology)

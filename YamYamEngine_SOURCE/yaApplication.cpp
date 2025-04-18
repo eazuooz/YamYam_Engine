@@ -8,7 +8,7 @@
 #include "yaCollisionManager.h"
 #include "yaUIManager.h"
 #include "yaFmod.h"
-
+#include "yaTransform.h"
 
 
 namespace ya
@@ -149,9 +149,9 @@ namespace ya
 		GetDevice()->BindDefaultRenderTarget();
 
 		Time::Render();
+		SceneManager::Render();
 		CollisionManager::Render();
 		UIManager::Render();
-		SceneManager::Render();
 
 		//copy back buffer
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> src = GetDevice()->GetFrameBuffer();

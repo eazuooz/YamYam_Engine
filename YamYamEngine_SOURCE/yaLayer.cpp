@@ -60,15 +60,15 @@ namespace ya
 
 	void Layer::Render()
 	{
-		for (GameObject* gameObj : mGameObjects)
-		{
-			if (gameObj == nullptr)
-				continue;
-			if (gameObj->IsActive() == false)
-				continue;
+		//for (GameObject* gameObj : mGameObjects)
+		//{
+		//	if (gameObj == nullptr)
+		//		continue;
+		//	if (gameObj->IsActive() == false)
+		//		continue;
 
-			gameObj->Render();
-		}
+		//	gameObj->Render();
+		//}
 	}
 
 	void Layer::EndOfFrame()

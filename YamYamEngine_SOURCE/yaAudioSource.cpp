@@ -31,7 +31,7 @@ namespace ya
 		//mAudioClip->Set3DAttributes(pos);
 	}
 
-	void AudioSource::Render()
+	void AudioSource::Render(const Matrix& view, const Matrix& projection)
 	{
 	}
 

@@ -33,9 +33,6 @@
     <ClInclude Include="yaTile.h">
       <Filter>Contents</Filter>
     </ClInclude>
-    <ClInclude Include="yaCameraScript.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="yaFloor.h">
       <Filter>Contents</Filter>
     </ClInclude>
@@ -47,6 +44,9 @@
     </ClInclude>
     <ClInclude Include="yaProjectTileScript.h">
       <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="yaEditorScene.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -68,9 +68,6 @@
     <ClCompile Include="yaTile.cpp">
       <Filter>Contents</Filter>
     </ClCompile>
-    <ClCompile Include="yaCameraScript.cpp">
-      <Filter>Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="yaFloor.cpp">
       <Filter>Contents</Filter>
     </ClCompile>
@@ -82,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="yaProjectTileScript.cpp">
       <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="yaEditorScene.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

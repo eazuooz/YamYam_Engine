@@ -1,9 +1,10 @@
 #pragma once
+#include <fmod_studio.hpp>
+#include <fmod.hpp>
+#include <fmod_common.h>
+#include <fmod_codec.h>
+
 #include "CommonInclude.h"
-#include "..\\External\\Include\\Fmod\fmod_studio.hpp"
-#include "..\\External\\Include\\Fmod\\fmod.hpp"
-#include "..\\External\\Include\\Fmod\\fmod_common.h"
-#include "..\\External\\Include\\Fmod\\fmod_codec.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "..\\External\\Library\\Fmod\\Debug\\fmodL_vc.lib")

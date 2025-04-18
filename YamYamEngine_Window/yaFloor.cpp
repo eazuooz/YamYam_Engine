@@ -29,8 +29,8 @@ namespace ya
 		GameObject::LateUpdate();
 	}
 
-	void Floor::Render()
+	void Floor::Render(const Matrix& view, const Matrix& projection)
 	{
-		GameObject::Render();
+		GameObject::Render(view, projection);
 	}
 }

@@ -20,8 +20,8 @@ namespace ya
 		GameObject::LateUpdate();
 	}
 
-	void Cat::Render()
+	void Cat::Render(const Matrix& view, const Matrix& projection)
 	{
-		GameObject::Render();
+		GameObject::Render(view, projection);
 	}
 }

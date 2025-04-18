@@ -377,8 +377,8 @@ namespace gui
 		}
 
 		ImGui::End();	// Scene end
-		ImGui::PopStyleVar();
 
+		ImGui::PopStyleVar();
 		ImGui::End(); // dockspace end
 	}
 

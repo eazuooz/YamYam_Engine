@@ -23,3 +23,4 @@ namespace ya::renderer
 	void Initialize();
 	void Release();
 }
+

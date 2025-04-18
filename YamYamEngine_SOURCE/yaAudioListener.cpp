@@ -31,7 +31,7 @@ namespace ya
 		Fmod::Set3DListenerAttributes(pos);
 	}
 
-	void AudioListener::Render()
+	void AudioListener::Render(const Matrix& view, const Matrix& projection)
 	{
 	}
 }

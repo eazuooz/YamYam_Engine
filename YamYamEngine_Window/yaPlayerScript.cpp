@@ -45,6 +45,7 @@ namespace ya
 		if (Input::GetKeyDown(eKeyCode::D))
 		{
 			object::Destroy(mProjTile);
+			mProjTile = nullptr;
 		}
 	}
 
@@ -52,7 +53,7 @@ namespace ya
 	{
 	}
 
-	void PlayerScript::Render()
+	void PlayerScript::Render(const Matrix& view, const Matrix& projection)
 	{
 	}
 

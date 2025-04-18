@@ -43,7 +43,7 @@ namespace ya
 		mUp = Vector3::TransformNormal(Vector3::Up, rotation);
 	}
 
-	void Transform::Render()
+	void Transform::Render(const Matrix& view, const Matrix& projection)
 	{
 
 	}

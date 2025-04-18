@@ -55,7 +55,7 @@ namespace ya
 	{
 	}
 
-	void Animator::Render()
+	void Animator::Render(const Matrix& view, const Matrix& projection)
 	{
 		//if (mActiveAnimation)
 		//	mActiveAnimation->Render(hdc);

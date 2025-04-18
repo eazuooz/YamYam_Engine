@@ -1,6 +1,7 @@
 #pragma once
 #include "yaComponent.h"
-
+#include "yaEvent.h"
+#include "yaGameObject.h"
 
 namespace ya
 {
@@ -26,7 +27,7 @@ namespace ya
 		void Initialize() override;
 		void Update() override;
 		void LateUpdate() override;
-		void Render() override;
+		void Render(const Matrix& view, const Matrix& projection) override;
 
 		void CreateViewMatrix();
 		void CreateProjectionMatrix(eProjectionType type);

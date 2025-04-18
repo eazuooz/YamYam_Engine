@@ -8,6 +8,7 @@
 #include "yaSceneManager.h"
 #include "yaTitleScene.h"
 #include "yaPlayScene.h"
+#include "yaEditorScene.h"
 
 extern ya::Application application;
 
@@ -75,6 +76,8 @@ namespace ya
 			
 			SceneManager::CreateScene<TitleScene>(L"TitleScene");
 			SceneManager::CreateScene<PlayScene>(L"PlayScene");
+
+			SceneManager::CreateScene<EditorScene>(L"EditorScene");
 		}
 		m.unlock();
 

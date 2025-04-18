@@ -15,7 +15,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaBaseRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaSceneCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaApplicationEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaEditorCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaEvent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaEventQueue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaGameObjectEvent.h" />
@@ -71,6 +74,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaBaseRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaSceneCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaEditorCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaEventQueue.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaInputLayout.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaAudioClip.cpp" />

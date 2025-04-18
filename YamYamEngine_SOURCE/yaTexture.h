@@ -1,7 +1,13 @@
 #pragma once
 #include <DirectXTex.h>
 #include <DirectXTex.inl>
-#include <DirectXTexEXR.h>
+//#include <DirectXTexEXR.h>
+
+#ifdef _DEBUG
+#pragma comment(lib, "..\\External\\Library\\DirectXTex\\Debug\\DirectXTex.lib")
+#else
+#pragma comment(lib, "..\\External\\Library\\DirectXTex\\Release\\DirectXTex.lib")
+#endif
 
 #include "yaResource.h"
 #include "yaGraphicDevice_DX11.h"

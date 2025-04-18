@@ -18,7 +18,7 @@ namespace ya
 	void ProjectTileScript::LateUpdate()
 	{
 	}
-	void ProjectTileScript::Render()
+	void ProjectTileScript::Render(const Matrix& view, const Matrix& projection)
 	{
 	}
 	void ProjectTileScript::OnCollisionEnter(Collider* other)

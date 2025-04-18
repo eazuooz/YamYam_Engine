@@ -55,7 +55,7 @@ namespace ya::graphics
 		Opaque,
 		CutOut,
 		Transparent,
-		PostProcess,
+		//PostProcess,
 		End,
 	};
 
@@ -81,7 +81,9 @@ namespace ya::graphics
 
 	enum class eBlendState
 	{
-		AlphaBlend,
+		Opaque,
+		Cutout,
+		Transparent,
 		OneOne,
 		End,
 	};
@@ -90,6 +92,7 @@ namespace ya::graphics
 	{
 		DepthNone,
 		LessEqual,
+		Always,
 		End,
 	};
 

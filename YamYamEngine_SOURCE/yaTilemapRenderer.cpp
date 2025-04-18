@@ -37,7 +37,7 @@ namespace ya
 	{
 	}
 
-	void TilemapRenderer::Render()
+	void TilemapRenderer::Render(const Matrix& view, const Matrix& projection)
 	{
 		//if (mTexture == nullptr) //텍스처 세팅 해주세요!
 		//	assert(false);

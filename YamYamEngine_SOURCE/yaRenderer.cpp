@@ -111,21 +111,46 @@ namespace ya::renderer
 #pragma endregion
 #pragma region blend state
 		D3D11_BLEND_DESC bsDesc = {};
-		bsDesc.AlphaToCoverageEnable = false;
-		bsDesc.IndependentBlendEnable = false;
-		bsDesc.RenderTarget[0].BlendEnable = true;
+		bsDesc.RenderTarget[0].BlendEnable = FALSE;
+		bsDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+		GetDevice()->CreateBlendState(&bsDesc, blendStates[static_cast<UINT>(eBlendState::Opaque)].GetAddressOf());
+
+		bsDesc = {};
+		bsDesc.RenderTarget[0].BlendEnable = FALSE;
+		bsDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+		GetDevice()->CreateBlendState(&bsDesc, blendStates[static_cast<UINT>(eBlendState::Cutout)].GetAddressOf());
+
+		bsDesc = {};
+		bsDesc.RenderTarget[0].BlendEnable = TRUE;
 		bsDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
 		bsDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
 		bsDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+
 		bsDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
 		bsDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
 		bsDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-		bsDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-		GetDevice()->CreateBlendState(&bsDesc, blendStates[static_cast<UINT>(eBlendState::AlphaBlend)].GetAddressOf());
 
+		bsDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+		GetDevice()->CreateBlendState(&bsDesc, blendStates[static_cast<UINT>(eBlendState::Transparent)].GetAddressOf());
+
+		bsDesc = {};
+		bsDesc.RenderTarget[0].BlendEnable = TRUE;
+
+		// 색상 블렌딩
 		bsDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
 		bsDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+		bsDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+
+		// 알파 블렌딩 (보통 무시)
+		bsDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+		bsDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+		bsDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+
+		// 출력 마스크: RGBA 다 써도 된다
+		bsDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 		GetDevice()->CreateBlendState(&bsDesc, blendStates[static_cast<UINT>(eBlendState::OneOne)].GetAddressOf());
+
+
 #pragma endregion
 #pragma region depthstencil state
 		D3D11_DEPTH_STENCIL_DESC dsDesc = {};
@@ -136,12 +161,22 @@ namespace ya::renderer
 		GetDevice()->CreateDepthStencilState(
 			&dsDesc, depthStencilStates[static_cast<UINT>(eDepthStencilState::LessEqual)].GetAddressOf());
 
+		dsDesc = {};
 		dsDesc.DepthEnable = false;
 		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
-		dsDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
+		dsDesc.DepthFunc = D3D11_COMPARISON_NEVER;
 		dsDesc.StencilEnable = false;
 		GetDevice()->CreateDepthStencilState(
 			&dsDesc, depthStencilStates[static_cast<UINT>(eDepthStencilState::DepthNone)].GetAddressOf());
+
+		dsDesc = {};
+		dsDesc.DepthEnable = true;
+		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+		dsDesc.DepthFunc = D3D11_COMPARISON_ALWAYS;
+		dsDesc.StencilEnable = false;
+		GetDevice()->CreateDepthStencilState(
+			&dsDesc, depthStencilStates[static_cast<UINT>(eDepthStencilState::Always)].GetAddressOf());
+
 #pragma endregion
 	}
 

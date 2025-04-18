@@ -25,7 +25,7 @@ namespace ya
 	{
 	}
 
-	void Script::Render()
+	void Script::Render(const Matrix& view, const Matrix& projection)
 	{
 	}
 

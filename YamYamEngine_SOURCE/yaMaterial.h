@@ -22,14 +22,15 @@ namespace ya
 		void Bind();
 		void BindShader();
 		void BindTextures();
+		void SetRenderingMode(const graphics::eRenderingMode mode);
 
 		void SetShader(graphics::Shader* shader) { mShader = shader; }
-
 		void SetAlbedoTexture(graphics::Texture* texture)
 		{
 			mAlbedoTexture = texture;
 			mData.albedo = texture->GetName();
 		}
+		graphics::eRenderingMode GetRenderingMode() const { return mMode; }
 
 	private:
 		graphics::eRenderingMode mMode;

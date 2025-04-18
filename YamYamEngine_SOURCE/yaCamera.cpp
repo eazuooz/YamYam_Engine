@@ -2,6 +2,7 @@
 #include "yaGameObject.h"
 #include "yaTransform.h"
 #include "yaApplication.h"
+#include "yaSceneManager.h"
 
 extern ya::Application application;
 
@@ -28,6 +29,8 @@ namespace ya
 
 	void Camera::Initialize()
 	{
+		Scene* activeScene = SceneManager::GetActiveScene();
+		activeScene->AddCamera(this);
 	}
 
 	void Camera::Update()
@@ -43,7 +46,7 @@ namespace ya
 		ProjectionMatrix = mProjectionMatrix;
 	}
 
-	void Camera::Render()
+	void Camera::Render(const Matrix& view, const Matrix& projection)
 	{
 	}
 

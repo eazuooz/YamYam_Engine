@@ -31,7 +31,7 @@ namespace ya
 		virtual HRESULT Load(const std::wstring& path) override;
 
 		void Update();
-		void Render();
+		void Render(const Matrix& view, const Matrix& projection);
 
 		void CreateAnimation(const std::wstring& name
 			, graphics::Texture* spriteSheet

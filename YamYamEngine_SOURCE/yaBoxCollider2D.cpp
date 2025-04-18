@@ -27,7 +27,7 @@ namespace ya
 	{
 	}
 
-	void BoxCollider2D::Render()
+	void BoxCollider2D::Render(const Matrix& view, const Matrix& projection)
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
