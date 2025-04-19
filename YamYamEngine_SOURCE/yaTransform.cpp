@@ -48,12 +48,12 @@ namespace ya
 
 	}
 
-	void Transform::Bind() const
+	void Transform::Bind(const Matrix& view, const Matrix& projection) const
 	{
 		graphics::TransformCB cbData = {};
-		cbData.World = GetWorldMatrix();
-		cbData.View = Camera::GetGpuViewMatrix();
-		cbData.Projection = Camera::GetGpuProjectionMatrix();
+		cbData.World = mWorldMatrix;
+		cbData.View = view;
+		cbData.Projection = projection;
 
 		graphics::ConstantBuffer* cb = renderer::constantBuffers[CBSLOT_TRANSFORM];
 

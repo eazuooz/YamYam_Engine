@@ -26,7 +26,7 @@ namespace ya
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		if (tr)
-			tr->Bind();
+			tr->Bind(view, projection);
 
 		if (mMesh)
 			mMesh->Bind();

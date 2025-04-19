@@ -16,10 +16,10 @@ namespace ya
 			Orthographic
 		};
 
-		static Matrix GetGpuViewMatrix() { return ViewMatrix; }
-		static Matrix GetGpuProjectionMatrix() { return ProjectionMatrix; }
-		static void SetGpuViewMatrix(const Matrix& matrix) { ViewMatrix = matrix; }
-		static void SetGpuProjectionMatrix(const Matrix& matrix) { ProjectionMatrix = matrix; }
+		//static Matrix GetGpuViewMatrix() { return ViewMatrix; }
+		//static Matrix GetGpuProjectionMatrix() { return ProjectionMatrix; }
+		//static void SetGpuViewMatrix(const Matrix& matrix) { ViewMatrix = matrix; }
+		//static void SetGpuProjectionMatrix(const Matrix& matrix) { ProjectionMatrix = matrix; }
 
 		Camera();
 		virtual ~Camera();
@@ -38,8 +38,8 @@ namespace ya
 		void SetSize(const float size) { mSize = size; }
 
 	private:
-		static Matrix ViewMatrix;
-		static Matrix ProjectionMatrix;
+		//static Matrix ViewMatrix;
+		//static Matrix ProjectionMatrix;
 
 		eProjectionType mProjectionType;
 

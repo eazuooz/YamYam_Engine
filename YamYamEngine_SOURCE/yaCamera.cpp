@@ -8,8 +8,8 @@ extern ya::Application application;
 
 namespace ya
 {
-	Matrix Camera::ViewMatrix = Matrix::Identity;
-	Matrix Camera::ProjectionMatrix = Matrix::Identity;
+	//Matrix Camera::ViewMatrix = Matrix::Identity;
+	//Matrix Camera::ProjectionMatrix = Matrix::Identity;
 
 	Camera::Camera()
 		: Component(eComponentType::Camera)
@@ -42,8 +42,8 @@ namespace ya
 		CreateViewMatrix();
 		CreateProjectionMatrix(mProjectionType);
 
-		ViewMatrix = mViewMatrix;
-		ProjectionMatrix = mProjectionMatrix;
+		//ViewMatrix = mViewMatrix;
+		//ProjectionMatrix = mProjectionMatrix;
 	}
 
 	void Camera::Render(const Matrix& view, const Matrix& projection)
