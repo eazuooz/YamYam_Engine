@@ -146,11 +146,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaBaseRenderer.cpp">
       <Filter>High Level Interface\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)yaEntity.cpp">
-      <Filter>Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)yaUUID.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaLabelled.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaUUID.cpp">
       <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
@@ -324,15 +323,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaBaseRenderer.h">
       <Filter>High Level Interface\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)yaEntity.h">
-      <Filter>Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)yaUUID.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)yaComponents.h">
-      <Filter>Entity</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaLabelled.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaUUID.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaComponents.h">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -428,9 +426,6 @@
     </Filter>
     <Filter Include="Event\Queue">
       <UniqueIdentifier>{c343bd54-0612-472b-aacc-aed358f0fdfc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Entity">
-      <UniqueIdentifier>{0598fc75-aef5-4b66-a21e-36b1f296b3ee}</UniqueIdentifier>
     </Filter>
     <Filter Include="Graphics">
       <UniqueIdentifier>{f79170ad-6dae-46b9-b593-20813947a1a1}</UniqueIdentifier>

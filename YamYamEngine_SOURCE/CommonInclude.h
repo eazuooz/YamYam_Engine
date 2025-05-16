@@ -1,7 +1,8 @@
 #pragma once
+#define NOMINMAX
 #include <Windows.h>
-#include <assert.h>
 #include <iostream>
+#include <assert.h>
 #include <memory>
 
 #include <vector>
@@ -19,12 +20,13 @@
 #include <mmsystem.h>
 #include <dinput.h>
 
-#include <functional>
 #include <ostream>
 #include <sstream>
 
 #include "yaEnums.h"
 #include "yaMath.h"
+
+
 
 #define BIT(x) (1 << x)
 #define CAST_UINT(value) static_cast<UINT>(value)
