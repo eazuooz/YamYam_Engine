@@ -1,9 +1,10 @@
-#include "guiEntity.h"
+#include "yaLabelled.h"
 
-namespace gui
+
+namespace ya
 {
 	Labelled::Labelled()
-		: mName("")
+		: mName(L"")
 	{
 	}
 

@@ -1,12 +1,12 @@
 #pragma once
-#include "yaEntity.h"
+#include "yaLabelled.h"
 #include "yaGameObject.h"
 #include "yaLayer.h"
 #include "yaCamera.h"
 
 namespace ya
 {
-	class Scene : public Entity
+	class Scene : public Labelled
 	{
 	public:
 		Scene();

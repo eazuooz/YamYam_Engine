@@ -137,9 +137,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaEventQueue.cpp">
       <Filter>Event\Queue</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)yaEntity.cpp">
-      <Filter>Entity</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)yaEditorCamera.cpp">
       <Filter>Component\Camera</Filter>
     </ClCompile>
@@ -148,6 +145,13 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)yaBaseRenderer.cpp">
       <Filter>High Level Interface\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaEntity.cpp">
+      <Filter>Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaUUID.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaLabelled.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -311,9 +315,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaEventQueue.h">
       <Filter>Event\Queue</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)yaEntity.h">
-      <Filter>Entity</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaSceneCamera.h">
       <Filter>Component\Camera</Filter>
     </ClInclude>
@@ -322,6 +323,16 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaBaseRenderer.h">
       <Filter>High Level Interface\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaEntity.h">
+      <Filter>Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaUUID.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaComponents.h">
+      <Filter>Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaLabelled.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

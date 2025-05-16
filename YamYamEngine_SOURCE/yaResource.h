@@ -1,10 +1,10 @@
 #pragma once
-#include "yaEntity.h"
+#include "yaLabelled.h"
 
 
 namespace ya
 {
-	class Resource abstract : public Entity
+	class Resource abstract : public Labelled
 	{
 	public:
 		Resource(enums::eResourceType type);

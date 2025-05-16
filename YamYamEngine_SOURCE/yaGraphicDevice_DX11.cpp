@@ -46,7 +46,7 @@ namespace ya::graphics
 		Microsoft::WRL::ComPtr<IDXGIDevice> pDXGIDevice = nullptr;
 		Microsoft::WRL::ComPtr<IDXGIAdapter> pAdapter = nullptr;
 		Microsoft::WRL::ComPtr<IDXGIFactory> pFactory = nullptr;
-
+		
 		if (FAILED(mDevice->QueryInterface(__uuidof(IDXGIDevice), (void**)pDXGIDevice.GetAddressOf())))
 			return false;
 

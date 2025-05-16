@@ -1,5 +1,5 @@
 #pragma once
-#include "yaEntity.h"
+#include "yaLabelled.h"
 #include "yaComponent.h"
 #include "yaTexture.h"
 

@@ -15,11 +15,11 @@
 
 namespace gui
 {
-	class Entity
+	class Labelled
 	{
 	public:
-		Entity();
-		virtual ~Entity();
+		Labelled();
+		virtual ~Labelled();
 
 		void SetName(const std::string& name) { mName = name; }
 		std::string& GetName() { return mName; }

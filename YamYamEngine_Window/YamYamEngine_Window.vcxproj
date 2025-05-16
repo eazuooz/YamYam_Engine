@@ -81,7 +81,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)\External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;$(SolutionDir)\External\Include\entt\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -97,7 +97,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)\External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;$(SolutionDir)\External\Include\entt\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -116,7 +116,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(SolutionDir)\External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;$(SolutionDir)\External\Include\entt\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,7 +140,7 @@ copy "$(SolutionDir)\External\Library\Fmod\Debug\fmodstudioL.dll" "$(SolutionDir
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>$(SolutionDir)\External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;$(SolutionDir)\External\Include\entt\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

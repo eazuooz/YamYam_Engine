@@ -39,6 +39,8 @@ namespace ya
 		for (size_t i = 0; i < 1; i++)
 		{
 			GameObject* player = object::Instantiate<Player>(eLayerType::Player);
+
+
 			SpriteRenderer* sr = player->AddComponent<SpriteRenderer>();
 			sr->SetSprite(Resources::Find<Texture>(L"Player"));
 			

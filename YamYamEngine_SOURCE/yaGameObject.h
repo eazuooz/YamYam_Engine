@@ -11,7 +11,7 @@ namespace ya::object
 
 namespace ya
 {
-	class GameObject : public Entity
+	class GameObject : public Labelled
 	{
 	public:
 		friend void object::Destroy(GameObject* obj);

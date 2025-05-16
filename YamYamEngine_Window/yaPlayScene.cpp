@@ -44,8 +44,8 @@ namespace ya
 			
 			player->AddComponent<PlayerScript>();
 
-			if (renderer::selectedObject == nullptr)
-				renderer::selectedObject = player;
+			//if (renderer::selectedObject == nullptr)
+			//	renderer::selectedObject = player;
 		}
 	}
 

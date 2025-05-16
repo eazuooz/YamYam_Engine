@@ -1,10 +1,10 @@
 #pragma once
-#include "yaEntity.h"
+#include "yaLabelled.h"
 
 namespace ya
 {
 	using namespace enums;
-	class UIBase : public Entity
+	class UIBase : public Labelled
 	{
 	public:
 		struct Event

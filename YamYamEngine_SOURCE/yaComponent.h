@@ -1,5 +1,5 @@
 #pragma once
-#include "yaEntity.h"
+#include "yaLabelled.h"
 
 namespace ya
 {
@@ -7,7 +7,7 @@ namespace ya
 
 	class GameObject;
 
-	class Component : public Entity
+	class Component : public Labelled
 	{
 	public:
 		Component(eComponentType type);

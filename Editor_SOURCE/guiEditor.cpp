@@ -3,7 +3,7 @@
 namespace gui
 {
 	Editor::Editor()
-		: Entity()
+		: Labelled()
 	{
 	}
 	Editor::~Editor()

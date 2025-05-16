@@ -49,7 +49,7 @@ namespace ya
 	void LoadingScene::Render()
 	{
 		if (mbLoadCompleted)
-			SceneManager::LoadScene(L"PlayScene");
+			SceneManager::LoadScene(L"EditorScene");
 	}
 
 	void LoadingScene::OnEnter()

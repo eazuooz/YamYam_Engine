@@ -3,7 +3,7 @@
 namespace gui
 {
 	EditorWindow::EditorWindow()
-		: Entity()
+		: Labelled()
 		, mFlag(ImGuiWindowFlags_None)
 	{
 

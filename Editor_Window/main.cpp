@@ -197,12 +197,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			const int keyCode = static_cast<int>(wParam);
             const int scancode = (lParam >> 16) & 0x1ff;
-
             const int KEY_RELEASE = 0;
 			const int KEY_PRESS = 1;
-
             const int action = ((lParam >> 31) & 1) ? KEY_RELEASE : KEY_PRESS;
-
 			const int mods = []() -> int
 				{
 					int mod = 0;
@@ -214,7 +211,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				}();
 
 			gui::EditorApplication::SetKeyPressed(keyCode, scancode, action, mods);
-			
 	    }
 		break;
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "yaEntity.h"
+#include "yaLabelled.h"
 #include "yaComponent.h"
 
 namespace ya
