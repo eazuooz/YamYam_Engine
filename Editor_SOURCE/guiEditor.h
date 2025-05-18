@@ -30,7 +30,7 @@ namespace gui
 		virtual void OnDestroy();
 
 	private:
-		eState mState;
+		eState State;
 	};
 }
 

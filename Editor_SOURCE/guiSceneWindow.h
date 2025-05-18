@@ -4,11 +4,11 @@
 
 namespace gui
 {
-	class GameWindow : public EditorWindow
+	class SceneWindow : public EditorWindow
 	{
 	public:
-		GameWindow();
-		~GameWindow();
+		SceneWindow();
+		~SceneWindow();
 
 		void Initialize() override;
 		void Update() override;

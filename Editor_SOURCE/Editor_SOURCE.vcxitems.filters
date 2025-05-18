@@ -105,7 +105,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)guiCosoleWindow.cpp">
       <Filter>GUI\View</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)guiGameWindow.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)guiSceneWindow.cpp">
       <Filter>GUI\View</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)guiHierarchyWindow.cpp">
@@ -188,7 +188,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)guiCosoleWindow.h">
       <Filter>GUI\View</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)guiGameWindow.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)guiSceneWindow.h">
       <Filter>GUI\View</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)guiHierarchyWindow.h">

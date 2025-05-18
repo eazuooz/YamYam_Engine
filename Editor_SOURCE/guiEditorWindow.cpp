@@ -4,7 +4,7 @@ namespace gui
 {
 	EditorWindow::EditorWindow()
 		: Labelled()
-		, mFlag(ImGuiWindowFlags_None)
+		, Flag(ImGuiWindowFlags_None)
 	{
 
 	}

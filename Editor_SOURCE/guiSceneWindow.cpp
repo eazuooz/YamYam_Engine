@@ -1,22 +1,22 @@
-#include "guiGameWindow.h"
+#include "guiSceneWindow.h"
 
 namespace gui
 {
-	GameWindow::GameWindow()
+	SceneWindow::SceneWindow()
 	{
-		SetName("Game");
+		SetName("Scene");
 		SetSize(ImVec2(300, 600));
 	}
 
-	GameWindow::~GameWindow()
+	SceneWindow::~SceneWindow()
 	{
 	}
 
-	void GameWindow::Initialize()
+	void SceneWindow::Initialize()
 	{
 	}
 
-	void GameWindow::Update()
+	void SceneWindow::Update()
 	{
 		for (Editor* editor : mEditors)
 		{
@@ -24,7 +24,7 @@ namespace gui
 		}
 	}
 
-	void GameWindow::OnGUI()
+	void SceneWindow::OnGUI()
 	{
 		
 		for (Editor* editor : mEditors)
@@ -33,7 +33,7 @@ namespace gui
 		}
 	}
 
-	void GameWindow::Run()
+	void SceneWindow::Run()
 	{
 		bool Active = (bool)GetState();
 		ImGui::Begin(GetName().c_str(), &Active, GetFlag());
@@ -44,15 +44,15 @@ namespace gui
 		ImGui::End();
 	}
 
-	void GameWindow::OnEnable()
+	void SceneWindow::OnEnable()
 	{
 	}
 
-	void GameWindow::OnDisable()
+	void SceneWindow::OnDisable()
 	{
 	}
 
-	void GameWindow::OnDestroy()
+	void SceneWindow::OnDestroy()
 	{
 	}
 

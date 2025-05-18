@@ -3,7 +3,7 @@
 #include "guiCosoleWindow.h"
 #include "guiProjectWindow.h"
 #include "guiProjectWindow.h"
-#include "guiGameWindow.h"
+#include "guiSceneWindow.h"
 #include "guiHierarchyWindow.h"
 
 
@@ -19,20 +19,21 @@ extern ya::Application application;
 
 namespace gui
 {
-	ImguiEditor* EditorApplication::mImguiEditor = nullptr;
+	ImguiEditor* EditorApplication::ImguiEditor = nullptr;
 	std::map<std::wstring, EditorWindow*> EditorApplication::mEditorWindows;
-	ImGuiWindowFlags EditorApplication::mFlag = ImGuiWindowFlags_None;
-	ImGuiDockNodeFlags EditorApplication::mDockspaceFlags = ImGuiDockNodeFlags_None;
-	EditorApplication::eState EditorApplication::mState = EditorApplication::eState::Active;
-	bool EditorApplication::mFullScreen = true;
-	ya::math::Vector2 EditorApplication::mViewportBounds[2] = {};
-	ya::math::Vector2 EditorApplication::mViewportSize;
-	bool EditorApplication::mViewportFocused = false;
-	bool EditorApplication::mViewportHovered = false;
-	int EditorApplication::mGuizmoType = -1;
+	ImGuiWindowFlags EditorApplication::Flag = ImGuiWindowFlags_None;
+	ImGuiDockNodeFlags EditorApplication::DockspaceFlags = ImGuiDockNodeFlags_None;
+	EditorApplication::eState EditorApplication::State = EditorApplication::eState::Active;
+	bool EditorApplication::FullScreen = true;
+	ya::math::Vector2 EditorApplication::ViewportBounds[2] = {};
+	ya::math::Vector2 EditorApplication::ViewportSize;
+	bool EditorApplication::ViewportFocused = false;
+	bool EditorApplication::ViewportHovered = false;
+	int EditorApplication::GuizmoType = -1;
+	ya::EditorCamera* EditorApplication::EditorCamera = nullptr;
 
-	ya::graphics::RenderTarget* EditorApplication::mFrameBuffer = nullptr;
-	ya::EventCallbackFn EditorApplication::mEventCallback = nullptr;
+	ya::graphics::RenderTarget* EditorApplication::FrameBuffer = nullptr;
+	ya::EventCallbackFn EditorApplication::EventCallback = nullptr;
 
 	bool EditorApplication::Initialize()
 	{
@@ -49,14 +50,14 @@ namespace gui
 	std::cout << "Console Open" << std::endl;
 #endif
 
-		mImguiEditor = new ImguiEditor();
-		mFrameBuffer = ya::renderer::FrameBuffer;
-		mImguiEditor->Initialize();
+		ImguiEditor = new gui::ImguiEditor();
+		FrameBuffer = ya::renderer::FrameBuffer;
+		ImguiEditor->Initialize();
 
 		//InspectorWindow
 		InspectorWindow* inspector = new InspectorWindow();
 		mEditorWindows.insert(std::make_pair(L"InspectorWindow", inspector));
-		mEventCallback = &EditorApplication::OnEvent;
+		EventCallback = &EditorApplication::OnEvent;
 
 		//CosoleWindow
 		ConsoleWindow* console = new ConsoleWindow();
@@ -67,12 +68,15 @@ namespace gui
 		mEditorWindows.insert(std::make_pair(L"ProjectWindow", project));
 
 		//GameWindow
-		GameWindow* game = new GameWindow();
+		SceneWindow* game = new SceneWindow();
 		mEditorWindows.insert(std::make_pair(L"GameWindow", game));
 
 		//HierarchyWindow
 		HierarchyWindow* hierarchy = new HierarchyWindow();
 		mEditorWindows.insert(std::make_pair(L"HierarchyWindow", hierarchy));
+
+		//Editor Camera
+		EditorCamera = new ya::EditorCamera();
 
 		return true;
 	}
@@ -84,9 +88,9 @@ namespace gui
 
 	void EditorApplication::OnGUI()
 	{
-		mImguiEditor->Begin();
+		ImguiEditor->Begin();
 		OnImGuiRender();
-		mImguiEditor->End();
+		ImguiEditor->End();
 	}
 
 	void EditorApplication::Run()
@@ -103,9 +107,12 @@ namespace gui
 			iter.second = nullptr;
 		}
 
+		delete EditorCamera;
+		EditorCamera = nullptr;
+
 		// Cleanup
-		delete mImguiEditor;
-		mImguiEditor = nullptr;
+		delete ImguiEditor;
+		ImguiEditor = nullptr;
 
 		// Release Console
 #ifdef _DEBUG
@@ -144,7 +151,7 @@ namespace gui
 
 		if (!e.Handled)
 		{
-			mImguiEditor->OnEvent(e);
+			ImguiEditor->OnEvent(e);
 		}
 	}
 
@@ -199,8 +206,8 @@ namespace gui
 
 		// We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
 		// because it would be confusing to have two docking targets within each others.
-		mFlag = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
-		if (mFullScreen)
+		Flag = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+		if (FullScreen)
 		{
 			ImGuiViewport* viewport = ImGui::GetMainViewport();
 			ImGui::SetNextWindowPos(viewport->Pos);
@@ -208,14 +215,14 @@ namespace gui
 			ImGui::SetNextWindowViewport(viewport->ID);
 			ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
 			ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
-			mFlag |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
-			mFlag |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+			Flag |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+			Flag |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
 		}
 
 		// When using ImGuiDockNodeFlags_PassthruCentralNode, DockSpace() will render our background
 		// and handle the pass-thru hole, so we ask Begin() to not render a background.
-		if (mDockspaceFlags & ImGuiDockNodeFlags_PassthruCentralNode)
-			mFlag |= ImGuiWindowFlags_NoBackground;
+		if (DockspaceFlags & ImGuiDockNodeFlags_PassthruCentralNode)
+			Flag |= ImGuiWindowFlags_NoBackground;
 
 		// Important: note that we proceed even if Begin() returns false (aka window is collapsed).
 		// This is because we want to keep our DockSpace() active. If a DockSpace() is inactive,
@@ -223,11 +230,11 @@ namespace gui
 		// We cannot preserve the docking relationship between an active window and an inactive docking, otherwise
 		// any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-		bool Active = static_cast<bool>(mState);
-		ImGui::Begin("EditorApplication", &Active, mFlag);
+		bool Active = static_cast<bool>(State);
+		ImGui::Begin("EditorApplication", &Active, Flag);
         ImGui::PopStyleVar();
 
-        if (mFullScreen)
+        if (FullScreen)
             ImGui::PopStyleVar(2);
 
 		// DockSpace
@@ -238,7 +245,7 @@ namespace gui
 		if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
 		{
 			ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
-			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), mDockspaceFlags);
+			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), DockspaceFlags);
 		}
 
 		style.WindowMinSize.x = minWinSizeX;
@@ -288,7 +295,7 @@ namespace gui
 		
 		// viewport
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
-		ImGui::Begin("Scene");
+		ImGui::Begin("Game");
 		
 		const auto viewportMinRegion = ImGui::GetWindowContentRegionMin(); // ¾ÀºäÀÇ ÃÖ¼Ò ÁÂÇ¥
 		const auto viewportMaxRegion = ImGui::GetWindowContentRegionMax(); // ¾ÀºäÀÇ ÃÖ´ë ÁÂÇ¥
@@ -296,20 +303,20 @@ namespace gui
 
 		constexpr int letTop = 0;
 		constexpr int rightBottom = 1;
-		mViewportBounds[letTop] = Vector2{ viewportMinRegion.x + viewportOffset.x, viewportMinRegion.y + viewportOffset.y };
-		mViewportBounds[rightBottom] = Vector2{ viewportMaxRegion.x + viewportOffset.x, viewportMaxRegion.y + viewportOffset.y };
+		ViewportBounds[letTop] = Vector2{ viewportMinRegion.x + viewportOffset.x, viewportMinRegion.y + viewportOffset.y };
+		ViewportBounds[rightBottom] = Vector2{ viewportMaxRegion.x + viewportOffset.x, viewportMaxRegion.y + viewportOffset.y };
 
 		// check if the mouse,keyboard is on the Sceneview
-		mViewportFocused = ImGui::IsWindowFocused();
-		mViewportHovered = ImGui::IsWindowHovered();
+		ViewportFocused = ImGui::IsWindowFocused();
+		ViewportHovered = ImGui::IsWindowHovered();
 
 		// to do : mouse, keyboard event
-		mImguiEditor->BlockEvent(!mViewportHovered);
+		ImguiEditor->BlockEvent(!ViewportHovered);
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-		mViewportSize = Vector2{ viewportPanelSize.x, viewportPanelSize.y };
-		ya::graphics::Texture* texture = mFrameBuffer->GetAttachmentTexture(0);
-		ImGui::Image((ImTextureID)texture->GetSRV().Get(), ImVec2{ mViewportSize.x, mViewportSize.y }
+		ViewportSize = Vector2{ viewportPanelSize.x, viewportPanelSize.y };
+		ya::graphics::Texture* texture = FrameBuffer->GetAttachmentTexture(0);
+		ImGui::Image((ImTextureID)texture->GetSRV().Get(), ImVec2{ ViewportSize.x, ViewportSize.y }
 					, ImVec2{ 0, 0 }, ImVec2{ 1, 1 });
 
 		// Open Scene by drag and drop
@@ -325,13 +332,13 @@ namespace gui
 
 		// To do : guizmo
 		ya::GameObject* selectedObject = ya::renderer::selectedObject;
-		if (selectedObject && mGuizmoType != -1)
+		if (selectedObject && GuizmoType != -1)
 		{
 			ImGuizmo::SetOrthographic(false);
 			ImGuizmo::SetDrawlist();
 			ImGuizmo::SetGizmoSizeClipSpace(0.15f); 
-			ImGuizmo::SetRect(mViewportBounds[0].x, mViewportBounds[0].y
-				, mViewportBounds[1].x - mViewportBounds[0].x, mViewportBounds[1].y - mViewportBounds[0].y);
+			ImGuizmo::SetRect(ViewportBounds[0].x, ViewportBounds[0].y
+				, ViewportBounds[1].x - ViewportBounds[0].x, ViewportBounds[1].y - ViewportBounds[0].y);
 
 			// To do : guizmo...
 			// game view camera setting
@@ -349,12 +356,12 @@ namespace gui
 			float snapValue = 0.5f; 
 
 			// snap to 45 degrees for rotation
-			if (mGuizmoType == ImGuizmo::OPERATION::ROTATE)
+			if (GuizmoType == ImGuizmo::OPERATION::ROTATE)
 				snapValue = 45.0f;
 
 			float snapValues[3] = { snapValue, snapValue, snapValue };
 
-			ImGuizmo::Manipulate(*viewMatrix.m, *projectionMatrix.m, static_cast<ImGuizmo::OPERATION>(mGuizmoType)
+			ImGuizmo::Manipulate(*viewMatrix.m, *projectionMatrix.m, static_cast<ImGuizmo::OPERATION>(GuizmoType)
 				, ImGuizmo::WORLD, *worldMatrix.m, nullptr, snap ? snapValues : nullptr);
 
 			if (ImGuizmo::IsUsing())
@@ -404,24 +411,24 @@ namespace gui
 			{
 				ya::KeyReleasedEvent event(static_cast<ya::eKeyCode>(keyCode));
 
-				if (mEventCallback)
-					mEventCallback(event);
+				if (EventCallback)
+					EventCallback(event);
 			}
 			break;
 			case PRESS:
 			{
 				ya::KeyPressedEvent event(static_cast<ya::eKeyCode>(keyCode), false);
 
-				if (mEventCallback)
-					mEventCallback(event);
+				if (EventCallback)
+					EventCallback(event);
 			}
 			break;
 			case REPEAT:
 			{
 				ya::KeyPressedEvent event(static_cast<ya::eKeyCode>(keyCode), true);
 
-				if (mEventCallback)
-					mEventCallback(event);
+				if (EventCallback)
+					EventCallback(event);
 			}
 		break;
 		}
@@ -431,8 +438,8 @@ namespace gui
 	{
 		ya::MouseMovedEvent event(x, y);
 
-		if (mEventCallback)
-			mEventCallback(event);
+		if (EventCallback)
+			EventCallback(event);
 	}
 
 	bool EditorApplication::OnKeyPressed(ya::KeyPressedEvent& e)

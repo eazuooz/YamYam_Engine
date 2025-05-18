@@ -169,9 +169,6 @@ xcopy "$(SolutionDir)Shaders_SOURCE" "$(SolutionDir)x64￦Shaders_SOURCE￦" /E 
       <Project>{be244220-e3ae-44a2-bde1-651d6d7afdab}</Project>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

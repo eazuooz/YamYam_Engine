@@ -5,6 +5,7 @@
 #include "..\\YamYamEngine_SOURCE\\yaRenderTarget.h"
 #include "..\\YamYamEngine_SOURCE\\yaKeyEvent.h"
 #include "..\\YamYamEngine_SOURCE\\yaMouseEvent.h"
+#include "..\\YamYamEngine_SOURCE\\yaEditorCamera.h"
 
 
 namespace ya
@@ -84,24 +85,25 @@ namespace gui
 		static bool OnKeyPressed(ya::KeyPressedEvent& e);
 
 
-		static void SetGuizmoType(int type) { mGuizmoType = type; }
+		static void SetGuizmoType(int type) { GuizmoType = type; }
 
 	private:
-		static ImguiEditor* mImguiEditor;
+		static ImguiEditor* ImguiEditor;
 
 		static std::map<std::wstring, EditorWindow*> mEditorWindows;
-		static ImGuiWindowFlags mFlag;
-		static ImGuiDockNodeFlags mDockspaceFlags;
-		static eState mState;
-		static bool mFullScreen;
-		static ya::math::Vector2 mViewportBounds[2];
-		static ya::math::Vector2 mViewportSize;
-		static bool mViewportFocused;
-		static bool mViewportHovered;
-		static int mGuizmoType;
+		static ImGuiWindowFlags Flag;
+		static ImGuiDockNodeFlags DockspaceFlags;
+		static eState State;
+		static bool FullScreen;
+		static ya::math::Vector2 ViewportBounds[2];
+		static ya::math::Vector2 ViewportSize;
+		static bool ViewportFocused;
+		static bool ViewportHovered;
+		static int GuizmoType;
+		static ya::EditorCamera* EditorCamera;
 
-		static ya::graphics::RenderTarget* mFrameBuffer;
-		static ya::EventCallbackFn mEventCallback;
+		static ya::graphics::RenderTarget* FrameBuffer;
+		static ya::EventCallbackFn EventCallback;
 	};
 }
 

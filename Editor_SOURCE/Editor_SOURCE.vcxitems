@@ -20,7 +20,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)guiEditorWindow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GraphEditor.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)guiEntity.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)guiGameWindow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)guiSceneWindow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)guiGUILayout.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)guiHierarchyWindow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)guiImguiEditor.cpp" />
@@ -47,7 +47,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)guiEditorWindow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GraphEditor.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)guiEntity.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)guiGameWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)guiSceneWindow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)guiGUILayout.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)guiHierarchyWindow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)guiImguiEditor.h" />

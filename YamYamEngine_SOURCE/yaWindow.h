@@ -14,7 +14,7 @@ namespace ya
 		WindowProps(const std::wstring& title = L"YamYam Engine",
 					UINT width = 1600,
 					UINT height = 900)
-			: Title(title), Width(1600), Height(900), Hwnd(NULL)
+			: Title(title), Width(width), Height(height), Hwnd(NULL)
 		{
 		}
 	};

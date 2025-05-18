@@ -29,15 +29,15 @@ namespace gui
 		virtual void OnDestroy();
 		virtual void OnEvent(ya::Event& e) {}
 
-		ImGuiWindowFlags GetFlag() const { return mFlag; }
-		eState GetState() const { return mState; }
-		void SetState(eState state) { mState = state; }
+		ImGuiWindowFlags GetFlag() const { return Flag; }
+		eState GetState() const { return State; }
+		void SetState(eState state) { State = state; }
 		ImVec2 GetSize() { return mSize; }
 		void SetSize(ImVec2 size) { mSize = size; }
 
 	private:
-		ImGuiWindowFlags mFlag;
-		eState mState;
+		ImGuiWindowFlags Flag;
+		eState State;
 		ImVec2 mSize;
 	};
 }

@@ -42,7 +42,7 @@ namespace ya
 				auto handler = mHandlers.find(event->GetEventType());
 				if (handler != mHandlers.end())
 				{
-					event->Handled != handler->second(*event);
+					event->Handled = handler->second(*event);
 				}
 
 				// 기본 핸들러 실행 (처리되지 않은 경우)
