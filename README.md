@@ -86,3 +86,27 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+🔖 사용 안내: MIT 라이선스 기반 프로젝트
+본 프로젝트는 MIT 라이선스를 따릅니다. 따라서 다음과 같은 조건 하에 자유롭게 사용하실 수 있습니다:
+
+✅ 자유롭게 하세요!
+개인적 학습 및 실험
+
+포트폴리오/연구 목적
+
+프로젝트 일부 코드 활용 및 수정
+
+❗ 하지만 다음은 꼭 지켜주세요:
+출처를 명확히 기재해주세요
+(예: 저작권 정보 및 원저자, GitHub 링크 등)
+
+LICENSE 파일 또는 원문 주석을 삭제하지 말아주세요
+
+이 프로젝트 또는 일부 코드 사용 시, README나 배포문서에 아래와 같이 출처를 남겨주세요:
+
+일부 코드 출처: [프로젝트 이름 또는 GitHub 링크]
+License: MIT
+
+이 프로젝트는 오랜 시간 동안 정성과 열정을 들여 만든 자료입니다.
+MIT 라이선스는 매우 관대한 라이선스이지만, 최소한의 기여자에 대한 존중으로 출처를 남겨주시면 감사하겠습니다.
+
