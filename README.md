@@ -54,15 +54,14 @@ vcpkg install physx:x64-windows
 
 [Directx11 렌더링](https://www.yamyamcoding.com/80d76736-a5d3-48f4-ac4a-77a983fd7050)
 
-[Tool](https://www.yamyamcoding.com/5c92a911-7abd-49b7-be11-0c00374b6e1f)
-
 
 # *참고 자료*
-홍랩 그래픽스 강의 (https://honglab.co.kr/courses/graphicspt2)
 
 위키드 엔진 (https://wickedengine.net/)
 
 3D Game Programming (https://www.3dgep.com/)
+
+홍랩 그래픽스 강의 (https://honglab.co.kr/courses/graphicspt2)
 
 
 # 저작권 (mit license)
