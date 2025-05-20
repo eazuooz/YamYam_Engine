@@ -1,6 +1,8 @@
 #pragma once
 #include "guiEditorWindow.h"
 #include "guiEditor.h"
+#include "..\\YamYamEngine_SOURCE\\yaGameObject.h"
+#include "..\\YamYamEngine_SOURCE\\yaEditorCamera.h"
 
 namespace gui
 {
@@ -18,7 +20,17 @@ namespace gui
 		void OnDisable() override;
 		void OnDestroy() override;
 
+		void SetGuizmoType(int type) { GuizmoType = type; }
+
 	private:
 		std::vector<Editor*> mEditors;
+		ya::GameObject* mEditorCameraObject;
+		ya::EditorCamera* mEditorCamera;
+
+		ya::math::Vector2 ViewportBounds[2];
+		ya::math::Vector2 ViewportSize;
+		bool ViewportFocused;
+		bool ViewportHovered;
+		int GuizmoType;
 	};
 }

@@ -20,17 +20,16 @@ extern ya::Application application;
 namespace gui
 {
 	ImguiEditor* EditorApplication::ImguiEditor = nullptr;
-	std::map<std::wstring, EditorWindow*> EditorApplication::mEditorWindows;
+	std::map<std::wstring, EditorWindow*> EditorApplication::EditorWindows;
 	ImGuiWindowFlags EditorApplication::Flag = ImGuiWindowFlags_None;
 	ImGuiDockNodeFlags EditorApplication::DockspaceFlags = ImGuiDockNodeFlags_None;
 	EditorApplication::eState EditorApplication::State = EditorApplication::eState::Active;
 	bool EditorApplication::FullScreen = true;
-	ya::math::Vector2 EditorApplication::ViewportBounds[2] = {};
+	//ya::math::Vector2 EditorApplication::ViewportBounds[2] = {};
 	ya::math::Vector2 EditorApplication::ViewportSize;
 	bool EditorApplication::ViewportFocused = false;
 	bool EditorApplication::ViewportHovered = false;
 	int EditorApplication::GuizmoType = -1;
-	ya::EditorCamera* EditorApplication::EditorCamera = nullptr;
 
 	ya::graphics::RenderTarget* EditorApplication::FrameBuffer = nullptr;
 	ya::EventCallbackFn EditorApplication::EventCallback = nullptr;
@@ -54,29 +53,26 @@ namespace gui
 		FrameBuffer = ya::renderer::FrameBuffer;
 		ImguiEditor->Initialize();
 
+		//HierarchyWindow
+		HierarchyWindow* hierarchy = new HierarchyWindow();
+		EditorWindows.insert(std::make_pair(L"HierarchyWindow", hierarchy));
+
 		//InspectorWindow
 		InspectorWindow* inspector = new InspectorWindow();
-		mEditorWindows.insert(std::make_pair(L"InspectorWindow", inspector));
+		EditorWindows.insert(std::make_pair(L"InspectorWindow", inspector));
 		EventCallback = &EditorApplication::OnEvent;
-
-		//CosoleWindow
-		ConsoleWindow* console = new ConsoleWindow();
-		mEditorWindows.insert(std::make_pair(L"ConsoleWindow", console));
 
 		//ProjectWindow
 		ProjectWindow* project = new ProjectWindow();
-		mEditorWindows.insert(std::make_pair(L"ProjectWindow", project));
+		EditorWindows.insert(std::make_pair(L"ProjectWindow", project));
 
-		//GameWindow
-		SceneWindow* game = new SceneWindow();
-		mEditorWindows.insert(std::make_pair(L"GameWindow", game));
+		//SceneWindow
+		SceneWindow* scene = new SceneWindow();
+		EditorWindows.insert(std::make_pair(L"SceneWindow", scene));
 
-		//HierarchyWindow
-		HierarchyWindow* hierarchy = new HierarchyWindow();
-		mEditorWindows.insert(std::make_pair(L"HierarchyWindow", hierarchy));
-
-		//Editor Camera
-		EditorCamera = new ya::EditorCamera();
+		//CosoleWindow
+		ConsoleWindow* console = new ConsoleWindow();
+		EditorWindows.insert(std::make_pair(L"ConsoleWindow", console));
 
 		return true;
 	}
@@ -101,14 +97,11 @@ namespace gui
 
 	void EditorApplication::Release()
 	{
-		for (auto iter : mEditorWindows)
+		for (auto iter : EditorWindows)
 		{
 			delete iter.second;
 			iter.second = nullptr;
 		}
-
-		delete EditorCamera;
-		EditorCamera = nullptr;
 
 		// Cleanup
 		delete ImguiEditor;
@@ -285,34 +278,22 @@ namespace gui
 				
 				ImGui::EndMenu();
 			}
-
-				
 			ImGui::EndMenuBar();
 		}
 
-		for (auto& iter : mEditorWindows)
-			iter.second->Run();
-		
-		// viewport
-		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
-		ImGui::Begin("Game");
-		
-		const auto viewportMinRegion = ImGui::GetWindowContentRegionMin(); // æ¿∫‰¿« √÷º“ ¡¬«•
-		const auto viewportMaxRegion = ImGui::GetWindowContentRegionMax(); // æ¿∫‰¿« √÷¥Î ¡¬«•
-		const auto viewportOffset = ImGui::GetWindowPos(); // æ¿∫‰¿« ¿ßƒ°
-
-		constexpr int letTop = 0;
-		constexpr int rightBottom = 1;
-		ViewportBounds[letTop] = Vector2{ viewportMinRegion.x + viewportOffset.x, viewportMinRegion.y + viewportOffset.y };
-		ViewportBounds[rightBottom] = Vector2{ viewportMaxRegion.x + viewportOffset.x, viewportMaxRegion.y + viewportOffset.y };
+		auto iter = EditorWindows.find(L"SceneWindow");
+		dynamic_cast<SceneWindow*>(iter->second)->SetGuizmoType(GuizmoType);
 
 		// check if the mouse,keyboard is on the Sceneview
 		ViewportFocused = ImGui::IsWindowFocused();
 		ViewportHovered = ImGui::IsWindowHovered();
-
-		// to do : mouse, keyboard event
 		ImguiEditor->BlockEvent(!ViewportHovered);
 
+		// viewport
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
+		ImGui::Begin("Game");
+		
+		// rendering framebuffer image to the gameview
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		ViewportSize = Vector2{ viewportPanelSize.x, viewportPanelSize.y };
 		ya::graphics::Texture* texture = FrameBuffer->GetAttachmentTexture(0);
@@ -330,58 +311,8 @@ namespace gui
 			ImGui::EndDragDropTarget();
 		}
 
-		// To do : guizmo
-		ya::GameObject* selectedObject = ya::renderer::selectedObject;
-		if (selectedObject && GuizmoType != -1)
-		{
-			ImGuizmo::SetOrthographic(false);
-			ImGuizmo::SetDrawlist();
-			ImGuizmo::SetGizmoSizeClipSpace(0.15f); 
-			ImGuizmo::SetRect(ViewportBounds[0].x, ViewportBounds[0].y
-				, ViewportBounds[1].x - ViewportBounds[0].x, ViewportBounds[1].y - ViewportBounds[0].y);
-
-			// To do : guizmo...
-			// game view camera setting
-
-			// Scene Camera
-			const ya::math::Matrix& viewMatrix = ya::renderer::mainCamera->GetViewMatrix();
-			const ya::math::Matrix& projectionMatrix = ya::renderer::mainCamera->GetProjectionMatrix();
-
-			// Object Transform
-			ya::Transform* transform = selectedObject->GetComponent<ya::Transform>();
-			ya::math::Matrix worldMatrix = transform->GetWorldMatrix();
-
-			// snapping
-			bool snap = ya::Input::GetKey(ya::eKeyCode::Leftcontrol);
-			float snapValue = 0.5f; 
-
-			// snap to 45 degrees for rotation
-			if (GuizmoType == ImGuizmo::OPERATION::ROTATE)
-				snapValue = 45.0f;
-
-			float snapValues[3] = { snapValue, snapValue, snapValue };
-
-			ImGuizmo::Manipulate(*viewMatrix.m, *projectionMatrix.m, static_cast<ImGuizmo::OPERATION>(GuizmoType)
-				, ImGuizmo::WORLD, *worldMatrix.m, nullptr, snap ? snapValues : nullptr);
-
-			if (ImGuizmo::IsUsing())
-			{
-				// Decompose matrix to translation, rotation and scale
-				float translation[3];
-				float rotation[3];
-				float scale[3];
-				ImGuizmo::DecomposeMatrixToComponents(*worldMatrix.m, translation, rotation, scale);
-
-				// delta rotation from the current rotation
-				ya::math::Vector3 deltaRotation = Vector3(rotation) - transform->GetRotation();
-				deltaRotation = transform->GetRotation() + deltaRotation;
-				
-				// set the new transform
-				transform->SetScale(Vector3(scale));
-				transform->SetRotation(Vector3(deltaRotation));
-				transform->SetPosition(Vector3(translation));
-			}
-		}
+		for (auto& iter : EditorWindows)
+			iter.second->Run();
 
 		ImGui::End();	// Scene end
 
@@ -395,15 +326,6 @@ namespace gui
 		constexpr int RELEASE = 0;
 		constexpr int PRESS = 1;
 		constexpr int REPEAT = 2;
-
-		//To do : repeat check
-		//if (action == PRESS)
-			//action = REPEAT;
-		//static std::unordered_map<key, >
-
-		// unordered map key setting
-			
-
 
 		switch (action)
 		{

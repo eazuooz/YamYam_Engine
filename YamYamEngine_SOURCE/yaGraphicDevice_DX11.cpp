@@ -457,9 +457,20 @@ namespace ya::graphics
 		mContext->ClearRenderTargetView(mFrameBufferView.Get(), backgroundColor);
 	}
 
+	void GraphicDevice_DX11::ClearRenderTargetView(Microsoft::WRL::ComPtr<ID3D11RenderTargetView> rtv)
+	{
+		FLOAT backgroundColor[4] = {0.2f, 0.2f, 0.2f, 1.0f};
+		mContext->ClearRenderTargetView(rtv.Get(), backgroundColor);
+	}
+
 	void GraphicDevice_DX11::ClearDepthStencilView()
 	{
 		mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+	}
+
+	void GraphicDevice_DX11::ClearDepthStencilView(Microsoft::WRL::ComPtr<ID3D11DepthStencilView> dsv)
+	{
+		mContext->ClearDepthStencilView(dsv.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	}
 
 	void GraphicDevice_DX11::Initialize()

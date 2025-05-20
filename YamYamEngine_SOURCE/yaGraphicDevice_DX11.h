@@ -71,7 +71,9 @@ namespace ya::graphics
 		void CopyResource(ID3D11Resource* pDstResource, ID3D11Resource* pSrcResource);
 
 		void ClearRenderTargetView();
+		void ClearRenderTargetView(Microsoft::WRL::ComPtr<ID3D11RenderTargetView> rtv);
 		void ClearDepthStencilView();
+		void ClearDepthStencilView(Microsoft::WRL::ComPtr<ID3D11DepthStencilView> dsv);
 
 		void Initialize();
 		void Draw(UINT vertexCount, UINT startVertexLocation) const;

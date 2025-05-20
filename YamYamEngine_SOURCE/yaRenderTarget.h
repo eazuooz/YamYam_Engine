@@ -72,6 +72,7 @@ namespace ya::graphics
 		void ClearAttachment(UINT index, const void* value);
 
 		Texture* GetAttachmentTexture(UINT index) { if (index >= mAttachments.size()) assert(NULL && "Rendertarget is not exist"); return mAttachments[index]; }
+		Texture* GetDepthAttachment() { return mDepthAttachment; }
 		RenderTargetSpecification& GetSpecification() { return mSpecification; }
 
 	private:

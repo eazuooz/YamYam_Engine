@@ -73,6 +73,7 @@ namespace ya
 			return Keys[static_cast<UINT>(code)].State == eKeyState::Pressed;
 		}
 		__forceinline static math::Vector2 GetMousePosition() { return mMousePosition; }
+		__forceinline static void SetBlocked(bool blocked) { mBlocked = blocked; }
 
 	private:
 		static void createKeys();
@@ -86,5 +87,6 @@ namespace ya
 
 		static std::vector<Key> Keys;
 		static math::Vector2 mMousePosition;
+		static bool mBlocked;
 	};
 }

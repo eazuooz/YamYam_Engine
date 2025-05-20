@@ -10,7 +10,7 @@ namespace ya
 	}
 	EditorCamera::~EditorCamera()
 	{
-
+		SAFE_DELETE(mRenderTarget);
 	}
 
 	void EditorCamera::Initialize()
@@ -38,4 +38,17 @@ namespace ya
 
 	}
 
+	void EditorCamera::CreateRenderTarget(UINT width, UINT height)
+	{
+		if (mRenderTarget != nullptr)
+			delete mRenderTarget;
+
+		graphics::RenderTargetSpecification spec;
+		spec.Width = width;
+		spec.Height = height;
+
+		spec.Attachments = { graphics::eRenderTragetFormat::RGBA8, graphics::eRenderTragetFormat::Depth };
+
+		mRenderTarget = new graphics::RenderTarget(spec);
+	}
 }

@@ -17,6 +17,10 @@ namespace ya
 		void Render(const Matrix& view, const Matrix& projection) override;
 		void OnEvent(Event& e);
 
+		void CreateRenderTarget(UINT width, UINT height);
+		graphics::RenderTarget* GetRenderTarget() { return mRenderTarget; }
+		
+
 	private:
 		graphics::RenderTarget* mRenderTarget;
 	};

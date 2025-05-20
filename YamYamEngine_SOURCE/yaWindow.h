@@ -60,6 +60,8 @@ namespace ya
 		UINT GetYPos() { return mData.Y; }
 		void SetPos(UINT x, UINT y) { mData.X = x; mData.Y = y; }
 
+		const WindowData& GetData() { return mData; }
+
 	private:
 		WindowData mData;
 	};
