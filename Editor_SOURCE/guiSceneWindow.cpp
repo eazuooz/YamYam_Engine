@@ -38,7 +38,7 @@ namespace gui
 		mEditorCameraObject->SetName(L"EditorCamera");
 		
 		ya::Transform* tr = mEditorCameraObject->GetComponent<ya::Transform>();
-		tr->SetPosition(0.0f, 0.0f, -20.0f);
+		tr->SetPosition(3.0f, 0.0f, -20.0f);
 		tr->SetRotation(0.0f, 0.0f, 0.0f);
 		
 		mEditorCamera = mEditorCameraObject->AddComponent<ya::EditorCamera>();
@@ -108,9 +108,12 @@ namespace gui
 		ya::renderer::SortByDistance(transparentList, cameraPos, false);
 
 		//render game objects
-		ya::renderer::RenderRenderables(opaqueList, viewMatrix, projectionMatrix);
-		ya::renderer::RenderRenderables(cutoutList, viewMatrix, projectionMatrix);
-		ya::renderer::RenderRenderables(transparentList, viewMatrix, projectionMatrix);
+		//ya::renderer::RenderRenderables(opaqueList, viewMatrix, projectionMatrix);
+		//ya::renderer::RenderRenderables(cutoutList, viewMatrix, projectionMatrix);
+		//ya::renderer::RenderRenderables(transparentList, viewMatrix, projectionMatrix);
+
+		// render the scene from the editor camera
+		ya::renderer::RenderSceneFromCamera(scene, mEditorCamera);
 
 		// imgui scene view viewport
 		const auto viewportMinRegion = ImGui::GetWindowContentRegionMin(); // æ¿∫‰¿« √÷º“ ¡¬«•

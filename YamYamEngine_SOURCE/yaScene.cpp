@@ -69,15 +69,17 @@ namespace ya
 			// collect randerables(game objects)
 			renderer::CollectRenderables(this, opaqueList, cutoutList, transparentList);
 
-			// soring renderables by distance (between camera and game object)
-			renderer::SortByDistance(opaqueList, cameraPos, true);
-			renderer::SortByDistance(cutoutList, cameraPos, true);
-			renderer::SortByDistance(transparentList, cameraPos, false);
+			//// soring renderables by distance (between camera and game object)
+			//renderer::SortByDistance(opaqueList, cameraPos, true);
+			//renderer::SortByDistance(cutoutList, cameraPos, true);
+			//renderer::SortByDistance(transparentList, cameraPos, false);
 
-			// render game objects
-			renderer::RenderRenderables(opaqueList, viewMatrix, projectionMatrix);
-			renderer::RenderRenderables(cutoutList, viewMatrix, projectionMatrix);
-			renderer::RenderRenderables(transparentList, viewMatrix, projectionMatrix);
+			//// render game objects
+			//renderer::RenderRenderables(opaqueList, viewMatrix, projectionMatrix);
+			//renderer::RenderRenderables(cutoutList, viewMatrix, projectionMatrix);
+			//renderer::RenderRenderables(transparentList, viewMatrix, projectionMatrix);
+			
+			renderer::RenderSceneFromCamera(this, camera);
 		}
 	}
 
