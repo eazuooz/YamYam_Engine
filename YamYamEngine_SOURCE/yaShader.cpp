@@ -49,7 +49,7 @@ namespace ya::graphics
 
 	bool Shader::CreateVertexShader(const std::wstring& fileName)
 	{
-		if (!GetDevice()->CreateVertexShader(fileName, mVSBlob.GetAddressOf(), mVS.GetAddressOf()))
+		if (!GetDevice<GraphicDevice_DX11>()->CreateVertexShader(fileName, mVSBlob.GetAddressOf(), mVS.GetAddressOf()))
 			return false;
 
 		return true;
@@ -57,7 +57,7 @@ namespace ya::graphics
 
 	bool Shader::CreatePixelShader(const std::wstring& fileName)
 	{
-		if (!GetDevice()->CreatePixelShader(fileName, mPSBlob.GetAddressOf(), mPS.GetAddressOf()))
+		if (!GetDevice<GraphicDevice_DX11>()->CreatePixelShader(fileName, mPSBlob.GetAddressOf(), mPS.GetAddressOf()))
 			return false;
 
 		return true;
@@ -73,22 +73,22 @@ namespace ya::graphics
 			Microsoft::WRL::ComPtr<ID3D11RasterizerState> wireframeRasterizerState 
 				= renderer::rasterizerStates[static_cast<UINT>(eRasterizerState::Wireframe)];
 
-			GetDevice()->BindVS(wireframeShaderVS.Get());
-			GetDevice()->BindPS(wireframeShaderPS.Get());
-			GetDevice()->BindRasterizerState(wireframeRasterizerState.Get());
-			GetDevice()->BindBlendState(renderer::blendStates[static_cast<UINT>(mBlendState)].Get(), nullptr, 0xffffff);
-			GetDevice()->BindDepthStencilState(renderer::depthStencilStates[static_cast<UINT>(mDepthStencilState)].Get(), 0);
+			GetDevice<GraphicDevice_DX11>()->BindVS(wireframeShaderVS.Get());
+			GetDevice<GraphicDevice_DX11>()->BindPS(wireframeShaderPS.Get());
+			GetDevice<GraphicDevice_DX11>()->BindRasterizerState(wireframeRasterizerState.Get());
+			GetDevice<GraphicDevice_DX11>()->BindBlendState(renderer::blendStates[static_cast<UINT>(mBlendState)].Get(), nullptr, 0xffffff);
+			GetDevice<GraphicDevice_DX11>()->BindDepthStencilState(renderer::depthStencilStates[static_cast<UINT>(mDepthStencilState)].Get(), 0);
 
 			return;
 		}
 
 		if (mVS)
-			GetDevice()->BindVS(mVS.Get());
+			GetDevice<GraphicDevice_DX11>()->BindVS(mVS.Get());
 		if (mPS)
-			GetDevice()->BindPS(mPS.Get());
+			GetDevice<GraphicDevice_DX11>()->BindPS(mPS.Get());
 
-		GetDevice()->BindRasterizerState(renderer::rasterizerStates[static_cast<UINT>(mRasterizerState)].Get());
-		GetDevice()->BindBlendState(renderer::blendStates[static_cast<UINT>(mBlendState)].Get(), nullptr, 0xffffff);
-		GetDevice()->BindDepthStencilState(renderer::depthStencilStates[static_cast<UINT>(mDepthStencilState)].Get(), 0);
+		GetDevice<GraphicDevice_DX11>()->BindRasterizerState(renderer::rasterizerStates[static_cast<UINT>(mRasterizerState)].Get());
+		GetDevice<GraphicDevice_DX11>()->BindBlendState(renderer::blendStates[static_cast<UINT>(mBlendState)].Get(), nullptr, 0xffffff);
+		GetDevice<GraphicDevice_DX11>()->BindDepthStencilState(renderer::depthStencilStates[static_cast<UINT>(mDepthStencilState)].Get(), 0);
 	}
 }

@@ -143,10 +143,10 @@ namespace ya
 
 	void Application::Render()
 	{
-		GetDevice()->ClearRenderTargetView();
-		GetDevice()->ClearDepthStencilView();
-		GetDevice()->BindViewPort();
-		GetDevice()->BindDefaultRenderTarget();
+		GetDevice<GraphicDevice_DX11>()->ClearRenderTargetView();
+		GetDevice<GraphicDevice_DX11>()->ClearDepthStencilView();
+		GetDevice<GraphicDevice_DX11>()->BindViewPort();
+		GetDevice<GraphicDevice_DX11>()->BindDefaultRenderTarget();
 
 		Time::Render();
 		SceneManager::Render();
@@ -154,15 +154,15 @@ namespace ya
 		UIManager::Render();
 
 		//copy back buffer
-		Microsoft::WRL::ComPtr<ID3D11Texture2D> src = GetDevice()->GetFrameBuffer();
+		Microsoft::WRL::ComPtr<ID3D11Texture2D> src = GetDevice<GraphicDevice_DX11>()->GetFrameBuffer();
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> dst = renderer::FrameBuffer->GetAttachmentTexture(0)->GetTexture();
 
-		GetDevice()->CopyResource(dst.Get(), src.Get());
+		GetDevice<GraphicDevice_DX11>()->CopyResource(dst.Get(), src.Get());
 	}
 
 	void Application::Present()
 	{
-		GetDevice()->Present();
+		GetDevice<GraphicDevice_DX11>()->Present();
 	}
 
 	void Application::EndOfFrame()

@@ -16,7 +16,7 @@ namespace ya::graphics
 	void InputLayout::CreateInputLayout(UINT vertexCount, D3D11_INPUT_ELEMENT_DESC* layout
 	                                    , const void* pShaderBytecodeWithInputSignature, SIZE_T BytecodeLength)
 	{
-		if (!(GetDevice()->CreateInputLayout(layout, vertexCount
+		if (!(GetDevice<GraphicDevice_DX11>()->CreateInputLayout(layout, vertexCount
 		                                     , pShaderBytecodeWithInputSignature
 		                                     , BytecodeLength
 		                                     , mInputLayout.GetAddressOf())))
@@ -26,6 +26,6 @@ namespace ya::graphics
 	void InputLayout::Bind() const
 	{
 		if (mInputLayout)
-			GetDevice()->BindInputLayout(mInputLayout.Get());
+			GetDevice<GraphicDevice_DX11>()->BindInputLayout(mInputLayout.Get());
 	}
 }

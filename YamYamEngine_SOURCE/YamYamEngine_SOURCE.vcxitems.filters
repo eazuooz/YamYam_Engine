@@ -152,6 +152,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaUUID.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaGraphicDevice_DX12.cpp">
+      <Filter>Graphics\GraphicDevice</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -331,6 +334,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)yaComponents.h">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaGraphicDevice_DX12.h">
+      <Filter>Graphics\GraphicDevice</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

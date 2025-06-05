@@ -13,7 +13,7 @@ namespace ya::graphics
 {
 	GraphicDevice_DX11::GraphicDevice_DX11()
 	{
-		GetDevice() = this;
+		GetDevice<GraphicDevice_DX11>() = this;
 
 		if (!(CreateDevice()))
 			assert(NULL && "Create Device Failed!");

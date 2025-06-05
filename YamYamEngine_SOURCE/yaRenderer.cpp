@@ -36,7 +36,7 @@ namespace ya::renderer
 		samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
 		samplerDesc.MinLOD = 0;
 		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-		GetDevice()->CreateSamplerState(&samplerDesc,
+		GetDevice<GraphicDevice_DX11>()->CreateSamplerState(&samplerDesc,
 		                                samplerStates[static_cast<UINT>(eSamplerType::Anisotropic)].GetAddressOf());
 
 		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
@@ -47,7 +47,7 @@ namespace ya::renderer
 		samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
 		samplerDesc.MinLOD = 0;
 		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-		GetDevice()->CreateSamplerState(&samplerDesc,
+		GetDevice<GraphicDevice_DX11>()->CreateSamplerState(&samplerDesc,
 		                                samplerStates[static_cast<UINT>(eSamplerType::Point)].GetAddressOf());
 
 		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
@@ -58,7 +58,7 @@ namespace ya::renderer
 		samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
 		samplerDesc.MinLOD = 0;
 		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-		GetDevice()->CreateSamplerState(&samplerDesc,
+		GetDevice<GraphicDevice_DX11>()->CreateSamplerState(&samplerDesc,
 		                                samplerStates[static_cast<UINT>(eSamplerType::Linear)].GetAddressOf());
 
 		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
@@ -69,16 +69,16 @@ namespace ya::renderer
 		samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
 		samplerDesc.MinLOD = 0;
 		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-		GetDevice()->CreateSamplerState(&samplerDesc,
+		GetDevice<GraphicDevice_DX11>()->CreateSamplerState(&samplerDesc,
 		                                samplerStates[static_cast<UINT>(eSamplerType::PostProcess)].GetAddressOf());
 
-		GetDevice()->BindSamplers(static_cast<UINT>(eSamplerType::Point), 1,
+		GetDevice<GraphicDevice_DX11>()->BindSamplers(static_cast<UINT>(eSamplerType::Point), 1,
 		                          samplerStates[static_cast<UINT>(eSamplerType::Point)].GetAddressOf());
-		GetDevice()->BindSamplers(static_cast<UINT>(eSamplerType::Linear), 1,
+		GetDevice<GraphicDevice_DX11>()->BindSamplers(static_cast<UINT>(eSamplerType::Linear), 1,
 		                          samplerStates[static_cast<UINT>(eSamplerType::Linear)].GetAddressOf());
-		GetDevice()->BindSamplers(static_cast<UINT>(eSamplerType::Anisotropic), 1,
+		GetDevice<GraphicDevice_DX11>()->BindSamplers(static_cast<UINT>(eSamplerType::Anisotropic), 1,
 		                          samplerStates[static_cast<UINT>(eSamplerType::Anisotropic)].GetAddressOf());
-		GetDevice()->BindSamplers(static_cast<UINT>(eSamplerType::PostProcess), 1,
+		GetDevice<GraphicDevice_DX11>()->BindSamplers(static_cast<UINT>(eSamplerType::PostProcess), 1,
 		                          samplerStates[static_cast<UINT>(eSamplerType::PostProcess)].GetAddressOf());
 #pragma endregion
 #pragma region rasterize state
@@ -93,34 +93,34 @@ namespace ya::renderer
 		rsDesc.MultisampleEnable = false;
 		rsDesc.ScissorEnable = false;
 		rsDesc.SlopeScaledDepthBias = 0.0f;
-		GetDevice()->CreateRasterizerState(
+		GetDevice<GraphicDevice_DX11>()->CreateRasterizerState(
 			&rsDesc, rasterizerStates[static_cast<UINT>(eRasterizerState::SolidBack)].GetAddressOf());
 
 		rsDesc.FillMode = D3D11_FILL_SOLID;
 		rsDesc.CullMode = D3D11_CULL_FRONT;
-		GetDevice()->CreateRasterizerState(
+		GetDevice<GraphicDevice_DX11>()->CreateRasterizerState(
 			&rsDesc, rasterizerStates[static_cast<UINT>(eRasterizerState::SolidFront)].GetAddressOf());
 
 		rsDesc.FillMode = D3D11_FILL_SOLID;
 		rsDesc.CullMode = D3D11_CULL_NONE;
-		GetDevice()->CreateRasterizerState(
+		GetDevice<GraphicDevice_DX11>()->CreateRasterizerState(
 			&rsDesc, rasterizerStates[static_cast<UINT>(eRasterizerState::SolidNone)].GetAddressOf());
 
 		rsDesc.FillMode = D3D11_FILL_WIREFRAME;
 		rsDesc.CullMode = D3D11_CULL_NONE;
-		GetDevice()->CreateRasterizerState(
+		GetDevice<GraphicDevice_DX11>()->CreateRasterizerState(
 			&rsDesc, rasterizerStates[static_cast<UINT>(eRasterizerState::Wireframe)].GetAddressOf());
 #pragma endregion
 #pragma region blend state
 		D3D11_BLEND_DESC bsDesc = {};
 		bsDesc.RenderTarget[0].BlendEnable = FALSE;
 		bsDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-		GetDevice()->CreateBlendState(&bsDesc, blendStates[static_cast<UINT>(eBlendState::Opaque)].GetAddressOf());
+		GetDevice<GraphicDevice_DX11>()->CreateBlendState(&bsDesc, blendStates[static_cast<UINT>(eBlendState::Opaque)].GetAddressOf());
 
 		bsDesc = {};
 		bsDesc.RenderTarget[0].BlendEnable = FALSE;
 		bsDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-		GetDevice()->CreateBlendState(&bsDesc, blendStates[static_cast<UINT>(eBlendState::Cutout)].GetAddressOf());
+		GetDevice<GraphicDevice_DX11>()->CreateBlendState(&bsDesc, blendStates[static_cast<UINT>(eBlendState::Cutout)].GetAddressOf());
 
 		bsDesc = {};
 		bsDesc.RenderTarget[0].BlendEnable = TRUE;
@@ -133,7 +133,7 @@ namespace ya::renderer
 		bsDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 
 		bsDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-		GetDevice()->CreateBlendState(&bsDesc, blendStates[static_cast<UINT>(eBlendState::Transparent)].GetAddressOf());
+		GetDevice<GraphicDevice_DX11>()->CreateBlendState(&bsDesc, blendStates[static_cast<UINT>(eBlendState::Transparent)].GetAddressOf());
 
 		bsDesc = {};
 		bsDesc.RenderTarget[0].BlendEnable = TRUE;
@@ -150,7 +150,7 @@ namespace ya::renderer
 
 		// 출력 마스크: RGBA 다 써도 된다
 		bsDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-		GetDevice()->CreateBlendState(&bsDesc, blendStates[static_cast<UINT>(eBlendState::OneOne)].GetAddressOf());
+		GetDevice<GraphicDevice_DX11>()->CreateBlendState(&bsDesc, blendStates[static_cast<UINT>(eBlendState::OneOne)].GetAddressOf());
 
 
 #pragma endregion
@@ -160,7 +160,7 @@ namespace ya::renderer
 		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
 		dsDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
 		dsDesc.StencilEnable = false;
-		GetDevice()->CreateDepthStencilState(
+		GetDevice<GraphicDevice_DX11>()->CreateDepthStencilState(
 			&dsDesc, depthStencilStates[static_cast<UINT>(eDepthStencilState::LessEqual)].GetAddressOf());
 
 		dsDesc = {};
@@ -168,7 +168,7 @@ namespace ya::renderer
 		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
 		dsDesc.DepthFunc = D3D11_COMPARISON_NEVER;
 		dsDesc.StencilEnable = false;
-		GetDevice()->CreateDepthStencilState(
+		GetDevice<GraphicDevice_DX11>()->CreateDepthStencilState(
 			&dsDesc, depthStencilStates[static_cast<UINT>(eDepthStencilState::DepthNone)].GetAddressOf());
 
 		dsDesc = {};
@@ -176,7 +176,7 @@ namespace ya::renderer
 		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
 		dsDesc.DepthFunc = D3D11_COMPARISON_ALWAYS;
 		dsDesc.StencilEnable = false;
-		GetDevice()->CreateDepthStencilState(
+		GetDevice<GraphicDevice_DX11>()->CreateDepthStencilState(
 			&dsDesc, depthStencilStates[static_cast<UINT>(eDepthStencilState::Always)].GetAddressOf());
 
 #pragma endregion

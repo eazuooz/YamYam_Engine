@@ -82,12 +82,12 @@ namespace gui
 		// clear the render target view & depth stencil view
 		ya::graphics::RenderTarget* rt = mEditorCamera->GetRenderTarget();
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> rtv = rt->GetAttachmentTexture(0)->GetRTV();
-		ya::graphics::GetDevice()->ClearRenderTargetView(rtv);
+		ya::graphics::GetDevice<ya::graphics::GraphicDevice_DX11>()->ClearRenderTargetView(rtv);
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView> dsv = rt->GetDepthAttachment()->GetDSV();
-		ya::graphics::GetDevice()->ClearDepthStencilView(dsv);
+		ya::graphics::GetDevice<ya::graphics::GraphicDevice_DX11>()->ClearDepthStencilView(dsv);
 
 		// set scene view render target & depth stencil view
-		ya::graphics::GetDevice()->BindRenderTargets(1, rtv.GetAddressOf(), dsv.Get());
+		ya::graphics::GetDevice<ya::graphics::GraphicDevice_DX11>()->BindRenderTargets(1, rtv.GetAddressOf(), dsv.Get());
 
 		// render the scene
 		Matrix viewMatrix = mEditorCamera->GetViewMatrix();
@@ -189,7 +189,7 @@ namespace gui
 		}
 
 		// repair the default render target
-		ya::graphics::GetDevice()->BindDefaultRenderTarget();
+		ya::graphics::GetDevice<ya::graphics::GraphicDevice_DX11>()->BindDefaultRenderTarget();
 
 		ImGui::End();
 		ImGui::PopStyleVar();

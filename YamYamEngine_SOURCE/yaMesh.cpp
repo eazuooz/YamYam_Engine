@@ -57,6 +57,6 @@ namespace ya
 		mVB.Bind();
 		mIB.Bind();
 
-		graphics::GetDevice()->BindPrimitiveTopology(mData.mTopology);
+		graphics::GetDevice<graphics::GraphicDevice_DX11>()->BindPrimitiveTopology(mData.mTopology);
 	}
 }

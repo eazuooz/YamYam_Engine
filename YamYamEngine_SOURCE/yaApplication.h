@@ -1,6 +1,12 @@
 #pragma once
 #include "yaGameObject.h"
+
+#ifdef DX12_ENABLED
+#include "yaGraphicDevice_DX12.h"
+#else
 #include "yaGraphicDevice_DX11.h"
+#endif
+
 #include "yaEvent.h"
 #include "yaWindow.h"
 #include "yaApplicationEvent.h"

@@ -1,6 +1,7 @@
 #include "yaBaseRenderer.h"
 #include "yaTransform.h"
 #include "yaGameObject.h"
+#include "yaGraphicDevice_DX11.h"
 
 namespace ya
 {
@@ -38,6 +39,6 @@ namespace ya
 	void BaseRenderer::Draw()
 	{
 		if (mMesh)
-			graphics::GetDevice()->DrawIndexed(mMesh->GetIndexCount(), 0, 0);
+			graphics::GetDevice<graphics::GraphicDevice_DX11>()->DrawIndexed(mMesh->GetIndexCount(), 0, 0);
 	}
 }

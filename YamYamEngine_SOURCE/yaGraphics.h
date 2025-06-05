@@ -1,4 +1,5 @@
 #pragma once
+
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include <wrl.h>
@@ -12,6 +13,8 @@
 #define CBUFFER(name, slot) static const int CB_GETBINDSLOT(name) = slot; struct alignas(16) name 
 
 #define CBSLOT_TRANSFORM		0
+
+
 
 namespace ya::graphics
 {
@@ -112,4 +115,7 @@ namespace ya::graphics
 		math::Matrix View;
 		math::Matrix Projection;
 	};
+
+	template<typename T>
+	inline T*& GetDevice();
 }
