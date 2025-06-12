@@ -164,11 +164,14 @@ namespace ya
 		//Microsoft::WRL::ComPtr<ID3D11Texture2D> dst = renderer::FrameBuffer->GetAttachmentTexture(0)->GetTexture();
 
 		//GetDevice<GraphicDevice_DX11>()->CopyResource(dst.Get(), src.Get());
+
+		GetDevice()->Render();
 	}
 
 	void Application::Present()
 	{
 		//GetDevice<GraphicDevice_DX11>()->Present();
+		GetDevice()->Present();
 	}
 
 	void Application::EndOfFrame()
