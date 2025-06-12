@@ -1,6 +1,6 @@
 #include "yaGraphicDevice_DX12.h"
 #include "yaApplication.h"
-//#include <d3dx12/d3dx12.h>
+
 
 
 extern ya::Application application;
@@ -189,14 +189,18 @@ namespace ya::graphics
 		mRtvDescriptorSize = mDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 		
 		// Create a RTV for each frame.
-		//CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(mRtvHeap->GetCPUDescriptorHandleForHeapStart());
-		//for (int i = 0; i < 2; i++)
-		//{
-		//	if (FAILED(mSwapChain->GetBuffer(i, IID_PPV_ARGS(&mRenderTargets[i])))) // Added parentheses around the expression
-		//		assert(NULL && "Get Swap Chain Buffer Failed!");
+		CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(mRtvHeap->GetCPUDescriptorHandleForHeapStart());
+		for (int i = 0; i < 2; i++)
+		{
+			if (FAILED(mSwapChain->GetBuffer(i, IID_PPV_ARGS(&mRenderTargets[i])))) // Added parentheses around the expression
+				assert(NULL && "Get Swap Chain Buffer Failed!");
 
-		//	mDevice->CreateRenderTargetView(mRenderTargets[i].Get(), nullptr, rtvHandle);
-		//	rtvHandle.Offset(1, mRtvDescriptorSize);
-		//}
+			mDevice->CreateRenderTargetView(mRenderTargets[i].Get(), nullptr, rtvHandle);
+			rtvHandle.Offset(1, mRtvDescriptorSize);
+		}
+
+		// Create the command allocator for the current frame
+		if (FAILED(mDevice->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&mCommandAllocator))))
+			assert(NULL && "Create Command Allocator Failed!");
 	}
 }

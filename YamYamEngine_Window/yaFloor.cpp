@@ -1,8 +1,5 @@
 #include "yaFloor.h"
 #include "yaCat.h"
-#include "yaInput.h"
-#include "yaTransform.h"
-#include "yaTime.h"
 
 namespace ya
 {

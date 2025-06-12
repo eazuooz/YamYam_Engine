@@ -37,6 +37,7 @@ namespace ya::graphics
 
 
 		Microsoft::WRL::ComPtr<ID3D12CommandQueue> mCommandQueue;
+		Microsoft::WRL::ComPtr<ID3D12CommandAllocator> mCommandAllocator;
 
 		UINT mFrameIndex;
 	};

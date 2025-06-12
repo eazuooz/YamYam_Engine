@@ -1,6 +1,5 @@
 #pragma once
 #include "..//YamYamEngine_CORE//yaScript.h"
-#include "..//YamYamEngine_CORE//yaTexture.h"
 
 namespace ya
 {

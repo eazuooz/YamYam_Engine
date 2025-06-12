@@ -20,6 +20,21 @@
     <Filter Include="imgui\impl">
       <UniqueIdentifier>{e8a0e38c-b7bc-4eb3-b9c3-d57324bd7207}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GUI\Component">
+      <UniqueIdentifier>{b650cdb2-70a9-413b-9fb4-f75bd5fb4d90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Windows">
+      <UniqueIdentifier>{af3ab1f9-aced-435d-8292-9823694b8b51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Editor">
+      <UniqueIdentifier>{b2fd5818-d8be-4f3e-bef4-285f4927f12b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Common">
+      <UniqueIdentifier>{8bff180c-2454-4887-a882-c7bf20d090d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Layout">
+      <UniqueIdentifier>{4a0d12b7-12f1-44ad-89d5-401409b898ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor_Window.h" />
@@ -47,39 +62,6 @@
     <ClInclude Include="guiImguiEditor.h">
       <Filter>Application</Filter>
     </ClInclude>
-    <ClInclude Include="guiComponent.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="guiCosoleWindow.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="guiEditor.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="guiEditorWindow.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="guiEntity.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="guiGUILayout.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="guiHierarchyWindow.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="guiInspectorWindow.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="guiProjectWindow.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="guiSceneWindow.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="guiTransform.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
     <ClInclude Include="imconfig.h">
       <Filter>imgui</Filter>
     </ClInclude>
@@ -106,6 +88,39 @@
     </ClInclude>
     <ClInclude Include="imgui_internal.h">
       <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="guiComponent.h">
+      <Filter>GUI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="guiSceneWindow.h">
+      <Filter>GUI\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="guiHierarchyWindow.h">
+      <Filter>GUI\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="guiInspectorWindow.h">
+      <Filter>GUI\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="guiProjectWindow.h">
+      <Filter>GUI\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="guiEditor.h">
+      <Filter>GUI\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="guiCosoleWindow.h">
+      <Filter>GUI\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="guiEditorWindow.h">
+      <Filter>GUI\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="guiTransform.h">
+      <Filter>GUI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="guiEntity.h">
+      <Filter>GUI\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="guiGUILayout.h">
+      <Filter>GUI\Layout</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -141,39 +156,6 @@
     <ClCompile Include="guiImguiEditor.cpp">
       <Filter>Application</Filter>
     </ClCompile>
-    <ClCompile Include="guiComponent.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="guiCosoleWindow.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="guiEditor.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="guiEditorWindow.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="guiEntity.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="guiGUILayout.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="guiHierarchyWindow.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="guiInspectorWindow.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="guiProjectWindow.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="guiSceneWindow.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="guiTransform.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
     <ClCompile Include="imgui.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
@@ -197,6 +179,39 @@
     </ClCompile>
     <ClCompile Include="imgui_tables.cpp">
       <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="guiComponent.cpp">
+      <Filter>GUI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="guiHierarchyWindow.cpp">
+      <Filter>GUI\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="guiInspectorWindow.cpp">
+      <Filter>GUI\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="guiProjectWindow.cpp">
+      <Filter>GUI\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="guiSceneWindow.cpp">
+      <Filter>GUI\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="guiEditor.cpp">
+      <Filter>GUI\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="guiCosoleWindow.cpp">
+      <Filter>GUI\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="guiEditorWindow.cpp">
+      <Filter>GUI\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="guiTransform.cpp">
+      <Filter>GUI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="guiEntity.cpp">
+      <Filter>GUI\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="guiGUILayout.cpp">
+      <Filter>GUI\Layout</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

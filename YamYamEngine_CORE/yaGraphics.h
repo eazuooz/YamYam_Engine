@@ -1,23 +1,18 @@
 #pragma once
 #include "CommonInclude.h"
 
-//#include <d3d11.h>
+#include <wrl.h>
 #include <d3d12.h>
 #include <dxgi1_6.h>
 #include <d3dcompiler.h>
-#include <wrl.h>
 
-//#include "../External/Include/d3dx12/d3dx12.h"
-
+// d3dx12는 d3d12 이후 포함
+//#include <include/d3dx12/d3dx12.h>
+#include <include\d3dx12\d3dx12.h>
 
 #pragma comment(lib, "d3d12.lib")
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d3dcompiler.lib")
-
-//#include "..\External\Include\d3dx12\d3dx12.h"
-
-//#include "d3dx12.h" //d3dx12.h>
-
 
 #define CB_GETBINDSLOT(name) __CBUFFERBINDSLOT__##name##__
 #define CBUFFER(name, slot) static const int CB_GETBINDSLOT(name) = slot; struct alignas(16) name 

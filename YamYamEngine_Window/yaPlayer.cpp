@@ -1,7 +1,7 @@
 #include "yaPlayer.h"
-#include "yaInput.h"
-#include "yaTransform.h"
-#include "yaTime.h"
+#include <yaInput.h>
+#include <yaTransform.h>
+#include <yaTime.h>
 
 namespace ya
 {
