@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "Editor_Window.h"
 
-#include "..\\YamYamEngine_SOURCE\\yaApplication.h"
+#include "..\\YamYamEngine_CORE\\yaApplication.h"
 #include "..\\YamYamEngine_Window\\yaLoadScenes.h"
 #include "guiEditorApplication.h"
 
@@ -66,14 +66,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, //프로그램의 인스턴스 �
             application.Run();
 
 			// 에디터 로직
-            gui::EditorApplication::Run();
+            //gui::EditorApplication::Run();
 
             // 화면에 그려준다.
             application.Present();
         }
     }
     
-    gui::EditorApplication::Release();
+    //gui::EditorApplication::Release();
     application.Release();
 
     return (int) msg.wParam;
@@ -139,7 +139,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    application.Initialize(hWnd, width, height);
    
    ya::LoadScenes();
-   gui::EditorApplication::Initialize();
+   //gui::EditorApplication::Initialize();
 
 
 

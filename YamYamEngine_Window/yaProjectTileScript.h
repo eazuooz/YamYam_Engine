@@ -1,6 +1,6 @@
 #pragma once
-#include "..//YamYamEngine_SOURCE//yaScript.h"
-#include "..//YamYamEngine_SOURCE//yaTexture.h"
+#include "..//YamYamEngine_CORE//yaScript.h"
+#include "..//YamYamEngine_CORE//yaTexture.h"
 
 namespace ya
 {

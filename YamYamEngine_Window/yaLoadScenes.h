@@ -1,5 +1,5 @@
 #pragma once
-#include "..//YamYamEngine_SOURCE//yaSceneManager.h"
+#include "..//YamYamEngine_CORE//yaSceneManager.h"
 
 #include "yaLoadingScene.h"
 #include "yaPlayScene.h"

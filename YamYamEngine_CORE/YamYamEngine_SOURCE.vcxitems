@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{1c6f9f3f-be5f-4f6b-be3c-e0cf77c473b0}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaBaseRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaComponents.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaGraphicDevice_DX11.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaGraphicDevice_DX12.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaSceneCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaApplicationEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaEditorCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaEventQueue.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaGameObjectEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaInputLayout.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaConstantBuffer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaGraphics.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaAudioClip.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaAudioListener.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaAudioSource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaFmod.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaIndexBuffer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaKeyEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaMaterial.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaMath.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaMesh.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaMouseEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaRenderTarget.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaShader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaUIHUD.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaAnimation.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaAnimator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaApplication.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaBoxCollider2D.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaCircleCollider2D.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaCollider.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaCollisionManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaComponent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaDontDestroyOnLoad.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaLabelled.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaGameObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaInput.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaLayer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaResource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaResources.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaRigidbody.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaScene.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaSceneManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaScript.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaSpriteRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaTexture.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaTilemapRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaTime.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaTransform.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaEnums.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaUIBase.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaUIButton.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaUIManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaUUID.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaVertexBuffer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaWindow.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaBaseRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaGraphicDevice_DX12.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaSceneCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaEditorCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaEventQueue.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaInputLayout.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaAudioClip.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaAudioListener.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaAudioSource.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaConstantBuffer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaFmod.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaGraphicDevice_DX11.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaIndexBuffer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaMaterial.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaMath.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaMesh.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaRenderTarget.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaShader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaUIHUD.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaAnimation.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaAnimator.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaApplication.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaBoxCollider2D.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaCircleCollider2D.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaCollider.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaCollisionManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaComponent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaDontDestroyOnLoad.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaLabelled.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaGameObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaInput.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaLayer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaResource.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaResources.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaRigidbody.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaScene.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaSceneManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaScript.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaSpriteRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaTexture.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaTilemapRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaTime.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaTransform.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaUIBase.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaUIButton.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaUIManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaUUID.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaVertexBuffer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaWindow.cpp" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{05571c96-1d46-45a7-8bf1-df9016bbc39c}</ProjectGuid>
+    <RootNamespace>YamYamEngineCORE</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnabled>false</VcpkgEnabled>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)External\Include\Fmod\;$(SolutionDir)Vendor\Auxiliary\;$(SolutionDir)Vendor\DirectXTex\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)External\Include\Fmod\;$(SolutionDir)Vendor\Auxiliary\;$(SolutionDir)Vendor\DirectXTex\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)External\Include\Fmod\;$(SolutionDir)Vendor\Auxiliary\;$(SolutionDir)Vendor\DirectXTex\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)External\Include\Fmod\;$(SolutionDir)Vendor\Auxiliary\;$(SolutionDir)Vendor\DirectXTex\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="CommonInclude.h" />
+    <ClInclude Include="yaAnimation.h" />
+    <ClInclude Include="yaAnimator.h" />
+    <ClInclude Include="yaApplication.h" />
+    <ClInclude Include="yaApplicationEvent.h" />
+    <ClInclude Include="yaAssert.h" />
+    <ClInclude Include="yaAudioClip.h" />
+    <ClInclude Include="yaAudioListener.h" />
+    <ClInclude Include="yaAudioSource.h" />
+    <ClInclude Include="yaBaseRenderer.h" />
+    <ClInclude Include="yaBoxCollider2D.h" />
+    <ClInclude Include="yaCamera.h" />
+    <ClInclude Include="yaCircleCollider2D.h" />
+    <ClInclude Include="yaCollider.h" />
+    <ClInclude Include="yaCollisionManager.h" />
+    <ClInclude Include="yaComponent.h" />
+    <ClInclude Include="yaConstantBuffer.h" />
+    <ClInclude Include="yaDontDestroyOnLoad.h" />
+    <ClInclude Include="yaEditorCamera.h" />
+    <ClInclude Include="yaEnums.h" />
+    <ClInclude Include="yaEvent.h" />
+    <ClInclude Include="yaEventQueue.h" />
+    <ClInclude Include="yaFmod.h" />
+    <ClInclude Include="yaGameObject.h" />
+    <ClInclude Include="yaGameObjectEvent.h" />
+    <ClInclude Include="yaGraphicDevice_DX11.h" />
+    <ClInclude Include="yaGraphicDevice_DX12.h" />
+    <ClInclude Include="yaGraphics.h" />
+    <ClInclude Include="yaIndexBuffer.h" />
+    <ClInclude Include="yaInput.h" />
+    <ClInclude Include="yaInputLayout.h" />
+    <ClInclude Include="yaKeyEvent.h" />
+    <ClInclude Include="yaLabelled.h" />
+    <ClInclude Include="yaLayer.h" />
+    <ClInclude Include="yaMaterial.h" />
+    <ClInclude Include="yaMath.h" />
+    <ClInclude Include="yaMesh.h" />
+    <ClInclude Include="yaMouseEvent.h" />
+    <ClInclude Include="yaObject.h" />
+    <ClInclude Include="yaRenderer.h" />
+    <ClInclude Include="yaRenderTarget.h" />
+    <ClInclude Include="yaResource.h" />
+    <ClInclude Include="yaResources.h" />
+    <ClInclude Include="yaRigidbody.h" />
+    <ClInclude Include="yaScene.h" />
+    <ClInclude Include="yaSceneCamera.h" />
+    <ClInclude Include="yaSceneManager.h" />
+    <ClInclude Include="yaScript.h" />
+    <ClInclude Include="yaShader.h" />
+    <ClInclude Include="yaSpriteRenderer.h" />
+    <ClInclude Include="yaTexture.h" />
+    <ClInclude Include="yaTilemapRenderer.h" />
+    <ClInclude Include="yaTime.h" />
+    <ClInclude Include="yaTransform.h" />
+    <ClInclude Include="yaUIBase.h" />
+    <ClInclude Include="yaUIButton.h" />
+    <ClInclude Include="yaUIHUD.h" />
+    <ClInclude Include="yaUIManager.h" />
+    <ClInclude Include="yaVertexBuffer.h" />
+    <ClInclude Include="yaWindow.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="yaAnimation.cpp" />
+    <ClCompile Include="yaAnimator.cpp" />
+    <ClCompile Include="yaApplication.cpp" />
+    <ClCompile Include="yaAudioClip.cpp" />
+    <ClCompile Include="yaAudioListener.cpp" />
+    <ClCompile Include="yaAudioSource.cpp" />
+    <ClCompile Include="yaBaseRenderer.cpp" />
+    <ClCompile Include="yaBoxCollider2D.cpp" />
+    <ClCompile Include="yaCamera.cpp" />
+    <ClCompile Include="yaCircleCollider2D.cpp" />
+    <ClCompile Include="yaCollider.cpp" />
+    <ClCompile Include="yaCollisionManager.cpp" />
+    <ClCompile Include="yaComponent.cpp" />
+    <ClCompile Include="yaConstantBuffer.cpp" />
+    <ClCompile Include="yaDontDestroyOnLoad.cpp" />
+    <ClCompile Include="yaEditorCamera.cpp" />
+    <ClCompile Include="yaEventQueue.cpp" />
+    <ClCompile Include="yaFmod.cpp" />
+    <ClCompile Include="yaGameObject.cpp" />
+    <ClCompile Include="yaGraphicDevice_DX11.cpp" />
+    <ClCompile Include="yaGraphicDevice_DX12.cpp" />
+    <ClCompile Include="yaIndexBuffer.cpp" />
+    <ClCompile Include="yaInput.cpp" />
+    <ClCompile Include="yaInputLayout.cpp" />
+    <ClCompile Include="yaLabelled.cpp" />
+    <ClCompile Include="yaLayer.cpp" />
+    <ClCompile Include="yaMaterial.cpp" />
+    <ClCompile Include="yaMath.cpp" />
+    <ClCompile Include="yaMesh.cpp" />
+    <ClCompile Include="yaObject.cpp" />
+    <ClCompile Include="yaRenderer.cpp" />
+    <ClCompile Include="yaRenderTarget.cpp" />
+    <ClCompile Include="yaResource.cpp" />
+    <ClCompile Include="yaResources.cpp" />
+    <ClCompile Include="yaRigidbody.cpp" />
+    <ClCompile Include="yaScene.cpp" />
+    <ClCompile Include="yaSceneCamera.cpp" />
+    <ClCompile Include="yaSceneManager.cpp" />
+    <ClCompile Include="yaScript.cpp" />
+    <ClCompile Include="yaShader.cpp" />
+    <ClCompile Include="yaSpriteRenderer.cpp" />
+    <ClCompile Include="yaTexture.cpp" />
+    <ClCompile Include="yaTilemapRenderer.cpp" />
+    <ClCompile Include="yaTime.cpp" />
+    <ClCompile Include="yaTransform.cpp" />
+    <ClCompile Include="yaUIBase.cpp" />
+    <ClCompile Include="yaUIButton.cpp" />
+    <ClCompile Include="yaUIHUD.cpp" />
+    <ClCompile Include="yaUIManager.cpp" />
+    <ClCompile Include="yaVertexBuffer.cpp" />
+    <ClCompile Include="yaWindow.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="YamYamEngine_SOURCE.vcxitems" />
+    <None Include="YamYamEngine_SOURCE.vcxitems.filters" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

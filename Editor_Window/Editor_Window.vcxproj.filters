@@ -5,12 +5,108 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{f847b4e4-e1df-4b53-8823-8769cba61bd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imGuizmo">
+      <UniqueIdentifier>{f0437193-101c-4c66-b4ca-9953e14a2f67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{df47ac81-9ab4-48de-be92-a98d7b7fcfb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application">
+      <UniqueIdentifier>{ed860c90-ffb9-4bdd-bb3e-97da2c65de5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui\impl">
+      <UniqueIdentifier>{e8a0e38c-b7bc-4eb3-b9c3-d57324bd7207}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor_Window.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="ImGradient.h">
+      <Filter>imGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="ImCurveEdit.h">
+      <Filter>imGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuizmo.h">
+      <Filter>imGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="ImZoomSlider.h">
+      <Filter>imGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphEditor.h">
+      <Filter>imGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="guiEditorApplication.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="guiImguiEditor.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="guiComponent.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="guiCosoleWindow.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="guiEditor.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="guiEditorWindow.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="guiEntity.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="guiGUILayout.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="guiHierarchyWindow.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="guiInspectorWindow.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="guiProjectWindow.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="guiSceneWindow.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="guiTransform.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imconfig.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImSequencer.h">
+      <Filter>imGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_truetype.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_textedit.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_rectpack.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_win32.h">
+      <Filter>imgui\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_dx12.h">
+      <Filter>imgui\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_internal.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Editor_Window.rc">
@@ -27,5 +123,80 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ImGradient.cpp">
+      <Filter>imGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="ImCurveEdit.cpp">
+      <Filter>imGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuizmo.cpp">
+      <Filter>imGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphEditor.cpp">
+      <Filter>imGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="guiEditorApplication.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="guiImguiEditor.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="guiComponent.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="guiCosoleWindow.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="guiEditor.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="guiEditorWindow.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="guiEntity.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="guiGUILayout.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="guiHierarchyWindow.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="guiInspectorWindow.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="guiProjectWindow.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="guiSceneWindow.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="guiTransform.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_dx12.cpp">
+      <Filter>imgui\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_win32.cpp">
+      <Filter>imgui\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="ImSequencer.cpp">
+      <Filter>imGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_tables.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -7,11 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Editor_Window", "Editor_Win
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "YamYamEngine_Window", "YamYamEngine_Window\YamYamEngine_Window.vcxproj", "{BE244220-E3AE-44A2-BDE1-651D6D7AFDAB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "YamYamEngine_SOURCE", "YamYamEngine_SOURCE\YamYamEngine_SOURCE.vcxitems", "{1C6F9F3F-BE5F-4F6B-BE3C-E0CF77C473B0}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shaders_SOURCE", "Shaders_SOURCE\Shaders_SOURCE.vcxitems", "{E8FA58AA-30C3-45BC-A2B3-5176FE539748}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Editor_SOURCE", "Editor_SOURCE\Editor_SOURCE.vcxitems", "{F6B96723-4748-4D52-8405-2E6CDA952608}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{236BD6C8-13E6-44ED-840A-FE6D7BE49F64}"
 EndProject
@@ -20,6 +16,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{DE17D8B6-2275-48EB-9BB7-F5D7DEE2FCEA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{0C3DAF77-C24E-4B5D-8A05-CDC48E050173}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "YamYamEngine_CORE", "YamYamEngine_CORE\YamYamEngine_CORE.vcxproj", "{05571C96-1D46-45A7-8BF1-DF9016BBC39C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,25 +65,29 @@ Global
 		{371B9FA9-4C90-4AC6-A123-ACED756D6C77}.Release|x64.Build.0 = Release|x64
 		{371B9FA9-4C90-4AC6-A123-ACED756D6C77}.Release|x86.ActiveCfg = Release|Win32
 		{371B9FA9-4C90-4AC6-A123-ACED756D6C77}.Release|x86.Build.0 = Release|Win32
+		{05571C96-1D46-45A7-8BF1-DF9016BBC39C}.Debug|x64.ActiveCfg = Debug|x64
+		{05571C96-1D46-45A7-8BF1-DF9016BBC39C}.Debug|x64.Build.0 = Debug|x64
+		{05571C96-1D46-45A7-8BF1-DF9016BBC39C}.Debug|x86.ActiveCfg = Debug|Win32
+		{05571C96-1D46-45A7-8BF1-DF9016BBC39C}.Debug|x86.Build.0 = Debug|Win32
+		{05571C96-1D46-45A7-8BF1-DF9016BBC39C}.Profile|x64.ActiveCfg = Release|x64
+		{05571C96-1D46-45A7-8BF1-DF9016BBC39C}.Profile|x64.Build.0 = Release|x64
+		{05571C96-1D46-45A7-8BF1-DF9016BBC39C}.Profile|x86.ActiveCfg = Release|Win32
+		{05571C96-1D46-45A7-8BF1-DF9016BBC39C}.Profile|x86.Build.0 = Release|Win32
+		{05571C96-1D46-45A7-8BF1-DF9016BBC39C}.Release|x64.ActiveCfg = Release|x64
+		{05571C96-1D46-45A7-8BF1-DF9016BBC39C}.Release|x64.Build.0 = Release|x64
+		{05571C96-1D46-45A7-8BF1-DF9016BBC39C}.Release|x86.ActiveCfg = Release|Win32
+		{05571C96-1D46-45A7-8BF1-DF9016BBC39C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BE244220-E3AE-44A2-BDE1-651D6D7AFDAB} = {DE17D8B6-2275-48EB-9BB7-F5D7DEE2FCEA}
-		{1C6F9F3F-BE5F-4F6B-BE3C-E0CF77C473B0} = {DE17D8B6-2275-48EB-9BB7-F5D7DEE2FCEA}
 		{E8FA58AA-30C3-45BC-A2B3-5176FE539748} = {DE17D8B6-2275-48EB-9BB7-F5D7DEE2FCEA}
-		{F6B96723-4748-4D52-8405-2E6CDA952608} = {0C3DAF77-C24E-4B5D-8A05-CDC48E050173}
 		{371B9FA9-4C90-4AC6-A123-ACED756D6C77} = {236BD6C8-13E6-44ED-840A-FE6D7BE49F64}
+		{05571C96-1D46-45A7-8BF1-DF9016BBC39C} = {DE17D8B6-2275-48EB-9BB7-F5D7DEE2FCEA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A6459074-7E42-4572-92FB-37F2F8F1E787}
-	EndGlobalSection
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		YamYamEngine_SOURCE\YamYamEngine_SOURCE.vcxitems*{1c6f9f3f-be5f-4f6b-be3c-e0cf77c473b0}*SharedItemsImports = 9
-		YamYamEngine_SOURCE\YamYamEngine_SOURCE.vcxitems*{be244220-e3ae-44a2-bde1-651d6d7afdab}*SharedItemsImports = 4
-		Editor_SOURCE\Editor_SOURCE.vcxitems*{df8e9699-5ed7-4f9a-a12d-50d03a9eaebf}*SharedItemsImports = 4
-		Shaders_SOURCE\Shaders_SOURCE.vcxitems*{e8fa58aa-30c3-45bc-a2b3-5176fe539748}*SharedItemsImports = 9
-		Editor_SOURCE\Editor_SOURCE.vcxitems*{f6b96723-4748-4d52-8405-2e6cda952608}*SharedItemsImports = 9
 	EndGlobalSection
 EndGlobal
