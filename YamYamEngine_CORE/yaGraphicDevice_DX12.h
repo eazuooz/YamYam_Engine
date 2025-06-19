@@ -8,6 +8,12 @@
 
 namespace ya::graphics
 {
+	struct FrameContext
+	{
+		Microsoft::WRL::ComPtr<ID3D12CommandAllocator> CommandAllocator;
+		UINT64 FenceValue = 0;
+	};
+
 	class GraphicDevice_DX12
 	{
 	public:
@@ -25,9 +31,23 @@ namespace ya::graphics
 		/// </summary>
 		void Initialize();
 		void WaitForPreviousFrame();
+		FrameContext* WaitForNextFrameResources();
 		void PopulateCommandList();
+		void ExcuteCommandList();
 		void Render();
+		void CloseCommandList();
 		void Present();
+
+		Microsoft::WRL::ComPtr<ID3D12Device> GetID3D12Device() { return mDevice; }
+		Microsoft::WRL::ComPtr<ID3D12CommandQueue> GetCommandQueue() { return mCommandQueue; }
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> GetSrvHeap() { return mSrvHeap; }
+		Microsoft::WRL::ComPtr<IDXGISwapChain3> GetSwapChain() { return mSwapChain; }
+		Microsoft::WRL::ComPtr<ID3D12Resource> GetRenderTargetResource(int idx) { return mRenderTargets[idx]; }
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> GetRTVHeap() { return mRtvHeap; }
+
+		//imgui
+		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> GetCommandList() { return mCommandList; }
+		CD3DX12_CPU_DESCRIPTOR_HANDLE GetRnderTargetDescriptorHandle(int idx) { return mRenderTragetDesciptorHandle[idx]; }
 
 	private:
 		bool mbUseWarpDevice;
@@ -38,15 +58,17 @@ namespace ya::graphics
 		UINT mRtvDescriptorSize;
 
 		Microsoft::WRL::ComPtr<ID3D12Resource> mRenderTargets[2]; // Double buffering
+		CD3DX12_CPU_DESCRIPTOR_HANDLE mRenderTragetDesciptorHandle[2];
 		Microsoft::WRL::ComPtr<ID3D12RootSignature> mRootSignature;
 		Microsoft::WRL::ComPtr<ID3D12PipelineState> mPipelineState;
 
 		Microsoft::WRL::ComPtr<ID3D12CommandQueue> mCommandQueue;
-		Microsoft::WRL::ComPtr<ID3D12CommandAllocator> mCommandAllocator;
+		//Microsoft::WRL::ComPtr<ID3D12CommandAllocator> mCommandAllocator;
+		FrameContext mFrameContext[2]; //double buffering
+
 		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> mCommandList;
 
 		UINT mFrameIndex;
-
 		
 		// App resources.
 		Microsoft::WRL::ComPtr<ID3D12Resource> mVertexBuffer;
@@ -55,6 +77,13 @@ namespace ya::graphics
 		Microsoft::WRL::ComPtr<ID3D12Fence> mFence;
 		UINT64 mFenceValue;
 		HANDLE mFenceEvent;
+
+		//imgui 
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> mSrvHeap;
+		
+
+		//Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> mImguiCommandList;
+		//HANDLE mImguiFenceEvent;
 	};
 
 	// This is a helper to get access to a global device instance

@@ -1,11 +1,16 @@
 #include "guiImguiEditor.h"
+#include "guiEditorApplication.h"
+
 
 #include "..\\YamYamEngine_CORE\\yaApplication.h"
+
+
 
 extern ya::Application application;
 
 namespace gui
 {
+	DescriptorHeapAllocator ImguiEditor::DescHeapAllocator;
 	ImguiEditor::ImguiEditor()
 		: mBlockEvent(false)
 	{
@@ -18,6 +23,10 @@ namespace gui
 
 	void ImguiEditor::Initialize()
 	{
+		// Make process DPI aware and obtain main monitor scale
+		//ImGui_ImplWin32_EnableDpiAwareness();
+		//float main_scale = ImGui_ImplWin32_GetDpiScaleForMonitor(::MonitorFromPoint(POINT{ 0, 0 }, MONITOR_DEFAULTTOPRIMARY));
+
 		// Setup Dear ImGui context
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
@@ -39,7 +48,13 @@ namespace gui
 		//ImGui::StyleColorsLight();
 
 		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
+		
+		// Setup scaling
 		ImGuiStyle& style = ImGui::GetStyle();
+		//style.ScaleAllSizes(main_scale);        // Bake a fixed style scale. (until we have a solution for dynamic style scaling, changing this requires resetting Style + calling this again)
+		//style.FontScaleDpi = main_scale;        // Set initial font scale. (using io.ConfigDpiScaleFonts=true makes this unnecessary. We leave both here for documentation purpose)
+		//io.ConfigDpiScaleFonts = true;          // [Experimental] Automatically overwrite style.FontScaleDpi in Begin() when Monitor DPI changes. This will scale fonts but _NOT_ scale sizes/padding for now.
+		//io.ConfigDpiScaleViewports = true;      // [Experimental] Scale Dear ImGui and Platform Windows when Monitor DPI changes.
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{
 			style.WindowRounding = 0.0f;
@@ -50,13 +65,40 @@ namespace gui
 
 		// Setup Platform/Renderer backends
 		ImGui_ImplWin32_Init(application.GetWindow().GetHwnd());
+		
+		ya::graphics::GraphicDevice_DX12* device = ya::graphics::GetDevice();
+		DescHeapAllocator.Create(device->GetID3D12Device().Get(), device->GetSrvHeap().Get());;
 
-		//ya::graphics::GraphicDevice_DX11*& graphicdevice 
-		//	= ya::graphics::GetDevice<ya::graphics::GraphicDevice_DX11>();
-		//ID3D11Device* device = graphicdevice->GetID3D11Device().Get();
-		//ID3D11DeviceContext* device_context = graphicdevice->GetID3D11DeviceContext().Get();
+		ImGui_ImplDX12_InitInfo init_info = {};
+		init_info.Device = device->GetID3D12Device().Get();
+		init_info.CommandQueue = device->GetCommandQueue().Get();
+		init_info.NumFramesInFlight = 2; //double buuffering
+		init_info.RTVFormat = DXGI_FORMAT_R8G8B8A8_UNORM;
+		init_info.DSVFormat = DXGI_FORMAT_UNKNOWN;
+		// Allocating SRV descriptors (for textures) is up to the application, so we provide callbacks.
+		// (current version of the backend will only allocate one descriptor, future versions will need to allocate more)
+		
+		
+		init_info.SrvDescriptorHeap = device->GetSrvHeap().Get();
+		init_info.SrvDescriptorAllocFn = 
+			[] (ImGui_ImplDX12_InitInfo*, 
+				D3D12_CPU_DESCRIPTOR_HANDLE* out_cpu_handle,
+				D3D12_GPU_DESCRIPTOR_HANDLE* out_gpu_handle) 
+			{ 
+				return ImguiEditor::DescHeapAllocator.Alloc(out_cpu_handle, out_gpu_handle);
+			};
 
-		//ImGui_ImplDX11_Init(device, device_context);
+		init_info.SrvDescriptorFreeFn = 
+			[] (ImGui_ImplDX12_InitInfo*,
+				D3D12_CPU_DESCRIPTOR_HANDLE cpu_handle, 
+				D3D12_GPU_DESCRIPTOR_HANDLE gpu_handle) 
+			{ 
+				return ImguiEditor::DescHeapAllocator.Free(cpu_handle, gpu_handle);
+			};
+
+		
+
+		ImGui_ImplDX12_Init(&init_info);
 	}
 	void ImguiEditor::Update()
 	{
@@ -90,7 +132,7 @@ namespace gui
 	void ImguiEditor::Begin()
 	{
 		// Start the Dear ImGui frame
-		//ImGui_ImplDX11_NewFrame();
+		ImGui_ImplDX12_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
 		ImGuizmo::BeginFrame();
@@ -103,8 +145,46 @@ namespace gui
 
 		// Rendering
 		ImGui::Render();
-		//ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+		
+		ya::graphics::GraphicDevice_DX12* graphicDevice = ya::graphics::GetDevice();
+		ya::graphics::FrameContext* frameCtx = graphicDevice->WaitForNextFrameResources();
+		UINT backBufferIdx = graphicDevice->GetSwapChain()->GetCurrentBackBufferIndex();
+		//frameCtx->CommandAllocator->Reset();
 
+		D3D12_RESOURCE_BARRIER barrier = {};
+		barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
+		barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
+		barrier.Transition.pResource = graphicDevice->GetRenderTargetResource(backBufferIdx).Get();
+		barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
+		barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_PRESENT;
+		barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_RENDER_TARGET;
+
+		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> commandList 
+			= graphicDevice->GetCommandList();
+		//commandList->Reset(frameCtx->CommandAllocator.Get(), nullptr);
+		//commandList->ResourceBarrier(1, &barrier);
+
+		// Render Dear ImGui graphics
+		ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+		const float clear_color_with_alpha[4] = { clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w };
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> rtvHep = graphicDevice->GetRTVHeap();
+
+		CD3DX12_CPU_DESCRIPTOR_HANDLE handle = graphicDevice->GetRnderTargetDescriptorHandle(backBufferIdx);
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> srvHeap = graphicDevice->GetSrvHeap();
+		//commandList->ClearRenderTargetView(handle, clear_color_with_alpha, 0, nullptr);
+		//commandList->OMSetRenderTargets(1, &handle, FALSE, nullptr);
+		commandList->SetDescriptorHeaps(1, srvHeap.GetAddressOf());
+
+		ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), commandList.Get());
+		barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_RENDER_TARGET;
+		barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_PRESENT;
+		commandList->ResourceBarrier(1, &barrier);
+		commandList->Close();
+	}
+
+	void ImguiEditor::UpdatePlatformWindows()
+	{
+		ImGuiIO& io = ImGui::GetIO();
 		// Update and Render additional Platform Windows
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{
@@ -112,9 +192,10 @@ namespace gui
 			ImGui::RenderPlatformWindowsDefault();
 		}
 	}
+
 	void ImguiEditor::Release()
 	{
-		//ImGui_ImplDX11_Shutdown();
+		ImGui_ImplDX12_Shutdown();
 		ImGui_ImplWin32_Shutdown();
 		ImGui::DestroyContext();
 	}

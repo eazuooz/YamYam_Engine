@@ -122,6 +122,9 @@
     <ClInclude Include="guiGUILayout.h">
       <Filter>GUI\Layout</Filter>
     </ClInclude>
+    <ClInclude Include="guiDescriptorAllocator.h">
+      <Filter>GUI\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Editor_Window.rc">

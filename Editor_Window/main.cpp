@@ -11,6 +11,7 @@
 ya::Application application;
 
 #define MAX_LOADSTRING 100
+//#define WITH_EDITOR 
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
@@ -65,15 +66,27 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, //프로그램의 인스턴스 �
 			// 애플리케이션 로직
             application.Run();
 
-			// 에디터 로직
-            //gui::EditorApplication::Run();
+#ifdef WITH_EDITOR
+            gui::EditorApplication::Run();
+#else
+            application.CloseCommandList();
+#endif
+            //Excute command list
+			application.ExcuteCommandList();
+            
+#ifdef WITH_EDITOR
+            gui::EditorApplication::UpdatePlatformWindows();
+#else
+            application.WaitForNextFrameResources();
+#endif
 
             // 화면에 그려준다.
             application.Present();
         }
     }
-    
-    //gui::EditorApplication::Release();
+#ifdef WITH_EDITOR
+    gui::EditorApplication::Release();
+#endif
     application.Release();
 
     return (int) msg.wParam;
@@ -130,8 +143,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
 
-   
-
    HRESULT hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
    if (FAILED(hr))
        assert(false);
@@ -139,10 +150,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    application.Initialize(hWnd, width, height);
    
    ya::LoadScenes();
-   //gui::EditorApplication::Initialize();
 
-
-
+#ifdef WITH_EDITOR
+   gui::EditorApplication::Initialize();
+#endif
 
    return TRUE;
 }

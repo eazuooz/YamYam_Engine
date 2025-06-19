@@ -1,9 +1,9 @@
 #pragma once
-#include "guiEditor.h"
-#include "guiEditorWindow.h"
-
 #include "..\\YamYamEngine_CORE\\yaEvent.h"
 
+#include "guiEditor.h"
+#include "guiEditorWindow.h"
+#include "guiDescriptorAllocator.h"
 
 namespace gui
 {
@@ -24,12 +24,16 @@ namespace gui
 
 		void Begin();
 		void End();
+		void UpdatePlatformWindows();
 		void Release();
 		void SetDarkThemeColors();
 
 		void BlockEvent(bool block) { mBlockEvent = block; }
 
 	private:
+		static DescriptorHeapAllocator DescHeapAllocator;
+
 		bool mBlockEvent;
+		// descriptor allocator
 	};
 }

@@ -1,4 +1,4 @@
-#include "guiEditorApplication.h"
+ï»¿#include "guiEditorApplication.h"
 #include "guiInspectorWindow.h"
 #include "guiCosoleWindow.h"
 #include "guiProjectWindow.h"
@@ -51,6 +51,8 @@ namespace gui
 
 		ImguiEditor = new gui::ImguiEditor();
 		FrameBuffer = ya::renderer::FrameBuffer;
+
+
 		ImguiEditor->Initialize();
 
 		//HierarchyWindow
@@ -93,6 +95,11 @@ namespace gui
 	{
 		Update();
 		OnGUI();
+	}
+
+	void EditorApplication::UpdatePlatformWindows()
+	{
+		ImguiEditor->UpdatePlatformWindows();
 	}
 
 	void EditorApplication::Release()
@@ -147,6 +154,47 @@ namespace gui
 			ImguiEditor->OnEvent(e);
 		}
 	}
+	
+	void EditorApplication::SetupInitialDockLayout()
+	{
+		static bool first_time = true;
+		if (!first_time) return;
+		first_time = false;
+
+		ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+
+		ImGui::DockBuilderRemoveNode(dockspace_id);
+		ImGui::DockBuilderAddNode(dockspace_id, ImGuiDockNodeFlags_DockSpace);
+		ImGui::DockBuilderSetNodeSize(dockspace_id, ImGui::GetMainViewport()->Size);
+
+		// === Step 1: ìˆ˜í‰ ë¶„í•  â†’ ì¢Œì¸¡(Inspector) + ë‚˜ë¨¸ì§€ (1228 width)
+		ImGuiID dock_main_right = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Left, 1228.0f / 1600.0f, nullptr, &dockspace_id);
+		ImGuiID dock_main_left = dockspace_id; // Inspector (370)
+
+		// === Step 2: main_rightë¥¼ ìˆ˜ì§ ë¶„í•  â†’ ìƒë‹¨(673) + í•˜ë‹¨(206)
+		ImGuiID dock_center_top = ImGui::DockBuilderSplitNode(dock_main_right, ImGuiDir_Up, 673.0f / 881.0f, nullptr, &dock_main_right);
+		ImGuiID dock_center_bottom = dock_main_right; // Project/Console íƒ­
+
+		// === Step 3: center_topì„ ìˆ˜í‰ ë¶„í•  â†’ Hierarchy + ë‚˜ë¨¸ì§€
+		ImGuiID dock_hierarchy = ImGui::DockBuilderSplitNode(dock_center_top, ImGuiDir_Left, 369.0f / 1228.0f, nullptr, &dock_center_top);
+		ImGuiID dock_center_content = dock_center_top; // Scene/Game/Viewport
+
+		// === Docking Windows
+		ImGui::DockBuilderDockWindow("Inspector", dock_main_left);
+		ImGui::DockBuilderDockWindow("Hierarchy", dock_hierarchy);
+
+		ImGui::DockBuilderDockWindow("Scene", dock_center_content);
+		ImGui::DockBuilderDockWindow("Game", dock_center_content);
+		ImGui::DockBuilderDockWindow("Viewport", dock_center_content);
+		ImGui::DockBuilderDockWindow("InspectorWindow", dock_center_content);
+
+		ImGui::DockBuilderDockWindow("Project", dock_center_bottom);
+		ImGui::DockBuilderDockWindow("Console", dock_center_bottom);
+
+		// Finish
+		ImGui::DockBuilderFinish(dockspace_id);
+
+	}
 
 	void EditorApplication::OpenProject()
 	{
@@ -193,10 +241,11 @@ namespace gui
 		//IM_ASSERT(font != NULL);
 
 		// Our state
-		bool show_demo_window = true;
-		bool show_another_window = false;
+		//bool show_demo_window = true;
+		//bool show_another_window = false;
 		ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
+		
+		// ImGui::ShowDemoWindow(&show_demo_window);
 		// We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
 		// because it would be confusing to have two docking targets within each others.
 		Flag = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
@@ -239,6 +288,8 @@ namespace gui
 		{
 			ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
 			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), DockspaceFlags);
+
+			SetupInitialDockLayout();
 		}
 
 		style.WindowMinSize.x = minWinSizeX;
@@ -273,7 +324,7 @@ namespace gui
 			{
 				if (ImGui::MenuItem("Reload assembly", "Ctrl+R"))
 				{
-					//ScriptEngine::ReloadAssembly(); ÃßÈÄ C#½ºÅ©¸³Æ® Ãß°¡±â´ÉÀÌ »ý±â¸é Ãß°¡ÇÒ ¿¹Á¤
+					//ScriptEngine::ReloadAssembly(); ì¶”í›„ C#ìŠ¤í¬ë¦½íŠ¸ ì¶”ê°€ê¸°ëŠ¥ì´ ìƒê¸°ë©´ ì¶”ê°€í•  ì˜ˆì •
 				}
 				
 				ImGui::EndMenu();
@@ -296,7 +347,7 @@ namespace gui
 		// rendering framebuffer image to the gameview
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		ViewportSize = Vector2{ viewportPanelSize.x, viewportPanelSize.y };
-		ya::graphics::Texture* texture = FrameBuffer->GetAttachmentTexture(0);
+		//ya::graphics::Texture* texture = FrameBuffer->GetAttachmentTexture(0);
 		//ImGui::Image((ImTextureID)texture->GetSRV().Get(), ImVec2{ ViewportSize.x, ViewportSize.y }
 		//			, ImVec2{ 0, 0 }, ImVec2{ 1, 1 });
 

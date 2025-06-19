@@ -152,9 +152,13 @@ namespace ya::graphics
 		swapChainDesc.Width = application.GetWindow().GetWidth();
 		swapChainDesc.Height = application.GetWindow().GetHeight();
 		swapChainDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+		swapChainDesc.Flags = DXGI_SWAP_CHAIN_FLAG_FRAME_LATENCY_WAITABLE_OBJECT;
 		swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 		swapChainDesc.SampleDesc.Count = 1; // No MSAA
+		swapChainDesc.SampleDesc.Quality = 0;
+		swapChainDesc.Scaling = DXGI_SCALING_STRETCH;
+		swapChainDesc.Stereo = FALSE;
 
 		Microsoft::WRL::ComPtr<IDXGISwapChain1> swapChain;
 		HWND hwnd = application.GetWindow().GetHwnd(); // Get the window handle
@@ -195,13 +199,42 @@ namespace ya::graphics
 			if (FAILED(mSwapChain->GetBuffer(i, IID_PPV_ARGS(&mRenderTargets[i])))) // Added parentheses around the expression
 				assert(NULL && "Get Swap Chain Buffer Failed!");
 
+			mRenderTragetDesciptorHandle[i] = rtvHandle;
 			mDevice->CreateRenderTargetView(mRenderTargets[i].Get(), nullptr, rtvHandle);
 			rtvHandle.Offset(1, mRtvDescriptorSize);
 		}
 
 		// Create the command allocator for the current frame
-		if (FAILED(mDevice->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&mCommandAllocator))))
-			assert(NULL && "Create Command Allocator Failed!");
+		//if (FAILED(mDevice->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&mCommandAllocator))))
+		//	assert(NULL && "Create Command Allocator Failed!");
+
+		for (size_t i = 0; i < 2; i++)
+		{
+			if (FAILED(mDevice->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&mFrameContext[i].CommandAllocator))))
+				assert(NULL && "Create Command Allocator Failed!");
+		}
+
+		// imgui
+		const int APP_SRV_HEAP_SIZE = 64;
+		D3D12_DESCRIPTOR_HEAP_DESC srvHeapDesc = {};
+		srvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+		srvHeapDesc.NumDescriptors = APP_SRV_HEAP_SIZE;
+		srvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+		if (FAILED(mDevice->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&mSrvHeap))))
+			assert(NULL && "Create SRV Heap Failed!");
+
+
+
+		//// Create the command list.
+		//if (FAILED(mDevice->CreateCommandList(
+		//	0, 
+		//	D3D12_COMMAND_LIST_TYPE_DIRECT, 
+		//	mFrameContext[0].CommandAllocator.Get(),
+		//	nullptr, 
+		//	IID_PPV_ARGS(&mImguiCommandList))))
+		//	assert(NULL, "CreateCommandList");
+		//
+		//mImguiCommandList->Close();
 
 		///=====================Load Asset===============================//
 
@@ -216,7 +249,6 @@ namespace ya::graphics
 
 		if (FAILED(mDevice->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), IID_PPV_ARGS(&mRootSignature))))
 			assert(NULL && "CreateRootSignature");
-
 
 		// load shader
 		Microsoft::WRL::ComPtr<ID3DBlob> vertexShader;
@@ -261,8 +293,10 @@ namespace ya::graphics
 			assert(NULL, "CreateGraphicsPipelineState");
 
 		// Create the command list.
-		if (FAILED(mDevice->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, mCommandAllocator.Get(), mPipelineState.Get(), IID_PPV_ARGS(&mCommandList))))
+		if (FAILED(mDevice->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, mFrameContext[0].CommandAllocator.Get(), mPipelineState.Get(), IID_PPV_ARGS(&mCommandList))))
 			assert(NULL, "CreateCommandList");
+
+
 
 		// Command lists are created in the recording state, but there is nothing
 		// to record yet. The main loop expects it to be closed, so close it now.
@@ -356,18 +390,45 @@ namespace ya::graphics
 		mFrameIndex = mSwapChain->GetCurrentBackBufferIndex();
 	}
 
+	FrameContext* GraphicDevice_DX12::WaitForNextFrameResources()
+	{
+		UINT nextFrameIndex = mFrameIndex + 1;
+		mFrameIndex = nextFrameIndex;
+
+		HANDLE waitableObjects[] = { mSwapChain->GetFrameLatencyWaitableObject(), nullptr};
+		DWORD numWaitableObjects = 1;
+
+		FrameContext* frameCtx = &mFrameContext[nextFrameIndex % 2];
+		UINT64 fenceValue = frameCtx->FenceValue;
+		if (fenceValue != 0) // means no fence was signaled
+		{
+			frameCtx->FenceValue = 0;
+			mFence->SetEventOnCompletion(fenceValue, mFenceEvent);
+			waitableObjects[1] = mFenceEvent;
+			numWaitableObjects = 2;
+		}
+
+		WaitForMultipleObjects(numWaitableObjects, waitableObjects, TRUE, INFINITE);
+
+		return frameCtx;
+	}
+
 	void GraphicDevice_DX12::PopulateCommandList()
 	{
 		// Command list allocators can only be reset when the associated 
 		// command lists have finished execution on the GPU; apps should use 
 		// fences to determine GPU execution progress.
-		if (FAILED(mCommandAllocator->Reset()))
+		//if (FAILED(mCommandAllocator->Reset()))
+		//	assert(NULL, "mCommandAllocator->Reset()");
+		
+		
+		if (FAILED(mFrameContext[mFrameIndex].CommandAllocator->Reset()))
 			assert(NULL, "mCommandAllocator->Reset()");
 
 		// However, when ExecuteCommandList() is called on a particular command 
 		// list, that command list can then be reset at any time and must be before 
 		// re-recording.
-		if (FAILED(mCommandList->Reset(mCommandAllocator.Get(), mPipelineState.Get())))
+		if (FAILED(mCommandList->Reset(mFrameContext[mFrameIndex].CommandAllocator.Get(), mPipelineState.Get())))
 			assert(NULL, "mCommandList->Reset()");
 
 		// Set necessary state.
@@ -400,20 +461,29 @@ namespace ya::graphics
 		CD3DX12_RESOURCE_BARRIER resourceBarrierRT 
 			= CD3DX12_RESOURCE_BARRIER::Transition(mRenderTargets[mFrameIndex].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
 
-		mCommandList->ResourceBarrier(1, &resourceBarrierRT);
+		// now this code is commented out because it is not needed for the current rendering flow
+		// that is because we are not using the command allocator for imgui rendering
+		//mCommandList->ResourceBarrier(1, &resourceBarrierRT);
+		//if (FAILED(mCommandList->Close()))
+		//	assert(NULL, "mCommandList->Close()");
+	}
 
-		if (FAILED(mCommandList->Close()))
-			assert(NULL, "mCommandList->Close()");
+	void GraphicDevice_DX12::ExcuteCommandList()
+	{
+		ID3D12CommandList* ppCommandLists[] = { mCommandList.Get() };
+		mCommandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
 	}
 
 	void GraphicDevice_DX12::Render()
 	{
 		// Record all the commands we need to render the scene into the command list.
 		PopulateCommandList();
+	}
 
-		// Execute the command list.
-		ID3D12CommandList* ppCommandLists[] = { mCommandList.Get() };
-		mCommandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
+	void GraphicDevice_DX12::CloseCommandList()
+	{
+		if (FAILED(mCommandList->Close()))
+			assert(NULL, "mCommandList->Close()");
 	}
 
 	void GraphicDevice_DX12::Present()

@@ -2,6 +2,7 @@
 #include "guiEditorWindow.h"
 #include "guiImguiEditor.h"
 
+
 #include "..\\YamYamEngine_CORE\\yaRenderTarget.h"
 #include "..\\YamYamEngine_CORE\\yaKeyEvent.h"
 #include "..\\YamYamEngine_CORE\\yaMouseEvent.h"
@@ -60,6 +61,11 @@ namespace gui
 		static void Run();
 
 		/// <summary>
+		/// 도킹된 창들을 바깥으로 꺼내서 진짜 윈도우처럼 보여주게 업데이트합니다.
+		/// </summary>
+		static void UpdatePlatformWindows();
+
+		/// <summary>
 		/// 에디터를 종료합니다.
 		/// </summary>
 		static void Release();
@@ -69,6 +75,7 @@ namespace gui
 		/// </summary>
 		static void OnEvent(ya::Event& e);
 
+		static void SetupInitialDockLayout();
 		static void OpenProject();
 		static void NewScene();
 		static void SaveScene();
@@ -105,6 +112,8 @@ namespace gui
 
 		static ya::graphics::RenderTarget* FrameBuffer;
 		static ya::EventCallbackFn EventCallback;
+
+		
 	};
 }
 

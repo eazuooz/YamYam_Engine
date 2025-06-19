@@ -158,6 +158,7 @@ xcopy "$(SolutionDir)Shaders_SOURCE" "$(SolutionDir)x64￦Shaders_SOURCE￦" /E 
     <ClInclude Include="guiEntity.h" />
     <ClInclude Include="guiGUILayout.h" />
     <ClInclude Include="guiHierarchyWindow.h" />
+    <ClInclude Include="guiDescriptorAllocator.h" />
     <ClInclude Include="guiImguiEditor.h" />
     <ClInclude Include="guiInspectorWindow.h" />
     <ClInclude Include="guiProjectWindow.h" />

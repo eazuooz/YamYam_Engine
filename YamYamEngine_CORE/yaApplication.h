@@ -28,7 +28,10 @@ namespace ya
 		void Update();
 		void LateUpdate();
 		void Render();
+		void ExcuteCommandList();
 		void Present();
+		void CloseCommandList();
+		void WaitForNextFrameResources();
 		void EndOfFrame();
 		void Release();
 

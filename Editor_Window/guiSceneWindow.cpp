@@ -131,7 +131,7 @@ namespace gui
 		ya::graphics::RenderTarget* frameBuffer = mEditorCamera->GetRenderTarget();
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		ya::math::Vector2 ViewportSize = Vector2{ viewportPanelSize.x, viewportPanelSize.y };
-		ya::graphics::Texture* texture = frameBuffer->GetAttachmentTexture(0);
+		//ya::graphics::Texture* texture = frameBuffer->GetAttachmentTexture(0);
 		//ImGui::Image((ImTextureID)texture->GetSRV().Get(), ImVec2{ ViewportSize.x, ViewportSize.y }
 		//			, ImVec2{ 0, 0 }, ImVec2{ 1, 1 });
 

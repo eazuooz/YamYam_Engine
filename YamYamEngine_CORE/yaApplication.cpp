@@ -168,10 +168,24 @@ namespace ya
 		GetDevice()->Render();
 	}
 
+	void Application::ExcuteCommandList()
+	{
+		GetDevice()->ExcuteCommandList();
+	}
+
+	void Application::CloseCommandList()
+	{
+		GetDevice()->CloseCommandList();
+	}
+
 	void Application::Present()
 	{
-		//GetDevice<GraphicDevice_DX11>()->Present();
 		GetDevice()->Present();
+	}
+
+	void Application::WaitForNextFrameResources()
+	{
+		GetDevice()->WaitForNextFrameResources();
 	}
 
 	void Application::EndOfFrame()
