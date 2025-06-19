@@ -13,7 +13,7 @@ Visual Studio2022 community, C++ 20, Windows11
 # *사용된 라이브러리*
 
 ## windows
-Directx11
+Directx11/12
 
 ## vcpkg
 vcpkg install directxtex[core,openexr,dx11]:x64-windows
@@ -53,6 +53,8 @@ vcpkg install physx:x64-windows
 [게임 엔진 프레임 워크](https://www.yamyamcoding.com/d5945030-34b7-4e70-bc9f-b0d89facfe1b)
 
 [Directx11 렌더링](https://www.yamyamcoding.com/80d76736-a5d3-48f4-ac4a-77a983fd7050)
+
+[Directx12 렌더링](https://www.yamyamcoding.com/1b90b1ff-a61e-80f4-9175-e7028cd6c881)
 
 
 # *참고 자료*
