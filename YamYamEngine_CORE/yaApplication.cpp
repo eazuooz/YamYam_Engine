@@ -183,6 +183,11 @@ namespace ya
 		GetDevice()->Present();
 	}
 
+	void Application::WaitForPreviousFrame()
+	{
+		GetDevice()->WaitForPreviousFrame();
+	}
+
 	void Application::WaitForNextFrameResources()
 	{
 		GetDevice()->WaitForNextFrameResources();
@@ -198,7 +203,7 @@ namespace ya
 		SceneManager::Release();
 		UIManager::Release();
 		Resources::Release();
-
+		Fmod::Release();
 		renderer::Release();
 	}
 }

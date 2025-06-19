@@ -349,7 +349,7 @@ namespace ya::graphics
 		{
 			if (FAILED(mDevice->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&mFence))))
 				assert(NULL, "CreateFence");
-			mFenceValue = 1;
+			mFenceValue = 0;
 
 			// Create an event handle to use for frame synchronization.
 			mFenceEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
@@ -374,20 +374,27 @@ namespace ya::graphics
 		// maximize GPU utilization.
 
 		// Signal and increment the fence value.
-		const UINT64 fence = mFenceValue;
-		if (FAILED(mCommandQueue->Signal(mFence.Get(), fence)))
-			assert(NULL, "mCommandQueue->Signal");
-		mFenceValue++;
+		//const UINT64 fence = mFenceValue;
+		//if (FAILED(mCommandQueue->Signal(mFence.Get(), fence)))
+		//	assert(NULL, "mCommandQueue->Signal");
+		//mFenceValue++;
 
-		// Wait until the previous frame is finished.
-		if (mFence->GetCompletedValue() < fence)
-		{
-			if (FAILED(mFence->SetEventOnCompletion(fence, mFenceEvent)))
-				assert(NULL, "SetEventOnCompletion");
-			WaitForSingleObject(mFenceEvent, INFINITE);
-		}
+		//// Wait until the previous frame is finished.
+		//if (mFence->GetCompletedValue() < fence)
+		//{
+		//	if (FAILED(mFence->SetEventOnCompletion(fence, mFenceEvent)))
+		//		assert(NULL, "SetEventOnCompletion");
+		//	WaitForSingleObject(mFenceEvent, INFINITE);
+		//}
 
 		mFrameIndex = mSwapChain->GetCurrentBackBufferIndex();
+
+		UINT64 fenceValue = mFenceValue + 1;
+		mCommandQueue->Signal(mFence.Get(), fenceValue);
+		mFenceValue = fenceValue;
+
+		FrameContext* frameCtx = &mFrameContext[mFrameIndex % 2];
+		frameCtx->FenceValue = fenceValue;
 	}
 
 	FrameContext* GraphicDevice_DX12::WaitForNextFrameResources()
@@ -458,12 +465,12 @@ namespace ya::graphics
 		mCommandList->DrawInstanced(3, 1, 0, 0);
 
 		// Indicate that the back buffer will now be used to present.
-		CD3DX12_RESOURCE_BARRIER resourceBarrierRT 
-			= CD3DX12_RESOURCE_BARRIER::Transition(mRenderTargets[mFrameIndex].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+		//CD3DX12_RESOURCE_BARRIER resourceBarrierRT 
+			//= CD3DX12_RESOURCE_BARRIER::Transition(mRenderTargets[mFrameIndex].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+		//mCommandList->ResourceBarrier(1, &resourceBarrierRT);
 
 		// now this code is commented out because it is not needed for the current rendering flow
 		// that is because we are not using the command allocator for imgui rendering
-		//mCommandList->ResourceBarrier(1, &resourceBarrierRT);
 		//if (FAILED(mCommandList->Close()))
 		//	assert(NULL, "mCommandList->Close()");
 	}
