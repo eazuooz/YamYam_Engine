@@ -82,20 +82,6 @@ solution explorer의 solution에서 오른쪽 버튼을 누릅니다.
 Requirements
 Visual Studio 2022 , Windows 10/11
 
-# How to build
-Open .sln in Visual Studio.
-DirectXTex Project Build.
-update d3d12 core binaries. Please refer to the d3d12 sdk update method below.
-build and run.
-Update D3D12 Agility SDK
-This project uses the D3D12 Agility SDK. (https://devblogs.microsoft.com/directx/directx12agility/)
-
-Agility SDK is updated as a NuGet package. This project does not directly contain the package's binaries. Users must update themselves
-
-Right-click on top solution in solution explorer.
-Click ‘Restore NuGet Packages’.
-Copy the arm, arm64, win32, x64 folders from '[Project Folder]\packages\Microsoft.Direct3D.D3D12.xxxxx\build\native\bin' to the D3D12 folder in the project folder.
-
 # 저작권 (mit license)
 Copyright (c) <2023> <YamYamCoding>
 
