@@ -10,6 +10,7 @@ namespace ya::graphics
 		: mbUseWarpDevice(false)
 		, mFrameIndex(0)
 		, mRtvDescriptorSize(0)
+		, mFenceLastSignalValue(0)
 	{
 		GetDevice() = this;
 		// Initialize the DirectX 12 device here
@@ -349,7 +350,7 @@ namespace ya::graphics
 		{
 			if (FAILED(mDevice->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&mFence))))
 				assert(NULL, "CreateFence");
-			mFenceValue = 0;
+			mFrameContext[mFrameIndex].FenceValue++;
 
 			// Create an event handle to use for frame synchronization.
 			mFenceEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
@@ -362,39 +363,40 @@ namespace ya::graphics
 			// Wait for the command list to execute; we are reusing the same command 
 			// list in our main loop but for now, we just want to wait for setup to 
 			// complete before continuing.
-			WaitForPreviousFrame();
+			WaitForGpu();
 		}
 	}
 
-	void GraphicDevice_DX12::WaitForPreviousFrame()
+	void GraphicDevice_DX12::WaitForGpu()
+	{
+		// Schedule a Signal command in the queue.
+		if (FAILED(mCommandQueue->Signal(mFence.Get(), mFrameContext[mFrameIndex].FenceValue)))
+			assert(NULL, "CommandQueue Signal Failed!");
+
+		// Wait until the fence has been processed.
+		if (FAILED(mFence->SetEventOnCompletion(mFrameContext[mFrameIndex].FenceValue, mFenceEvent)))
+			assert(NULL, "SetEventOnCompletion Failed!");
+		
+		WaitForSingleObjectEx(mFenceEvent, INFINITE, FALSE);
+
+		// Increment the fence value for the current frame.
+		mFrameContext[mFrameIndex].FenceValue++;
+	}
+
+	void GraphicDevice_DX12::SignalFrameCompletion()
 	{
 		// WAITING FOR THE FRAME TO COMPLETE BEFORE CONTINUING IS NOT BEST PRACTICE.
 		// This is code implemented as such for simplicity. The D3D12HelloFrameBuffering
 		// sample illustrates how to use fences for efficient resource usage and to
 		// maximize GPU utilization.
-
-		// Signal and increment the fence value.
-		//const UINT64 fence = mFenceValue;
-		//if (FAILED(mCommandQueue->Signal(mFence.Get(), fence)))
-		//	assert(NULL, "mCommandQueue->Signal");
-		//mFenceValue++;
-
-		//// Wait until the previous frame is finished.
-		//if (mFence->GetCompletedValue() < fence)
-		//{
-		//	if (FAILED(mFence->SetEventOnCompletion(fence, mFenceEvent)))
-		//		assert(NULL, "SetEventOnCompletion");
-		//	WaitForSingleObject(mFenceEvent, INFINITE);
-		//}
-
-		mFrameIndex = mSwapChain->GetCurrentBackBufferIndex();
-
-		UINT64 fenceValue = mFenceValue + 1;
+		UINT64 fenceValue = mFenceLastSignalValue + 1;
 		mCommandQueue->Signal(mFence.Get(), fenceValue);
-		mFenceValue = fenceValue;
+		mFenceLastSignalValue = fenceValue;
 
 		FrameContext* frameCtx = &mFrameContext[mFrameIndex % 2];
 		frameCtx->FenceValue = fenceValue;
+
+		mFrameIndex = mSwapChain->GetCurrentBackBufferIndex();
 	}
 
 	FrameContext* GraphicDevice_DX12::WaitForNextFrameResources()
@@ -420,6 +422,51 @@ namespace ya::graphics
 		return frameCtx;
 	}
 
+
+
+	void GraphicDevice_DX12::MoveToNextFrame()
+	{
+		// Schedule a Signal command in the queue.
+		const UINT64 currentFenceValue = mFrameContext[mFrameIndex].FenceValue; 
+		mCommandQueue->Signal(mFence.Get(), currentFenceValue);
+
+		// Update the frame index.
+		mFrameIndex = mSwapChain->GetCurrentBackBufferIndex();
+
+		// If the next frame is not ready to be rendered yet, wait until it is ready.
+		if (mFence->GetCompletedValue() < mFrameContext[mFrameIndex].FenceValue)
+		{
+			mFence->SetEventOnCompletion(mFrameContext[mFrameIndex].FenceValue, mFenceEvent);
+			WaitForSingleObjectEx(mFenceEvent, INFINITE, FALSE);
+		}
+
+		// Set the fence value for the next frame.
+		mFrameContext[mFrameIndex].FenceValue = currentFenceValue + 1;
+	}
+
+	void GraphicDevice_DX12::ExcuteCommandList()
+	{
+		ID3D12CommandList* ppCommandLists[] = { mCommandList.Get() };
+		mCommandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
+	}
+
+	void GraphicDevice_DX12::Render()
+	{
+		// Record all the commands we need to render the scene into the command list.
+		PopulateCommandList();
+	}
+
+	void GraphicDevice_DX12::CloseCommandList()
+	{
+		//Indicate that the back buffer will now be used to present.
+			CD3DX12_RESOURCE_BARRIER resourceBarrierRT
+			= CD3DX12_RESOURCE_BARRIER::Transition(mRenderTargets[mFrameIndex].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+		mCommandList->ResourceBarrier(1, &resourceBarrierRT);
+
+		if (FAILED(mCommandList->Close()))
+			assert(NULL, "mCommandList->Close()");
+	}
+
 	void GraphicDevice_DX12::PopulateCommandList()
 	{
 		// Command list allocators can only be reset when the associated 
@@ -427,8 +474,8 @@ namespace ya::graphics
 		// fences to determine GPU execution progress.
 		//if (FAILED(mCommandAllocator->Reset()))
 		//	assert(NULL, "mCommandAllocator->Reset()");
-		
-		
+
+
 		if (FAILED(mFrameContext[mFrameIndex].CommandAllocator->Reset()))
 			assert(NULL, "mCommandAllocator->Reset()");
 
@@ -475,27 +522,8 @@ namespace ya::graphics
 		//	assert(NULL, "mCommandList->Close()");
 	}
 
-	void GraphicDevice_DX12::ExcuteCommandList()
-	{
-		ID3D12CommandList* ppCommandLists[] = { mCommandList.Get() };
-		mCommandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
-	}
-
-	void GraphicDevice_DX12::Render()
-	{
-		// Record all the commands we need to render the scene into the command list.
-		PopulateCommandList();
-	}
-
-	void GraphicDevice_DX12::CloseCommandList()
-	{
-		if (FAILED(mCommandList->Close()))
-			assert(NULL, "mCommandList->Close()");
-	}
-
 	void GraphicDevice_DX12::Present()
 	{
 		mSwapChain->Present(1, 0);
-		WaitForPreviousFrame();
 	}
 }

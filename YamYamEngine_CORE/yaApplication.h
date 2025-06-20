@@ -31,8 +31,9 @@ namespace ya
 		void ExcuteCommandList();
 		void Present();
 		void CloseCommandList();
-		void WaitForPreviousFrame();
+		void SignalFrameCompletion();
 		void WaitForNextFrameResources();
+		void MoveToNextFrame();
 		void EndOfFrame();
 		void Release();
 

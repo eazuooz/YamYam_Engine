@@ -30,12 +30,14 @@ namespace ya::graphics
 		/// gpu object make trought device
 		/// </summary>
 		void Initialize();
-		void WaitForPreviousFrame();
+		void WaitForGpu();
+		void SignalFrameCompletion();
 		FrameContext* WaitForNextFrameResources();
+		void MoveToNextFrame();
 		void PopulateCommandList();
-		void ExcuteCommandList();
 		void Render();
 		void CloseCommandList();
+		void ExcuteCommandList();
 		void Present();
 
 		Microsoft::WRL::ComPtr<ID3D12Device> GetID3D12Device() { return mDevice; }
@@ -75,7 +77,7 @@ namespace ya::graphics
 		D3D12_VERTEX_BUFFER_VIEW mVertexBufferView;
 
 		Microsoft::WRL::ComPtr<ID3D12Fence> mFence;
-		UINT64 mFenceValue;
+		UINT64 mFenceLastSignalValue;
 		HANDLE mFenceEvent;
 
 		//imgui 

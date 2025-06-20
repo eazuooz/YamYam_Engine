@@ -11,7 +11,7 @@
 ya::Application application;
 
 #define MAX_LOADSTRING 100
-#define WITH_EDITOR 
+//#define WITH_EDITOR 
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
@@ -69,6 +69,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, //프로그램의 인스턴스 �
 #ifdef WITH_EDITOR
             gui::EditorApplication::Run();
 #else
+            
             application.CloseCommandList();
 #endif
             //Excute command list
@@ -78,13 +79,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, //프로그램의 인스턴스 �
             gui::EditorApplication::UpdatePlatformWindows();
 #else
 #endif
-
             // 화면에 그려준다.
             application.Present();
 
 #ifdef WITH_EDITOR
+            application.SignalFrameCompletion();
 #else
-            application.WaitForPreviousFrame();
+            application.MoveToNextFrame();
 #endif
         }
     }

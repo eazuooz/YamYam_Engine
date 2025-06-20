@@ -183,14 +183,19 @@ namespace ya
 		GetDevice()->Present();
 	}
 
-	void Application::WaitForPreviousFrame()
+	void Application::SignalFrameCompletion()
 	{
-		GetDevice()->WaitForPreviousFrame();
+		GetDevice()->SignalFrameCompletion();
 	}
 
 	void Application::WaitForNextFrameResources()
 	{
 		GetDevice()->WaitForNextFrameResources();
+	}
+
+	void Application::MoveToNextFrame()
+	{
+		GetDevice()->MoveToNextFrame();
 	}
 
 	void Application::EndOfFrame()
