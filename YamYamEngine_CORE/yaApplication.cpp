@@ -49,6 +49,11 @@ namespace ya
 		mbRunning = true;
 	}
 
+	void Application::WaitforGpu()
+	{
+		mGraphicDevice_12->WaitForGpu();
+	}
+
 	void Application::InitializeWindow(HWND hwnd)
 	{
 		SetWindowPos(hwnd, nullptr, mWindow.GetXPos(), mWindow.GetYPos()

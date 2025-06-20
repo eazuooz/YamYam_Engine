@@ -18,6 +18,7 @@ namespace ya
 		~Application();
 
 		void Initialize(HWND hwnd, int width, int height);
+		void WaitforGpu();
 		void InitializeWindow(HWND hwnd);
 		void AdjustWindowRect(HWND hwnd, int width, int height);
 		void ReszieGraphicDevice(WindowResizeEvent& e);

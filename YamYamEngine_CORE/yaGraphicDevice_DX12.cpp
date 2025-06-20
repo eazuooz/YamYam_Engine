@@ -363,7 +363,7 @@ namespace ya::graphics
 			// Wait for the command list to execute; we are reusing the same command 
 			// list in our main loop but for now, we just want to wait for setup to 
 			// complete before continuing.
-			WaitForGpu();
+			// WaitForGpu();
 		}
 	}
 
@@ -385,6 +385,7 @@ namespace ya::graphics
 
 	void GraphicDevice_DX12::SignalFrameCompletion()
 	{
+
 		// WAITING FOR THE FRAME TO COMPLETE BEFORE CONTINUING IS NOT BEST PRACTICE.
 		// This is code implemented as such for simplicity. The D3D12HelloFrameBuffering
 		// sample illustrates how to use fences for efficient resource usage and to
@@ -401,6 +402,8 @@ namespace ya::graphics
 
 	FrameContext* GraphicDevice_DX12::WaitForNextFrameResources()
 	{
+		
+
 		UINT nextFrameIndex = mFrameIndex + 1;
 		mFrameIndex = nextFrameIndex;
 
