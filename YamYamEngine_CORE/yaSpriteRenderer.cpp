@@ -17,8 +17,12 @@ namespace ya
 	{
 		BaseRenderer::Initialize();
 
+		//Mesh* mesh = Resources::Find<Mesh>(L"RectMesh");
+		//Material* material = Resources::Find<Material>(L"Sprite-Default-Material");
+
+		//Mesh* mesh = Resources::Find<Mesh>(L"TriangleMesh");
 		Mesh* mesh = Resources::Find<Mesh>(L"RectMesh");
-		Material* material = Resources::Find<Material>(L"Sprite-Default-Material");
+		Material* material = Resources::Find<Material>(L"TriangleMaterial");
 
 		SetMesh(mesh);
 		SetMaterial(material);

@@ -107,8 +107,11 @@ namespace ya::graphics
 
 	struct GpuBuffer
 	{
+		//Microsoft::WRL::ComPtr<
 		//Microsoft::WRL::ComPtr<ID3D11Buffer> buffer = nullptr;
-		//D3D11_BUFFER_DESC desc = {};
+		Microsoft::WRL::ComPtr<ID3D12Resource> buffer = nullptr;
+		CD3DX12_HEAP_PROPERTIES heapProps = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
+		CD3DX12_RESOURCE_DESC bufferDesc = CD3DX12_RESOURCE_DESC::Buffer(0);;
 
 		GpuBuffer() = default;
 		virtual ~GpuBuffer() = default;
@@ -121,7 +124,4 @@ namespace ya::graphics
 		math::Matrix View;
 		math::Matrix Projection;
 	};
-
-	template<typename T>
-	inline T*& GetDevice();
 }

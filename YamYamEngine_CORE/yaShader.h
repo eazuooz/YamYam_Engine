@@ -19,11 +19,11 @@ namespace ya::graphics
 
 		void Bind();
 
-		//Microsoft::WRL::ComPtr<ID3DBlob> GetVSBlob() const { return mVSBlob; }
-		//Microsoft::WRL::ComPtr<ID3DBlob> GetHSBlob() const { return mHSBlob; }
-		//Microsoft::WRL::ComPtr<ID3DBlob> GetDSBlob() const { return mDSBlob; }
-		//Microsoft::WRL::ComPtr<ID3DBlob> GetGSBlob() const { return mGSBlob; }
-		//Microsoft::WRL::ComPtr<ID3DBlob> GetPSBlob() const { return mPSBlob; }
+		Microsoft::WRL::ComPtr<ID3DBlob> GetVSBlob() const { return mVSBlob; }
+		Microsoft::WRL::ComPtr<ID3DBlob> GetHSBlob() const { return mHSBlob; }
+		Microsoft::WRL::ComPtr<ID3DBlob> GetDSBlob() const { return mDSBlob; }
+		Microsoft::WRL::ComPtr<ID3DBlob> GetGSBlob() const { return mGSBlob; }
+		Microsoft::WRL::ComPtr<ID3DBlob> GetPSBlob() const { return mPSBlob; }
 		//
 		//Microsoft::WRL::ComPtr<ID3D11VertexShader> GetVS() const { return mVS; }
 		//Microsoft::WRL::ComPtr<ID3D11HullShader> GetHS() const { return mHS; }
@@ -38,11 +38,11 @@ namespace ya::graphics
 	private:
 		static bool bWireframe;
 
-		//Microsoft::WRL::ComPtr<ID3DBlob> mVSBlob;
-		//Microsoft::WRL::ComPtr<ID3DBlob> mHSBlob;
-		//Microsoft::WRL::ComPtr<ID3DBlob> mDSBlob;
-		//Microsoft::WRL::ComPtr<ID3DBlob> mGSBlob;
-		//Microsoft::WRL::ComPtr<ID3DBlob> mPSBlob;
+		Microsoft::WRL::ComPtr<ID3DBlob> mVSBlob;
+		Microsoft::WRL::ComPtr<ID3DBlob> mHSBlob;
+		Microsoft::WRL::ComPtr<ID3DBlob> mDSBlob;
+		Microsoft::WRL::ComPtr<ID3DBlob> mGSBlob;
+		Microsoft::WRL::ComPtr<ID3DBlob> mPSBlob;
 
 		//Microsoft::WRL::ComPtr<ID3D11VertexShader> mVS;
 		//Microsoft::WRL::ComPtr<ID3D11HullShader> mHS;

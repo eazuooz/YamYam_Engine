@@ -11,7 +11,7 @@
 ya::Application application;
 
 #define MAX_LOADSTRING 100
-#define WITH_EDITOR 
+//#define WITH_EDITOR 
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.

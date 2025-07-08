@@ -34,6 +34,39 @@ namespace ya::graphics
 		if (!Create(eShaderStage::PS, fileName))
 			return S_FALSE;
 
+
+		// To Do : you have to make pso class file
+		// PSO 일단 여기서 처리
+
+			// Define the vertex input layout.
+		D3D12_INPUT_ELEMENT_DESC inputElementDescs[] =
+		{
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
+		};
+
+
+		auto rootSignature = GetDevice()->GetRootSignature();
+
+
+		// Describe and create the graphics pipeline state object (PSO).
+		D3D12_GRAPHICS_PIPELINE_STATE_DESC psoDesc = {};
+		psoDesc.InputLayout = { inputElementDescs, _countof(inputElementDescs) };
+		psoDesc.pRootSignature = rootSignature.Get();
+		psoDesc.VS = CD3DX12_SHADER_BYTECODE(mVSBlob.Get());
+		psoDesc.PS = CD3DX12_SHADER_BYTECODE(mPSBlob.Get());
+		psoDesc.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
+		psoDesc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
+		psoDesc.DepthStencilState.DepthEnable = FALSE;
+		psoDesc.DepthStencilState.StencilEnable = FALSE;
+		psoDesc.SampleMask = UINT_MAX;
+		psoDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+		psoDesc.NumRenderTargets = 1;
+		psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
+		psoDesc.SampleDesc.Count = 1;
+
+		GetDevice()->CreateGraphicsPipelineState(&psoDesc);
+
 		return S_OK;
 	}
 
@@ -49,16 +82,16 @@ namespace ya::graphics
 
 	bool Shader::CreateVertexShader(const std::wstring& fileName)
 	{
-		//if (!GetDevice<GraphicDevice_DX11>()->CreateVertexShader(fileName, mVSBlob.GetAddressOf(), mVS.GetAddressOf()))
-		//	return false;
+		if (!GetDevice()->CreateVertexShader(fileName, mVSBlob.GetAddressOf()))
+			return false;
 
 		return true;
 	}
 
 	bool Shader::CreatePixelShader(const std::wstring& fileName)
 	{
-		//if (!GetDevice<GraphicDevice_DX11>()->CreatePixelShader(fileName, mPSBlob.GetAddressOf(), mPS.GetAddressOf()))
-		//	return false;
+		if (!GetDevice()->CreatePixelShader(fileName, mPSBlob.GetAddressOf()))
+			return false;
 
 		return true;
 	}

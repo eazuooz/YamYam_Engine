@@ -67,7 +67,7 @@ namespace ya
 			std::vector<GameObject*> transparentList = {};
 
 			// collect randerables(game objects)
-			renderer::CollectRenderables(this, opaqueList, cutoutList, transparentList);
+			//renderer::CollectRenderables(this, opaqueList, cutoutList, transparentList);
 
 			//// soring renderables by distance (between camera and game object)
 			//renderer::SortByDistance(opaqueList, cameraPos, true);
