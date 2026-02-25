@@ -11,7 +11,7 @@
 ya::Application application;
 
 #define MAX_LOADSTRING 100
-//#define WITH_EDITOR 
+#define WITH_EDITOR 
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
@@ -63,21 +63,25 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, //프로그램의 인스턴스 �
         }
         else
         {
+#ifdef WITH_EDITOR
+            // Wait for GPU to finish with the current frame's resources BEFORE
+            // resetting the command allocator or recording any commands.
+            // This must come first in the frame loop.
+            application.WaitForNextFrameResources();
+#endif
 			// 애플리케이션 로직
             application.Run();
 
 #ifdef WITH_EDITOR
             gui::EditorApplication::Run();
 #else
-            
             application.CloseCommandList();
 #endif
             //Excute command list
 			application.ExcuteCommandList();
-            
+
 #ifdef WITH_EDITOR
             gui::EditorApplication::UpdatePlatformWindows();
-#else
 #endif
             // 화면에 그려준다.
             application.Present();

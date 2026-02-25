@@ -80,6 +80,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)\External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;$(SolutionDir)\packages\Microsoft.Direct3D.D3D12.1.616.1\build\native\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -96,6 +97,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)\External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;$(SolutionDir)\packages\Microsoft.Direct3D.D3D12.1.616.1\build\native\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

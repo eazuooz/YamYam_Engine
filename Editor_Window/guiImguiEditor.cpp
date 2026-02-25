@@ -143,42 +143,29 @@ namespace gui
 		io.DisplaySize = ImVec2((float)application.GetWindow().GetWidth()
 			, (float)application.GetWindow().GetHeight());
 
-		// Rendering
 		ImGui::Render();
-		
-		ya::graphics::GraphicDevice_DX12* graphicDevice = ya::graphics::GetDevice();
-		ya::graphics::FrameContext* frameCtx = graphicDevice->WaitForNextFrameResources();
-		UINT backBufferIdx = graphicDevice->GetSwapChain()->GetCurrentBackBufferIndex();
-		//frameCtx->CommandAllocator->Reset();
 
+		ya::graphics::GraphicDevice_DX12* graphicDevice = ya::graphics::GetDevice();
+		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> commandList = graphicDevice->GetCommandList();
+
+		// Descriptor heap must be set before rendering ImGui
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> srvHeap = graphicDevice->GetSrvHeap();
+		commandList->SetDescriptorHeaps(1, srvHeap.GetAddressOf());
+		ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), commandList.Get());
+
+		// Transition RT → PRESENT.
+		// Application::Render() already transitioned PRESENT → RT using mFrameIndex,
+		// so we use the same index here to match.
+		UINT backBufferIdx = graphicDevice->GetFrameIndex();
 		D3D12_RESOURCE_BARRIER barrier = {};
 		barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
 		barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
 		barrier.Transition.pResource = graphicDevice->GetRenderTargetResource(backBufferIdx).Get();
 		barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
-		barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_PRESENT;
-		barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_RENDER_TARGET;
-
-		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> commandList 
-			= graphicDevice->GetCommandList();
-		//commandList->Reset(frameCtx->CommandAllocator.Get(), nullptr);
-		//commandList->ResourceBarrier(1, &barrier);
-
-		// Render Dear ImGui graphics
-		ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-		const float clear_color_with_alpha[4] = { clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w };
-		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> rtvHep = graphicDevice->GetRTVHeap();
-
-		CD3DX12_CPU_DESCRIPTOR_HANDLE handle = graphicDevice->GetRnderTargetDescriptorHandle(backBufferIdx);
-		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> srvHeap = graphicDevice->GetSrvHeap();
-		//commandList->ClearRenderTargetView(handle, clear_color_with_alpha, 0, nullptr);
-		//commandList->OMSetRenderTargets(1, &handle, FALSE, nullptr);
-		commandList->SetDescriptorHeaps(1, srvHeap.GetAddressOf());
-
-		ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), commandList.Get());
 		barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_RENDER_TARGET;
 		barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_PRESENT;
 		commandList->ResourceBarrier(1, &barrier);
+
 		commandList->Close();
 	}
 

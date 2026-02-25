@@ -355,7 +355,8 @@ namespace ya::graphics
 		{
 			if (FAILED(mDevice->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&mFence))))
 				assert(NULL, "CreateFence");
-			mFrameContext[mFrameIndex].FenceValue++;
+			// FenceValue starts at 0 for all contexts (0 = no pending GPU work)
+			// mFenceLastSignalValue starts at 0 and is incremented monotonically
 
 			// Create an event handle to use for frame synchronization.
 			mFenceEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
@@ -481,47 +482,46 @@ namespace ya::graphics
 
 	void GraphicDevice_DX12::WaitForGpu()
 	{
-		// Schedule a Signal command in the queue.
-		if (FAILED(mCommandQueue->Signal(mFence.Get(), mFrameContext[mFrameIndex].FenceValue)))
+		// Signal with the next monotonic fence value so the fence goes strictly upward.
+		const UINT64 fence = mFenceLastSignalValue + 1;
+
+		if (FAILED(mCommandQueue->Signal(mFence.Get(), fence)))
 			assert(NULL, "CommandQueue Signal Failed!");
 
-		// Wait until the fence has been processed.
-		if (FAILED(mFence->SetEventOnCompletion(mFrameContext[mFrameIndex].FenceValue, mFenceEvent)))
+		if (FAILED(mFence->SetEventOnCompletion(fence, mFenceEvent)))
 			assert(NULL, "SetEventOnCompletion Failed!");
-		
+
 		WaitForSingleObjectEx(mFenceEvent, INFINITE, FALSE);
 
-		// Increment the fence value for the current frame.
-		mFrameContext[mFrameIndex].FenceValue++;
+		mFenceLastSignalValue = fence;
 	}
 
 	void GraphicDevice_DX12::SignalFrameCompletion()
 	{
-		// WAITING FOR THE FRAME TO COMPLETE BEFORE CONTINUING IS NOT BEST PRACTICE.
-		// This is code implemented as such for simplicity. The D3D12HelloFrameBuffering
-		// sample illustrates how to use fences for efficient resource usage and to
-		// maximize GPU utilization.
 		UINT64 fenceValue = mFenceLastSignalValue + 1;
 		mCommandQueue->Signal(mFence.Get(), fenceValue);
 		mFenceLastSignalValue = fenceValue;
 
-		FrameContext* frameCtx = &mFrameContext[mFrameIndex % 2];
-		frameCtx->FenceValue = fenceValue;
+		// Store fence on the frame context that was ACTUALLY used this frame.
+		// mFrameIndex here is still the index that was used during recording.
+		mFrameContext[mFrameIndex].FenceValue = fenceValue;
 
+		// Advance to next back buffer AFTER storing the fence.
 		mFrameIndex = mSwapChain->GetCurrentBackBufferIndex();
 	}
 
 	FrameContext* GraphicDevice_DX12::WaitForNextFrameResources()
 	{
-		UINT nextFrameIndex = mFrameIndex + 1;
-		mFrameIndex = nextFrameIndex;
+		// mFrameIndex is already the correct back-buffer index set by SignalFrameCompletion().
+		// Do NOT increment it here â€” other code uses mFrameIndex to index render targets and
+		// allocators, and changing it mid-frame causes fence tracking misalignment.
 
-		HANDLE waitableObjects[] = { mSwapChain->GetFrameLatencyWaitableObject(), nullptr};
+		HANDLE waitableObjects[] = { mSwapChain->GetFrameLatencyWaitableObject(), nullptr };
 		DWORD numWaitableObjects = 1;
 
-		FrameContext* frameCtx = &mFrameContext[nextFrameIndex % 2];
+		FrameContext* frameCtx = &mFrameContext[mFrameIndex];
 		UINT64 fenceValue = frameCtx->FenceValue;
-		if (fenceValue != 0) // means no fence was signaled
+		if (fenceValue != 0) // 0 = this context has no outstanding GPU work
 		{
 			frameCtx->FenceValue = 0;
 			mFence->SetEventOnCompletion(fenceValue, mFenceEvent);
@@ -536,22 +536,23 @@ namespace ya::graphics
 
 	void GraphicDevice_DX12::MoveToNextFrame()
 	{
-		// Schedule a Signal command in the queue.
-		const UINT64 currentFenceValue = mFrameContext[mFrameIndex].FenceValue; 
+		// Use the monotonic counter so the fence value always increases.
+		const UINT64 currentFenceValue = mFenceLastSignalValue + 1;
 		mCommandQueue->Signal(mFence.Get(), currentFenceValue);
+		mFenceLastSignalValue = currentFenceValue;
 
-		// Update the frame index.
+		// Record which fence value was used for this frame's allocator.
+		mFrameContext[mFrameIndex].FenceValue = currentFenceValue;
+
+		// Advance to the new back buffer.
 		mFrameIndex = mSwapChain->GetCurrentBackBufferIndex();
 
-		// If the next frame is not ready to be rendered yet, wait until it is ready.
+		// If the new frame's resources are still in use by the GPU, wait.
 		if (mFence->GetCompletedValue() < mFrameContext[mFrameIndex].FenceValue)
 		{
 			mFence->SetEventOnCompletion(mFrameContext[mFrameIndex].FenceValue, mFenceEvent);
 			WaitForSingleObjectEx(mFenceEvent, INFINITE, FALSE);
 		}
-
-		// Set the fence value for the next frame.
-		mFrameContext[mFrameIndex].FenceValue = currentFenceValue + 1;
 	}
 
 	void GraphicDevice_DX12::ExcuteCommandList()
@@ -608,7 +609,7 @@ namespace ya::graphics
 		UINT StartVertexLocation,
 		UINT StartInstanceLocation)
 	{
-		//to do : ÀÌ°Íµµ ÀÓ½Ã ¹æÆí ³ªÁß¿¡ ±¸Á¶È­ ½ÃÄÑ¾ßÇÔ
+		//to do : ï¿½Ì°Íµï¿½ ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½
 		mCommandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		//------------------------------------------------------------------------------------------------------------------------
