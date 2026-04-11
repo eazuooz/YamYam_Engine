@@ -17,5 +17,6 @@ namespace ya::graphics
 	private:
 		UINT mSize;
 		eCBType mType;
+		void* mMappedData = nullptr;
 	};
 }

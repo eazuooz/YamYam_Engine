@@ -241,8 +241,12 @@ namespace ya::graphics
 		///=====================Load Asset===============================//
 
 		// create root signature
+		// b0 : TransformCB (World / View / Projection)
+		CD3DX12_ROOT_PARAMETER rootParams[1] = {};
+		rootParams[0].InitAsConstantBufferView(0); // register(b0)
+
 		CD3DX12_ROOT_SIGNATURE_DESC rootSignatureDesc = {};
-		rootSignatureDesc.Init(0, nullptr, 0, nullptr, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
+		rootSignatureDesc.Init(_countof(rootParams), rootParams, 0, nullptr, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 
 		Microsoft::WRL::ComPtr<ID3DBlob> signature;
 		Microsoft::WRL::ComPtr<ID3DBlob> error;
@@ -609,14 +613,18 @@ namespace ya::graphics
 		UINT StartVertexLocation,
 		UINT StartInstanceLocation)
 	{
-		//to do : �̰͵� �ӽ� ���� ���߿� ����ȭ ���Ѿ���
 		mCommandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-		//------------------------------------------------------------------------------------------------------------------------
 		mCommandList->DrawInstanced(VertexCountPerInstance, InstanceCount, StartVertexLocation, StartInstanceLocation);
+	}
 
-		//rect mCommandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
-		//mCommandList->DrawInstanced(4, 1, 0, 0);
+	void GraphicDevice_DX12::DrawIndexedInstanced(UINT IndexCountPerInstance,
+		UINT InstanceCount,
+		UINT StartIndexLocation,
+		INT BaseVertexLocation,
+		UINT StartInstanceLocation)
+	{
+		mCommandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		mCommandList->DrawIndexedInstanced(IndexCountPerInstance, InstanceCount, StartIndexLocation, BaseVertexLocation, StartInstanceLocation);
 	}
 
 	void GraphicDevice_DX12::PopulateCommandList()

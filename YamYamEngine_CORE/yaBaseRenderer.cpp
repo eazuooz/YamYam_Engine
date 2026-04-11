@@ -39,9 +39,6 @@ namespace ya
 	void BaseRenderer::Draw()
 	{
 		if (mMesh)
-			graphics::GetDevice()->DrawInstanced(mMesh->GetIndexCount(), 1, 0, 0);
-		//if (mMesh)
-		//	graphics::GetDevice<graphics::GraphicDevice_DX11>()->DrawIndexed(mMesh->GetIndexCount(), 0, 0);
-
+			graphics::GetDevice()->DrawIndexedInstanced(mMesh->GetIndexCount(), 1, 0, 0, 0);
 	}
 }

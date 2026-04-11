@@ -1,4 +1,5 @@
 #include "yaIndexBuffer.h"
+#include "yaGraphicDevice_DX12.h"
 
 namespace ya::graphics
 {
@@ -6,29 +7,42 @@ namespace ya::graphics
 		: mIndexCount(0)
 	{
 	}
+
 	IndexBuffer::~IndexBuffer()
 	{
 	}
+
 	bool IndexBuffer::Create(const std::vector<UINT>& indices)
 	{
-		mIndexCount = (UINT)indices.size();
+		mIndexCount = static_cast<UINT>(indices.size());
 
-		//desc.ByteWidth = sizeof(UINT) * (UINT)indices.size();
-		//desc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_INDEX_BUFFER;
-		//desc.Usage = D3D11_USAGE_DEFAULT;
-		//desc.CPUAccessFlags = 0;
+		const UINT bufferSize = mIndexCount * sizeof(UINT);
 
-		//D3D11_SUBRESOURCE_DATA sub = {};
-		//sub.pSysMem = indices.data();
+		bufferDesc = CD3DX12_RESOURCE_DESC::Buffer(bufferSize);
 
-		//if (!GetDevice<GraphicDevice_DX11>()->CreateBuffer(&desc, &sub, buffer.GetAddressOf()))
-		//	assert(NULL && "indices buffer create fail!!");
+		GetDevice()->CreateCommittedResource(
+			&heapProps,
+			D3D12_HEAP_FLAG_NONE,
+			&bufferDesc,
+			D3D12_RESOURCE_STATE_GENERIC_READ,
+			nullptr,
+			IID_PPV_ARGS(buffer.GetAddressOf()));
+
+		UINT8* pData = nullptr;
+		CD3DX12_RANGE readRange(0, 0);
+		buffer->Map(0, &readRange, reinterpret_cast<void**>(&pData));
+		memcpy(pData, indices.data(), bufferSize);
+		buffer->Unmap(0, nullptr);
+
+		mIndexBufferView.BufferLocation = buffer->GetGPUVirtualAddress();
+		mIndexBufferView.Format         = DXGI_FORMAT_R32_UINT;
+		mIndexBufferView.SizeInBytes    = bufferSize;
 
 		return true;
 	}
 
 	void IndexBuffer::Bind() const
 	{
-		//GetDevice<GraphicDevice_DX11>()->BindIndexBuffer(buffer.Get(), DXGI_FORMAT_R32_UINT, 0);
+		GetDevice()->GetCommandList()->IASetIndexBuffer(&mIndexBufferView);
 	}
 }

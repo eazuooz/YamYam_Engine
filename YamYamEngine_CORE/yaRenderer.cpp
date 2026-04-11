@@ -138,17 +138,17 @@ namespace ya::renderer
 //		bsDesc = {};
 //		bsDesc.RenderTarget[0].BlendEnable = TRUE;
 //
-//		// »ö»ó ºí·»µù
+//		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //		bsDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
 //		bsDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
 //		bsDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
 //
-//		// ¾ËÆÄ ºí·»µù (º¸Åë ¹«½Ã)
+//		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 //		bsDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
 //		bsDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
 //		bsDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 //
-//		// Ãâ·Â ¸¶½ºÅ©: RGBA ´Ù ½áµµ µÈ´Ù
+//		// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å©: RGBA ï¿½ï¿½ ï¿½áµµ ï¿½È´ï¿½
 //		bsDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 //		GetDevice<GraphicDevice_DX11>()->CreateBlendState(&bsDesc, blendStates[static_cast<UINT>(eBlendState::OneOne)].GetAddressOf());
 //
@@ -235,35 +235,31 @@ namespace ya::renderer
 		//vertexes[3].uv = Vector2(0.0f, 1.0f);
 
 		// change rctangle  6 points
-		vertexes.resize(6);
-		vertexes[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
-		vertexes[0].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vertexes.resize(4);
+		vertexes[0].pos   = Vector3(-0.5f,  0.5f, 0.0f);
+		vertexes[0].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+		vertexes[0].uv    = Vector2(0.0f, 0.0f);
 
-		vertexes[1].pos = Vector3(0.5f, 0.5f, 0.0f);
-		vertexes[1].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertexes[1].pos   = Vector3( 0.5f,  0.5f, 0.0f);
+		vertexes[1].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+		vertexes[1].uv    = Vector2(1.0f, 0.0f);
 
-		vertexes[2].pos = Vector3(0.5f, -0.5f, 0.0f);
-		vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		vertexes[2].pos   = Vector3( 0.5f, -0.5f, 0.0f);
+		vertexes[2].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+		vertexes[2].uv    = Vector2(1.0f, 1.0f);
 
-		vertexes[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
-		vertexes[3].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-
-		vertexes[4].pos = Vector3(-0.5f, 0.5f, 0.0f);
-		vertexes[4].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-
-		vertexes[5].pos = Vector3(0.5f, -0.5f, 0.0f);
-		vertexes[5].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);	
-
-		indices.push_back(0);
-		indices.push_back(2);
-		indices.push_back(3);
+		vertexes[3].pos   = Vector3(-0.5f, -0.5f, 0.0f);
+		vertexes[3].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+		vertexes[3].uv    = Vector2(0.0f, 1.0f);
 
 		indices.push_back(0);
 		indices.push_back(1);
 		indices.push_back(2);
 
-		//Shader* spriteShader = Resources::Find<Shader>(L"SpriteDefaultShader");
-		Shader* spriteShader = Resources::Find<Shader>(L"TriangleShader");
+		indices.push_back(0);
+		indices.push_back(2);
+		indices.push_back(3);
+
 		mesh->CreateVB(vertexes);
 		mesh->CreateIB(indices);
 
@@ -279,8 +275,7 @@ namespace ya::renderer
 	void LoadShaders()
 	{
 		Resources::Load<Shader>(L"TriangleShader", L"..\\Shaders_SOURCE\\Triangle");
-		//Resources::Load<Shader>(L"SpriteDefaultShader", L"..\\Shaders_SOURCE\\SpriteDefault");
-		//Resources::Load<Shader>(L"WireframeShader", L"..\\Shaders_SOURCE\\Wireframe");
+		Resources::Load<Shader>(L"SpriteDefaultShader", L"..\\Shaders_SOURCE\\SpriteDefault");
 	}
 
 	void LoadMaterials()
@@ -357,7 +352,7 @@ namespace ya::renderer
 			{
 				if (gameObj == nullptr)
 					continue;
-				// to do : renderer »ó¼Ó±¸Á¶ ¸¸µé±â
+				// to do : renderer ï¿½ï¿½Ó±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 				BaseRenderer* baseRenderer = gameObj->GetComponent<BaseRenderer>();
 				if (baseRenderer == nullptr)
 					continue;

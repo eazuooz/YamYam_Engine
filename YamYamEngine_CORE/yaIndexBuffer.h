@@ -16,5 +16,6 @@ namespace ya::graphics
 
 	private:
 		UINT mIndexCount;
+		D3D12_INDEX_BUFFER_VIEW mIndexBufferView = {};
 	};
 }

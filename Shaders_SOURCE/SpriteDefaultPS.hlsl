@@ -1,13 +1,4 @@
-#include "Samplers.hlsli"
-#include "Textures.hlsli"
-
-
-struct VSInput
-{
-    float3 pos : POSITION;
-    float4 color : COLOR;
-    float2 uv : TEXCOORD;
-};
+// TODO: Texture 구현 후 sprite.Sample(anisotropicSampler, input.uv) 로 교체 예정
 
 struct VSOutput
 {
@@ -18,6 +9,5 @@ struct VSOutput
 
 float4 main(VSOutput input) : SV_Target
 {
-    float4 color = sprite.Sample(anisotropicSampler, input.uv);
-    return color;
+    return input.color;
 }

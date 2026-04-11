@@ -6,7 +6,7 @@
 #include <dxgi1_6.h>
 #include <d3dcompiler.h>
 
-// d3dx12´Â d3d12 ÀÌÈÄ Æ÷ÇÔ
+// d3dx12ï¿½ï¿½ d3d12 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //#include <include/d3dx12/d3dx12.h>
 #include <include\d3dx12\d3dx12.h>
 
@@ -28,7 +28,7 @@ namespace ya::graphics
 	{
 		math::Vector3 pos;
 		math::Vector4 color;
-		//math::Vector2 uv; //texture coordinate
+		math::Vector2 uv;
 	};
 
 	enum class eShaderStage
