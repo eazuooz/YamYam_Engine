@@ -74,9 +74,14 @@ namespace ya::graphics
 
 		Texture* GetAttachmentTexture(UINT index) { if (index >= mAttachments.size()) assert(NULL && "Rendertarget is not exist"); return mAttachments[index]; }
 		Texture* GetDepthAttachment() { return mDepthAttachment; }
+        // Display camera RGB without blending its alpha again. The normal
+        // attachment SRV still exposes the original RGBA channels.
+        D3D12_GPU_DESCRIPTOR_HANDLE GetDisplaySRV();
 		RenderTargetSpecification& GetSpecification() { return mSpecification; }
 
 	private:
+        void RetireDisplaySRV();
+        DescriptorHandle mDisplaySrv;
 		RenderTargetSpecification mSpecification;
         UINT mPendingWidth = 0, mPendingHeight = 0;
 

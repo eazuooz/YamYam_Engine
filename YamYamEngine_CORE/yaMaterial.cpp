@@ -1,4 +1,5 @@
 #include "yaMaterial.h"
+#include <stdexcept>
 
 namespace ya
 {
@@ -26,8 +27,7 @@ namespace ya
 
 	void Material::Bind()
 	{
-		if (mShader)
-			mShader->Bind();
+		BindShader();
 
 		if (mAlbedoTexture)
 			mAlbedoTexture->Bind(graphics::eShaderStage::PS, static_cast<UINT>(graphics::eTextureType::Albedo));
@@ -36,7 +36,7 @@ namespace ya
 	void Material::BindShader()
 	{
 		if (mShader)
-			mShader->Bind();
+			mShader->Bind(mMode);
 	}
 
 	void Material::BindTextures()
@@ -47,30 +47,10 @@ namespace ya
 
 	void Material::SetRenderingMode(const graphics::eRenderingMode mode)
 	{
+		if (mode < graphics::eRenderingMode::Opaque || mode >= graphics::eRenderingMode::End)
+			throw std::invalid_argument("Invalid material rendering mode");
+		// A shader can be shared by materials with different rendering modes.
+		// Select its PSO at draw time instead of changing shared shader defaults.
 		mMode = mode;
-
-		switch (mode)
-		{
-		case graphics::eRenderingMode::Opaque:
-			mShader->SetRasterizerState(graphics::eRasterizerState::SolidNone);
-			mShader->SetBlendState(graphics::eBlendState::Opaque);
-			mShader->SetDepthStencilState(graphics::eDepthStencilState::LessEqual);
-			break;
-
-		case graphics::eRenderingMode::CutOut:
-			mShader->SetRasterizerState(graphics::eRasterizerState::SolidNone);
-			mShader->SetBlendState(graphics::eBlendState::Cutout);
-			mShader->SetDepthStencilState(graphics::eDepthStencilState::LessEqual);
-			break;
-
-		case graphics::eRenderingMode::Transparent:
-			mShader->SetRasterizerState(graphics::eRasterizerState::SolidNone);
-			mShader->SetBlendState(graphics::eBlendState::Transparent);
-			mShader->SetDepthStencilState(graphics::eDepthStencilState::Always);
-			break;
-
-		default:
-			break;
-		}
 	}
 }

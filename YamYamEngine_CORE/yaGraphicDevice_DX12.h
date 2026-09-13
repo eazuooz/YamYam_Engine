@@ -42,7 +42,7 @@ namespace ya::graphics
 			REFIID riidResource,
 			void** ppvResource);
 		bool CreateVertexShader(const std::wstring& fileName, ID3DBlob** ppCode);
-		bool CreatePixelShader(const std::wstring& fileName, ID3DBlob** ppCode);
+		bool CreatePixelShader(const std::wstring& fileName, ID3DBlob** ppCode, const D3D_SHADER_MACRO* defines = nullptr);
 		bool CreateGraphicsPipelineState(_In_  const D3D12_GRAPHICS_PIPELINE_STATE_DESC* pDesc/*, void** ppPipelineState*/);
 
 		// binding command list...

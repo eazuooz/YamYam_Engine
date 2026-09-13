@@ -95,7 +95,7 @@ namespace gui
         ya::renderer::RenderSceneFromCamera(ya::SceneManager::GetDontDestroyOnLoad(), mEditorCamera);
         frameBuffer->Unbind();
 
-        const auto texture = frameBuffer->GetAttachmentTexture(0)->GetSRV();
+        const auto texture = frameBuffer->GetDisplaySRV();
         ImGui::Image(ImTextureID(texture.ptr), panelSize);
 
 		// To do : guizmo

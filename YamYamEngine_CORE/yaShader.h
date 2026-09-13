@@ -1,6 +1,8 @@
 #pragma once
 #include "yaResource.h"
 #include "yaGraphicDevice_DX12.h"
+#include <map>
+#include <tuple>
 
 namespace ya::graphics
 {
@@ -18,6 +20,7 @@ namespace ya::graphics
 		bool CreatePixelShader(const std::wstring& fileName);
 
 		void Bind();
+		void Bind(eRenderingMode mode);
 
 		Microsoft::WRL::ComPtr<ID3DBlob> GetVSBlob() const { return mVSBlob; }
 		Microsoft::WRL::ComPtr<ID3DBlob> GetHSBlob() const { return mHSBlob; }
@@ -36,8 +39,13 @@ namespace ya::graphics
 		void SetDepthStencilState(const eDepthStencilState state) { mDepthStencilState = state; }
 
 	private:
+		using PipelineKey = std::tuple<eRasterizerState, eBlendState, eDepthStencilState>;
+		ID3D12PipelineState* GetPipelineState(eRasterizerState rasterizer, eBlendState blend, eDepthStencilState depth);
+		void Bind(eRasterizerState rasterizer, eBlendState blend, eDepthStencilState depth);
 		static bool bWireframe;
-        Microsoft::WRL::ComPtr<ID3D12PipelineState> mPipelineState;
+		// Keep every used variant alive while submitted draws may reference it.
+		std::map<PipelineKey, Microsoft::WRL::ComPtr<ID3D12PipelineState>> mPipelineStates;
+		Microsoft::WRL::ComPtr<ID3DBlob> mCutoutPSBlob;
 
 		Microsoft::WRL::ComPtr<ID3DBlob> mVSBlob;
 		Microsoft::WRL::ComPtr<ID3DBlob> mHSBlob;

@@ -18,6 +18,7 @@ namespace ya::graphics
 
     RenderTarget::~RenderTarget()
     {
+        RetireDisplaySRV();
         for (auto* texture : mAttachments) delete texture;
         delete mDepthAttachment;
     }
@@ -28,6 +29,7 @@ namespace ya::graphics
     {
         if (mSpecification.Samples != 1) throw std::runtime_error("MSAA render targets are not supported yet");
         // Destructors defer GPU resource/descriptor release until the submitted frame completes.
+        RetireDisplaySRV();
         for (auto* texture : mAttachments) delete texture;
         mAttachments.clear();
         delete mDepthAttachment;
@@ -49,6 +51,30 @@ namespace ya::graphics
                 throw std::runtime_error("Render-target depth allocation failed");
             mDepthAttachment = depth.release();
         }
+    }
+
+    D3D12_GPU_DESCRIPTOR_HANDLE RenderTarget::GetDisplaySRV()
+    {
+        if (mDisplaySrv) return mDisplaySrv.Gpu;
+        if (mAttachments.empty() || mAttachments[0]->GetFormat() != DXGI_FORMAT_R8G8B8A8_UNORM)
+            throw std::runtime_error("Display SRV requires an RGBA8 color attachment");
+        mDisplaySrv = GetDevice()->AllocateDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+        D3D12_SHADER_RESOURCE_VIEW_DESC desc = {};
+        desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+        desc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
+        desc.Shader4ComponentMapping = D3D12_ENCODE_SHADER_4_COMPONENT_MAPPING(0, 1, 2,
+            D3D12_SHADER_COMPONENT_MAPPING_FORCE_VALUE_1);
+        desc.Texture2D.MipLevels = 1;
+        GetDevice()->GetID3D12Device()->CreateShaderResourceView(mAttachments[0]->GetResource(), &desc, mDisplaySrv.Cpu);
+        return mDisplaySrv.Gpu;
+    }
+
+    void RenderTarget::RetireDisplaySRV()
+    {
+        if (!mDisplaySrv) return;
+        Microsoft::WRL::ComPtr<ID3D12Resource> resource = mAttachments[0]->GetResource();
+        GetDevice()->RetireResource(std::move(resource), mDisplaySrv);
+        mDisplaySrv = {};
     }
 
     void RenderTarget::Bind()

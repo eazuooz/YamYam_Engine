@@ -286,6 +286,9 @@ namespace ya::renderer
 
 		auto spriteMaterial = new Material();
 		spriteMaterial->SetShader(Resources::Find<Shader>(L"SpriteDefaultShader"));
+		// The default sprite previously clipped alpha in every draw. Keep that
+		// behavior explicitly, while other materials can select true Opaque/Transparent.
+		spriteMaterial->SetRenderingMode(eRenderingMode::CutOut);
 		Resources::Insert(L"Sprite-Default-Material", spriteMaterial);
 	}
 
@@ -367,7 +370,7 @@ namespace ya::renderer
 					continue;
 				// to do : renderer ��ӱ��� �����
 				BaseRenderer* baseRenderer = gameObj->GetComponent<BaseRenderer>();
-				if (baseRenderer == nullptr)
+				if (baseRenderer == nullptr || baseRenderer->GetMaterial() == nullptr)
 					continue;
 
 				switch (baseRenderer->GetMaterial()->GetRenderingMode())

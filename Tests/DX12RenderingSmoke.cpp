@@ -90,21 +90,146 @@ static void SubmitFrame()
     GetDevice()->MoveToNextFrame();
 }
 
-static D3D12_GPU_VIRTUAL_ADDRESS Draw(Texture& texture, float x, float viewOffset = 0.0f)
+static D3D12_GPU_VIRTUAL_ADDRESS Draw(Texture& texture, float x, float viewOffset = 0.0f,
+    Material* material = nullptr, float depth = 0.5f)
 {
     TransformCB data = {};
-    data.World = Matrix::CreateScale(0.6f, 0.8f, 1.0f) * Matrix::CreateTranslation(x, 0.0f, 0.5f);
+    data.World = Matrix::CreateScale(0.6f, 0.8f, 1.0f) * Matrix::CreateTranslation(x, 0.0f, depth);
     data.View = Matrix::CreateTranslation(viewOffset, 0.0f, 0.0f);
     data.Projection = Matrix::Identity;
     auto* cb = renderer::constantBuffers[CBSLOT_TRANSFORM];
     cb->SetData(&data);
     cb->Bind(eShaderStage::All);
-    Resources::Find<Shader>(L"SpriteDefaultShader")->Bind();
+    if (material) material->Bind();
+    else Resources::Find<Shader>(L"SpriteDefaultShader")->Bind();
     texture.Bind(eShaderStage::PS, UINT(eTextureType::Sprite));
     auto* mesh = Resources::Find<Mesh>(L"RectMesh");
     mesh->Bind();
     GetDevice()->DrawIndexedInstanced(mesh->GetIndexCount(), 1, 0, 0, 0);
     return cb->GetCurrentGpuAddress();
+}
+
+static void RequirePixel(const Readback& result, const std::array<BYTE, 4>& expected, const char* message)
+{
+    const auto actual = result.Pixel(result.Width / 2, result.Height / 2);
+    for (size_t i = 0; i < 4; ++i)
+    {
+        if (std::abs(int(actual[i]) - int(expected[i])) <= 1) continue;
+        std::cerr << message << " (RGBA: ";
+        for (auto value : actual) std::cerr << int(value) << ' ';
+        std::cerr << "; expected: ";
+        for (auto value : expected) std::cerr << int(value) << ' ';
+        std::cerr << ")\n";
+        throw std::runtime_error(message);
+    }
+}
+
+static void CheckRenderingModes()
+{
+    auto* shader = Resources::Find<Shader>(L"SpriteDefaultShader");
+    Material opaque, cutout, transparent;
+    // Setting a mode before assigning a shader must be safe. All materials
+    // deliberately share one Shader, as they do in actual sprite scenes.
+    cutout.SetRenderingMode(eRenderingMode::CutOut);
+    transparent.SetRenderingMode(eRenderingMode::Transparent);
+    for (auto* material : { &opaque, &cutout, &transparent }) material->SetShader(shader);
+    Texture red, green, blue, halfRed, halfGreen, zeroRed, lowRed, edgeRed;
+    Require(red.CreateSolidColor(0xff0000ffu) && green.CreateSolidColor(0xff00ff00u)
+        && blue.CreateSolidColor(0xffff0000u) && halfRed.CreateSolidColor(0x800000ffu)
+        && halfGreen.CreateSolidColor(0x8000ff00u) && zeroRed.CreateSolidColor(0x000000ffu)
+        && lowRed.CreateSolidColor(0x020000ffu) && edgeRed.CreateSolidColor(0x030000ffu),
+        "Rendering-mode texture upload failed");
+    RenderTargetSpecification spec;
+    spec.Width = spec.Height = 64;
+    spec.Attachments = { eRenderTragetFormat::RGBA8, eRenderTragetFormat::Depth };
+    RenderTarget target(spec), reverseTarget(spec);
+    struct ExpectedResult { Readback Pixels; std::array<BYTE, 4> Expected; const char* Message; };
+    std::vector<ExpectedResult> results;
+    struct ModeDraw { Material* MaterialToBind; Texture* Sprite; float Depth; };
+    BeginFrame();
+    auto check = [&](std::initializer_list<ModeDraw> draws, std::array<BYTE, 4> expected, const char* message)
+    {
+        target.Bind();
+        for (const auto& draw : draws) Draw(*draw.Sprite, 0.0f, 0.0f, draw.MaterialToBind, draw.Depth);
+        target.Unbind();
+        results.push_back({ CopyToReadback(target.GetAttachmentTexture(0)), expected, message });
+    };
+    check({ {&opaque, &blue, .8f}, {&opaque, &zeroRed, .2f} }, {255, 0, 0, 0},
+        "Opaque incorrectly blended or clipped zero-alpha fragments");
+    check({ {&opaque, &red, .2f}, {&opaque, &green, .8f} }, {255, 0, 0, 255},
+        "Opaque did not test/write depth");
+    check({ {&opaque, &red, .5f}, {&opaque, &green, .5f} }, {0, 255, 0, 255},
+        "Opaque lost the legacy LessEqual depth comparison");
+    check({ {&opaque, &blue, .8f}, {&cutout, &zeroRed, .2f} }, {0, 0, 255, 255},
+        "CutOut did not discard zero alpha");
+    check({ {&opaque, &blue, .8f}, {&cutout, &lowRed, .2f}, {&opaque, &green, .5f} }, {0, 255, 0, 255},
+        "Discarded CutOut fragments wrote depth");
+    check({ {&opaque, &blue, .8f}, {&cutout, &edgeRed, .2f} }, {255, 0, 0, 3},
+        "CutOut rejected alpha above the 0.01 threshold");
+    check({ {&opaque, &blue, .8f}, {&cutout, &halfRed, .2f}, {&opaque, &green, .5f} }, {255, 0, 0, 128},
+        "CutOut blended accepted fragments or failed to write depth");
+    check({ {&opaque, &blue, .2f}, {&transparent, &halfRed, .8f} }, {128, 0, 127, 128},
+        "Transparent lost alpha blending or the legacy Always depth rule");
+    check({ {&transparent, &halfRed, .2f}, {&opaque, &green, .5f} }, {0, 255, 0, 255},
+        "Transparent incorrectly wrote depth");
+    check({ {&opaque, &blue, .2f}, {&transparent, &lowRed, .8f} }, {2, 0, 253, 2},
+        "Transparent incorrectly used the CutOut alpha threshold");
+    // Change mode between draws in the same command list, then switch back.
+    transparent.SetRenderingMode(eRenderingMode::Opaque);
+    check({ {&opaque, &blue, .8f}, {&transparent, &halfRed, .2f} }, {255, 0, 0, 128},
+        "Runtime material mode change did not select the opaque PSO");
+    transparent.SetRenderingMode(eRenderingMode::Transparent);
+    check({ {&opaque, &blue, .8f}, {&transparent, &halfRed, .2f} }, {128, 0, 127, 128},
+        "Runtime material mode change did not restore the transparent PSO");
+    // Direct Shader::Bind must still use its own defaults, unaffected by materials.
+    check({ {&opaque, &blue, .8f}, {nullptr, &halfRed, .2f} }, {255, 0, 0, 128},
+        "A material changed the shared shader's default state");
+
+    // Verify the real collector, group order and distance sorting in two cameras.
+    // Add objects in an intentionally wrong rendering order, with coplanar opaque
+    // and cutout sprites so swapping their queues changes the resulting pixel.
+    Scene objects;
+    auto add = [&](Material& material, Texture& texture, float z)
+    {
+        auto* object = new GameObject();
+        auto* transform = object->GetComponent<Transform>();
+        transform->SetPosition(0.0f, 0.0f, z);
+        transform->LateUpdate();
+        auto* sprite = object->AddComponent<SpriteRenderer>();
+        sprite->SetMaterial(&material);
+        sprite->SetSprite(&texture);
+        objects.AddGameObject(object, enums::eLayerType::Player);
+    };
+    add(transparent, halfGreen, -2.0f);
+    add(cutout, blue, 0.0f);
+    add(transparent, halfRed, 2.0f);
+    add(opaque, red, 0.0f);
+    GameObject frontCameraObject, backCameraObject;
+    auto* frontCamera = frontCameraObject.AddComponent<EditorCamera>();
+    auto* backCamera = backCameraObject.AddComponent<EditorCamera>();
+    frontCameraObject.GetComponent<Transform>()->SetPosition(0.0f, 0.0f, -10.0f);
+    backCameraObject.GetComponent<Transform>()->SetPosition(0.0f, 0.0f, 10.0f);
+    backCameraObject.GetComponent<Transform>()->SetRotation(0.0f, 180.0f, 0.0f);
+    frontCameraObject.GetComponent<Transform>()->LateUpdate();
+    backCameraObject.GetComponent<Transform>()->LateUpdate();
+    for (auto* camera : {frontCamera, backCamera})
+    {
+        camera->SetProjectionType(Camera::eProjectionType::Orthographic);
+        camera->SetSize(32.0f);
+    }
+    target.Bind();
+    renderer::RenderSceneFromCamera(&objects, frontCamera);
+    target.Unbind();
+    results.push_back({CopyToReadback(target.GetAttachmentTexture(0)), {64, 128, 63, 128},
+        "Scene rendering did not draw Opaque/CutOut/Transparent in order, far transparent first"});
+    reverseTarget.Bind();
+    renderer::RenderSceneFromCamera(&objects, backCamera);
+    reverseTarget.Unbind();
+    results.push_back({CopyToReadback(reverseTarget.GetAttachmentTexture(0)), {128, 64, 63, 128},
+        "Reverse camera did not re-sort transparency or culled the double-sided sprite"});
+    SubmitFrame();
+    GetDevice()->WaitForGpu();
+    for (const auto& result : results) RequirePixel(result.Pixels, result.Expected, result.Message);
 }
 
 int main(int argc, char** argv)
@@ -167,6 +292,8 @@ int main(int argc, char** argv)
                 game.RequestResize(0, 0); // Minimized/collapsed panels must not destroy the last valid target.
                 game.Bind();
                 Require(game.GetSpecification().Width == size, "Pending RT resize was lost");
+                Require(game.GetDisplaySRV().ptr != game.GetAttachmentTexture(0)->GetSRV().ptr,
+                    "Display and original RGBA must have separate SRVs");
                 std::set<D3D12_GPU_VIRTUAL_ADDRESS> addresses;
                 Texture& left = frame % 2 ? green : red;
                 Texture& right = frame % 2 ? red : green;
@@ -198,6 +325,8 @@ int main(int argc, char** argv)
                 Require(result.Scene.Pixel(w/2, h/2) == expectedLeft, "Scene camera output is incorrect");
                 Require(result.Scene.Pixel(w/4, h/2)[3] == 0, "Scene camera matrix leaked from the Game pass");
             }
+
+            CheckRenderingModes();
 
             // Exercise the engine's actual object/renderer/camera path too, with
             // unequal panel aspect ratios and two independent camera transforms.
@@ -253,22 +382,36 @@ int main(int argc, char** argv)
             // Run the actual editor backend without desktop input or visible
             // platform windows. Read back the composed swap-chain image.
             {
+                Texture halfRed;
+                Require(halfRed.CreateSolidColor(0x800000ffu), "ImGui transparency texture upload failed");
+                Material transparent;
+                transparent.SetRenderingMode(eRenderingMode::Transparent);
+                transparent.SetShader(Resources::Find<Shader>(L"SpriteDefaultShader"));
+                RenderTarget blended(spec);
                 gui::ImguiEditor editor;
                 editor.Initialize();
                 auto& io = ImGui::GetIO();
                 io.ConfigFlags &= ~ImGuiConfigFlags_ViewportsEnable;
                 io.IniFilename = nullptr;
                 BeginFrame();
+                blended.Bind();
+                Draw(green, 0.0f);
+                Draw(halfRed, 0.0f, 0.0f, &transparent);
+                blended.Unbind();
+                auto blendedPixels = CopyToReadback(blended.GetAttachmentTexture(0));
                 editor.Begin();
                 ImGui::SetNextWindowPos(ImVec2(0, 0));
                 ImGui::SetNextWindowSize(ImVec2(300, 160));
                 ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
                 ImGui::Begin("GPU smoke images", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoSavedSettings);
-                ImGui::Image(ImTextureID(game.GetAttachmentTexture(0)->GetSRV().ptr), ImVec2(80, 80));
+                ImGui::Image(ImTextureID(game.GetDisplaySRV().ptr), ImVec2(80, 80));
                 const ImVec2 gameOrigin = ImGui::GetItemRectMin();
                 ImGui::SameLine();
-                ImGui::Image(ImTextureID(scene.GetAttachmentTexture(0)->GetSRV().ptr), ImVec2(80, 80));
+                ImGui::Image(ImTextureID(scene.GetDisplaySRV().ptr), ImVec2(80, 80));
                 const ImVec2 sceneOrigin = ImGui::GetItemRectMin();
+                ImGui::SameLine();
+                ImGui::Image(ImTextureID(blended.GetDisplaySRV().ptr), ImVec2(80, 80));
+                const ImVec2 blendedOrigin = ImGui::GetItemRectMin();
                 ImGui::End();
                 ImGui::PopStyleVar();
                 editor.End(); // Binds the main RTV, renders ImGui, and closes the list.
@@ -291,6 +434,14 @@ int main(int argc, char** argv)
                     "ImGui Game image lost its second draw");
                 Require(composition.Pixel(UINT(sceneOrigin.x) + 40, UINT(sceneOrigin.y) + 40) == greenPixel,
                     "ImGui Scene image did not sample its own SRV");
+                RequirePixel(blendedPixels, {128, 127, 0, 128}, "Original render-target alpha was not preserved");
+                const auto displayed = composition.Pixel(UINT(blendedOrigin.x) + 40, UINT(blendedOrigin.y) + 40);
+                Require(std::abs(int(displayed[0]) - 128) <= 1 && std::abs(int(displayed[1]) - 127) <= 1
+                    && displayed[2] == 0 && displayed[3] == 255,
+                    "ImGui applied alpha a second time to the already-composited camera image");
+                const std::array<BYTE, 4> black = {0, 0, 0, 255};
+                Require(composition.Pixel(UINT(blendedOrigin.x) + 4, UINT(blendedOrigin.y) + 4) == black,
+                    "Camera clear RGB was replaced by the ImGui window background");
             }
         }
         // Destruction defers descriptors until the next submission; upload-only
@@ -333,6 +484,7 @@ int main(int argc, char** argv)
         std::cout << "PASS: " << (warp ? "WARP" : "hardware")
             << ", 8 frames, " << frameSlots.size() << " frame slots, 303 draws/frame, two camera outputs, "
             << "texture upload, resize, deferred descriptor reuse, ImGui image composition, "
+            << "Opaque/CutOut/Transparent pixels and depth, per-camera sorting, shared-shader mode changes, "
             << (messages ? "zero D3D12 errors" : "debug layer unavailable") << '\n';
     }
     catch (const std::exception& error)

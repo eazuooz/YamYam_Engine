@@ -14,5 +14,8 @@ struct VSOutput
 
 float4 main(VSOutput input) : SV_Target
 {
+#if defined(YA_ALPHA_TEST)
+    clip(input.color.a - 0.01f);
+#endif
     return input.color;
 }

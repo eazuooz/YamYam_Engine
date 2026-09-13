@@ -348,7 +348,7 @@ namespace gui
             // Game was rendered earlier in this frame: apply the new size on
             // its next Bind, keeping this frame's displayed texture intact.
             FrameBuffer->RequestResize(UINT(panelSize.x), UINT(panelSize.y));
-            ImGui::Image(ImTextureID(FrameBuffer->GetAttachmentTexture(0)->GetSRV().ptr), panelSize);
+            ImGui::Image(ImTextureID(FrameBuffer->GetDisplaySRV().ptr), panelSize);
             if (ImGui::BeginDragDropTarget())
             {
                 if (const auto* payload = ImGui::AcceptDragDropPayload("PROJECT_ITEM"))

@@ -1,6 +1,6 @@
 # DX12 Scene / Game 뷰 연결
 
-Scene과 Game은 각각 별도의 컬러·깊이 텍스처에 렌더링한다. ImGui는 컬러 텍스처의 GPU SRV 핸들을 받아 에디터 백버퍼에 합성한다.
+Scene과 Game은 각각 별도의 컬러·깊이 텍스처에 렌더링한다. ImGui는 표시용 GPU SRV 핸들을 받아 에디터 백버퍼에 합성한다. 표시용 SRV는 이미 합성된 RGB를 그대로 보여주도록 샘플 알파를 1로 고정하며, 원본 텍스처의 RGBA 값은 보존한다.
 
 ## 프레임 순서
 
@@ -10,7 +10,7 @@ Scene과 Game은 각각 별도의 컬러·깊이 텍스처에 렌더링한다. I
 4. 에디터 모드에서는 `renderer::FrameBuffer`에 게임 씬을 렌더링한다. 게임 전용 모드는 백버퍼에 직접 렌더링한다.
 5. `SceneWindow::Run()`이 별도 `EditorCamera`로 씬 렌더 타깃에 그린다. 숨겨진 Scene 탭은 렌더링을 생략한다.
 6. 각 컬러 텍스처를 `RENDER_TARGET`에서 `PIXEL_SHADER_RESOURCE` 상태로 바꾼다.
-7. Game과 Scene의 `ImGui::Image(ImTextureID(texture->GetSRV().ptr), size)`가 각각의 이미지를 참조한다.
+7. Game과 Scene의 `ImGui::Image(ImTextureID(renderTarget->GetDisplaySRV().ptr), size)`가 각각의 이미지를 참조한다.
 8. `ImguiEditor::End()`가 백버퍼 RTV를 복원하고 ImGui를 렌더링한 뒤 `PRESENT` 상태로 전환하고 리스트를 닫는다.
 9. 메인 리스트, 분리된 ImGui 창, Present 순서로 실행하고 프레임 Fence를 기록한다.
 10. 두 렌더 경로가 끝난 뒤 `Application::EndOfFrame()`에서 씬 이벤트를 처리한다.
@@ -22,7 +22,37 @@ Scene과 Game은 각각 별도의 컬러·깊이 텍스처에 렌더링한다. I
 - SRV/UAV 4096개, 오프스크린 RTV 256개, DSV 256개를 할당할 수 있다. 고갈되면 예외를 발생시키며 슬롯을 덮어쓰지 않는다.
 - 파일 텍스처는 WIC/DDS/TGA에서 2D 이미지의 mip 0을 RGBA8로 읽고, 별도 upload 리스트로 업로드한 후 완료를 기다린다.
 - `SpriteDefaultPS`가 t0/s0을 샘플링한다. 스프라이트가 없으면 흰색 기본 텍스처를 사용한다.
-- 각 `Shader`가 자기 PSO를 소유한다. 게임 렌더 PSO는 D24S8 깊이를 사용하고 ImGui 합성에서는 DSV를 바인딩하지 않는다.
+- 각 `Shader`가 rasterizer/blend/depth 조합별 PSO를 캐시한다. 게임 렌더 PSO는 D24S8 깊이를 사용하고 ImGui 합성에서는 DSV를 바인딩하지 않는다.
+
+## 불투명·컷아웃·반투명 렌더링
+
+DX11 시절의 렌더 큐와 상태 조합을 DX12 PSO에 연결했다.
+
+| 순서 | 모드 | 카메라와 오브젝트 위치 사이의 거리 정렬 | RGB 블렌딩 | 깊이 비교 / 기록 |
+|---|---|---|---|---|
+| 1 | Opaque | 가까운 것부터 | 끔 | LessEqual / 켬 |
+| 2 | CutOut | 가까운 것부터 | 끔 | LessEqual / 켬 |
+| 3 | Transparent | 먼 것부터 | SrcAlpha / InvSrcAlpha | Always / 끔 |
+
+- 카메라마다 목록을 수집하고 다시 정렬한다. 기존 오브젝트 중심 거리 기준을 유지한다.
+- Transparent의 `Always`는 이전 동작을 보존한 설정이다. 불투명 물체 뒤의 반투명 오브젝트도 그 위에 합성된다.
+- 알파 채널도 기존 `ONE / ZERO` 설정을 유지하므로 마지막 통과 프래그먼트의 알파를 저장한다.
+- `Material::SetRenderingMode()`는 머티리얼 자신의 모드만 바꾼다. `Bind()`와 `BindShader()`에서 모드를 전달하므로 같은 Shader를 공유해도 상태가 섞이지 않는다. 셰이더 할당 전에도 모드를 설정할 수 있다.
+- 기본 PSO 세 가지는 Shader 로딩 때 생성한다. 기존 Shader 상태 setter와 직접 `Bind()`를 이용하는 추가 조합도 캐시하며, 모드를 전환할 때 이전 PSO를 파괴하지 않는다.
+- SpriteDefault와 Triangle 픽셀 셰이더는 CutOut 변형에서만 `clip(alpha - 0.01f)`를 실행한다. Opaque와 Transparent는 이 임계값을 적용하지 않는다. 다른 픽셀 셰이더를 추가할 때도 CutOut을 지원하려면 `YA_ALPHA_TEST` 분기를 구현한다.
+- 기존 스프라이트의 알파 잘라내기를 유지하기 위해 `Sprite-Default-Material`은 명시적으로 CutOut을 사용한다. 일반 `Material` 생성자의 기본값은 Opaque다.
+
+반투명 스프라이트를 만들 때는 공유 기본 머티리얼을 바꾸는 대신 해당 오브젝트용 머티리얼을 등록한다.
+
+```cpp
+auto* material = new ya::Material();
+material->SetShader(ya::Resources::Find<ya::graphics::Shader>(L"SpriteDefaultShader"));
+material->SetRenderingMode(ya::graphics::eRenderingMode::Transparent);
+ya::Resources::Insert(L"Player-Transparent-Material", material);
+spriteRenderer->SetMaterial(material);
+```
+
+Scene/Game은 완성된 카메라 화면을 표시한다. `RenderTarget::GetDisplaySRV()`는 RGB를 그대로 읽고 알파만 1로 반환하는 별도 descriptor를 사용한다. ImGui가 반투명 결과를 두 번 블렌딩하지 않으며, 빈 영역은 타깃의 검정 clear 색으로 보인다. 원본 알파가 필요한 셰이더는 기존 `GetAttachmentTexture(0)->GetSRV()`를 사용한다. 표시용 descriptor도 리사이즈·삭제 시 GPU Fence 완료 후 반환한다.
 
 ## 상수 버퍼
 
@@ -64,6 +94,9 @@ Scene과 Game은 각각 별도의 컬러·깊이 텍스처에 렌더링한다. I
 - 파일 텍스처 로드·업로드와 여러 텍스처의 독립적인 SRV
 - 서로 다른 카메라 행렬과 64KiB 상수 버퍼 페이지 경계 초과
 - 실제 Scene/SpriteRenderer/Camera 경로와 서로 다른 패널 종횡비
+- 모드별 GPU RGBA, CutOut 임계값/버려진 픽셀의 깊이, LessEqual/Always와 깊이 기록 여부
+- 같은 Shader를 공유한 머티리얼의 프레임 내 모드 전환과 반대쪽 카메라의 반투명 정렬
+- ImGui에서 반투명 RGB의 중복 블렌딩 방지와 원본 타깃 알파 보존
 - 두 엔진 렌더 타깃을 실제 `ImguiEditor::End()`로 합성한 백버퍼 픽셀
 - 반복 RT 리사이즈, 0 크기 요청, 스왑체인 리사이즈
 - 프레임 제출 전 descriptor 보존과 완료 후 슬롯 회수

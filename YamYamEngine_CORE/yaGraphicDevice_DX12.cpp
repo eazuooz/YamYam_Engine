@@ -434,7 +434,7 @@ namespace ya::graphics
         return SUCCEEDED(hr);
 	}
 
-	bool GraphicDevice_DX12::CreatePixelShader(const std::wstring& fileName, ID3DBlob** ppCode)
+	bool GraphicDevice_DX12::CreatePixelShader(const std::wstring& fileName, ID3DBlob** ppCode, const D3D_SHADER_MACRO* defines)
 	{
 #if defined(_DEBUG)
 		// Enable better shader debugging with the graphics debugging tools.
@@ -444,7 +444,7 @@ namespace ya::graphics
 #endif
 		ID3DBlob* errorBlob = nullptr;
 
-		const HRESULT hr = D3DCompileFromFile((fileName + L"PS.hlsl").c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+		const HRESULT hr = D3DCompileFromFile((fileName + L"PS.hlsl").c_str(), defines, D3D_COMPILE_STANDARD_FILE_INCLUDE
 			, "main", "ps_5_0", compileFlags, 0, ppCode, &errorBlob);
 
 		if (errorBlob)
