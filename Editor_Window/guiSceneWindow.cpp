@@ -2,7 +2,6 @@
 #include "..\\YamYamEngine_CORE\\yaRenderer.h"
 
 #include "..\\YamYamEngine_CORE\\yaTransform.h"
-#include "..\\YamYamEngine_CORE\\yaGraphicDevice_DX11.h"
 #include "..\\YamYamEngine_CORE\\yaApplication.h"
 #include "..\\YamYamEngine_CORE\\yaWindow.h"
 #include "..\\YamYamEngine_CORE\\yaSceneManager.h"
@@ -69,71 +68,35 @@ namespace gui
 	{
 		bool Active = (bool)GetState();
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
-		ImGui::Begin(GetName().c_str(), &Active, GetFlag());
+        const bool visible = ImGui::Begin(GetName().c_str(), &Active, GetFlag());
+        ViewportFocused = ImGui::IsWindowFocused();
+        ViewportHovered = ImGui::IsWindowHovered();
+        const ImVec2 panelSize = ImGui::GetContentRegionAvail();
+        if (!visible || panelSize.x < 1.0f || panelSize.y < 1.0f)
+        {
+            ImGui::End();
+            ImGui::PopStyleVar();
+            return;
+        }
+        ViewportSize = Vector2(panelSize.x, panelSize.y);
+        const ImVec2 origin = ImGui::GetCursorScreenPos();
+        ViewportBounds[0] = Vector2(origin.x, origin.y);
+        ViewportBounds[1] = Vector2(origin.x + panelSize.x, origin.y + panelSize.y);
 
-		Update();
-		OnGUI();
+        Update();
+        OnGUI();
+        auto* cameraTr = mEditorCameraObject->GetComponent<ya::Transform>();
+        cameraTr->LateUpdate();
+        auto* frameBuffer = mEditorCamera->GetRenderTarget();
+        frameBuffer->RequestResize(UINT(panelSize.x), UINT(panelSize.y));
+        frameBuffer->Bind();
+        auto* scene = ya::SceneManager::GetActiveScene();
+        ya::renderer::RenderSceneFromCamera(scene, mEditorCamera);
+        ya::renderer::RenderSceneFromCamera(ya::SceneManager::GetDontDestroyOnLoad(), mEditorCamera);
+        frameBuffer->Unbind();
 
-		// Calculate view, projection, and camera position
-		ya::Transform* cameraTr = mEditorCamera->GetOwner()->GetComponent<ya::Transform>();
-		cameraTr->LateUpdate();
-		mEditorCamera->LateUpdate();
-		
-		//// clear the render target view & depth stencil view
-		//ya::graphics::RenderTarget* rt = mEditorCamera->GetRenderTarget();
-		//Microsoft::WRL::ComPtr<ID3D11RenderTargetView> rtv = rt->GetAttachmentTexture(0)->GetRTV();
-		//ya::graphics::GetDevice<ya::graphics::GraphicDevice_DX11>()->ClearRenderTargetView(rtv);
-		//Microsoft::WRL::ComPtr<ID3D11DepthStencilView> dsv = rt->GetDepthAttachment()->GetDSV();
-		//ya::graphics::GetDevice<ya::graphics::GraphicDevice_DX11>()->ClearDepthStencilView(dsv);
-
-		//// set scene view render target & depth stencil view
-		//ya::graphics::GetDevice<ya::graphics::GraphicDevice_DX11>()->BindRenderTargets(1, rtv.GetAddressOf(), dsv.Get());
-
-		// render the scene
-		Matrix viewMatrix = mEditorCamera->GetViewMatrix();
-		Matrix projectionMatrix = mEditorCamera->GetProjectionMatrix();
-		Vector3 cameraPos = mEditorCamera->GetOwner()->GetComponent<ya::Transform>()->GetPosition();
-
-		std::vector<ya::GameObject*> opaqueList = {};
-		std::vector<ya::GameObject*> cutoutList = {};
-		std::vector<ya::GameObject*> transparentList = {};
-
-		// collect randerables(game objects)
-		ya::Scene* scene = ya::SceneManager::GetActiveScene();
-		ya::renderer::CollectRenderables(scene, opaqueList, cutoutList, transparentList);
-
-		// soring renderables by distance (between camera and game object)
-		ya::renderer::SortByDistance(opaqueList, cameraPos, true);
-		ya::renderer::SortByDistance(cutoutList, cameraPos, true);
-		ya::renderer::SortByDistance(transparentList, cameraPos, false);
-
-		//render game objects
-		//ya::renderer::RenderRenderables(opaqueList, viewMatrix, projectionMatrix);
-		//ya::renderer::RenderRenderables(cutoutList, viewMatrix, projectionMatrix);
-		//ya::renderer::RenderRenderables(transparentList, viewMatrix, projectionMatrix);
-
-		// render the scene from the editor camera
-		ya::renderer::RenderSceneFromCamera(scene, mEditorCamera);
-
-		// imgui scene view viewport
-		const auto viewportMinRegion = ImGui::GetWindowContentRegionMin(); // ¾ÀºäÀÇ ÃÖ¼Ò ÁÂÇ¥
-		const auto viewportMaxRegion = ImGui::GetWindowContentRegionMax(); // ¾ÀºäÀÇ ÃÖ´ë ÁÂÇ¥
-		const auto viewportOffset = ImGui::GetWindowPos(); // ¾ÀºäÀÇ À§Ä¡
-
-		constexpr int letTop = 0;
-		constexpr int rightBottom = 1;
-		ViewportBounds[letTop] = Vector2{ viewportMinRegion.x + viewportOffset.x, viewportMinRegion.y + viewportOffset.y };
-		ViewportBounds[rightBottom] = Vector2{ viewportMaxRegion.x + viewportOffset.x, viewportMaxRegion.y + viewportOffset.y };
-
-
-		// get the camera render target view
-		// rendering framebuffer image to the sceneview
-		ya::graphics::RenderTarget* frameBuffer = mEditorCamera->GetRenderTarget();
-		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-		ya::math::Vector2 ViewportSize = Vector2{ viewportPanelSize.x, viewportPanelSize.y };
-		//ya::graphics::Texture* texture = frameBuffer->GetAttachmentTexture(0);
-		//ImGui::Image((ImTextureID)texture->GetSRV().Get(), ImVec2{ ViewportSize.x, ViewportSize.y }
-		//			, ImVec2{ 0, 0 }, ImVec2{ 1, 1 });
+        const auto texture = frameBuffer->GetAttachmentTexture(0)->GetSRV();
+        ImGui::Image(ImTextureID(texture.ptr), panelSize);
 
 		// To do : guizmo
 		ya::GameObject* selectedObject = ya::renderer::selectedObject;
@@ -157,7 +120,7 @@ namespace gui
 			ya::math::Matrix worldMatrix = transform->GetWorldMatrix();
 
 			// snapping
-			bool snap = ya::Input::GetKey(ya::eKeyCode::Leftcontrol);
+			bool snap = ImGui::GetIO().KeyCtrl;
 			float snapValue = 0.5f; 
 
 			// snap to 45 degrees for rotation

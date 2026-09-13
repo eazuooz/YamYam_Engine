@@ -15,7 +15,7 @@ namespace ya
 
 	void EditorCamera::Initialize()
 	{
-		Camera::Initialize();
+        // Editor cameras are owned by the Scene panel, not the game scene camera list.
 	}
 
 	void EditorCamera::Update()

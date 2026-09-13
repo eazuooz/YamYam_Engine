@@ -1017,14 +1017,11 @@ static void ImGui_ImplDX12_CreateWindow(ImGuiViewport* viewport)
 
     vd->FrameIndex = UINT_MAX;
 
-    // Create command queue.
-    D3D12_COMMAND_QUEUE_DESC queue_desc = {};
-    queue_desc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
-    queue_desc.Type = D3D12_COMMAND_LIST_TYPE_DIRECT;
-
+    // YamYam: use the engine queue so Scene/Game textures are produced before
+    // detached windows sample them, and the engine fence covers every consumer.
     HRESULT res = S_OK;
-    res = bd->pd3dDevice->CreateCommandQueue(&queue_desc, IID_PPV_ARGS(&vd->CommandQueue));
-    IM_ASSERT(res == S_OK);
+    vd->CommandQueue = bd->pCommandQueue;
+    vd->CommandQueue->AddRef();
 
     // Create command allocator.
     for (UINT i = 0; i < bd->numFramesInFlight; ++i)

@@ -1,4 +1,5 @@
-// TODO: Texture 구현 후 sprite.Sample(anisotropicSampler, input.uv) 로 교체 예정
+Texture2D sprite : register(t0);
+SamplerState spriteSampler : register(s0);
 
 struct VSOutput
 {
@@ -9,5 +10,7 @@ struct VSOutput
 
 float4 main(VSOutput input) : SV_Target
 {
-    return input.color;
+    float4 color = sprite.Sample(spriteSampler, input.uv) * input.color;
+    clip(color.a - 0.01f);
+    return color;
 }

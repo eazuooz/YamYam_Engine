@@ -11,7 +11,7 @@
 ya::Application application;
 
 #define MAX_LOADSTRING 100
-//#define WITH_EDITOR 
+#define WITH_EDITOR
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
@@ -47,7 +47,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, //프로그램의 인스턴스 �
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_EDITORWINDOW));
 
-    MSG msg;
+    MSG msg = {};
     while (application.IsRunning())
     {
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
@@ -63,6 +63,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, //프로그램의 인스턴스 �
         }
         else
         {
+            if (!application.GetWindow().GetWidth() || !application.GetWindow().GetHeight())
+            {
+                WaitMessage();
+                continue;
+            }
 #ifdef WITH_EDITOR
             // Wait for GPU to finish with the current frame's resources BEFORE
             // resetting the command allocator or recording any commands.
@@ -91,8 +96,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, //프로그램의 인스턴스 �
 #else
             application.MoveToNextFrame();
 #endif
+            application.EndOfFrame();
         }
     }
+    application.WaitforGpu();
 #ifdef WITH_EDITOR
     gui::EditorApplication::Release();
 #endif
@@ -156,6 +163,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    if (FAILED(hr))
        assert(false);
 
+#ifdef WITH_EDITOR
+   application.SetEditorMode(true);
+#endif
    application.Initialize(hWnd, width, height);
 #ifdef WITH_EDITOR
 #else

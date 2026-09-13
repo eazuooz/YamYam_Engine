@@ -54,6 +54,7 @@ namespace gui
 
 
 		ImguiEditor->Initialize();
+        ya::Input::SetGameInputEnabled(false);
 
 		//HierarchyWindow
 		HierarchyWindow* hierarchy = new HierarchyWindow();
@@ -332,43 +333,37 @@ namespace gui
 			ImGui::EndMenuBar();
 		}
 
-		auto iter = EditorWindows.find(L"SceneWindow");
-		dynamic_cast<SceneWindow*>(iter->second)->SetGuizmoType(GuizmoType);
+        auto sceneWindow = static_cast<SceneWindow*>(EditorWindows.at(L"SceneWindow"));
+        sceneWindow->SetGuizmoType(GuizmoType);
 
-		// check if the mouse,keyboard is on the Sceneview
-		ViewportFocused = ImGui::IsWindowFocused();
-		ViewportHovered = ImGui::IsWindowHovered();
-		ImguiEditor->BlockEvent(!ViewportHovered);
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+        const bool gameVisible = ImGui::Begin("Game");
+        ViewportFocused = ImGui::IsWindowFocused();
+        ViewportHovered = ImGui::IsWindowHovered();
+        ya::Input::SetGameInputEnabled(gameVisible && ViewportFocused && ViewportHovered);
+        const ImVec2 panelSize = ImGui::GetContentRegionAvail();
+        if (gameVisible && panelSize.x >= 1.0f && panelSize.y >= 1.0f)
+        {
+            ViewportSize = Vector2(panelSize.x, panelSize.y);
+            // Game was rendered earlier in this frame: apply the new size on
+            // its next Bind, keeping this frame's displayed texture intact.
+            FrameBuffer->RequestResize(UINT(panelSize.x), UINT(panelSize.y));
+            ImGui::Image(ImTextureID(FrameBuffer->GetAttachmentTexture(0)->GetSRV().ptr), panelSize);
+            if (ImGui::BeginDragDropTarget())
+            {
+                if (const auto* payload = ImGui::AcceptDragDropPayload("PROJECT_ITEM"))
+                    OpenScene(static_cast<const wchar_t*>(payload->Data));
+                ImGui::EndDragDropTarget();
+            }
+        }
+        ImGui::End();
+        ImGui::PopStyleVar();
+        ImGui::End(); // Dockspace host
 
-		// viewport
-		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
-		ImGui::Begin("Game");
-		
-		// rendering framebuffer image to the gameview
-		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-		ViewportSize = Vector2{ viewportPanelSize.x, viewportPanelSize.y };
-		//ya::graphics::Texture* texture = FrameBuffer->GetAttachmentTexture(0);
-		//ImGui::Image((ImTextureID)texture->GetSRV().Get(), ImVec2{ ViewportSize.x, ViewportSize.y }
-		//			, ImVec2{ 0, 0 }, ImVec2{ 1, 1 });
+        for (auto& window : EditorWindows)
+            window.second->Run();
+        ImguiEditor->BlockEvent(!ViewportHovered && !sceneWindow->IsViewportFocused());
 
-		// Open Scene by drag and drop
-		if (ImGui::BeginDragDropTarget())
-		{
-			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("PROJECT_ITEM"))
-			{
-				const auto path = static_cast<const wchar_t*>(payload->Data);
-				OpenScene(path);
-			}
-			ImGui::EndDragDropTarget();
-		}
-
-		for (auto& iter : EditorWindows)
-			iter.second->Run();
-
-		ImGui::End();	// Scene end
-
-		ImGui::PopStyleVar();
-		ImGui::End(); // dockspace end
 	}
 
 	// Events
@@ -417,11 +412,13 @@ namespace gui
 
 	bool EditorApplication::OnKeyPressed(ya::KeyPressedEvent& e)
 	{
-		if (e.IsRepeat())
+        auto* sceneWindow = static_cast<SceneWindow*>(EditorWindows.at(L"SceneWindow"));
+        if (!sceneWindow->IsViewportFocused()) return false;
+        if (e.IsRepeat())
 			return false;
 
-		bool control = ya::Input::GetKey(ya::eKeyCode::Leftcontrol) || ya::Input::GetKey(ya::eKeyCode::RightControl);
-		bool shift = ya::Input::GetKey(ya::eKeyCode::LeftShift) || ya::Input::GetKey(ya::eKeyCode::RightShift);
+		bool control = ImGui::GetIO().KeyCtrl;
+		bool shift = ImGui::GetIO().KeyShift;
 
 		switch (e.GetKeyCode())
 		{

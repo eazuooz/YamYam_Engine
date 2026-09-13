@@ -22,6 +22,7 @@ namespace ya::renderer
 	extern RenderTarget* FrameBuffer;
 
 	void Initialize();
+    void BeginFrame();
 	void RenderSceneFromCamera(Scene* scene, Camera* camera);
 	void CollectRenderables(const Scene* scene, std::vector<GameObject*>& opaqueList, std::vector<GameObject*>& cutoutList
 		, std::vector<GameObject*>& transparentList);

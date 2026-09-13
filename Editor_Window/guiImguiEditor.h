@@ -3,7 +3,6 @@
 
 #include "guiEditor.h"
 #include "guiEditorWindow.h"
-#include "guiDescriptorAllocator.h"
 
 namespace gui
 {
@@ -31,7 +30,6 @@ namespace gui
 		void BlockEvent(bool block) { mBlockEvent = block; }
 
 	private:
-		static DescriptorHeapAllocator DescHeapAllocator;
 
 		bool mBlockEvent;
 		// descriptor allocator

@@ -58,6 +58,7 @@ namespace ya
 		};
 
 		static void Initialize();
+        static void SetGameInputEnabled(bool enabled) { GameInputEnabled = enabled; }
 		static void Update();
 
 		__forceinline static bool GetKeyDown(eKeyCode code)
@@ -76,6 +77,7 @@ namespace ya
 		__forceinline static void SetBlocked(bool blocked) { mBlocked = blocked; }
 
 	private:
+        inline static bool GameInputEnabled = true;
 		static void createKeys();
 		static void updateKeys();
 		static void updateKey(Key& key);

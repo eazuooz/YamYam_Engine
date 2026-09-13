@@ -121,8 +121,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)Shaders_SOURCE" "$(SolutionDir)\x64\Shaders_SOURCE" /E /I /Y
-xcopy "$(SolutionDir)Resources" "$(SolutionDir)\x64\Resources" /E /I /Y</Command>
+      <Command>xcopy "$(SolutionDir)Shaders_SOURCE" "$(OutDir)..\Shaders_SOURCE" /E /I /Y
+xcopy "$(SolutionDir)Resources" "$(OutDir)..\Resources" /E /I /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -144,8 +144,8 @@ xcopy "$(SolutionDir)Resources" "$(SolutionDir)\x64\Resources" /E /I /Y</Command
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>
-xcopy "$(SolutionDir)Shaders_SOURCE" "$(SolutionDir)x64￦Shaders_SOURCE￦" /E /I /Y</Command>
+      <Command>xcopy "$(SolutionDir)Shaders_SOURCE" "$(OutDir)..\Shaders_SOURCE" /E /I /Y
+xcopy "$(SolutionDir)Resources" "$(OutDir)..\Resources" /E /I /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

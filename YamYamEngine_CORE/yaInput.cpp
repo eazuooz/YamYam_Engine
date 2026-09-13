@@ -49,7 +49,7 @@ namespace ya
 
 	void Input::updateKey(Key& key)
 	{
-		if (!GetFocus())
+		if (!GameInputEnabled || !GetFocus())
 		{
 			clearKeys();
 			return;

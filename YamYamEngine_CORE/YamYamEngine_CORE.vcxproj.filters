@@ -123,6 +123,9 @@
     <ClInclude Include="yaGraphicDevice_DX12.h">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="yaDescriptorAllocator.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
     <ClInclude Include="yaGraphics.h">
       <Filter>Graphics</Filter>
     </ClInclude>

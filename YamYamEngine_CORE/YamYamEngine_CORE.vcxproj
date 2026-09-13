@@ -171,6 +171,7 @@
     <ClInclude Include="yaGraphicDevice_DX11.h" />
     <ClInclude Include="yaGraphicDevice_DX12.h" />
     <ClInclude Include="yaGraphics.h" />
+    <ClInclude Include="yaDescriptorAllocator.h" />
     <ClInclude Include="yaIndexBuffer.h" />
     <ClInclude Include="yaInput.h" />
     <ClInclude Include="yaInputLayout.h" />

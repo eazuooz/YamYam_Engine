@@ -8,6 +8,7 @@ namespace ya
 {
 	SpriteRenderer::SpriteRenderer()
 		: BaseRenderer(eComponentType::SpriteRenderer)
+		, mSprite(nullptr)
 	{
 	}
 	SpriteRenderer::~SpriteRenderer()
@@ -38,8 +39,8 @@ namespace ya
 	{
 		BaseRenderer::Render(view, projection);
 
-		if (mSprite)
-			mSprite->Bind(eShaderStage::PS, (UINT)eTextureType::Sprite);
+        Texture* texture = mSprite ? mSprite : Resources::Find<Texture>(L"DefaultWhiteTexture");
+        if (texture) texture->Bind(eShaderStage::PS, UINT(eTextureType::Sprite));
 
 		BaseRenderer::Draw();
 	}

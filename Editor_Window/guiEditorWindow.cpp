@@ -5,6 +5,8 @@ namespace gui
 	EditorWindow::EditorWindow()
 		: Labelled()
 		, Flag(ImGuiWindowFlags_None)
+		, State(eState::Active)
+		, mSize(0.0f, 0.0f)
 	{
 
 	}

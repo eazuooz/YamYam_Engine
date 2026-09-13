@@ -67,6 +67,7 @@ namespace ya::graphics
 		void Unbind();
 
 		void Resize(UINT width, UINT height);
+        void RequestResize(UINT width, UINT height);
 		int ReadPixel(uint32_t attachmentIndex, int x, int y);
 		
 		void ClearAttachment(UINT index, const void* value);
@@ -77,6 +78,7 @@ namespace ya::graphics
 
 	private:
 		RenderTargetSpecification mSpecification;
+        UINT mPendingWidth = 0, mPendingHeight = 0;
 
 		std::vector<RenderTargetTextureSpecification> mSpecifications;
 		RenderTargetTextureSpecification mDepthAttachmentSpecification; 

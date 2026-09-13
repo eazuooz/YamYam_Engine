@@ -1,8 +1,7 @@
 #pragma once
-//#include "D:\Github\YamYam_Engine\Vendor\DirectXTex\DirectXTex.h"
+#include "yaResource.h"
+#include "yaGraphicDevice_DX12.h"
 #include <DirectXTex.h>
-#include <DirectXTex.inl>
-//#include <DirectXTexEXR.h>
 
 #ifdef _DEBUG
 #pragma comment(lib, "..\\External\\Library\\DirectXTex\\Debug\\DirectXTex.lib")
@@ -10,46 +9,41 @@
 #pragma comment(lib, "..\\External\\Library\\DirectXTex\\Release\\DirectXTex.lib")
 #endif
 
-#include "yaResource.h"
-#include "yaGraphicDevice_DX12.h"
-
 namespace ya::graphics
 {
-	class Texture : public Resource
-	{
-	public:
-		Texture();
-		virtual ~Texture();
+    class Texture : public Resource
+    {
+    public:
+        Texture();
+        ~Texture() override;
+        Texture(const Texture&) = delete;
+        Texture& operator=(const Texture&) = delete;
 
-		HRESULT Save(const std::wstring& path) override;
-		HRESULT Load(const std::wstring& path) override;
+        HRESULT Save(const std::wstring& path) override;
+        HRESULT Load(const std::wstring& path) override;
+        // flags are D3D12_RESOURCE_FLAGS, not the old D3D11 bind flags.
+        bool Create(UINT width, UINT height, DXGI_FORMAT format, UINT flags = D3D12_RESOURCE_FLAG_NONE);
+        bool CreateSolidColor(UINT32 rgba);
+        bool CreateSRV();
+        bool CreateUAV();
+        bool CreateRTV();
+        bool CreateDSV();
+        bool CreateGpuView(UINT flags);
+        void Bind(eShaderStage stage, UINT startSlot);
+        void Transition(D3D12_RESOURCE_STATES state);
 
-		bool Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag);
-		bool CreateSRV();
-		bool CreateUAV();
-		bool CreateRTV();
-		bool CreateDSV();
-		bool CreateGpuView(UINT flag);
-		void Bind(eShaderStage stage, UINT startSlot);
+        ID3D12Resource* GetResource() const { return mTexture.Get(); }
+        D3D12_CPU_DESCRIPTOR_HANDLE GetRTV() const { return mRtv.Cpu; }
+        D3D12_CPU_DESCRIPTOR_HANDLE GetDSV() const { return mDsv.Cpu; }
+        D3D12_GPU_DESCRIPTOR_HANDLE GetSRV() const { return mSrv.Gpu; }
+        DXGI_FORMAT GetFormat() const { return mFormat; }
+        D3D12_RESOURCE_STATES GetState() const { return mState; }
 
-		//Microsoft::WRL::ComPtr<ID3D11Texture2D> GetTexture() { return mTexture; }
-		//Microsoft::WRL::ComPtr<ID3D11RenderTargetView>    GetRTV() { return  mRTV; }
-		//Microsoft::WRL::ComPtr<ID3D11DepthStencilView>    GetDSV() { return  mDSV; }
-		//Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>  GetSRV() { return  mSRV; }
-		//Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> GetUAV() { return  mUAV; }
-		//void GetUAV(Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> uav) { mUAV = uav; }
-		//void SetRTV(Microsoft::WRL::ComPtr<ID3D11RenderTargetView> rtv) { rtv = mRTV; }
-		//void SetDSV(Microsoft::WRL::ComPtr<ID3D11DepthStencilView> dsv) { dsv = mDSV; }
-		//void SetSRV(Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> srv) { mSRV = srv; }
-
-	private:
-		ScratchImage mImage;
-
-		//D3D11_TEXTURE2D_DESC mDesc;
-		//Microsoft::WRL::ComPtr<ID3D11Texture2D> mTexture;
-		//Microsoft::WRL::ComPtr<ID3D11RenderTargetView>      mRTV;  
-		//Microsoft::WRL::ComPtr<ID3D11DepthStencilView>      mDSV;  
-		//Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView>   mUAV;  
-		//Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>	mSRV;  
-	};
+    private:
+        void ReleaseGpu();
+        Microsoft::WRL::ComPtr<ID3D12Resource> mTexture;
+        DescriptorHandle mSrv, mRtv, mDsv, mUav;
+        DXGI_FORMAT mFormat = DXGI_FORMAT_UNKNOWN;
+        D3D12_RESOURCE_STATES mState = D3D12_RESOURCE_STATE_COMMON;
+    };
 }

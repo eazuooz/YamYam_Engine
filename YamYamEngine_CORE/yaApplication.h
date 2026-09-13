@@ -18,7 +18,9 @@ namespace ya
 		~Application();
 
 		void Initialize(HWND hwnd, int width, int height);
-		void WaitforGpu();
+        void SetEditorMode(bool enabled) { mEditorMode = enabled; }
+        bool IsEditorMode() const { return mEditorMode; }
+
 		void InitializeWindow(HWND hwnd);
 		void AdjustWindowRect(HWND hwnd, int width, int height);
 		void ReszieGraphicDevice(WindowResizeEvent& e);
@@ -33,6 +35,7 @@ namespace ya
 		void Present();
 		void CloseCommandList();
 		void SignalFrameCompletion();
+		void WaitforGpu();
 		void WaitForNextFrameResources();
 		void MoveToNextFrame();
 		void EndOfFrame();
@@ -46,6 +49,7 @@ namespace ya
 	private:
 		bool mbLoaded;
 		bool mbRunning;
+        bool mEditorMode = false;
 
 		//std::unique_ptr<graphics::GraphicDevice_DX11> mGraphicDevice;
 		std::unique_ptr<graphics::GraphicDevice_DX12> mGraphicDevice_12;

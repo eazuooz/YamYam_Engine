@@ -1,5 +1,7 @@
 #pragma once
 #include "yaGraphics.h"
+#include "yaDescriptorAllocator.h"
+#pragma comment(lib, "dxguid.lib")
 
 
 // Sample Example Dx11
@@ -8,6 +10,8 @@
 
 namespace ya::graphics
 {
+	class Texture;
+
 	struct FrameContext
 	{
 		Microsoft::WRL::ComPtr<ID3D12CommandAllocator> CommandAllocator;
@@ -17,7 +21,7 @@ namespace ya::graphics
 	class GraphicDevice_DX12
 	{
 	public:
-		GraphicDevice_DX12();
+		explicit GraphicDevice_DX12(bool useWarpDevice = false);
 		~GraphicDevice_DX12();
 		
 		bool CreateDevice();
@@ -43,8 +47,19 @@ namespace ya::graphics
 
 		// binding command list...
 		void BindVertexBuffer(UINT StartSlot, UINT NumViews, D3D12_VERTEX_BUFFER_VIEW* pViews);
-		void BindViewportAndScissor();
-		void BindFrameBuffer();
+        void BindViewportAndScissor(UINT width = 0, UINT height = 0);
+        void BindFrameBuffer(bool clear = true, bool bindDepth = true);
+        void Resize(UINT width, UINT height);
+        UINT GetViewportWidth() const { return mViewportWidth; }
+        UINT GetViewportHeight() const { return mViewportHeight; }
+
+        DescriptorHandle AllocateDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE type);
+        void RetireResource(Microsoft::WRL::ComPtr<ID3D12Resource> resource,
+            DescriptorHandle srv = {}, DescriptorHandle rtv = {}, DescriptorHandle dsv = {}, DescriptorHandle uav = {});
+        void CollectRetiredResources();
+        size_t GetFreeSrvCount() const { return mSrvAllocator.GetFreeCount(); }
+        void UploadTexture(ID3D12Resource* texture, const D3D12_SUBRESOURCE_DATA& data,
+            D3D12_RESOURCE_STATES before, D3D12_RESOURCE_STATES after);
 		void SetBaseGraphicsRootSignature();
 
 		// render ...
@@ -65,7 +80,7 @@ namespace ya::graphics
 
 		Microsoft::WRL::ComPtr<ID3D12Device> GetID3D12Device() { return mDevice; }
 		Microsoft::WRL::ComPtr<ID3D12CommandQueue> GetCommandQueue() { return mCommandQueue; }
-		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> GetSrvHeap() { return mSrvHeap; }
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> GetSrvHeap() { return mSrvAllocator.GetHeap(); }
 		Microsoft::WRL::ComPtr<IDXGISwapChain3> GetSwapChain() { return mSwapChain; }
 		Microsoft::WRL::ComPtr<ID3D12Resource> GetRenderTargetResource(int idx) { return mRenderTargets[idx]; }
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> GetRTVHeap() { return mRtvHeap; } 
@@ -97,10 +112,25 @@ namespace ya::graphics
 		// fence
 		Microsoft::WRL::ComPtr<ID3D12Fence> mFence;
 		UINT64 mFenceLastSignalValue;
-		HANDLE mFenceEvent;
+		HANDLE mFenceEvent = nullptr;
 
 		//imgui 
-		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> mSrvHeap;
+        DescriptorAllocator mSrvAllocator;
+        DescriptorAllocator mOffscreenRtvAllocator;
+        DescriptorAllocator mDsvAllocator;
+        std::unique_ptr<Texture> mDepthBuffer;
+        UINT mWidth = 0, mHeight = 0;
+        UINT mViewportWidth = 0, mViewportHeight = 0;
+        HANDLE mFrameLatencyEvent = nullptr;
+
+        struct RetiredResource
+        {
+            Microsoft::WRL::ComPtr<ID3D12Resource> Resource;
+            DescriptorHandle Srv, Rtv, Dsv, Uav;
+            UINT64 FenceValue = UINT64_MAX; // Assigned only when the frame is submitted.
+        };
+        std::vector<RetiredResource> mRetiredResources;
+        void SealRetiredResources(UINT64 fenceValue);
 	};
 
 	// This is a helper to get access to a global device instance

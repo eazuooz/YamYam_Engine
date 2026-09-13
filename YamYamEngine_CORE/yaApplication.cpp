@@ -49,10 +49,7 @@ namespace ya
 		mbRunning = true;
 	}
 
-	void Application::WaitforGpu()
-	{
-		mGraphicDevice_12->WaitForGpu();
-	}
+
 
 	void Application::InitializeWindow(HWND hwnd)
 	{
@@ -85,22 +82,9 @@ namespace ya
 
 	void Application::ReszieGraphicDevice(WindowResizeEvent& e)
 	{
-		//if (mGraphicDevice == nullptr)
-		//	return;
-
-		//D3D11_VIEWPORT viewport = {};
-		//viewport.TopLeftX = 0.0f;
-		//viewport.TopLeftY = 0.0f;
-		//viewport.Width = static_cast<float>(e.GetWidth());
-		//viewport.Height = static_cast<float>(e.GetHeight());
-		//viewport.MinDepth = 0.0f;
-		//viewport.MaxDepth = 1.0f;
-
-		//mWindow.SetWidth(viewport.Width);
-		//mWindow.SetHeight(viewport.Height);
-
-		//mGraphicDevice->Resize(viewport);
-		//renderer::FrameBuffer->Resize(viewport.Width, viewport.Height);
+        // WM_SIZE only updates the requested window dimensions. GPU resources are
+        // resized between frames in Render(), never during message dispatch.
+        (void)e;
 	}
 
 	void Application::InitializeEtc()
@@ -126,8 +110,7 @@ namespace ya
 
 		Update();
 		LateUpdate();
-		Render();
-		EndOfFrame();
+		Render(); // EndOfFrame runs after both game and editor have submitted their draws.
 	}
 
 	void Application::Close()
@@ -154,24 +137,27 @@ namespace ya
 
 	void Application::Render()
 	{
-		GetDevice()->ResetCommandAllocator();
-		GetDevice()->ResetCommandList();
-		GetDevice()->SetBaseGraphicsRootSignature();
-		GetDevice()->BindViewportAndScissor();
-		GetDevice()->TranstionResourceBarrier(D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
-		GetDevice()->BindFrameBuffer();
+        GetDevice()->Resize(mWindow.GetWidth(), mWindow.GetHeight());
+        GetDevice()->ResetCommandAllocator();
+        GetDevice()->ResetCommandList();
+        renderer::BeginFrame();
+        GetDevice()->SetBaseGraphicsRootSignature();
+        GetDevice()->TranstionResourceBarrier(D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
+        if (mEditorMode)
+            renderer::FrameBuffer->Bind();
+        else
+            GetDevice()->BindFrameBuffer();
 
-		Time::Render();
-		SceneManager::Render();
-		CollisionManager::Render();
-		UIManager::Render();
+        Time::Render();
+        SceneManager::Render();
+        CollisionManager::Render();
+        UIManager::Render();
 
-
-		//  to do ...
-		////copy back buffer
-		//Microsoft::WRL::ComPtr<ID3D11Texture2D> src = GetDevice<GraphicDevice_DX11>()->GetFrameBuffer();
-		//Microsoft::WRL::ComPtr<ID3D11Texture2D> dst = renderer::FrameBuffer->GetAttachmentTexture(0)->GetTexture();
-		//GetDevice<GraphicDevice_DX11>()->CopyResource(dst.Get(), src.Get());
+        if (mEditorMode)
+        {
+            renderer::FrameBuffer->Unbind();
+            GetDevice()->BindFrameBuffer(true, false);
+        }
 	}
 
 	void Application::ExcuteCommandList()
@@ -194,6 +180,11 @@ namespace ya
 		GetDevice()->SignalFrameCompletion();
 	}
 
+	void Application::WaitforGpu()
+	{
+		GetDevice()->WaitForGpu();
+	}
+
 	void Application::WaitForNextFrameResources()
 	{
 		GetDevice()->WaitForNextFrameResources();
@@ -211,6 +202,7 @@ namespace ya
 
 	void Application::Release()
 	{
+        WaitforGpu();
 		SceneManager::Release();
 		UIManager::Release();
 		Resources::Release();

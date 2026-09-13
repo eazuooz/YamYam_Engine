@@ -312,13 +312,26 @@ namespace ya::renderer
 		LoadMeshes();
 		LoadMaterials();
 		LoadConstantBuffers();
-		LoadFrameBuffer();
+        LoadFrameBuffer();
+        auto white = std::make_unique<Texture>();
+        if (!white->CreateSolidColor(0xffffffffu)) throw std::runtime_error("Default texture creation failed");
+        Resources::Insert(L"DefaultWhiteTexture", white.release());
 	}
 
 
 
-	void RenderSceneFromCamera(Scene* scene, Camera* camera)
-	{
+    void BeginFrame()
+    {
+        for (auto* buffer : constantBuffers)
+            if (buffer) buffer->BeginFrame();
+        GetDevice()->CollectRetiredResources();
+    }
+
+    void RenderSceneFromCamera(Scene* scene, Camera* camera)
+    {
+        if (!scene || !camera) return;
+        camera->SetViewportSize(GetDevice()->GetViewportWidth(), GetDevice()->GetViewportHeight());
+        camera->LateUpdate();
 		Matrix viewMatrix = camera->GetViewMatrix();
 		Matrix projectionMatrix = camera->GetProjectionMatrix();
 		Vector3 cameraPos = camera->GetOwner()->GetComponent<Transform>()->GetPosition();

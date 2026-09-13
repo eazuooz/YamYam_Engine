@@ -25,14 +25,8 @@ namespace ya::graphics
 
 	HRESULT Shader::Load(const std::wstring& path)
 	{
-		size_t fineNameBeginOffset = path.rfind(L"\\") + 1;
-		size_t fineNameEndOffset = path.length() - fineNameBeginOffset;
-		const std::wstring fileName(path.substr(fineNameBeginOffset, fineNameEndOffset));
-
-		if (!Create(eShaderStage::VS, fileName))
-			return S_FALSE;
-		if (!Create(eShaderStage::PS, fileName))
-			return S_FALSE;
+        if (!Create(eShaderStage::VS, path)) return E_FAIL;
+        if (!Create(eShaderStage::PS, path)) return E_FAIL;
 
 
 		// To Do : you have to make pso class file
@@ -58,7 +52,8 @@ namespace ya::graphics
 		psoDesc.PS = CD3DX12_SHADER_BYTECODE(mPSBlob.Get());
 		psoDesc.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
 		psoDesc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
-		psoDesc.DepthStencilState.DepthEnable = FALSE;
+		psoDesc.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
+        psoDesc.DSVFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
 		psoDesc.DepthStencilState.StencilEnable = FALSE;
 		psoDesc.SampleMask = UINT_MAX;
 		psoDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
@@ -66,19 +61,17 @@ namespace ya::graphics
 		psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
 		psoDesc.SampleDesc.Count = 1;
 
-		GetDevice()->CreateGraphicsPipelineState(&psoDesc);
+		if (FAILED(GetDevice()->GetID3D12Device()->CreateGraphicsPipelineState(&psoDesc, IID_PPV_ARGS(mPipelineState.ReleaseAndGetAddressOf()))))
+            return E_FAIL;
 
 		return S_OK;
 	}
 
 	bool Shader::Create(const eShaderStage stage, const std::wstring& fileName)
 	{
-		if (stage == eShaderStage::VS)
-			CreateVertexShader(fileName);
-		if (stage == eShaderStage::PS)
-			CreatePixelShader(fileName);
-
-		return true;
+        if (stage == eShaderStage::VS) return CreateVertexShader(fileName);
+        if (stage == eShaderStage::PS) return CreatePixelShader(fileName);
+        return false;
 	}
 
 	bool Shader::CreateVertexShader(const std::wstring& fileName)
@@ -99,30 +92,6 @@ namespace ya::graphics
 
 	void Shader::Bind()
 	{
-		//if (bWireframe)
-		//{
-		//	Shader* wireframeShader = Resources::Find<Shader>(L"WireframeShader");
-		//	Microsoft::WRL::ComPtr<ID3D11VertexShader> wireframeShaderVS = wireframeShader->GetVS();
-		//	Microsoft::WRL::ComPtr<ID3D11PixelShader> wireframeShaderPS = wireframeShader->GetPS();
-		//	Microsoft::WRL::ComPtr<ID3D11RasterizerState> wireframeRasterizerState 
-		//		= renderer::rasterizerStates[static_cast<UINT>(eRasterizerState::Wireframe)];
-
-		//	GetDevice<GraphicDevice_DX11>()->BindVS(wireframeShaderVS.Get());
-		//	GetDevice<GraphicDevice_DX11>()->BindPS(wireframeShaderPS.Get());
-		//	GetDevice<GraphicDevice_DX11>()->BindRasterizerState(wireframeRasterizerState.Get());
-		//	GetDevice<GraphicDevice_DX11>()->BindBlendState(renderer::blendStates[static_cast<UINT>(mBlendState)].Get(), nullptr, 0xffffff);
-		//	GetDevice<GraphicDevice_DX11>()->BindDepthStencilState(renderer::depthStencilStates[static_cast<UINT>(mDepthStencilState)].Get(), 0);
-
-		//	return;
-		//}
-
-		//if (mVS)
-		//	GetDevice<GraphicDevice_DX11>()->BindVS(mVS.Get());
-		//if (mPS)
-		//	GetDevice<GraphicDevice_DX11>()->BindPS(mPS.Get());
-
-		//GetDevice<GraphicDevice_DX11>()->BindRasterizerState(renderer::rasterizerStates[static_cast<UINT>(mRasterizerState)].Get());
-		//GetDevice<GraphicDevice_DX11>()->BindBlendState(renderer::blendStates[static_cast<UINT>(mBlendState)].Get(), nullptr, 0xffffff);
-		//GetDevice<GraphicDevice_DX11>()->BindDepthStencilState(renderer::depthStencilStates[static_cast<UINT>(mDepthStencilState)].Get(), 0);
+        GetDevice()->GetCommandList()->SetPipelineState(mPipelineState.Get());
 	}
 }

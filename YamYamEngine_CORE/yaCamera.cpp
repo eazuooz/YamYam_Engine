@@ -50,7 +50,12 @@ namespace ya
 	{
 	}
 
-	void Camera::CreateViewMatrix()
+    void Camera::SetViewportSize(UINT width, UINT height)
+    {
+        if (width && height) { mViewportWidth = width; mViewportHeight = height; }
+    }
+
+    void Camera::CreateViewMatrix()
 	{
 		const Transform* tr = GetOwner()->GetComponent<Transform>();
 
@@ -65,11 +70,9 @@ namespace ya
 
 	void Camera::CreateProjectionMatrix(eProjectionType type)
 	{
-		RECT winRect = {};
-		GetClientRect(application.GetWindow().GetHwnd(), &winRect);
-		const float width = CAST_FLOAT(winRect.right - winRect.left);
-		const float height = CAST_FLOAT(winRect.bottom - winRect.top);
-		mAspectRatio = width / height;
+        const float width = float(mViewportWidth);
+        const float height = float(mViewportHeight);
+        mAspectRatio = width / height;
 
 		switch (type)
 		{

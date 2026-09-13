@@ -1,5 +1,6 @@
 #pragma once
 #include "yaResource.h"
+#include <stdexcept>
 
 
 namespace ya
@@ -24,9 +25,20 @@ namespace ya
 			if (resource != nullptr)
 				return resource;
 
-			resource = new T();
-			if (FAILED(resource->Load(path)))
-				assert(false);
+            // Resolve assets against the executable, independent of launch CWD.
+            std::filesystem::path resolved(path);
+            if (resolved.is_relative())
+            {
+                wchar_t executable[MAX_PATH] = {};
+                GetModuleFileNameW(nullptr, executable, MAX_PATH);
+                resolved = std::filesystem::path(executable).parent_path() / resolved;
+            }
+            resource = new T();
+            if (FAILED(resource->Load(resolved.wstring())))
+            {
+                delete resource;
+                throw std::runtime_error("Resource load failed: " + resolved.string());
+            }
 			resource->SetName(key);
 			resource->SetPath(path);
 			mResources.insert(std::make_pair(key, resource));

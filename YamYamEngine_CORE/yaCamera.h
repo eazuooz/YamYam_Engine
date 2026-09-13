@@ -29,7 +29,8 @@ namespace ya
 		void LateUpdate() override;
 		void Render(const Matrix& view, const Matrix& projection) override;
 
-		void CreateViewMatrix();
+		void SetViewportSize(UINT width, UINT height);
+        void CreateViewMatrix();
 		void CreateProjectionMatrix(eProjectionType type);
 
 		const Matrix& GetViewMatrix() { return mViewMatrix; }
@@ -45,7 +46,8 @@ namespace ya
 
 		Matrix mViewMatrix;
 		Matrix mProjectionMatrix;
-		float mAspectRatio;
+		UINT mViewportWidth = 1, mViewportHeight = 1;
+        float mAspectRatio;
 		float mNear;
 		float mFar;
 		float mSize; //

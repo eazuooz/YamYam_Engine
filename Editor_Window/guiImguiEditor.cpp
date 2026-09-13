@@ -10,7 +10,6 @@ extern ya::Application application;
 
 namespace gui
 {
-	DescriptorHeapAllocator ImguiEditor::DescHeapAllocator;
 	ImguiEditor::ImguiEditor()
 		: mBlockEvent(false)
 	{
@@ -67,7 +66,7 @@ namespace gui
 		ImGui_ImplWin32_Init(application.GetWindow().GetHwnd());
 		
 		ya::graphics::GraphicDevice_DX12* device = ya::graphics::GetDevice();
-		DescHeapAllocator.Create(device->GetID3D12Device().Get(), device->GetSrvHeap().Get());;
+
 
 		ImGui_ImplDX12_InitInfo init_info = {};
 		init_info.Device = device->GetID3D12Device().Get();
@@ -85,7 +84,9 @@ namespace gui
 				D3D12_CPU_DESCRIPTOR_HANDLE* out_cpu_handle,
 				D3D12_GPU_DESCRIPTOR_HANDLE* out_gpu_handle) 
 			{ 
-				return ImguiEditor::DescHeapAllocator.Alloc(out_cpu_handle, out_gpu_handle);
+				const auto handle = ya::graphics::GetDevice()->AllocateDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+                *out_cpu_handle = handle.Cpu;
+                *out_gpu_handle = handle.Gpu;
 			};
 
 		init_info.SrvDescriptorFreeFn = 
@@ -93,7 +94,7 @@ namespace gui
 				D3D12_CPU_DESCRIPTOR_HANDLE cpu_handle, 
 				D3D12_GPU_DESCRIPTOR_HANDLE gpu_handle) 
 			{ 
-				return ImguiEditor::DescHeapAllocator.Free(cpu_handle, gpu_handle);
+				ya::graphics::GetDevice()->RetireResource(nullptr, { cpu_handle, gpu_handle });
 			};
 
 		
@@ -148,7 +149,11 @@ namespace gui
 		ya::graphics::GraphicDevice_DX12* graphicDevice = ya::graphics::GetDevice();
 		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> commandList = graphicDevice->GetCommandList();
 
-		// Descriptor heap must be set before rendering ImGui
+        // SceneWindow rendered offscreen last. Restore the main RTV without
+        // clearing it again, and leave depth unbound for the ImGui PSO.
+        graphicDevice->BindFrameBuffer(false, false);
+
+        // Descriptor heap must be set before rendering ImGui
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> srvHeap = graphicDevice->GetSrvHeap();
 		commandList->SetDescriptorHeaps(1, srvHeap.GetAddressOf());
 		ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), commandList.Get());

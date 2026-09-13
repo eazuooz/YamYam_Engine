@@ -21,6 +21,8 @@ namespace gui
 		void OnDestroy() override;
 
 		void SetGuizmoType(int type) { GuizmoType = type; }
+        bool IsViewportFocused() const { return ViewportFocused; }
+        ya::EditorCamera* GetCamera() const { return mEditorCamera; }
 
 	private:
 		std::vector<Editor*> mEditors;
