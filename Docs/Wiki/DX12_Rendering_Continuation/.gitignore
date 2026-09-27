@@ -1,0 +1,9 @@
+# Original Notion fetches contain temporary signed attachment URLs.
+audit/original/
+audit/revised/
+audit/math_restore/
+audit/updates.json
+teaching/current/
+teaching/final/
+teaching/plans.json
+teaching/plans/
